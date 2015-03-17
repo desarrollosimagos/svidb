@@ -1,0 +1,244 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.2.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#submitbtn").click(function() {
+                    var input_string = $("#id_nombre").val();
+					alert(input_string);
+                    $.ajax({
+                        url : "/panel/actores/ajax/paso2", 
+                        type : "POST",
+                        dataType: "json", 
+                        data : {
+                            client_response : input_string,
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                            },
+                            success : function(json) {
+                                /*$('#result').append( 'Server Response: ' + json.server_response);*/
+								alert(json.actor)
+                            },
+                            error : function(xhr,errmsg,err) {
+                                alert(xhr.status + ": " + xhr.responseText);
+                            }
+                    });
+                    return false;
+            });
+        });
+    </script>
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+
+</script>
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+
+{% if msm %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Registro procesado!</b>',
+		// (string | mandatory) the text inside the notification
+		text: 'La información ha sido registrada en el sistema. Gracias por participar en la Construcción Colectiva. SVIDB.',
+		// (string | optional) the image to display on the left
+		image: '/media/librerias/css/plantilla/notificaciones/css/AZ.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: ''
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta > Actores Colectivos > Agregar
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Actores Colectivos
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		
+                        </div>
+                           
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                             <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Este actor se encuentra asociado a un usuario o resposanble autórizado.<b>No puede realizar modificaciones.</b></div>
+					</span>
+				</div>
+<form action="/panel/eventos/trabajos/actores/paso/5/{{ id }}/{{ id2 }}/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+<table width="444">
+<tr>
+	<td colspan="3">{{ msm }}</td>
+</tr>
+<tr>
+	<td class="style1">
+	Rif:
+	</td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.rif.value|default_if_none:"" }}<br></b>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Nombre Completo:
+	</td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.nombre_completo.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Siglas :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.siglas.value|default_if_none:"" }}<br></b>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Teléfono :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.telefono.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Fax :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.fax.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr>
+
+<tr>
+  <td class="style1">
+    Correo Electrónico :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.correo.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    País :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.pai.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Estado :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.estado.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr><br />
+
+<tr>
+  <td class="style1">
+    Dirección :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.direccion.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Ámbito de acción :
+    </td>
+</tr>
+<tr>
+	<td>
+	<b>{{ form.ambitoaccion.value|default_if_none:"No hay información" }}<br></b>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+    <bt>
+    <input type="submit" value="vincular con trabajo" style="border:1px solid #009; background-color:#06F; color:#FFF; width:250px; height:20px;"/>
+    <br><br />
+    </td>
+</tr>
+</table>
+
+
+</form>
+                         </div>
+                       
+                         
+                         
+                            </div>
+                    </div>        
+
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+						
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}
+
+
+

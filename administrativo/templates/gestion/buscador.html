@@ -1,0 +1,633 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('buscador').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<link type="text/css" href="/media/librerias/autocat/jquery.ui.all.css" rel="stylesheet" />
+	<script type="text/javascript" src="/media/librerias/autocat/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.position.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.autocomplete.js"></script>
+    	<style type="text/css">
+	.ui-autocomplete-category {
+		font-weight:bold;
+		padding:.2em .4em;
+		margin:.8em 0 .2em;
+		line-height:1.5;
+	}
+	ul { 
+     width: 481px;
+    height:300px;
+    display: block;
+    overflow-y: scroll;
+     }
+li { 
+     display: inline-block;
+     }
+	</style>
+    <script type="text/javascript">
+	$.extend( $.ui.menu.prototype, {
+		next: function() {
+			this.move("next", ".ui-menu-item:first");
+		},
+
+		previous: function() {
+			this.move("prev", ".ui-menu-item:last");
+		},
+
+		move: function(direction, edge) {
+			if (!this.active) {
+				this.activate(this.element.children(edge));
+				return;
+			}
+			var next = this.active[direction + "All"]('.ui-menu-item').eq( 0 );
+			if (next.length) {
+				this.activate(next);
+			} else {
+				this.activate(this.element.children(edge));
+			}
+		}
+	});
+
+	$.widget("custom.catcomplete", $.ui.autocomplete, {
+		_renderMenu: function( ul, items ) {
+			var self = this,
+				currentCategory = "";
+			$.each( items, function( index, item ) {
+				if ( item.category != currentCategory ) {
+					ul.append( "<li class='ui-autocomplete-category' style='background-color:#E6E6E6;'>" + item.category + "</li>" );
+					currentCategory = item.category;
+				}
+				self._renderItem( ul, item );
+			});
+		}
+	});
+	</script>
+	<script type="text/javascript">
+	$(function() {
+		$('#search').catcomplete({
+	
+			source: "/autocat/"+document.getElementById("search").values
+		});
+	});
+	function cargarContenido(url){
+		document.getElementById('contenidoSistema').innerHTML='<table align="center"><tr><td><img src="/media/librerias/index/loading.gif" height="300px"></td></tr></table>';
+		$("#contenidoSistema").load(url);		
+	}
+	</script>
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+    
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #00679A; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#00679A), to(#00679A) );
+    background: -moz-linear-gradient(-90deg, #00679A, #00679A);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00679A', endColorstr='#00679A');
+	color:#FFF;
+}
+
+.button-naranja
+{
+    background:#F07F3B; /*ffcc99*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F07F3B), to(#F07F3B) );
+    background: -moz-linear-gradient(-90deg, #F07F3B, #F07F3B);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F07F3B', endColorstr='#F07F3B');
+	color:#FFF;
+}
+.button-verde
+{
+    background:#52A851; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#52A851), to(#52A851) );
+    background: -moz-linear-gradient(-90deg, #52A851, #52A851);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#52A851', endColorstr='#52A851');
+	color:#FFF;
+}
+
+.button-marron
+{
+    background: #cd6530; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#cd6530), to(#cd6530) );
+    background: -moz-linear-gradient(-90deg, #cd6530, #cd6530);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cd6530', endColorstr='#cd6530');
+	color:#FFF;
+}
+
+.button-gris
+{
+    background:#999; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#999) );
+    background: -moz-linear-gradient(-90deg, #999, #999);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#999', endColorstr='#999');
+	color:#FFF;
+}
+
+.button-morado
+{
+    background:#936; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#936), to(#936) );
+    background: -moz-linear-gradient(-90deg, #936, #936);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#936', endColorstr='#936');
+	color:#FFF;
+}
+
+.button-amarillo
+{
+    background:#F90; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F90), to(#F90) );
+    background: -moz-linear-gradient(-90deg, #F90, #F90);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F90', endColorstr='#F90');
+	color:#FFF;
+}
+
+.button-masmorado
+{
+    background:#99F; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#99F), to(#99F) );
+    background: -moz-linear-gradient(-90deg, #99F, #99F);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99F', endColorstr='#99F');
+	color:#FFF;
+}
+
+.button-mapas
+{
+    background:#996; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#996), to(#996) );
+    background: -moz-linear-gradient(-90deg, #996, #996);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#996', endColorstr='#996');
+	color:#FFF;
+}
+
+.button-biorregiones
+{
+    background:#F60; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F60), to(#F60) );
+    background: -moz-linear-gradient(-90deg, #F60, #F60);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F60', endColorstr='#F60');
+	color:#FFF;
+}
+
+.button-origenes
+{
+    background:#090;
+    background: -webkit-gradient(linear, left top, left bottom, from(#090), to(#090) );
+    background: -moz-linear-gradient(-90deg, #090, #090);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#090', endColorstr='#090');
+	color:#FFF;
+}
+
+</style>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Resultados: {{ textos }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                        <!--
+                        <form method="GET" id="formbuscar" name="formbuscar" action="/buscador">
+<div class="search-wrapper" style="width: 483px;
+height: 78px;
+padding: 14px 19px 18px;
+background: url(/media/discovery/search-bg.png);
+z-index: 200;
+left: 0;
+margin-left: 100px;
+margin-top: 0;
+">
+	<label style="color:#fff; font-size:14px;"><b>puedes buscar especies, taxonomias, actores, areas..</b></label>
+	<div class="search-box" style="display: block;
+background: #fff;
+border: 1px #666666 solid;
+height: 50px;
+width: 481px;
+position: relative;
+box-shadow: inset 1px 1px 3px #aaa;
+-webkit-transition: all 0.3s;
+-moz-transition: all 0.3s;
+-ms-transition: all 0.3s;
+-o-transition: all 0.3s;
+transition: all 0.3s;">
+		<span><input type="text" class="mousetrap" name="valorForen" id="search"  style="margin: 0;
+padding: 0 0 0 16px;
+height: 50px;
+width: 407px;
+outline: none;
+border: 0;
+background: none;
+font-size: 30px;
+color: #333333;
+vertical-align: middle;
+box-shadow: none !important;">
+	<input type="hidden" id="foreingkey" name="foreingkey_id">
+    <input type="hidden" id="modelo_id" name="modelo" value="N/a">
+
+</span>
+		<input type="submit" value="Search" name="" class="disabled" style="cursor: pointer;
+font-size: 0px;
+line-height: 200px;
+overflow: hidden;
+display: block;
+position: absolute;
+top: -1px;
+bottom: -1px;
+right: -1px;
+border: none;
+outline: none;
+width: 52px;
+height: 52px;
+background-color: transparent;
+background-image: url(/media/discovery/search-button.png);
+background-repeat: no-repeat;
+background-position: left top;
+">
+
+	</div>
+	<div class="autocomplete">
+	</div>
+</form> 
+</div>
+-->
+<br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Haga clic en los resultados
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="margin-left:25px; margin-right:25px;" class="texto_regular">
+                        
+                        {% if taxon_id %}
+    						{% if modelo == 'Especies' %}
+								<a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode }}&foreingkey_id={{ taxon_id }}&modelo=especie');" class="button button-blue"><span>Especies(1)</span></a>&nbsp;
+							{% endif %}
+						{% else %} 
+    						{% if taxon.all.count > 0 %}
+                            	<a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode }}&foreingkey_id={{ taxon_id }}&modelo=especie');" class="button button-blue"><span>Especies({{ taxon.all.count }})</span></a>&nbsp;
+							{% endif %}
+						{% endif %}
+        	
+                        {% if actor %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=actores');" class="button button-naranja"><span>Actores({{ actor.all.count }})</span></a>&nbsp;
+                        {% endif %}
+                        
+                        {% if areas %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=areas');" class="button button-verde"><span>Areas({{ areas.all.count }})</span></a>&nbsp;
+                        {% endif %}
+                        {% if eventos %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=eventos');" class="button button-marron"><span>Eventos({{ eventos.all.count }})</span></a>&nbsp;
+                        {% endif %}
+                        
+                        {% if banco %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=banco');" class="button button-masmorado"><span>Banco Audiovisual({{ banco.all.count }})</span></a>&nbsp;
+                        {% endif %}
+                        
+                        {% if biblioteca %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=biblioteca');" class="button button-amarillo"><span>Biblioteca({{ biblioteca.all.count }})</span></a>&nbsp;
+                        {% endif %}
+                        
+                        {% if glosario %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=glosario');" class="button button-morado"><span> Glosario({{ glosario.all.count }})</span></a>&nbsp;
+                        {% endif %}
+
+                        {% if Categoria %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=plataforma');" class="button button-gris"><span>Plataforma({{ Categoria.all.count }})</span></a>&nbsp;
+                        {% endif %}
+                        
+                        {% if mapas %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=mapas');" class="button button-mapas"><span> Mapas({{ mapas.all.count }})</span></a>&nbsp;
+                        {% endif %}
+                        
+                        {% if biorregion %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=biorregion');" class="button button-biorregiones"><span>Biorregiones({{ biorregion.all.count }})</span></a>&nbsp;
+                    	{% endif %}
+                        
+                        {% if etnias %}
+                        <a onclick="cargarContenido('/buscador2?valorForen={{ textos|urlencode  }}&foreingkey_id={{ taxon_id }}&modelo=etnias');" class="button button-origenes"><span>Pueblos Originarios({{ etnias.all.count }})</span></a>&nbsp;
+                        {% endif %}
+<br /><br />
+<div id="contenidoSistema">
+{% if datoinicio == 'taxon' %}
+
+
+{% if taxon_id %}
+	{% if modelo == 'Especies' %}
+
+		{% if taxon.subtipo.id < 26 %}
+                    	<a href="/especies/ficha/7/{{ taxon.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">{{ taxon.nombrecomun }}  ({{ taxon.nombre }})</span></a>
+                    {% endif %}
+                    {% if taxon.subtipo.id == 26 %}
+                    {{ taxon.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ taxon.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ taxon.taxonrelax.nombre }} {{ taxon.nombre }})</span></a>
+                    {% endif %}
+                    {% if taxon.subtipo.id > 26 %}
+                    {{ taxon.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ taxon.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ taxon.taxonrelax.taxonrelax.nombre }} {{ taxon.taxonrelax.nombre }} {{ taxon.nombre }})</span></a>
+                    {% endif %}
+        {% if taxon.detalletaxon.espexot %}
+            <a href="/especies/ficha/7/{{ taxon.id }}" style="color:RED;cursor:pointer;">EX</a>
+        {% endif %}
+        {% if taxon.detalletaxon.esptraf %}
+            <a href="/especies/ficha/11/{{ taxon.id }}" style="color:BLUE;cursor:pointer;">TR</a>
+        {% endif %}
+        {% if taxon.detalletaxon.espaprove %}
+            <a href="/especies/ficha/8/{{ taxon.id }}" style="color:RED;cursor:pointer;">AS</a>
+        {% endif %}
+        {% if taxon.detalletaxon.espsalud %}
+            <a href="/especies/ficha/10/{{ taxon.id }}" style="color:GREEN;cursor:pointer;">SH</a>
+        {% endif %}
+        {% if taxon.detalletaxon.esppeligr %}
+            <a href="/especies/ficha/6/{{ taxon.id }}" style="color:RED;cursor:pointer;">PE</a>
+        {% endif %}
+        {% if taxon.detalletaxon.espagrico %}
+            <a href="/especies/ficha/9/{{ taxon.id }}" style="color:GREEN;cursor:pointer;">AG</a>
+        {% endif %}
+	{% endif %}	
+{% else %}
+	{% if modelo == 'Especies' %}
+    	 {% regroup taxon by subtipo as lista %}
+         {% for item2 in lista %}
+         <br />{{ item2.grouper.nombre }} ({{ item2.list|length }}) <hr />
+             {% for item in item2.list %}
+                    {% if item.subtipo.id < 26 %}
+                    	<a href="/especies/ficha/7/{{ item.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ item.nombre }})</span></a>
+                    {% endif %}
+                    {% if item.subtipo.id == 26 %}
+                    {{ item.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ item.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</span></a>
+                    {% endif %}
+                    {% if item.subtipo.id > 26 %}
+                    {{ item.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ item.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ item.taxonrelax.taxonrelax.nombre }} {{ item.taxonrelax.nombre }} {{ item.nombre }})</span></a>
+                    {% endif %}
+                    
+                    
+                    {% if item.detalletaxon.espexot %}
+                        <a href="/especies/ficha/7/{{ item.id }}" style="color:RED;cursor:pointer;">EX</a>
+                    {% endif %}
+                    {% if item.detalletaxon.esptraf %}
+                        <a href="/especies/ficha/11/{{ item.id }}" style="color:GREEN;cursor:pointer;">TR</a>
+                    {% endif %}
+                    {% if item.detalletaxon.espaprove %}
+                        <a href="/especies/ficha/8/{{ item.id }}" style="color:RED;cursor:pointer;">AS</a>
+                    {% endif %}
+                    {% if item.detalletaxon.espsalud %}
+                        <a href="/especies/ficha/10/{{ item.id }}" style="color:GREEN;cursor:pointer;">SH</a>
+                    {% endif %}
+                    {% if item.detalletaxon.esppeligr %}
+                        <a href="/especies/ficha/6/{{ item.id }}" style="color:RED;cursor:pointer;">PE</a>
+                    {% endif %}
+                    {% if item.detalletaxon.espagrico %}
+                        <a href="/especies/ficha/9/{{ item.id }}" style="color:GREEN;cursor:pointer;">AG</a>
+                    {% endif %}<br>
+                    
+            {% endfor %}
+        {% endfor %}	
+	{% endif %}
+{% endif %}
+{% endif %}
+
+{% if datoinicio == 'areas' %}
+{% if areas %}
+ Areas({{ areas.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />     
+ {% for item in areas %}
+					<a href="/areas/ficha/{{ item.id }}/" style="cursor:pointer; text-decoration:none;">
+					<span style="font-style:italic; font-size:12px;" class="titulo1">{{ item.categoriact.titulo }}</span>
+					{{ item.nombre }}</a>
+					<br>
+			{% endfor %}	
+{% endif %} 
+{% endif %}
+
+{% if datoinicio == 'actor' %}
+{% if actor %}
+ Actores({{ actor.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />   
+ {% for item in actor %}
+					<a href="actores/ficha/{{ item.id }}/" style="cursor:pointer;text-decoration:none;">{{ item.nombre_completo }}</a><br>
+				{% endfor %}
+{% endif %} 
+{% endif %}
+
+{% if datoinicio == 'biblioteca' %}
+{% if biblioteca %}
+Biblioteca({{ biblioteca.all.count }})
+<hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />
+{% for item in biblioteca %} 
+					{% if item.autores %}
+		                        <b style="color:#000;">Autores:</b><span style="font-style:italic">{{ item.autores }}</span>. 
+		                        {% endif %}
+		                        {% if item.fecha %}
+		                        <b style="color:#000;">Año:</b> <span style="font-style:italic">{{ item.fecha }}</span>. 
+		                        {% endif %}
+		                        {% if item.titulo %}
+		                        <b style="color:#000;">Titulo:</b> <span style="font-style:italic">{{ item.titulo }}</span>. 
+		                        {% endif %}
+		                        {% if item.edicion %}
+		                        <b style="color:#000;">Edicion:</b> <span style="font-style:italic">{{ item.edicion }}</span>. 
+		                        {% endif %}
+		                        {% if item.numerovolumen %}
+		                        <b style="color:#000;">Volumen:</b> <span style="font-style:italic">{{ item.numerovolumen }}</span>. 
+		                        {% endif %}
+		                        {% if item.numeropaginas %}
+		                        <b style="color:#000;">Pagina:</b> <span style="font-style:italic">{{ item.numeropaginas }} </span>. 
+		                        {% endif %}
+		                        {% if item.editorial %}
+		                        <b style="color:#000;">Editorial:</b> <span style="font-style:italic">{% autoescape off %}{{ item.editorial|removetags:"p"|safe }}{% endautoescape %}</span>
+		                        {% endif %}
+									<br>
+		                        {% if item.repositoriolinea %}
+		                        	<a target="new" href="/media/{{ item.repositoriolinea }}"><img src="/media/imgs/document_down.gif" /> Descargar</a>
+		                        {% endif %}<br>
+				{% endfor %}	
+{% endif %} 
+{% endif %}
+
+{% if datoinicio == 'glosario' %}
+{% if glosario %}
+ Glosario({{ glosario.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" /> 
+ {% for item in glosario %}
+                <b>{{ item.nombre }}: </b>{{ item.definicion|removetags:"p b span br"|safe }}<br><br>
+            {% endfor %}
+{% endif %} 
+
+{% endif %}
+
+{% if datoinicio == 'mapas' %}
+{% if mapas %}
+ Mapas({{ mapas.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+ {% for item in mapas %}
+					<a href="/panel/mapas/visual/1/{{ item.id }}/" style="cursor:pointer;">{{ item.nombre }}</a><br>
+			{% endfor %}
+{% endif %} 
+{% endif %}
+
+{% if datoinicio == 'eventos' %}
+{% if eventos %}
+ Eventos({{ eventos.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />   
+ {% for item in eventos %}
+					{{ item }}<br>
+			 {% endfor %}	
+{% endif %}
+{% endif %}
+
+{% if datoinicio == 'biorregion' %}
+{% if biorregion %}
+ Biorregiones({{ biorregion.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />  
+ {% for item in biorregion %}
+					{{ item.nombre }}<br>
+			{% endfor %}
+{% endif %} 
+{% endif %}
+
+{% if datoinicio == 'banco' %}
+{% if banco %}
+ Banco Audiovisual({{ banco.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+                 {% for item in banco %}
+					<table style="margin-right:10px;">
+					<tr><td rowspan="4">
+					<!--<a href="/panel/bancoaudio/visual/1/{{ item.id }}/" style="cursor:pointer;"><img src="/media/{{ item.retorno_nombre }}.157_118{{ item.retorno_extencion }}" width="157px" height="118px"/></a>-->
+                    <img src="/media/{{ item.retorno_nombre }}.157_118{{ item.retorno_extencion }}" width="157px" height="118px"/>
+					</td><td>
+						{{ item.get_tipo_display}}
+					</td></tr>
+					<tr><td>
+						<b> ({{ item.directorio.nombre }} {{ item.directorio.apellido }} )</b>  
+					</td></tr>
+					<tr><td>
+						{{ item.fecha }}
+					</td></tr>
+                    <tr>
+                    	<td>&nbsp;</td>
+                    </tr>
+					</table>
+				{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if datoinicio == 'etnias' %}
+{% if etnias %}
+ Pueblos Originarios({{ etnias.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />  
+ {% for item in etnias %}
+					<span onclick="loadFile('actores/ficha/{{ item.id }}/','_parent', 'width=750,height=600');" style="cursor:pointer;">{{ item.nombre }}</span><br>
+				{% endfor %}
+{% endif %} 
+{% endif %}
+
+{% if datoinicio == 'plataforma' %}
+{% if Categoria %}
+ Secciones({{ Categoria.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+ {% for item in Categoria %}
+					<span onclick="loadFile('{{ item.vinculo|removetags:"p b span br"|safe  }}','_parent', 'width=750,height=600');" style="cursor:pointer;">{{ item.titulo }}</span><br>
+			{% endfor %}
+{% endif %} 
+
+{% if subCategoria %}
+<br />
+ Categorias({{ subCategoria.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+ {% for item in subCategoria %}
+					<span onclick="loadFile('{{ item.vinculo|removetags:"p b span br"|safe  }}','_parent', 'width=750,height=600');" style="cursor:pointer;">{{ item.nombre }}</span><br>
+			{% endfor %}
+{% endif %} 
+{% endif %}
+
+
+</div>						</div>
+                        <br />
+                	</div>
+                </div>
+			<!-- Fin Columna Principal -->
+            <div id="secCol">
+            {% if persona %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% else %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+				<br />
+                <span style="margin-left:25px; margin-right:25px;">Te invitamos a que inicies tu sesion y asi poder disfrutar de mas opciones <a href="/perfil">Iniciar Sesión</a></span>
+                <br />
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endif %}
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

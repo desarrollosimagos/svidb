@@ -1,0 +1,10 @@
+{% if datos %}        
+	<img src="/media/{{ datos.pathimg }}" width="675px" id="fotogaleria" /><br>
+	<table  width="650px">
+	<tr>
+		<td><b>Autor de la Fotografía:</b> {{ datos.directorio.nombre }} {{ datos.directorio.apellido }} </td>
+		<td align="right"><b>Licencia: </b> <a href="/licencias"> <img src="/media/{{ datos.licencia.pathimg1 }}"> </a> </td>
+	</tr>
+	</table>
+	<br>
+{% endif %}

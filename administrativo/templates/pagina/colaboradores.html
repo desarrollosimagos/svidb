@@ -1,0 +1,211 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('plataforma').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Equipo y Colaboradores
+                    </span>
+                </div>
+             <br />
+             <br>
+			<img src="/media/librerias/imgs/top_colaboradores.png" ><br>&nbsp;<br>
+            <table width="95%">
+				<tr>
+					<td width="40%">
+						<div class="style1" align="justify">
+						<b>Ministerio del Poder Popular Para el Ambiente</b>
+
+						<br><br>
+						<b>Ministro</b><br>
+						Miguel Leonardo Rodríguez
+
+						<br><br>
+						<b>Viceministro de Conservación Ambiental y Manejo de Desechos</b><br>
+						Jesús Castillo
+
+						<br><br>
+						<b>Viceministro para Administración Ambiental y Desarrollo Ecológico</b><br>
+						Francisco Guerra
+	
+						<br><br>
+						<b>Viceministro de Agua</b><br>
+						Manuel Deza
+	
+						<br><br>
+						<b>Director General de la Oficina Nacional de Diversidad Biológica</b><br>
+						Javier Valera Leal
+
+						</div>
+					</td>
+					<td style="border-left: 1px solid #666;">
+						<div class="style1" align="justify" style="margin-left:20px;">
+						<b>Ministerio del Poder Popular para la Ciencia, Tecnología e Innovación</b>
+						
+						<br><br>
+						<b>Ministro</b><br> 
+						Manuel Fernández Meléndez
+						
+						<br><br>
+						<b>Viceministro de Fortalecimiento y Aplicaciones de la Ciencia y Tecnología</b><br>
+						Francisco Durán
+						
+						<br><br>
+						<b>Viceministro de Formación para la Ciencia y el Trabajo</b><br>
+						Alberto José Quintero
+						
+						<br><br>
+						<b>Viceministro de Telecomunicaciones, Tecnología de Información y Servicios Postales</b><br>
+						Carlos Figueira
+						
+						<br><br>
+						<b>Presidente del FONACIT</b></br>
+						Francisco Durán
+
+
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<div class="style1" align="justify">
+					<br><br>
+					<b>Coordinador General</b><br>
+					{{ coor_general.directorio.nombre }} {{ coor_general.directorio.apellido  }}
+					
+					<br><br>
+					<b>Núcleo Operativo</b><br>
+                    {% for field in nucleo_coord %}
+                    * {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                    {% endfor %}
+                    {% for field in nucleo %}
+                    {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                    {% endfor %}
+					</div>
+					</td>
+				</tr>
+                <tr>
+                	<td colspan="2">
+                    <br />
+                    	<table width="100%">
+                        	<tr>
+                            	<td width="30%">
+                                	<b>Comité de Especies</b><br>
+                                    {% for field in especies_coord %}
+                                    * {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                                    {% endfor %}
+                                    {% for field in especies %}
+                                    {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                                    {% endfor %}
+                                </td>
+                                <td width="30%">
+                                	<b>Comité de Actores</b><br>
+                                    {% for field in actores_coord %}
+                                    * {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                                    {% endfor %}
+                                    {% for field in actores %}
+                                    {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                                    {% endfor %}
+                                </td>
+                                <td width="30%">
+                                	<b>Comité de Áreas para la Conservación</b><br>
+                                    {% for field in areas_coord %}
+                                    * {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                                    {% endfor %}
+                                    {% for field in areas %}
+                                    {{ field.directorio.nombre }} {{ field.directorio.apellido  }}<br />
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </table>
+                        					<br><br>
+*Coordinadores
+                    </td>
+                </tr>
+				<tr>
+					<td colspan="2" style=" text-align:justify;">
+
+					<br><br>
+					<b>Textos - Generación de Contenido</b><br>
+					{% for field in textos %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}
+                    <br><br>
+					<b>Textos - Revisión de Contenido</b><br>
+					{% for field in revision %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}
+                    <br><br>
+					<b>Transcripción y Sistematización</b><br>
+					{% for field in transc %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}	
+                    <br><br>
+					<b>Cambio de Nomenclatura</b><br>
+					{% for field in nomen %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}	
+                    <br><br>
+					<b>Diseño y Programación</b><br>
+					{% for field in program %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}	
+                    <br><br>
+					<b>Mapas</b><br>
+					{% for field in mapas %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}
+                    {% for field in mapas1 %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}
+                    {% for field in mapas2 %}
+                    {{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;
+                    {% endfor %}								
+					{% for field in mapas3 %}
+                    <!--{{ field.persona__nombre }} {{ field.persona__apellido  }},&nbsp;-->
+                    {% endfor %}
+          
+          
+          <br><br>
+					
+					<b>Audiovisuales</b><br>
+					{% for field in banco %}
+                    {% if field.directorio__nombre %}{{ field.directorio__nombre }}{% endif %}{% if field.directorio__apellido %}{{ field.directorio__apellido  }}{% endif %},&nbsp;
+                    {% endfor %}
+                    
+          <br><br>
+					
+					<b>Colectivos Colaboradores</b><br>
+					{% for field in colabinstitute %}
+                    <b>{{ field.actore__nombre_completo }}</b> - {{ field.actore__siglas|upper  }}<br />
+                    {% endfor %}
+
+
+<br><br>
+
+					<b>Para mayor Información:</b><br>
+Centro Nacional de Conservación de los Recursos Genéticos
+Final Avenida Universidad, callejón La Ceiba, sector Corral de Piedra, El Limón, estado Aragua. 
+Teléfono +58 (243) 2831932 <br />
+<br />
+Ministerio del Poder Popular para el Ambiente. Av. Oeste 8, Torre Sur, Centro Simón Bolívar, El Silencio 1010. Piso 9, Oficina Nacional de Diversidad Biológica. Teléfono: +58 (212) 4084757 
+Correo electrónico: diversidadbiologica@minamb.gob.ve
+<br />
+                    </td>
+                    </tr>
+                    </table>
+        </div>
+    </div>
+
+{% endblock %}

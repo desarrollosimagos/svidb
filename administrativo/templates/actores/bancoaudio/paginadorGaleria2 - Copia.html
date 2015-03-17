@@ -1,0 +1,418 @@
+{% extends "completo.html"%}
+
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('plataforma').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+		<link rel="stylesheet" href="/media/galeria/galleriffic-2.css" type="text/css" />
+		<script type="text/javascript" src="/media/galeria/jquery.galleriffic.js"></script>
+		<script type="text/javascript" src="/media/galeria/jquery.opacityrollover.js"></script>
+		<script type="text/javascript" src="/media/galeria/jquery-1.3.2.js"></script>
+
+<script type="text/javascript">
+	jQuery().ready(function(){
+		// simple accordion
+		jQuery('#list1a').accordion({
+			autoheight: false
+		});
+		
+	});
+
+ function cargarImagen(url){
+	
+		document.getElementById("galleria_modal").src=url;	 
+	
+	}
+function loadFile(url,name,feactures){
+	window.open(url,name,feactures);
+	}
+function cargarDetalleFoto(id){
+
+	$("#foto").load('/panel/bancoaudio/ver/'+id);	
+		
+}
+
+
+
+</script>
+<script>
+function mostrarFotos(url){
+	/*alert(url);*/
+/*	document.getElementById('fotogaleria').src='/media/imgs/ico_cargando2.gif';*/
+	document.getElementById('fotogaleria').src=url;
+}
+</script>
+<style>
+.imgemodal{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:15px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.bordeGaleria{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:2px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    	width:100%;
+		height:25px;
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		font-weight:bold;
+		font-size:12px;
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#000;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #00679a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00679a), to(#00679a) );
+    background: -moz-linear-gradient(-90deg, #00679a, #00679a);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00679a', endColorstr='#00679a');
+	color:#FFF;
+}
+.button-blue2
+{
+    background:#E6E6E6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#E6E6E6), to(#E6E6E6) );
+    background: -moz-linear-gradient(-90deg, #E6E6E6, #E6E6E6);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#E6E6E6', endColorstr='#E6E6E6');
+	color:#1A1A1A;
+}
+p{
+	color:#4D4D4D;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+</style>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px; color:#000; ">
+                    	Banco Audiovisual
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0; background:url(/media/css/plantilla/images/bbplataforma.png) top repeat-x; width:940px;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Banco Audiovisual
+                  			</span>
+                        </div>
+                        <br />
+                         <br />
+                       	<div style="text-align:justify;margin-left:25px; margin-right:25px; "> 
+                        <div id="gallery" class="content">
+					<div id="controls" class="controls"></div>
+					<div class="slideshow-container">
+						<div id="loading" class="loader"></div>
+						<div id="slideshow" class="slideshow"></div>
+					</div>
+					<div id="caption" class="caption-container"></div>
+				</div>
+				<div id="thumbs" class="navigation">
+					<ul class="thumbs noscript">
+                    	<li>
+							<a class="thumb" name="leaf" href="http://farm4.static.flickr.com/3261/2538183196_8baf9a8015.jpg" title="Title #0">
+								<img src="http://farm4.static.flickr.com/3261/2538183196_8baf9a8015_s.jpg" alt="Title #0" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm4.static.flickr.com/3261/2538183196_8baf9a8015_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #0</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
+								<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
+							</a>
+							<div class="caption">
+								Any html can be placed here ...
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" name="bigleaf" href="http://farm3.static.flickr.com/2093/2538168854_f75e408156.jpg" title="Title #2">
+								<img src="http://farm3.static.flickr.com/2093/2538168854_f75e408156_s.jpg" alt="Title #2" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm3.static.flickr.com/2093/2538168854_f75e408156_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #2</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" name="lizard" href="http://farm4.static.flickr.com/3153/2538167690_c812461b7b.jpg" title="Title #3">
+								<img src="http://farm4.static.flickr.com/3153/2538167690_c812461b7b_s.jpg" alt="Title #3" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm4.static.flickr.com/3153/2538167690_c812461b7b_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #3</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" href="http://farm4.static.flickr.com/3150/2538167224_0a6075dd18.jpg" title="Title #4">
+								<img src="http://farm4.static.flickr.com/3150/2538167224_0a6075dd18_s.jpg" alt="Title #4" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm4.static.flickr.com/3150/2538167224_0a6075dd18_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #4</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" href="http://farm4.static.flickr.com/3204/2537348699_bfd38bd9fd.jpg" title="Title #5">
+								<img src="http://farm4.static.flickr.com/3204/2537348699_bfd38bd9fd_s.jpg" alt="Title #5" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm4.static.flickr.com/3204/2537348699_bfd38bd9fd_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #5</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" href="http://farm4.static.flickr.com/3124/2538164582_b9d18f9d1b.jpg" title="Title #6">
+								<img src="http://farm4.static.flickr.com/3124/2538164582_b9d18f9d1b_s.jpg" alt="Title #6" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm4.static.flickr.com/3124/2538164582_b9d18f9d1b_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #6</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" href="http://farm4.static.flickr.com/3205/2538164270_4369bbdd23.jpg" title="Title #7">
+								<img src="http://farm4.static.flickr.com/3205/2538164270_4369bbdd23_s.jpg" alt="Title #7" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm4.static.flickr.com/3205/2538164270_c7d1646ecf_o.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #7</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" href="http://farm4.static.flickr.com/3211/2538163540_c2026243d2.jpg" title="Title #8">
+								<img src="http://farm4.static.flickr.com/3211/2538163540_c2026243d2_s.jpg" alt="Title #8" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm4.static.flickr.com/3211/2538163540_c2026243d2_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #8</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+
+						<li>
+							<a class="thumb" href="http://farm3.static.flickr.com/2315/2537343449_f933be8036.jpg" title="Title #9">
+								<img src="http://farm3.static.flickr.com/2315/2537343449_f933be8036_s.jpg" alt="Title #9" />
+							</a>
+							<div class="caption">
+								<div class="download">
+									<a href="http://farm3.static.flickr.com/2315/2537343449_f933be8036_b.jpg">Download Original</a>
+								</div>
+								<div class="image-title">Title #9</div>
+								<div class="image-desc">Description</div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+				<div style="clear: both;"></div>
+                <script type="text/javascript">
+			jQuery(document).ready(function($) {
+				// We only want these styles applied when javascript is enabled
+				$('div.navigation').css({'width' : '300px', 'float' : 'left'});
+				$('div.content').css('display', 'block');
+
+				// Initially set opacity on thumbs and add
+				// additional styling for hover effect on thumbs
+				var onMouseOutOpacity = 0.67;
+				$('#thumbs ul.thumbs li').opacityrollover({
+					mouseOutOpacity:   onMouseOutOpacity,
+					mouseOverOpacity:  1.0,
+					fadeSpeed:         'fast',
+					exemptionSelector: '.selected'
+				});
+				
+				// Initialize Advanced Galleriffic Gallery
+				var gallery = $('#thumbs').galleriffic({
+					delay:                     2500,
+					numThumbs:                 15,
+					preloadAhead:              10,
+					enableTopPager:            true,
+					enableBottomPager:         true,
+					maxPagesToShow:            7,
+					imageContainerSel:         '#slideshow',
+					controlsContainerSel:      '#controls',
+					captionContainerSel:       '#caption',
+					loadingContainerSel:       '#loading',
+					renderSSControls:          true,
+					renderNavControls:         true,
+					playLinkText:              'Play Slideshow',
+					pauseLinkText:             'Pause Slideshow',
+					prevLinkText:              '&lsaquo; Previous Photo',
+					nextLinkText:              'Next Photo &rsaquo;',
+					nextPageLinkText:          'Next &rsaquo;',
+					prevPageLinkText:          '&lsaquo; Prev',
+					enableHistory:             false,
+					autoStart:                 false,
+					syncTransitions:           true,
+					defaultTransitionDuration: 900,
+					onSlideChange:             function(prevIndex, nextIndex) {
+						// 'this' refers to the gallery, which is an extension of $('#thumbs')
+						this.find('ul.thumbs').children()
+							.eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+							.eq(nextIndex).fadeTo('fast', 1.0);
+					},
+					onPageTransitionOut:       function(callback) {
+						this.fadeTo('fast', 0.0, callback);
+					},
+					onPageTransitionIn:        function() {
+						this.fadeTo('fast', 1.0);
+					}
+				});
+			});
+		</script>
+                        {% if mesn %}
+			{% if dat %}
+				<div id="foto">
+				<img src="/media/{{ dat.pathimg }}" width="675px" id="fotogaleria" /><br>
+				<table  width="650px">
+				<tr>
+					<td><b>Autor de la Fotografía:</b> {{ dat.directorio.nombre }} {{ dat.directorio.apellido }} </td>
+					<td align="right"><b>Licencia: </b> <a href="/licencias"> <img src="/media/{{ dat.licencia.pathimg1 }}"></a></td>
+				</tr>
+				</table>
+				<br>
+				</div>
+			{% endif %}
+    {% for lista in mesn.object_list %}
+	
+	{% if dat %}
+		
+	{% else %}
+		 {% if forloop.first %}
+		<div id="foto">
+		<img src="/media/{{ lista.pathimg }}" width="675px" id="fotogaleria" /><br>
+		<table  width="650px">
+		<tr>
+			<td><b>Autor de la Fotografía:</b> {{ lista.directorio.nombre }} {{ lista.directorio.apellido }} </td>
+			<td align="right"><b>Licencia:</b><a href="/licencias"><img src="/media/{{ lista.licencia.pathimg1 }}"></a></td>
+		</tr>
+		</table>
+		<br>
+		</div>
+		 {% endif %}
+	{% endif %}
+
+    	<a onclick="cargarDetalleFoto('{{ lista.id }}');" style="text-decoration:none;">
+        <img class="bordeGaleria" src="/media/{{ lista.retorno_nombre }}.157_118{{ lista.retorno_extencion }}" width="80px" />
+        </a>
+    {% endfor %}
+{% endif %}
+{% if mesn %}
+    <br>
+    <div class="pagination">
+        <span class="step-links">
+            {% if mesn.has_previous %}
+                <a href="/panel/bancoaudio/visual/{{ mesn.previous_page_number }}/" style="cursor:pointer;">Anterior</a>
+            {% endif %}
+            <span class="current">
+                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+            </span>
+
+            {% if mesn.has_next %}
+                <a href="/panel/bancoaudio/visual/{{ mesn.next_page_number }}/" style="cursor:pointer;">Proximo</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+			</div>
+                        <br>    
+                        <br>
+                    	
+                    </div>
+                </div>
+			<!-- Fin Columna Principal -->
+        </div>
+    </div>
+
+{% endblock %}

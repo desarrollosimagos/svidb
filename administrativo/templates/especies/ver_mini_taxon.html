@@ -1,0 +1,142 @@
+{% if taxon %}
+    <table width="100%" style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">
+        <tr>
+            <td  align="center">
+                <b>Datos del Taxon</b>
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b>Nombre:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{{ taxon.nombre|slice:"0:35" }}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Autor:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.autorespecie %}
+            		{{ taxon.autorespecie|slice:"0:35" }}
+                {% else %}
+                	No hay información
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Nombre Común:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.nombrecomun %}
+            		{{ taxon.nombrecomun|slice:"0:35" }}
+                {% else %}
+                	No hay información
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Otros Nombres Comunes:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.otrosnombrec %}
+            		{{ taxon.otrosnombrec|slice:"0:35" }}
+                {% else %}
+                	No hay información
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Filogénia:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.filogenia %}
+            		{{ taxon.filogenia }}
+                {% else %}
+                	No hay información
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Endémica:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.endemica %}
+                	<img src="/media/librerias/imgs/btn_check_on.png" width="25px" height="25px">
+                {% else %}
+                	<img src="/media/librerias/imgs/check-off.png" width="25px" height="25px">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Extinto:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.extinto %}
+                	<img src="/media/librerias/imgs/btn_check_on.png" width="25px" height="25px">
+                {% else %}
+                	<img src="/media/librerias/imgs/check-off.png" width="25px" height="25px">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Estatus:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.estatu %}
+            		{{ taxon.estatu }}
+                {% else %}
+                	No hay información
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td  align="left">
+                <b style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">Usuario:</b>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	{% if taxon.userupdate %}
+            		{{ taxon.userupdate }}
+                {% else %}
+                	No hay información
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+        	<td align="center">
+            	<h1>
+                	{{ taxon.id }}
+                </h1>
+            </td>
+        </tr>
+    </table>
+{% else %}
+    <span style="color:#999;">
+    	No hay detalles del Taxon
+    </span>
+{% endif %}

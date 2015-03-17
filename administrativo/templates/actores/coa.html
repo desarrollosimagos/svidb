@@ -1,0 +1,152 @@
+{% extends "completo.html"%}
+
+{% block content %}
+
+<script>
+function ValidaSoloNumeros() {
+ if ((event.keyCode < 48) || (event.keyCode > 57)) 
+  event.returnValue = false;
+}
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Mi Cuenta -> Inscripción en Eventos -> {{ congreso.evento.nombre }} -> Registrar trabajos -> Registrar Coautor
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+		<br /><br />
+		<div style="margin-left:25px; margin-right:25px;">
+                  <div class="titulo"><span style="font-style:italic;">Registrar Coautor</span></div>
+                  	<div style="text-align:justify; font-size:13px;">
+                  	Mediante este panel puedes agregar  coautores al trabajo o actividad para el {{ congreso.evento.nombre }}
+					</div>
+  
+ 					    {% if mensaje %}
+     <p class="error">{{ mensaje }} </p>
+     <br />
+    {% endif %}
+<form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+{{ msm }}
+{% for field in form %}
+{% if field.html_name == "documentoidentidad" %}
+					{{ field.errors }}
+                                            <label style="font-size:14px;">
+                                            	{{ field.label }} <br />
+                                    		</label>
+                                            <input type="text" name="documentoidentidad" id="id_documentoidentidad" class="txtinput"  onkeypress="ValidaSoloNumeros()"><br />
+                                            {{ field.help_text }}<br />
+                        
+                        {% else %}	
+                                            		{{ field.errors }}
+                                            <label style="font-size:14px;">
+                                            	{{ field.label }} <br />
+                                    		</label>
+                                            {{ field }}
+                                            {{ field.help_text }}<br />
+                       {% endif %}
+
+                                            
+                            	{% endfor %}<br />
+<!--
+<table width="444">
+<tr>
+	<td colspan="3">{{ msm }}</td>
+</tr>
+<tr>
+	<td class="style1">
+	Tipo Documento:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.tipodoci }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Documento de Identidad:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.documentoidentidad }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Nombres:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.nombre }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Apellidos:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.apellido }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Teléfono Celular:
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.movil }}<br>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+    <br>
+    <input type="submit" value="Guardar" style="border:1px solid #009; background-color:#06F; color:#FFF; width:100px; height:20px;"/>
+    <br>
+    </td>
+</tr>
+</table>
+-->
+<input type="submit" value="Guardar" style="border:1px solid #009; background-color:#06F; color:#FFF; width:100px; height:20px;"/>
+<br /><br />
+</form>
+                </div></div></div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+
+
+
+
+ 
+{% endblock %}
+
+</div>

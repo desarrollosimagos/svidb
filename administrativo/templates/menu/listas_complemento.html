@@ -1,0 +1,34 @@
+         			<div style="text-align:justify;margin-left:25px; margin-right:25px;">
+                            {% for item in taxon %}
+                            	{% if item.subtipo.id >= 26 %}
+                                	{% if usuario.is_staff %}
+                                    	{% for item2 in item.colaboradorespersonas_set.all %}
+                                            {% if item2.tipoColaboracion.id == 9 %}
+                                            		{% if item2.estatu == 0 %}
+                                                    	<a href="/especies/ficha/{{ principal }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/static/admin/img/admin/icon-yes.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+                                                    {% if item2.estatu == 1 %}
+                                                    	 <a href="/especies/ficha/{{ principal }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/static/admin/img/admin/icon-no.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+                                                    {% if item.estatu == 2 %}
+                                                    	<a href="/especies/ficha/{{ principal }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/media/imgs/icon-pendiente.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+                                                    {% if item.estatu == 3 %}
+                                                    	<a href="/especies/ficha/{{ principal }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/media/imgs/icon-pendiente.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+                                            {% else %}
+                                         
+                                            {% endif %}
+                                        {% empty %}
+                                        	<a href="/especies/ficha/{{ principal }}/{{ item.id }}" class="button button-blue2"><span>{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                        {% endfor %}
+                                    {% else %}
+                                    	<a href="/especies/ficha/{{ principal }}/{{ item.id }}" class="button button-blue2"><span>{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                    {% endif %}
+                                {% endif %}
+                             {% endfor %}
+                             </div>
+                             {% if taxon.count >= 100 %}
+                        <div id="loading{{ load }}">
+                        </div>                        
+                        {% endif %}

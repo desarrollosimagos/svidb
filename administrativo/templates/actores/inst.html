@@ -1,0 +1,175 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Mi Cuenta -> Inscripción en Eventos -> {{ congreso }} -> Registrar trabajos -> Registro de organizaciones o instituciones
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+		<br /><br />
+		<div style="margin-left:25px; margin-right:25px;">
+                  <div class="titulo"><span style="font-style:italic;">Registro de organizaciones o instituciones</span></div>
+<br />
+Complete los siguientes datos de la organización o institución
+<br />
+    {% if mensaje %}
+     <p class="error">{{ mensaje }} </p>
+     <br />
+    {% endif %}
+<form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+<table width="444">
+<tr>
+	<td colspan="3">{{ msm }}</td>
+</tr>
+<tr>
+	<td class="style1">
+	Rif:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.rif }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Nombre Completo:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.nombre_completo }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Siglas :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.siglas }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Teléfono :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.telefono }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Fax :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.fax }}<br>
+	</td>
+</tr>
+
+<tr>
+  <td class="style1">
+    Correo Electrónico :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.correo }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    País :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.pai }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Estado :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.estado }}<br>
+	</td>
+</tr><br />
+
+<tr>
+  <td class="style1">
+    Dirección :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.direccion }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Ámbito de acción :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.ambitoaccion }}<br>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+    <bt>
+    <input type="submit" value="Guardar" style="border:1px solid #009; background-color:#06F; color:#FFF; width:100px; height:20px;"/>
+    <br>
+    </td>
+</tr>
+</table>
+
+
+</form>
+                </div></div></div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+
+
+
+
+ 
+{% endblock %}
+
+
+

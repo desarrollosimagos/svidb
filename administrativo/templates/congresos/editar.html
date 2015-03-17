@@ -1,0 +1,765 @@
+{% extends "completo.html"%}
+
+
+{% block jscript2 %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+<!--
+<script type="text/javascript" src="/js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="/js/eventos/linea/textareas.js"></script>-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<style>.frameBody{font-family:sans-serif;font-size:12px;margin:0;width:100%;height:100%}.frameBody p{border:1px #bbb solid;padding:2px}.rte-zone{height:100px; width:600px;border:1px solid #666;}.rte-toolbar{overflow:hidden}.rte-toolbar a,.rte-toolbar a img{border:0}.rte-toolbar p{float:left;margin:0;padding-right:5px}.bold{border:1px #666 solid; width:30px; height:20px; font-family:Verdana, Geneva, sans-serif; font-size:12pxpx; text-align:center;}.italic{border:1px #666 solid; width:30px; height:20px; font-family:Verdana, Geneva, sans-serif; font-size:12pxpx; text-align:center;}.underline{border:1px #666 solid; width:30px; height:20px; font-family:Verdana, Geneva, sans-serif; font-size:12pxpx; text-align:center;}</style>
+
+
+<script type="text/javascript">
+			
+			var info;
+			function contador(name){
+				iframe = document.getElementById('id_'+name);
+				var content = iframe.contentWindow.document.getElementsByTagName("body")[0].innerHTML;
+				document.getElementById('html_'+name).value=content;
+				var n = content.length;
+				var maxi=200;
+				document.getElementById('cont_'+name).value=n;
+				document.getElementById('max_'+name).value=maxi - n;
+			}
+		</script>
+        <script language="Javascript">
+   document.oncontextmenu = function() {
+      return false
+   }
+   function right(e) {
+      var msg = "Por favor use los botones de copiar y pegar dispuestos en el formulario.";
+      if (navigator.appName == 'Netscape' && e.which == 3) {
+         alert(msg); //- Si no quieres asustar a tu usuario entonces quita esta linea...
+         return false;
+      }
+      else if (navigator.appName == 'Microsoft Internet Explorer' && event.button==2) {
+         alert(msg); //- Si no quieres asustar al usuario que utiliza IE,  entonces quita esta linea...
+                        //- Aunque realmente se lo merezca...
+      return false;
+      }
+   return true;
+}
+document.onmousedown = right;
+</script>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+
+{% if error %}
+{% if error == 'no' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+                // (string | mandatory) the heading of the notification
+                title: '<b style="color:#fff">Notificación.</b>',
+                // (string | mandatory) the text inside the notification
+                text: '<span style="color:#fff">Su resumen ha sido registrado satisfactoriamente, si deseas agregar coautores, organizaciones o instituciones participantes, diríjase al final del formulario.</span>',
+                // (string | optional) the image to display on the left
+                image: '/media/librerias/css/plantilla/notificaciones/css/AZ.png',
+                // (bool | optional) if you want it to fade out on its own or just sit there
+                sticky: false,
+                // (int | optional) the time you want it to be alive for before fading out
+                time: ''
+        });
+
+        return false;
+
+});
+</script>
+{% endif %}
+{% if error == 'si' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+                // (string | mandatory) the heading of the notification
+                title: '<b style="color:#fff">Notificacion de Error!</b>',
+                // (string | mandatory) the text inside the notification
+                text: '<span style="color:#fff">Se ha presentado un error al momento de realizar el envio del formulario, por favor verifique la informacion e intentelo nuevamente</span>',
+                // (string | optional) the image to display on the left
+                image: '/media/librerias/css/plantilla/notificaciones/css/safe_image.png',
+                // (bool | optional) if you want it to fade out on its own or just sit there
+                sticky: false,
+                // (int | optional) the time you want it to be alive for before fading out
+                time: '8000000'
+        });
+
+        return false;
+
+});
+</script>
+{% endif %}
+{% else %}
+
+{% endif %}
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	document.getElementById("id_titulo").className='rte-zone';
+	document.getElementById("id_titulo").placeholder='Titulo';
+	
+	document.getElementById("id_modalidad").className='txtinput';
+	document.getElementById("id_modalidad").placeholder='Modalidad';
+	document.getElementById("id_modalidad").style.width='600px';
+	document.getElementById("id_tematicas").style.width='600px';
+	document.getElementById("id_fundamento").style.width='600px';
+	document.getElementById("id_objetivoespecifico").style.width='600px';
+	document.getElementById("id_accionesgenerale").style.width='600px';
+	document.getElementById("id_accespecifi").style.width='600px';
+	
+	document.getElementById("id_tematicas").className='txtinput';
+	document.getElementById("id_tematicas").placeholder='Tematicas';
+	
+	
+	document.getElementById("id_resumen").className='rte-zone';
+	document.getElementById("id_resumen").placeholder='Resumen';
+	
+
+	
+});
+</script>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Trabajos Registrados
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+		<br /><br />
+		<div style="margin-left:25px; margin-right:25px;">
+                  <div class="titulo"><span style="font-style:italic;">Trabajos Registrados</span></div>
+                  	<div style="text-align:justify; font-size:13px;">
+                  	Mediante este panel puedes agregar, ver y seleccionar los trabajos publicados para un congreso
+					</div>
+                    <br />
+                    <br />
+                    El siguiente formulario solicita la informacion basica del Trabajo que deseas registrar.
+                    <br />
+                    Por favor complete cada uno de los campos.
+                    <br />
+                    <b>Nota:</b> Una vez registrado el proyecto se le indicara como cargar la informacion correspondiente a Co-autores e Instituciones.<br /><br />
+                    <a class="buttonCorto buttonCorto-evento" target="_new" href="/panel/eventos/trabajos/previsual/{{ trab.id }}"><span style="color:#000;color:#fff;">Pre-visualizar</span></a>
+                    {% if trab.estatu == 1 %}
+                        <a class="buttonCorto buttonCorto-evento" target="_new" href="/panel/documentos/trabajos/resumen/{{ trab.id }}"><span style="color:#000;color:#fff;">Descargar PDF</span></a>    	
+                    {% endif %}
+                    
+    {% if mensaje %}
+     <p class="error">{{ mensaje }} </p>
+     <br />
+    {% endif %}
+ 					<section id="container">
+                        <h2 style="font-style:italic;">Formulario para Registro y Publicación de Trabajos</h2>
+                        {% if trab.estatu %}
+                            {% if trab.estatu == 1 %}
+                            	
+                            {% endif %}
+                            {% if trab.estatu == 2 %}
+                            	
+                            {% endif %}
+                            {% if trab.estatu == 3 %}
+                            	{% if arbitro or coordinador2 %}
+                                	<form  method="post" style="margin-left:10px;">{% csrf_token %}
+                                {% else %}
+                            		</form><form  method="post" style="margin-left:10px;">{% csrf_token %}
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                        {% if arbitro or coordinador2 %}
+                            </form><form  method="post" style="margin-left:10px;">{% csrf_token %}
+                        {% else %}
+                        	</form><form  method="post" style="margin-left:10px;">{% csrf_token %}
+                        {% endif %}
+                        {% endif %}
+                        <div id="wrapping" class="clearfix">
+                            <section id="aligned">
+
+    <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Titulo</div>
+					</span>
+				</div>
+        {% if formulario.titulo.errors %}
+        {{ formulario.titulo.errors }}<br>
+        {% endif %}
+    {% if arbitro or coordinador2 %}
+    
+    <input type="text" name="titulo" id="id_titulo" value="{{ trab.titulo }}" class="rte-zone"><br />
+	<input type="text" size="4" id="cont_titulo" value="0" /> / <input type="text" size="4" id="max_titulo" value="200" /><br /><br />
+    <textarea name="html_titulo" id="html_titulo" style="border:1px solid; height:100px; width:600px;" disabled="disabled">
+    {{ trab.titulo }}</textarea><br />
+    {% else %}
+
+    <input type="text" name="titulo" id="id_titulo" value="{{ trab.titulo }}" class="rte-zone"><br />
+	<input type="text" size="4" id="cont_titulo" value="0" /> / <input type="text" size="4" id="max_titulo" value="200" /><br /><br />
+    <textarea name="html_titulo" id="html_titulo" style="border:1px solid; height:100px; width:600px;" disabled="disabled">
+    {{ trab.titulo }}</textarea>
+	<br />
+
+    {% endif %}
+    <br />
+    <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Resumen</div>
+					</span>
+				</div>
+        {% if formulario.resumen.errors %}
+        {{ formulario.resumen.errors }}<br>
+        {% endif %}
+    {% if arbitro or coordinador2%}
+    <textarea id="id_resumen" rows="10" cols="40" name="resumen" class="rte-zone">{{ formulario.resumen.value }}</textarea><br />
+    <input type="text" size="4" id="cont_resumen" value="0" /> / <input type="text" size="4" id="max_resumen" value="200" /><br /><br />
+    <textarea name="html_titulo" id="html_resumen" style="border:1px solid; height:100px; width:600px;" disabled="disabled">
+    {{ formulario.resumen.value }}
+    </textarea><br />
+    {% else %}
+    <textarea id="id_resumen" rows="10" cols="40" name="resumen" class="rte-zone">{{ formulario.resumen.value }}</textarea><br />
+    <input type="text" size="4" id="cont_resumen" value="0" /> / <input type="text" size="4" id="max_resumen" value="200" /><br /><br />
+    <textarea name="html_titulo" id="html_resumen" style="border:1px solid; height:100px; width:600px;" disabled="disabled">
+    {{ formulario.resumen.value }}
+    </textarea><br />
+    {% endif %}
+    <br />
+    {% if arbitro or coordinador2 %}
+    	<div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Fundamentos</div>
+					</span>
+				</div>
+        {% if formulario.fundamento.errors %}
+        {{ formulario.fundamento.errors }}<br>
+        {% endif %}
+    	{{ formulario.fundamento }}<br /><br />
+        <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;"> Objetivos Específicos</div>
+					</span>
+				</div>
+        {% if formulario.objetivoespecifico.errors %}
+        {{ formulario.objetivoespecifico.errors }}<br>
+        {% endif %}
+        {{ formulario.objetivoespecifico }}<br /><br />
+        
+        <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;"> Acciones Generales</div>
+					</span>
+				</div>
+        {% if formulario.accionesgenerale.errors %}
+        {{ formulario.accionesgenerale.errors }}<br>
+        {% endif %}
+        {{ formulario.accionesgenerale }}<br /><br />
+        
+        <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Acción Específica:</div>
+					</span>
+				</div>
+        {% if formulario.accespecifi.errors %}
+        {{ formulario.accespecifi.errors }}<br>
+        {% endif %}
+    	{{ formulario.accespecifi }}<br /><br />
+    {% else %}
+        <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Acción Específica:</div>
+					</span>
+				</div>
+    <p><b><span style="color:#06F;">{{ trab.accespecifi }}</span></b></p><br />
+    <input type="hidden" name="accespecifi" id="id_accespecifi" value="{{ trab.accespecifi.id }}">
+    {% endif %}
+    
+        <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Temática:</div>
+					</span>
+				</div>
+    {% if arbitro or coordinador2 %}
+        {% if formulario.tematicas.errors %}
+        {{ formulario.tematicas.errors }}<br>
+        {% endif %}
+    	{{ formulario.tematicas }}<br /><br />
+    {% else %}
+    <b><span style="color:#06F;">{{ trab.tematicas }}</span></b><br />
+    <input type="hidden" name="tematicas" id="id_tematicas" value="{{ trab.tematicas.id }}"><br />
+    {% endif %}
+    
+        <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Modalidad:</div>
+					</span>
+				</div>
+    {% if arbitro or coordinador2%}
+        {% if formulario.modalidad.errors %}
+        {{ formulario.modalidad.errors }}<br>
+        {% endif %}
+        {{ formulario.modalidad }}<br /><br />
+    {% else %}
+        {% if formulario.modalidad.errors %}
+        {{ formulario.modalidad.errors }}<br>
+        {% endif %}
+        {{ formulario.modalidad }}<br /><br />
+    {% endif %}
+    <br />
+    
+    Evento:<br />
+    <b><span style="color:#06F;">{{ trab.evento }}</span></b><br />
+    {% if arbitro or coordinador2 %}
+    <input type="hidden" name="evento" id="id_evento" value="{{ trab.evento.id }}">
+    {% else %}
+    <input type="hidden" name="evento" id="id_evento" value="{{ trab.evento.id }}">
+    {% endif %}
+    Autor Principal:<br />
+    <b><span style="color:#06F;">{{ trab.directorio }}</span></b><br />
+    {% if arbitro or coordinador2 %}
+    <input type="hidden" name="directorio" id="id_directorio" value="{{ trab.directorio.id }}">
+    {% else %}
+    <input type="hidden" name="directorio" id="id_directorio" value="{{ trab.directorio.id }}">
+    {% endif %}
+    <hr style="width:600px;">
+ 	Coautores:<br />
+    {% for co in trab.coautores.all %}
+    	{% if coordinador2 %}
+        <a class="buttonCorto buttonCorto-evento" target="_new" href="/manager/actores/directorios/{{ co.id }}"><span style="color:#000;color:#fff;">Ver ficha</span></a>
+        {% endif %}
+        <b><span style="color:#06F;">{{co.documentoidentidad}} - {{co.nombre}}  - {{co.apellido}}</span>
+        </b><br />
+    {% endfor %}
+    {% if trab.estatu %}
+        {% if trab.estatu == 1 %}
+            <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px">
+            <span style="text-align:left; margin-left:15px;">
+            <div style="text-align:justify; font-size:13px;font-style:italic;">No puede agregar nuevos Co-Autores. Su resumen ha sido aprobado.</div>
+            </span>
+            </div>
+        {% endif %}
+        {% if trab.estatu == 2 %}
+            <div style="background-color:#F60; border:1px solid #cccc31; height:22px; text-align:left; width:600px">
+            <span style="text-align:left; margin-left:15px;">
+            <div style="text-align:justify; font-size:13px;font-style:italic;">No puede agregar nuevos Co-Autores. Su resumen ha sido rechazado.</div>
+            </span>
+            </div>
+        {% endif %}
+        {% if trab.estatu == 3 %}
+        	{% if arbitro or coordinador2 %}
+            <a href="/panel/eventos/trabajos/coautor/agregar/{{ trab.id }}"><img src="/media/imgs/serv-noticias.gif" height="30px">Agregar Coautor</a>
+    		{% else %}
+           <a href="/panel/eventos/trabajos/coautor/agregar/{{ trab.id }}"><img src="/media/imgs/serv-noticias.gif" height="30px">Agregar Coautor</a>
+            {% endif %}
+        {% endif %}
+	{% else %}
+    	{% if arbitro or coordinador2 %}
+        <a href="/panel/eventos/trabajos/coautor/agregar/{{ trab.id }}"><img src="/media/imgs/serv-noticias.gif" height="30px">Agregar Coautor</a>
+    	{% else %}
+    	<a href="/panel/eventos/trabajos/coautor/agregar/{{ trab.id }}"><img src="/media/imgs/serv-noticias.gif" height="30px">Agregar Coautor</a>
+        {% endif %}
+    {% endif %}
+    <hr style="width:600px;">
+	Organizaciones o Instituciones:<br />
+    {% for ca in trab.colectivos.all %}
+    	{% if coordinador2 %}
+        <a class="buttonCorto buttonCorto-evento" target="_new" href="/manager/actores/actores/{{ ca.id }}"><span style="color:#000;color:#fff;">Ver ficha</span></a>
+        {% endif %}
+        <b><span style="color:#06F;">{% if ca.nombre_completo %}{{ca.nombre_completo}} {% else %} {{ca.nombre }} {% endif %}</span>
+        </b><br />
+    {% endfor %}
+    {% if trab.estatu %}
+        {% if trab.estatu == 1 %}
+            <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px">
+            <span style="text-align:left; margin-left:15px;">
+            <div style="text-align:justify; font-size:13px;font-style:italic;">No puede agregar nuevas Instituciones. Su resumen ha sido aprobado.</div>
+            </span>
+            </div>
+        {% endif %}
+        {% if trab.estatu == 2 %}
+            <div style="background-color:#F60; border:1px solid #cccc31; height:22px; text-align:left; width:600px">
+            <span style="text-align:left; margin-left:15px;">
+            <div style="text-align:justify; font-size:13px;font-style:italic;">No puede agregar nuevas Instituciones. Su resumen ha sido rechazado.</div>
+            </span>
+            </div>
+        {% endif %}
+        {% if trab.estatu == 3 %}
+        	{% if arbitro or coordinador2 %}
+            <a href="/panel/eventos/trabajos/actores/{{ trab.id }}"><img src="/media/imgs/serv-pagina-p.gif" height="30px">Agregar Organización o Institución</a>
+    		{% else %}
+            <a href="/panel/eventos/trabajos/actores/{{ trab.id }}"><img src="/media/imgs/serv-pagina-p.gif" height="30px">Agregar Organización o Institución</a>
+            {% endif %}
+        {% endif %}
+	{% else %}
+    	{% if arbitro or coordinador2 %}
+        <a href="/panel/eventos/trabajos/actores/{{ trab.id }}"><img src="/media/imgs/serv-pagina-p.gif" height="30px">Agregar Organización o Institución</a>
+    	{% else %}
+    	<a href="/panel/eventos/trabajos/actores/{{ trab.id }}"><img src="/media/imgs/serv-pagina-p.gif" height="30px">Agregar Organización o Institución</a>
+        {% endif %}
+    {% endif %}
+    </section>
+                        </div>
+                            <section id="buttons">
+                            {% if trab.estatu %}
+                            	{% if trab.estatu == 1 %}
+                                    <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left; width:600px">
+                                        <span style="text-align:left; margin-left:15px;">
+                                            <div style="text-align:justify; font-size:13px;font-style:italic;">El trabajo no puede ser editado. Su resumen ha sido aprobado.</div>
+                                        </span>
+                                    </div>
+                              	{% endif %}
+                                {% if trab.estatu == 2 %}
+                                    <div style="background-color:#F60; border:1px solid #cccc31; height:22px; text-align:left; width:600px">
+                                        <span style="text-align:left; margin-left:15px;">
+                                            <div style="text-align:justify; font-size:13px;font-style:italic;">El trabajo no puede ser editado. Su resumen ha sido rechazado.</div>
+                                        </span>
+                                    </div>
+                              	{% endif %}
+                                {% if trab.estatu == 3 %}
+                                	{% if arbitro %}
+                                    	{% if arbitro.estatu %}
+                                        	{% if arbitro.estatu == 1 %}
+                                    		
+                                            {% endif %}
+                                        	{% if arbitro.estatu == 2 %}
+                                    		
+                                            {% endif %}
+                                        	{% if arbitro.estatu == 3 %}
+                                    		<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                            {% endif %}
+                                        {% else %}
+										 	<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">                                       
+                                    	{% endif %}        
+    								{% else %}
+                                    <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                    {% endif %}
+                              	{% endif %}
+                            {% else %}
+                            	{% if arbitro %}
+                                {% if arbitro.estatu %}
+                                        	{% if arbitro.estatu == 1 %}
+                                    		
+                                            {% endif %}
+                                        	{% if arbitro.estatu == 2 %}
+                                    		
+                                            {% endif %}
+                                        	{% if arbitro.estatu == 3 %}
+                                    		<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                            {% endif %}
+                                        {% else %}
+										 	<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">                                       
+                                    	{% endif %}        
+    							{% else %}
+                                <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                {% endif %}
+                            {% endif %}   
+                                <br style="clear:both;">
+                            </section>
+                            {% if trab.estatu %}
+                            	{% if trab.estatu == 1 %}
+                                
+                                {% endif %}
+                                {% if trab.estatu == 2 %}
+                                
+                                {% endif %}
+                                {% if trab.estatu == 3 %}
+                                	{% if arbitro %}
+                                    	</form>
+    								{% else %}
+                                	
+                                    {% endif %}
+                                {% endif %}
+                        	{% else %}
+                            	{% if arbitro %}
+                                	
+    							{% else %}
+                        		
+                                {% endif %}
+                        	{% endif %}
+                        </section> 
+
+</div></div>
+<br />
+{% if asignado or arbitro or coordinador2 %}
+		<div style="border:1px solid #C0C0C0;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+			<br /><br />
+			<div style="margin-left:25px; margin-right:25px;">
+            	<!--<div class="titulo"><span style="font-style:italic;">Registro de Arbitraje del Resumen</span></div>-->
+                <br />
+                <section id="container">
+				
+			  	<form name="mensajes" action="/panel/eventos/mensajes/{{ trab.id }}" method="POST" style="margin-left:10px;">
+			 	<label>Escriba en el siguiente cuadro de diálogo para responder o comentar:</label>
+                <textarea style="width:670px; height:100px;" id="mensajes" name="mensajes">
+                </textarea>
+                <section id="buttons">
+                <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="comentar">
+                </section>
+                </form>
+                </section>
+                <br /><br />
+                <div class="titulo"><span style="font-style:italic;">Historial de Arbitraje</span></div>
+                <hr />
+                {% if mensajes %}
+                
+                {% for i in mensajes %}
+                	<div style="background-color:#e5e598; border:1px solid #e5e598; height:22px; text-align:left;">
+                        <span style="text-align:left; margin-left:15px;">
+                            <div style="text-align:justify; font-size:13px;font-style:italic;"><b>({{ i.update }})</b>: {% if trab.directorio == i.userupdate.persona %} {% autoescape off %}{{ i.userupdate|removetags:"p"|safe }}{% endautoescape %} {% else %} Arbitro {% endif %}</div>
+                        </span>
+					</div>
+                    {% autoescape off %}{{ i.mensaje|removetags:"p"|safe }}{% endautoescape %}<br />
+                {% endfor %}
+                {% endif %}
+                <br />
+            </div>
+      	</div>
+       {% endif %}
+            </div>  
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                    {% if arbitro or coordinador2 %}
+                    <img src="/media/librerias/imgs/lista.jpg" width="120px" />
+                        <br />
+                    {% if arbitro and coordinador2 %}
+                    	<a href="/panel/arbitraje/eventos/activos/{{ trab.evento.id }}">
+                                Listado de trabajos asignados como arbitro
+                         </a><br />
+                         <a href="/panel/coordinador/eventos/activos/{{ trab.evento.id }}">
+                                Listado de trabajos postulados en el congreso
+                            </a><br />
+                    {% else %}
+                        {% if arbitro %}
+                            <a href="/panel/arbitraje/eventos/activos/{{ trab.evento.id }}">
+                                Listado de trabajos asignados como arbitro
+                            </a><br />
+                        {% endif %}
+                        {% if coordinador2 %}
+                            <a href="/panel/arbitraje/eventos/activos/{{ trab.evento.id }}">
+                                Listado de trabajos asignados como arbitro
+                         </a><br />
+                            <a href="/panel/coordinador/eventos/activos/{{ trab.evento.id }}">
+                                Listado de trabajos postulados en el congreso
+                            </a><br />
+                        {% endif %}
+                    {% endif %}
+
+                    {% else %}
+					<a href="/panel/eventos/ver/{{ trab.evento.id }}/">
+                    <img src="/media/librerias/imgs/lista.jpg" width="120px" />
+                        <br />
+                        Lista de Trabajos y Actividades
+                  	</a>
+                    {% endif %}
+                    	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    {% if arbitro or coordinador2 %}
+                        {% if formEstatus %}
+                            <br />
+                            <div id="noticias" style="width:218px; background-color:#e5e598; border:1px solid #cccc31;">
+                            Estatus de Arbitraje<br />
+                            <p style="margin-left:10px; margin-right:10px;text-align:left;">
+                            {% if arbitro.estatu == 1 or asignado.estatu == 1 %}
+                                Estatus Actual: <b style="color:#0C0;">Aprobado</b>
+                                {% if coordinador2 %}
+                                    <br />
+                                    Modificar:
+                                    {% if arbitro and coordinador2 %}
+                                        <form method="post" action="/panel/arbitraje/trabajos/estatus/{{ arbitro.id }}">
+                                    {% else %}
+                                        {% if arbitro %}
+                                            </form><form method="post" action="/panel/arbitraje/trabajos/estatus/{{ arbitro.id }}">
+                                        {% endif %}
+                                        {% if coordinador2 %}
+                                            </form><form method="post" action="/panel/arbitraje/trabajos/estatus/{{ asignado.id }}">
+                                        {% endif %}
+                                    {% endif %}
+                                        <input type="hidden" value="{{ formEstatus.arbitro.value }}" name="arbitro" id="id_arbitro" />
+                                        <input type="hidden" value="{{ formEstatus.trabajos.value }}" name="trabajos" id="id_trabajos" />
+                                        
+                                        {{ formEstatus.estatu }}
+                                        <input type="submit" value="aplicar" />
+                                        </form>
+                                {% endif %}
+                            {% endif %}
+                            {% if arbitro.estatu == 2 or asignado.estatu == 2 %}
+                                Estatus Actual: <b style="color:#F00;">Rechazado</b>
+                                {% if coordinador2 %}
+                                    <br />
+                                    Modificar:
+                                    {% if arbitro and coordinador2 %}
+                                        <form method="post" action="/panel/arbitraje/trabajos/estatus/{{ arbitro.id }}">
+                                    {% else %}
+                                        {% if arbitro %}
+                                            </form><form method="post" action="/panel/arbitraje/trabajos/estatus/{{ arbitro.id }}">
+                                        {% endif %}
+                                        {% if coordinador2 %}
+                                            </form><form method="post" action="/panel/arbitraje/trabajos/estatus/{{ asignado.id }}">
+                                        {% endif %}
+                                    {% endif %}
+                                        <input type="hidden" value="{{ formEstatus.arbitro.value }}" name="arbitro" id="id_arbitro" />
+                                        <input type="hidden" value="{{ formEstatus.trabajos.value }}" name="trabajos" id="id_trabajos" />
+                                        
+                                        {{ formEstatus.estatu }}
+                                        <input type="submit" value="aplicar" />
+                                        </form>
+                                {% endif %}
+                            {% endif %}
+                            {% if arbitro.estatu == 3 or asignado.estatu == 3 %}
+                                Estatus Actual: <b style="color:#06F;">Arbitrando</b>
+                                <br />
+                                Modificar:
+                                {% if arbitro and coordinador2 %}
+                                    <form method="post" action="/panel/arbitraje/trabajos/estatus/{{ arbitro.id }}">
+                                {% else %}
+                                    {% if arbitro %}
+                                        </form><form method="post" action="/panel/arbitraje/trabajos/estatus/{{ arbitro.id }}">
+                                    {% endif %}
+                                    {% if coordinador2 %}
+                                        </form><form method="post" action="/panel/arbitraje/trabajos/estatus/{{ asignado.id }}">
+                                    {% endif %}
+                                {% endif %}
+                                    <input type="hidden" value="{{ formEstatus.arbitro.value }}" name="arbitro" id="id_arbitro" />
+                                    <input type="hidden" value="{{ formEstatus.trabajos.value }}" name="trabajos" id="id_trabajos" />
+                                    
+                                    {{ formEstatus.estatu }}
+                                    <input type="submit" value="aplicar" />
+                                    </form>
+                            {% endif %}
+                            
+                            <p></p>
+                            </div>
+                            <div id="secCol-punta">
+                            </div>
+                        {% endif %}
+    				{% else %}
+                    
+                    {% endif %}
+                    
+                    {% if coordinador2 %}
+                        {% if formPublicacion %}
+                            <br />
+                            <div id="noticias" style="width:218px; background-color:#198182; border:1px solid #198182; color:#FFF;">
+                            Estatus de Publicación<br />
+                            <p style="margin-left:10px; margin-right:10px;text-align:left;">
+                                {% if coordinador2 %}
+                                    <form method="post" action="/panel/arbitraje/trabajos/estatus/publicacion/{{ trab.id }}">
+                                    {{ formPublicacion }}<br />
+                                    <input type="submit" value="aplicar" />
+                                    </form>
+                                {% endif %}
+                            <p></p>
+                            </div>
+                            <div id="secCol-punta">
+                            </div>
+                        {% endif %}
+    				{% else %}
+                    
+                    {% endif %}
+                    
+                    {% if arbitro or coordinador2 %}
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#bce8f1; color:#3a87ad;">
+					Datos del Autor<br />
+                    <p style="margin-left:10px; margin-right:10px;text-align:left;">
+                    <b>Nombre:</b> {{ trab.directorio.nombre }}<br />
+                    <b>Apellido:</b> {{ trab.directorio.apellido }}<br />
+                    <b>Cedula:</b> {{ trab.directorio.documentoidentidad }}<br />
+                    <b>Telefono:</b> {{ trab.directorio.telefono1 }}<br />
+                    <b>Telefono 2:</b> {{ trab.directorio.telefono2 }}<br />
+                    <b>Celular:</b> {{ trab.directorio.movil }}<br />
+                    <b>Fax:</b> {{ trab.directorio.fax }}<br />
+                    <b>Correo:</b> {{ trab.directorio.correo }}<br />
+                    
+                    </p>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+    				{% else %}
+                    
+                    {% endif %}
+                    
+                    {% if coordinador2 %}
+                    
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#8EC27C; color:#FFF;">
+					Datos del Arbitro<br />
+                    {% if asignado %}
+                    <p style="margin-left:10px; margin-right:10px;text-align:left;">
+                    <b>Nombre:</b> {{ asignado.arbitro.arbitro.nombre }}<br />
+                    <b>Apellido:</b> {{ asignado.arbitro.arbitro.apellido }}<br />
+                    <b>Cedula:</b> {{ asignado.arbitro.arbitro.documentoidentidad }}<br />
+                    <b>Telefono:</b> {{ asignado.arbitro.arbitro.telefono1 }}<br />
+                    <b>Telefono 2:</b> {{ asignado.arbitro.arbitro.telefono2 }}<br />
+                    <b>Celular:</b> {{ asignado.arbitro.arbitro.movil }}<br />
+                    <b>Fax:</b> {{ asignado.arbitro.arbitro.fax }}<br />
+                    <b>Correo:</b> {{ asignado.arbitro.arbitro.correo }}<br />
+                    <br />
+                    <a href="/manager/congresos/trabajoscongresos/{{ trab.id }}/">Cambiar Arbitro</a>
+                    
+                    </p>
+                    {% else %}
+                    <p style="margin-left:10px; margin-right:10px;text-align:left;">
+                    No hay arbitro asignado. <a href="/manager/congresos/trabajoscongresos/{{ trab.id }}/">Asignar</a>
+                    </p>
+                    {% endif %}
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    
+    				{% else %}
+                    
+                    {% endif %}
+                    
+                    
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#fcf8e3; color:#aa8749;">
+                    <b>Historial de Cambios</b>
+                    <p style="margin-left:10px; margin-right:10px;text-align:left;">
+					{% for i in historial %}
+                    	<b style="color:#aa8749;">{{ i.update|date:'Y-m-d H:i' }}:</b> {{ i.campo }}<br />
+                    {% empty %}
+                    	No hay Modificaciones registradas
+                    {% endfor %}
+                    {% if historial %}
+                    <a href="/panel/arbitraje/trabajos/modificaciones/{{ trab.id }}">+ ver mas</a>
+                    {% endif %}
+                    </p>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+    <script type="text/javascript" src="/media/librerias/editor/jquery.rte.js.pagespeed.jm.d00RQdGiCR.js"></script>
+
+<script type="text/javascript">$('.rte-zone').rte('','');</script>
+{% endblock %}
+</div>

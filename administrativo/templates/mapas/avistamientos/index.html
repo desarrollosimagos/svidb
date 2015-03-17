@@ -1,0 +1,105 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+{% if msm %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Registro procesado!</b>',
+		// (string | mandatory) the text inside the notification
+		text: 'La información ha sido registrada en el sistema. Gracias por participar en la Construcción Colectiva. SVIDB.',
+		// (string | optional) the image to display on the left
+		image: '/media/librerias/css/plantilla/notificaciones/css/AZ.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: ''
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta > Avistamientos
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Avistamientos
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		A través de los siguientes enlaces podrás contribuir con reportes de avistamiento de especies exóticas. Este material será analizado por la unidad correspondiente y será puesto a disposición del público a través de la publicación de un mapa de avistamiento por especie.
+<br /><br />
+Debes tratar de llenar los datos con la mayor precisión posible.
+                            <br /><br />
+                        </div>
+                           
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                            <table cellpadding="10" cellspacing="10" border="0">
+                            <tr>
+                            <td>
+                            <a href="/panel/avistamientos/lista"><img src="/media/librerias/css/plantilla/images/avistamiento1.png" /></a>
+                            </td>
+                            <td>
+                            <a href="/panel/avistamientos/add"><img src="/media/librerias/css/plantilla/images/nuevo.png" /></a>
+                            </td>
+                            </tr>
+                            <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                            	<td align="center">Ver Aportes</td>
+                                <td align="center">Nuevo Aporte</td>
+                            </tr>
+                            </table>
+                            <br />&nbsp;<br />
+                          </div>
+                         
+                            </div>
+                    </div>        
+
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+						
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

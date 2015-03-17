@@ -1,0 +1,207 @@
+{% if biblioteca %}
+Biblioteca({{ biblioteca.all.count }})
+<hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />
+{% for item in biblioteca %} 
+					{% if item.autores %}
+		                        <b style="color:#000;">Autores:</b><span style="font-style:italic">{{ item.autores }}</span>. 
+		                        {% endif %}
+		                        {% if item.fecha %}
+		                        <b style="color:#000;">Año:</b> <span style="font-style:italic">{{ item.fecha }}</span>. 
+		                        {% endif %}
+		                        {% if item.titulo %}
+		                        <b style="color:#000;">Titulo:</b> <span style="font-style:italic">{{ item.titulo }}</span>. 
+		                        {% endif %}
+		                        {% if item.edicion %}
+		                        <b style="color:#000;">Edicion:</b> <span style="font-style:italic">{{ item.edicion }}</span>. 
+		                        {% endif %}
+		                        {% if item.numerovolumen %}
+		                        <b style="color:#000;">Volumen:</b> <span style="font-style:italic">{{ item.numerovolumen }}</span>. 
+		                        {% endif %}
+		                        {% if item.numeropaginas %}
+		                        <b style="color:#000;">Pagina:</b> <span style="font-style:italic">{{ item.numeropaginas }} </span>. 
+		                        {% endif %}
+		                        {% if item.editorial %}
+		                        <b style="color:#000;">Editorial:</b> <span style="font-style:italic">{% autoescape off %}{{ item.editorial|removetags:"p"|safe }}{% endautoescape %}</span>
+		                        {% endif %}
+									<br>
+		                        {% if item.repositoriolinea %}
+		                        	<a target="new" href="/media/{{ item.repositoriolinea }}"><img src="/media/imgs/document_down.gif" /> Descargar</a>
+		                        {% endif %}<br><br><br>
+				{% endfor %}	
+{% endif %} 
+    
+{% if glosario %}
+ Glosario({{ glosario.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" /> 
+ {% for item in glosario %}
+<b>{{ item.nombre }}: </b>{{ item.definicion|removetags:"p b span br"|safe }}<br><br>
+            {% endfor %}
+{% endif %} 
+
+{% if biorregion %}
+ Biorregiones({{ biorregion.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />  
+ {% for item in biorregion %}
+					{{ item.nombre }}<br>
+			{% endfor %}
+{% endif %} 
+
+{% if mapas %}
+ Mapas({{ mapas.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+ {% for item in mapas %}
+					<a href="/panel/mapas/visual/1/{{ item.id }}/" style="cursor:pointer;">{{ item.nombre }}</a><br>
+			{% endfor %}
+{% endif %} 
+
+{% if Categoria %}
+ Secciones({{ Categoria.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+ {% for item in Categoria %}
+<a href='{{ item.vinculo|removetags:"p b span br"|safe  }}' style="cursor:pointer;">{{ item.titulo }}</a><br>
+			{% endfor %}
+{% endif %} 
+
+{% if subCategoria %}
+<br />
+ Categorias({{ subCategoria.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+ {% for item in subCategoria %}
+					<span onclick="loadFile('{{ item.vinculo|removetags:"p b span br"|safe  }}','_parent', 'width=750,height=600');" style="cursor:pointer;">{{ item.nombre }}</span><br>
+			{% endfor %}
+{% endif %} 
+
+{% if eventos %}
+ Eventos({{ eventos.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />   
+ {% for item in eventos %}
+					{{ item }}<br>
+			 {% endfor %}	
+{% endif %} 
+
+
+{% if banco %}
+ Banco Audiovisual({{ banco.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />    
+                 {% for item in banco %}
+					<table style="margin-right:10px;">
+					<tr><td rowspan="4">
+					<!--<a href="/panel/bancoaudio/visual/1/{{ item.id }}/" style="cursor:pointer;"><img src="/media/{{ item.retorno_nombre }}.157_118{{ item.retorno_extencion }}" width="157px" height="118px"/></a>-->
+                    <img src="/media/{{ item.retorno_nombre }}.157_118{{ item.retorno_extencion }}" width="157px" height="118px"/>
+					</td><td>
+						{{ item.get_tipo_display}}
+					</td></tr>
+					<tr><td>
+						<b> ({{ item.directorio.nombre }} {{ item.directorio.apellido }} )</b>  
+					</td></tr>
+					<tr><td>
+						{{ item.fecha }}
+					</td></tr>
+                    <tr>
+                    	<td>&nbsp;</td>
+                    </tr>
+					</table>
+				{% endfor %}
+{% endif %} 	
+
+
+{% if actor %}
+ Actores({{ actor.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />   
+ {% for item in actor %}
+<a href="/actores/ficha/{{ item.id }}/" style="cursor:pointer;">{{ item.nombre_completo }}</a><br>
+				{% endfor %}
+{% endif %} 
+
+
+{% if etnias %}
+ Pueblos Originarios({{ etnias.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />  
+ {% for item in etnias %}
+					<a href="/actores/ficha/{{ item.id }}/" style="cursor:pointer;">{{ item.nombre }}</a><br>
+				{% endfor %}
+{% endif %} 
+
+
+{% if areas %}
+ Areas({{ areas.all.count }})  
+ <hr style=" border-top:1px solid #999; border-left:none; border-right:none;" />     
+ {% for item in areas %}
+<a href="/areas/ficha/{{ item.id }}/" style="cursor:pointer;">
+					<span style="font-style:italic; font-size:12px;" class="titulo1">{{ item.categoriact.titulo }}</span>
+					{{ item.nombre }}</a>
+					<br>
+			{% endfor %}	
+{% endif %} 
+
+{% if taxon_id %}
+		{% if taxon.subtipo.id < 26 %}
+                    	<a href="/especies/ficha/7/{{ taxon.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">{{ taxon.nombrecomun }}  ({{ taxon.nombre }})</span></a>
+                    {% endif %}
+                    {% if taxon.subtipo.id == 26 %}
+                    {{ taxon.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ taxon.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ taxon.taxonrelax.nombre }} {{ taxon.nombre }})</span></a>
+                    {% endif %}
+                    {% if taxon.subtipo.id > 26 %}
+                    {{ taxon.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ taxon.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ taxon.taxonrelax.taxonrelax.nombre }} {{ taxon.taxonrelax.nombre }} {{ taxon.nombre }})</span></a>
+                    {% endif %}
+        {% if taxon.detalletaxon.espexot %}
+            <a href="/especies/ficha/7/{{ taxon.id }}" style="color:RED;cursor:pointer;">EX</a>
+        {% endif %}
+        {% if taxon.detalletaxon.esptraf %}
+            <a href="/especies/ficha/11/{{ taxon.id }}" style="color:BLUE;cursor:pointer;">TR</a>
+        {% endif %}
+        {% if taxon.detalletaxon.espaprove %}
+            <a href="/especies/ficha/8/{{ taxon.id }}" style="color:RED;cursor:pointer;">AS</a>
+        {% endif %}
+        {% if taxon.detalletaxon.espsalud %}
+            <a href="/especies/ficha/10/{{ taxon.id }}" style="color:GREEN;cursor:pointer;">SH</a>
+        {% endif %}
+        {% if taxon.detalletaxon.esppeligr %}
+            <a href="/especies/ficha/6/{{ taxon.id }}" style="color:RED;cursor:pointer;">PE</a>
+        {% endif %}
+        {% if taxon.detalletaxon.espagrico %}
+            <a href="/especies/ficha/9/{{ taxon.id }}" style="color:GREEN;cursor:pointer;">AG</a>
+        {% endif %}
+	
+{% else %}
+		             {% regroup taxon by subtipo as lista %}
+         {% for item2 in lista %}
+         <br />{{ item2.grouper.nombre }} ({{ item2.list|length }})<hr />
+             {% for item in item2.list %}
+                    {% if item.subtipo.id < 26 %}
+                    	<a href="/especies/ficha/7/{{ item.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ item.nombre }})</span></a>
+                    {% endif %}
+                    {% if item.subtipo.id == 26 %}
+                    {{ item.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ item.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</span></a>
+                    {% endif %}
+                    {% if item.subtipo.id > 26 %}
+                    {{ item.nombrecomun }} 
+                    	<a href="/especies/ficha/7/{{ item.id }}" style="cursor:pointer;"><span style="font-style:italic; font-size:13px;">({{ item.taxonrelax.taxonrelax.nombre }} {{ item.taxonrelax.nombre }} {{ item.nombre }})</span></a>
+                    {% endif %}
+                    
+                    
+                    {% if item.detalletaxon.espexot %}
+                        <a href="/especies/ficha/7/{{ item.id }}" style="color:RED;cursor:pointer;">EX</a>
+                    {% endif %}
+                    {% if item.detalletaxon.esptraf %}
+                        <a href="/especies/ficha/11/{{ item.id }}" style="color:GREEN;cursor:pointer;">TR</a>
+                    {% endif %}
+                    {% if item.detalletaxon.espaprove %}
+                        <a href="/especies/ficha/8/{{ item.id }}" style="color:RED;cursor:pointer;">AS</a>
+                    {% endif %}
+                    {% if item.detalletaxon.espsalud %}
+                        <a href="/especies/ficha/10/{{ item.id }}" style="color:GREEN;cursor:pointer;">SH</a>
+                    {% endif %}
+                    {% if item.detalletaxon.esppeligr %}
+                        <a href="/especies/ficha/6/{{ item.id }}" style="color:RED;cursor:pointer;">PE</a>
+                    {% endif %}
+                    {% if item.detalletaxon.espagrico %}
+                        <a href="/especies/ficha/9/{{ item.id }}" style="color:GREEN;cursor:pointer;">AG</a>
+                    {% endif %}<br>
+                    
+            {% endfor %}
+        {% endfor %}	
+{% endif %}

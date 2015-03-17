@@ -1,0 +1,75 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta -> Estadisticas -> Eventos -> Activos
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+<br />
+					<div style="margin-left:25px; margin-right:25px;">
+                  <div class="titulo"><span style="font-style:italic;">Arbitraje</span></div>
+                  	<div style="text-align:justify; font-size:13px;">
+                    <div style="background-color:#e5e598; border:1px solid #cccc31; height:50px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                  					Trabajo id: {{ trabajos.id }}<br />
+                                    </span>
+                                    <span style="text-align:left; margin-left:15px;">
+                                    Autor: {{ trabajos.directorio }}<br />
+                                    </span>
+                                </div>
+                  	
+					</div>
+                    <br />
+					<b>Historial de Modificaciones en Resumenes</b><br />
+                    <hr /><br />
+					
+                        {% for i in historial %}
+                        	<div style="background-color:#e5e598; border:1px solid #e5e598; height:22px; text-align:left;">
+                                <span style="text-align:left; margin-left:15px;">
+                                    <div style="text-align:justify; font-size:13px;font-style:italic;"><b>({{ i.update }})</b>: {% autoescape off %}{{ i.userupdate|removetags:"p"|safe }}{% endautoescape %}</div>
+                                </span>
+							</div>  
+                            {{ i.campo }}: {% autoescape off %}{{ i.modificacion|removetags:"p"|safe }}{% endautoescape %}<br />                      
+                        {% empty %}
+                           <br /> Actualmente no hay modificaciones
+                        {% endfor %}
+						<br />
+                         <br /><br />
+                         </div>
+                         </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+<h1><span style="color:#09F">Arbol Taxonomico</span></h1>
+<hr>
+<table>
+	<tr>
+    	<td>
+            {% for item in escalera %}
+                {% if item.nombre = 'Subespecie' %}
+      				<ul><li><span style="color:#999">{{ item.posicion }} - {{ item.nombre }}</span></li></ul>
+                {% else %}
+                	{% if item.nombre = 'Variedad' %}
+      					<ul><li><span style="color:#999">{{ item.posicion }} - {{ item.nombre }}</span></li></ul>
+                	{% else %}
+                        {% if item.nombre = 'Raza' %}
+                            <ul><li><span style="color:#999">{{ item.posicion }} - {{ item.nombre }}</span></li></ul>
+                        {% else %}
+                            <ul><li>
+                            {% if item.prin %}
+                            <span style="color:#09F">
+                            {% else %}
+                            <span style="color:#999">
+                            {% endif %}
+                            {{ item.posicion }} - {{ item.nombre }}
+                            </span>
+						{% endif %}
+                	{% endif %}
+              	{% endif %}
+			{% empty %}
+				No hay Registros
+			{% endfor %}
+            
+            {% for item in escalera %}
+			    {% if item.nombre = 'Subespecie' %}
+      			
+                {% else %}
+                	{% if item.nombre = 'Variedad' %}
+      				
+                	{% else %}
+                        {% if item.nombre = 'Variedad' %}
+                    
+                        {% else %}
+                            </li></ul>
+						{% endif %}
+                	{% endif %}
+              	{% endif %}
+			{% empty %}
+				No hay Registros
+			{% endfor %}
+            </ul>
+        </td>
+    </tr>
+</table>

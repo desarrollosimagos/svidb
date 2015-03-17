@@ -1,0 +1,122 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #ce6631; background:url(/media/css/plantilla/images/bbcuenta.png) top repeat-x;">
+                	<br />
+                  	<div class="titulo" style="margin-left:25px; margin-left:25px;"><span style="font-style:italic;">¡Hola!</span></div>
+                  	<div style="text-align:justify; font-size:13px;margin-left:25px; margin-left:25px;"><b>Bienvenido al panel de usuarios del Sistema Venezolano de Información sobre la Diversidad Biológica</b></div>
+                  <br />
+				  <table width="735px" style="border:none;" cellpadding="5" cellspacing="5">
+                  	<tr>
+                    	<td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/mis_datos.php"><img src="/media/css/plantilla/images/datos.png" /></a>
+                        </td>
+                        <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/mis_publicaciones.php"><img src="/media/css/plantilla/images/aportes.png" /></a>
+                        </td>
+                        <td  align="center" width="236px">
+                        	<!--<a href="/eventos.php"><img src="/media/css/plantilla/images/mensajes.png" /></a>-->
+                        </td>
+                    </tr>
+
+                    <tr>
+                    	<td  align="center" style="border:1px #ce6631 solid;">
+                        	<a href="/mensajes.php?page=1"><img src="/media/css/plantilla/images/mensajes.png" /></a>
+                        </td>
+                        <td  align="center" colspan="2">
+							{% if mensajes %}
+                            <div style="width:472px; background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        <a href="/mensajes.php?page=1">Mensajes</a> <b style="font-style:italic;">({{ mensajes }})</b>
+                                    </span>
+                                </div>
+                            <br />
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td colspan="3"><br /></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="3"><span style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold;">Eventos</span></td>
+                    </tr>
+                  	<tr>
+                    	<td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/eventos.php"><img src="/media/css/plantilla/images/eventos.png" /></a>
+                        </td>
+                        <td  align="center" colspan="2">
+							{% if eventos_activos %}
+                            <div style="width:472px; background-color:#B4FEBF; border:1px solid #86F294; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        Tenemos eventos activos, te invitamos a revisar y participar.
+                                    </span>
+                                </div>
+                            <br />
+                            {% endif %}
+                        </td>
+                    </tr>
+                  </table>
+                  {% if actores %}
+                  <br /><br />
+                  <b style="font-style:italic;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold;">Actores Colectivos Asociados a su usuario</b>
+                  <br />
+                      {% for field in actores %}
+                      		&nbsp;&nbsp;<b>{{ field.nombre_completo }} - {{ field.nombre }}</b>
+                          <table width="735px" style="border:none;" cellpadding="5" cellspacing="5">
+                            <tr>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/mis_datos.php"><img src="/media/css/plantilla/images/organizaciond.png" /></a>
+                                </td>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/mis_publicaciones.php"><img src="/media/css/plantilla/images/miembros.png" /></a>
+                                </td>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/eventos.php"><img src="/media/css/plantilla/images/noticias1.png" /></a>
+                                </td>
+                            </tr>
+                          </table>
+                          <br />
+                      {% endfor %}
+                  {% endif %}	
+                  </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+						
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

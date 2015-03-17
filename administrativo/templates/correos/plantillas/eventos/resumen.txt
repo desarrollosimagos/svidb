@@ -1,0 +1,5 @@
+<h1 style="font-size:16px; color:#000;">Sistema de Notificaciones SVIDB</h1>
+Estimado {{ nombre }} {{ apellido }}<br>
+Gracias por su registro en el <b>{{ congreso }}</b><br><br>
+Has registrado satisfactoriamente el resumen <b>{% autoescape off %}{{ titulo|removetags:"b span p"|safe }}{% endautoescape %}</b> en la modalidad de <b>{{ modalidad }}</b>, tu trabajo será arbitrado a la brevedad, esta atento a este proceso.<br><br>
+Una vez arbitrado te notificaremos por este mismo medio, adicionalmente puedes ver el estatus en tu cuenta del Sistema Venezolano de Información sobre Diversidad Biológica.

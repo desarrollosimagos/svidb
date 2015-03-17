@@ -1,0 +1,163 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+
+
+<script>
+$(document).ready(function() {
+ 
+/* see if anything is previously checked and reflect that in the view*/
+/*$(".checklist input:checked").parent().addClass("selected");*/
+ 
+/* handle the user selections */
+$(".checklist .checkbox-select").click(
+
+function(event) {
+/*	alert('select');*/
+event.preventDefault();
+$(select).parent().removeClass("selected");
+$(this).parent().addClass("selected");
+$(this).parent().find(":checkbox").attr("checked","checked");
+ 
+}
+);
+ 
+$(".checklist .checkbox-deselect").click(
+function(event) {
+	/*alert('cancel');*/
+event.preventDefault();
+$(this).parent().removeClass("selected");
+$(this).parent().find(":checkbox").removeAttr("checked");
+ 
+}
+);
+ 
+});
+</script>
+<style>
+legend {
+font-size: 17px;
+}
+ 
+fieldset {
+border: 0;
+}
+ 
+.checklist {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+ 
+.checklist li {
+float: left;
+margin-right: 10px;
+background: url(/media/librerias/css/plantilla/select/checkboxbg.gif) no-repeat 0 0;
+width: 105px;
+height: 150px;
+position: relative;
+font: normal 11px/1.3 &amp;quot;Lucida Grande&amp;quot;,&amp;quot;Lucida&amp;quot;,&amp;quot;Arial&amp;quot;,Sans-serif;
+}
+ 
+.checklist li.selected {
+background-position: -105px 0;
+}
+ 
+.checklist li.selected .checkbox-select {
+display: none;
+}
+ 
+.checkbox-select {
+display: block;
+float: left;
+position: absolute;
+top: 118px;
+left: 10px;
+width: 85px;
+height: 23px;
+background: url(/media/librerias/css/plantilla/select/select.gif) no-repeat 0 0;
+text-indent: -9999px;
+}
+ 
+.checklist li input {
+display: none;
+}
+ 
+a.checkbox-deselect {
+display: none;
+color: white;
+font-weight: bold;
+text-decoration: none;
+position: absolute;
+top: 120px;
+right: 10px;
+}
+ 
+.checklist li.selected a.checkbox-deselect {
+display: block;
+}
+ 
+.checklist li label {
+display: block;
+text-align: center;
+padding: 8px;
+}
+ 
+.sendit {
+display: block;
+float: left;
+top: 118px;
+left: 10px;
+width: 115px;
+height: 34px;
+border: 0;
+cursor: pointer;
+background: url(/media/librerias/css/plantilla/select/sendit.gif) no-repeat 0 0;
+text-indent: -9999px;
+margin: 20px 0;
+}
+</style>
+<div style="width:680px;">
+								<fieldset>
+									<legend><img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                    Lista de Especies Exoticas</legend>
+										<ul class="checklist">                                
+										{% if mesn %}
+											{% for lista in mesn.object_list %}
+											<li style="margin-top:10px;">
+												<input id="cj" name="jc" type="checkbox">
+												<label for="choice_a" style="font-size:10px;">
+                                                {{ lista.taxonrelax.nombre  }}
+                                                {{ lista.nombre  }}
+                                                {{ lista.nombrecomun  }} ({{ lista.numeroavistamientos }})<br />	
+                                                {% if lista.detalletaxon.bancoaudio.all.0.pathimg %}
+                                                	<img src="/media/{{ lista.detalletaxon.bancoaudio.all.0.retorno_nombre }}.157_118{{ lista.detalletaxon.bancoaudio.all.0.retorno_extencion }}" width="60px" />
+                                                {% else %}
+            										<span style="color:#333; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:45px;">
+                                	:(
+                                </span>
+                                                {% endif %}
+                                                </label>
+												<a class="checkbox-select" href="#" id="select" onclick="colocar({{ lista.id  }})">Select</a>
+												<a class="checkbox-deselect" href="#" id="cancel">Cancel</a></li>
+                            				{% endfor %}
+                                           
+                  						{% endif %}
+										</ul>
+								</fieldset>  
+								{% if mesn %}
+                            		<br>
+                    				<div class="pagination">
+                        				<span class="step-links">
+                            				{% if mesn.has_previous %}
+                                				<a onClick="cargarpagina({{ mesn.previous_page_number }})" style="cursor:pointer;">Anterior</a>
+                            				{% endif %}
+                            				<span class="current">
+                                				Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+                            				</span>
+                    
+                            				{% if mesn.has_next %}
+                                				<a onClick="cargarpagina({{ mesn.next_page_number }})" style="cursor:pointer;">Proximo</a>
+                            				{% endif %}
+                        				</span>
+                    				</div>
+								{% endif %}
+                                </div>

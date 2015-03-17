@@ -1,0 +1,336 @@
+{% extends "completo.html"%}
+
+{% block js %}
+{% endblock %}
+
+{% block jscript %}
+  
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/media/librerias/slider/js/jquery-ui-1.7.2.custom.min.js" ></script>
+<script type="text/javascript">		
+	var limite = 0;
+	var capa = 0
+	var cant = 0;
+	function cargarFiltro(){
+		limitea = 0 + 0;
+		capaa = 0 + 0;
+		if (document.getElementById("loading"+capaa)){
+		limite=limite + 100;
+		capa =  capa + 1;
+        document.getElementById("loading"+capa).innerHTML="<table width=\"100%\"><tr><td align=\"center\"><img src=\"/media/librerias/css/taxon/load2.gif\"></td></tr></table>";
+		$("#loading"+capa).load('{{ url }}'+limite+'/'+capa);
+		}else{
+			//alert('No hay capa'+capaa);	
+		}
+	}
+	
+	$(window).scroll(function(){
+    if ($(window).scrollTop() == $(document).height()-$(window).height()){
+		limitea=limite + 100;
+		capaa =  capa + 1;
+		if (document.getElementById("loading"+capaa)){
+		limite=limite + 100;
+		capa =  capa + 1;
+        document.getElementById("loading"+capa).innerHTML="<table width=\"100%\"><tr><td align=\"center\"><img src=\"/media/librerias/css/taxon/load2.gif\"></td></tr></table>";
+		$("#loading"+capa).load('{{ url }}'+limite+'/'+capa+'/'+'{{ principal.id }}');
+		}else{
+			//alert('No hay capa'+capaa);	
+		}
+    }
+});
+
+</script>
+{% endblock %}
+
+{% block cssScript %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/select.css" />
+<link rel="stylesheet" href="/media/librerias/galeria/css/galleriffic-3.css" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    	width:100%;
+		height:25px;
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		font-weight:bold;
+		font-size:12px;
+    
+}
+.button2
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+		height:25px;
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		font-weight:bold;
+		font-size:12px;
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button2, .button2 span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#000;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button2 span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#000;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #0099CC;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+.button-blue2
+{
+    background:#E6E6E6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#E6E6E6), to(#E6E6E6) );
+    background: -moz-linear-gradient(-90deg, #E6E6E6, #E6E6E6);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#E6E6E6', endColorstr='#E6E6E6');
+	color:#1A1A1A;
+}
+
+.button2-blue
+{
+    background: #0099CC; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+.button-amarillo
+{
+    background:#F90; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F90), to(#F90) );
+    background: -moz-linear-gradient(-90deg, #F90, #F90);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F90', endColorstr='#F90');
+	color:#FFF;
+}
+.button-biorregiones
+{
+    background:#F60; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F60), to(#F60) );
+    background: -moz-linear-gradient(-90deg, #F60, #F60);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F60', endColorstr='#F60');
+	color:#FFF;
+}
+
+.button2-naranja
+{
+    background:#36C; /*ffcc99*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#36C), to(#36C) );
+    background: -moz-linear-gradient(-90deg, #36C, #36C);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#36C', endColorstr='#36C');
+	color:#FFF;
+} 
+
+.button-origenes
+{
+    background:#090;
+    background: -webkit-gradient(linear, left top, left bottom, from(#090), to(#090) );
+    background: -moz-linear-gradient(-90deg, #090, #090);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#090', endColorstr='#090');
+	color:#FFF;
+}
+
+.button-azul
+{
+    background: #0099CC; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+
+.button-morado
+{
+    background:#936; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#936), to(#936) );
+    background: -moz-linear-gradient(-90deg, #936, #936);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#936', endColorstr='#936');
+	color:#FFF;
+}
+
+
+p{
+	color:#4D4D4D;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+</style>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#0099CC; border:1px solid #0099CC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px; color:#FFF; ">
+                    	{{ principal.titulo }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #0099CC; background:url(/media/librerias/css/plantilla/images/bbtaxon.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;">
+                        	<span style=" font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:22px; color:#1A1A1A; text-align:center; font-weight:bold; ">
+                  				{{ principal.titulo }}
+                  			</span>
+                            <!--<hr align="center" style="margin-left:250px; margin-right:250px; background:#0099CC; border:1px solid #0099CC;" />-->
+                        </div>
+                        <div style="text-align:justify;margin-left:25px; margin-right:25px; color:#4D4D4D; ">
+                  			{% autoescape off %}{{ principal.descri}}{% endautoescape %}<br>
+                         </div>
+
+                       	<div style="text-align:justify;margin-left:25px; margin-right:25px; ">   
+                        {% if usuario.is_staff %}
+                        
+                        <a class="button2 button-blue2"><span>Activo <img src="/static/admin/img/admin/icon-yes.gif" alt="True"></span></a>
+                        &nbsp;<a class="button2 button-blue2"><span>Inactivo <img src="/static/admin/img/admin/icon-no.gif" alt="False"></span></a>
+                        &nbsp;<a class="button2 button-blue2"><span>Pendiente <img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></span></a>
+                        &nbsp;<a class="button2 button-blue2"><span>Sin Colaboración</span></a>
+                        
+                        {% endif %}
+                        <br />   
+                        	<div id="loading0">                  
+                            {% for item in taxon %}
+                            	{% if item.subtipo.id >= 26 %}
+                                	{% if usuario.is_staff %}
+                                    	<!-- Si tiene una colaboracion -->
+                                    	{% for item2 in item.colaboradorespersonas_set.all %}
+                                        	 
+                                            {% if item2.tipoColaboracion.id == 9 %}
+                                            {% with item.id as idAnterior %}
+                                            		{% if item2.estatu == 0 %}
+                                                    	<a href="/especies/ficha/{{ principal.id }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/static/admin/img/admin/icon-yes.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+                                                    {% if item2.estatu == 1 %}
+                                                    	 <a href="/especies/ficha/{{ principal.id }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/static/admin/img/admin/icon-no.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+                                                    {% if item.estatu == 2 %}
+                                                    	<a href="/especies/ficha/{{ principal.id }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/media/imgs/icon-pendiente.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+                                                    {% if item.estatu == 3 %}
+                                                    	<a href="/especies/ficha/{{ principal.id }}/{{ item.id }}" class="button button-blue2"><span style="background:right url(/media/librerias/imgs/icon-pendiente.gif) no-repeat; background-position:10px;">{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                    {% endif %}
+											{% endwith %}
+                                            {% else %}
+                                                    {% if forloop.first %}
+                                                    	{% if idAnterior == item.id %}
+                                                        
+                                                        {% else %}
+                                                        <a href="/especies/ficha/{{ principal.id }}/{{ item.id }}" class="button button-blue2"><span >{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                                        {% endif %}
+                                                    {% endif %}
+                                            {% endif %}
+                                            
+                                        {% empty %}
+                                        <!-- Si no tiene Colaboracion-->
+                                        	<a href="/especies/ficha/{{ principal.id }}/{{ item.id }}" class="button button-blue2"><span>{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                        {% endfor %}
+                                    {% else %}
+                                    <!-- Si no es un usuario admin -->
+                                    	<a href="/especies/ficha/{{ principal.id }}/{{ item.id }}" class="button button-blue2"><span>{{ item.nombrecomun }} <b style="font-style:italic;">({{ item.taxonrelax.nombre }} {{ item.nombre }})</b></span></a>
+                                    {% endif %}
+                                {% endif %}
+                              {% empty %}
+                             	No hay registros
+                             {% endfor %}
+                             </div>
+						</div>
+                        {% if taxon.count >= 100 %}
+                        <div id="loading1">
+                        </div>                        
+                        {% endif %}
+
+                        <br>    
+                        <br>
+                    	
+                    </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                {% if persona %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% else %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+				<br />
+                <span style="margin-left:25px; margin-right:25px;">Te invitamos a que inicies tu sesion y asi poder disfrutar de mas opciones <a href="/perfil">Iniciar Sesión</a></span>
+                <br />
+                <br />
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endif %}
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+<script>
+	function menu(){
+		document.getElementById('especies').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+{% endblock %}

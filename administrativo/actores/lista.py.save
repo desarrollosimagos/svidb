@@ -1,0 +1,19 @@
+import random
+indice = 0
+resultados=[]
+contador=0
+ 
+dados = 1000
+caras = 2012
+ 
+#genera las tiradas
+while indice< dados:
+		x=random.randint(1,caras)
+		resultados.append(x)
+		indice = indice+1
+#ordena la lista
+resultados.sort()
+ 
+#imprime los resultados
+for x in range(len(resultados)-1,-1,-1):
+	print resultados[x]

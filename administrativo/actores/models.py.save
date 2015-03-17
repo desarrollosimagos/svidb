@@ -1,0 +1,131 @@
+# -*- coding: utf8
+from django.db import models
+from gestion.models import *
+from demografia.models import *
+from linea.models import *
+from documentos.models import *
+from smart_selects.db_fields import ChainedForeignKey 
+
+# Create your models here.
+
+class Organismoadscritos(models.Model):
+    nombre = models.CharField(max_length=300,verbose_name='Nombre')
+    telefono = models.CharField(max_length=135, blank=True,verbose_name='Telefono')
+    direccion = models.TextField(blank=True,verbose_name='Dirección')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User,verbose_name='Usted es?')
+    estatu = models.ForeignKey(Estatus,verbose_name='Estaus')
+    class Meta:
+        db_table = u'organismoAdscritos'
+        verbose_name_plural='Organismos Adscritos'
+    def __unicode__(self):
+        return u"%s" %(self.nombre)
+
+class Horariodetalles(models.Model):
+    dia = models.CharField(max_length=135, blank=True,verbose_name='Dias')
+    horarentrada = models.TimeField(db_column='horarEntrada', blank=True,verbose_name='Hora de Entrada')
+    horasalida = models.TimeField(db_column='horaSalida', blank=True,verbose_name='Hora de Salida')
+    horadescanso = models.TimeField(db_column='horaDescanso', blank=True,verbose_name='Hora de Descanso')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User,verbose_name='Usted es?')
+    estatu = models.ForeignKey(Estatus,verbose_name='Estaus')
+    class Meta:
+        db_table = u'horarioDetalles'
+        verbose_name_plural='Horarios Detalles'
+    def __unicode__(self):
+        return u"%s %s %s" %(self.dia, self.horarentrada, self.horasalida)
+
+class Tipoareaaccions(models.Model):
+    nombre = models.CharField(max_length=50,verbose_name='Nombre')
+    descripcion = models.TextField(blank=True,verbose_name='Descripción')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User,verbose_name='Usted es?')
+    estatu = models.ForeignKey(Estatus,verbose_name='Estaus')
+    class Meta:
+        db_table = u'tipoAreaAccions'
+        verbose_name_plural='Tipos Areas de Accion'
+    def __unicode__(self):
+        return u"%s" %(self.nombre)
+
+class TipoColecciones(models.Model):
+    nombre = models.CharField(max_length=50,verbose_name='Nombre')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User,verbose_name='Usted es?')
+    class Meta:
+        db_table = u'tipoColecciones'
+        verbose_name_plural='Tipo de Colecciones'
+    def __unicode__(self):
+        return u"%s" %(self.nombre)
+
+class Directorios(models.Model):
+    documentoidentidaddocumentoidentidad = models.CharField(max_length=135, db_column='documentoIdentidad', verbose_name='Documento de Identidad')
+    areasaccion = models.ManyToManyField(Tipoareaaccions,related_name='Areas de Accion',help_text=u"Por nombre",verbose_name='Areas de Accion')
+    nombre = models.CharField(max_length=180,verbose_name='Nombre')
+    apellido = models.CharField(max_length=180,verbose_name='Apellido')
+    correo = models.EmailField(verbose_name='Correo Electronico')
+    telefono1 = models.CharField(max_length=135, blank=True,verbose_name='Telefono #1')
+    telefono2 = models.CharField(max_length=135, blank=True, verbose_name='Telefono #2')
+    fax = models.CharField(max_length=135, blank=True,verbose_name='Fax')
+    movil = models.CharField(max_length=135, blank=True,verbose_name='Telefono Movil')
+    sector = models.TextField(blank=True,verbose_name='Sector')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    pai = models.ForeignKey(Pais,verbose_name='Pais')
+    estado = ChainedForeignKey(Estados,chained_field="pai",chained_model_field="pai",show_all=False,auto_choose=True,verbose_name='Estado')
+    municipio = ChainedForeignKey(Municipios,chained_field="estado",chained_model_field="estado",verbose_name='Municipio')
+    parroquia = ChainedForeignKey(Parroquias,chained_field="municipio",chained_model_field="municipio",verbose_name='Parroquia')
+    correobool = models.BooleanField(db_column='correoBool', blank=True, verbose_name='Enviar correos?')
+    suscritobool = models.BooleanField(db_column='suscritoBool', blank=True,verbose_name='Suscribir?')
+    gruposespecie = models.TextField(db_column='gruposEspecie', blank=True, verbose_name='Grupos de Especie')
+    localidadesaccion = models.TextField(db_column='localidadesAccion', blank=True, verbose_name='Localidad de Accion')
+    userupdate = models.ForeignKey(User,verbose_name='Usted es?')
+    estatu = models.ForeignKey(Estatus,verbose_name='Estaus')
+    class Meta:
+        db_table = u'directorios'
+        verbose_name_plural='Personas'
+        #app_label = 'Personas'
+    def __unicode__(self):
+        return u"%s  - %s %s" %(self.documentoidentidad, self.nombre, self.apellido)
+
+class Actores(models.Model):
+    tiposAreasAccion = models.ManyToManyField(Tipoareaaccions,related_name='Areas de Acciones',help_text=u"Por nombre",verbose_name='Areas de Accion')
+    horarios = models.ManyToManyField(Horariodetalles,verbose_name='Horarios',null=True, blank=True)
+#    organismos = models.ManyToManyField(Organismoadscritos,verbose_name='Organismos Adscritos')
+    fund = models.ManyToManyField(Fundamentos,verbose_name='Fundamentos')
+    documentos = models.ManyToManyField(Bibliotecas,verbose_name='Documentos Asociados',null=True, blank=True)
+    ambitoaccion = models.CharField(choices=(('0','Global'),('1','Nacional'),('2','Regional'),('3','Municipal'),('3','Local')),max_length=10, blank=True,verbose_name='Ambito de Acción')
+    principalesorgfinan = models.TextField(db_column='principalesOrgFinan', blank=True,verbose_name='Princ. Organismos Financieros')
+    objetivos = models.TextField(blank=True,verbose_name='Objetivos')
+    publicacionesPeriodicas = models.TextField(blank=True,verbose_name='Objetivos')
+    aniofundacion = models.CharField(max_length=5,null=True, db_column='anioFundacion', blank=True,verbose_name='Año de Fundación')
+    telefono = models.CharField(max_length=60, blank=True,verbose_name='Telefono')
+    coordenadas = models.CharField(max_length=135, blank=True,verbose_name='Coordenadas')
+    rif = models.CharField(max_length=135, blank=True,verbose_name='RIF')
+    siglas = models.CharField(max_length=135, blank=True,verbose_name='Siglas')
+    nombre = models.TextField(blank=True,verbose_name='Nombre')
+    direccion = models.TextField(blank=True,verbose_name='Dirección')
+    pai = models.ForeignKey(Pais,verbose_name='Pais')
+    estado = ChainedForeignKey(Estados,chained_field="pai",chained_model_field="pai",show_all=False,auto_choose=True,verbose_name='Estado')
+    municipio = ChainedForeignKey(Municipios,chained_field="estado",chained_model_field="estado",verbose_name='Municipio')
+    parroquia = ChainedForeignKey(Parroquias,chained_field="municipio",chained_model_field="municipio",verbose_name='Parroquia')
+#    parroquia = models.ForeignKey(Parroquias)
+    correo = models.CharField(max_length=150, blank=True,verbose_name='Correo Electronico')
+    reseniahistorica = models.TextField(db_column='reseniaHistorica', blank=True, verbose_name='Reseña Historica')
+    grupobio = models.TextField(db_column='grupoBio', blank=True, verbose_name='Grupo Biologico')
+
+    tipocolec = models.ForeignKey(TipoColecciones,verbose_name='Tipo de Colecciones',null=True,blank=True)
+
+    particularidades = models.TextField(blank=True,verbose_name='Particularidades')
+    actinteres = models.TextField(db_column='actInteres', blank=True, verbose_name='Programas y Proyectos')
+    numeromiembros = models.IntegerField(null=True, db_column='numeroMiembros', blank=True, verbose_name='Numero de Miembros')
+    tipoorganizacion = models.ForeignKey(Tipoorganizacions, null=True, db_column='tipoOrganizacion_id', blank=True,verbose_name='Tipo de Organizacion')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User,verbose_name='Usted es?')
+    estatu = models.ForeignKey(Estatus,verbose_name='Estaus')
+    nombre_completo = models.TextField(verbose_name='Nombre Completo')
+
+    directorio = models.ForeignKey(Directorios,verbose_name='Responsable Autorizado',null=True,blank=True)
+    class Meta:
+        db_table = u'actores'
+        verbose_name_plural='Organizaciones'
+    def __unicode__(self):
+        return u"%s %s %s %s" %(self.nombre, self.siglas, self.directorio.nombre, self.directorio.apellido)

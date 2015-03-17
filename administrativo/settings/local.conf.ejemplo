@@ -1,0 +1,34 @@
+
+EMAIL_USE_TLS = True
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+#Configuración de envío de correo por CANTV
+#EMAIL_HOST='mail.cantv.net'
+#EMAIL_HOST_USER=''
+#EMAIL_HOST_PASSWORD=''
+
+#Configuración de envío de correo por Gmail
+EMAIL_HOST='smtp.gmail.com'
+REMITENTE='Nombre Remitente <correo@correo.com>' #Correo remitente por defecto que usará la activación de cuentas
+EMAIL_HOST_USER='' #Correo desde el cual se va a enviar el correo <correo@gmail.com>
+EMAIL_HOST_PASSWORD='' #Contraseña de la cuenta de correo
+EMAIL_PORT=587
+# Control para que cuando se use un sitio con conexión segura
+EMAIL_USE_TLS = True 
+
+
+EMAIL_HOST_PASSWORD='293542935445293' #Contraseña de la cuenta de correo
+
+
+DATABASES = {
+    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'pyscde.sqlite',                      # Or path to database file if using sqlite3.
+        'USER': 'overflow',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}

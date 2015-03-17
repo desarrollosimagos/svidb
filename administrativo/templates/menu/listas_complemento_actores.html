@@ -1,0 +1,32 @@
+         			<div style="text-align:justify;margin-left:25px; margin-right:25px;">
+                            {% for item in areas %}
+                            	{% if usuario.is_staff %}
+                                	{% for item2 in item.colaboradorespersonas_set.all %}
+                                    	{% if item2.tipoColaboracion.id == 9 %}
+                                        	{% if item2.estatu == 0 %}
+                                            	<a href="/actores/ficha/{{ item.id }}" class="button button-blue2"><span style="background:right url(/static/admin/img/admin/icon-yes.gif) no-repeat; background-position:10px;">{{ item.nombre_completo }}</span></a>
+                                            {% endif %}
+                                            {% if item2.estatu == 1 %}
+                                            	<a href="/actores/ficha/{{ item.id }}" class="button button-blue2"><span style="background:right url(/static/admin/img/admin/icon-no.gif) no-repeat; background-position:10px;">{{ item.nombre_completo }}</span></a>
+                                            {% endif %}
+                                            {% if item2.estatu == 2 %}
+                                            	<a href="/actores/ficha/{{ item.id }}" class="button button-blue2"><span style="background:right url(/static/admin/img/admin/icon-yes.gif) no-repeat; background-position:10px;">{{ item.nombre_completo }}</span></a>
+                                            {% endif %}
+                                            {% if item2.estatu == 3 %}
+                                            	<a href="/actores/ficha/{{ item.id }}" class="button button-blue2"><span style="background:right url(/media/imgs/icon-pendiente.gif) no-repeat; background-position:10px;">{{ item.nombre }}</span></a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% empty %}
+                                    	<a href="/actores/ficha/{{ item.id }}" class="button button-blue2"><span>{{ item.nombre_completo }}</span></a>
+                                    {% endfor %}
+                                {% else %}
+                                	<a href="/actores/ficha/{{ item.id }}" class="button button-blue2"><span>{{ item.nombre_completo }}</span></a>
+                                {% endif %}
+                             {% empty %}
+                             	No hay registros
+                             {% endfor %}
+						</div>
+                        {% if areas.count >= 100 %}
+                        <div id="loading1">
+                        </div>                        
+                        {% endif %}

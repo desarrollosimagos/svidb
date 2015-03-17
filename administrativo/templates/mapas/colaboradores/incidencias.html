@@ -1,0 +1,236 @@
+{% extends "completo.html"%}
+
+{% block js %}
+{% endblock %}
+
+
+{% block jscript %}
+  
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/media/librerias/slider/js/jquery-ui-1.7.2.custom.min.js" ></script>
+<script type="text/javascript">		
+	$(document).ready(function(){ // Script del Navegador
+		$("ul.subnavegador").hide();
+		$("ul.subnavegador").slideDown('fast'); 				
+		$("a.desplegable").toggle(
+			function() { 
+				
+				$(this).parent().find("ul.subnavegador").slideUp('fast'); 
+			},
+			function() { 
+				
+				$(this).parent().find("ul.subnavegador").slideDown('fast'); 
+			}				
+		);
+	});
+
+</script>
+{% endblock %}
+
+{% block cssScript %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/select.css" />
+<link rel="stylesheet" href="/media/librerias/galeria/css/galleriffic-3.css" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('especies').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#0099CC; border:1px solid #0099CC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px; color:#FFF; ">
+                    	Incidencias > Taxón
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #0099CC; background:url(/media/librerias/css/plantilla/images/bbtaxon.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center;" class="titulo1">
+                            	Formulario de Incidencias del SVIDB
+                  			</span>
+                            
+                        </div>
+                       	<div style="text-align:justify;margin-left:25px; margin-right:25px; "> 
+                        
+                        <div id="list1a">   
+                        <ul class="navegador">
+                       
+                        <li style="list-style:none;"><a class="button button-blue2 desplegable" style="cursor:pointer;" id="0"><span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Ficha a Reportar</span></a>
+                            <ul class="subnavegador">
+                            <li style="list-style:none;">
+                            <fieldset>
+                                   <table >
+                                   <tr>
+                                   <td rowspan="2">
+										<ul class="checklist">                                
+										{% if datos %}
+											<li style="margin-top:10px;" class="selected">
+												<input id="cj" name="jc" type="checkbox">
+												<label for="choice_a" style="font-size:10px; color:#FFF;">
+                                                {{ datos.taxonrelax.nombre  }}
+                                                {{ datos.nombre  }}
+                                                {{ datos.nombrecomun  }}<br />	
+                                                {% if datos.detalletaxon.bancoaudio.all.0.pathimg %}
+                                                	<img src="/media/{{ datos.detalletaxon.bancoaudio.all.0.retorno_nombre }}.157_118{{ datos.detalletaxon.bancoaudio.all.0.retorno_extencion }}" width="60px" />
+                                                {% else %}
+            										<span style="color:#333; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:45px;">
+                                	:(
+                                </span>
+                                                {% endif %}
+                                                </label>
+                                                <a class="checkbox-select" href="/especies" id="select" >Volver</a>
+												<a class="checkbox-deselect" href="/especies" id="cancel">Volver</a>
+												</li>
+                                                <input type="hidden" name="especie" id="id_especie" value="{{ datos.id }}">
+                  						{% endif %}
+										</ul>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                            <b>Nombre Científico:</b> 
+                                        <span style="font-style:italic;">
+                                        {% if datos.subtipo.id >= 26 %}
+                                        {% if datos.subtipo.id == 26 %}
+                                        {{ datos.taxonrelax.nombre }} {{ datos.nombre }}
+                                        {% endif %}
+                                        {% if datos.subtipo.id > 26 %}
+                                        {{ datos.taxonrelax.taxonrelax.nombre }} {{ datos.taxonrelax.nombre }} {{ taxon.nombre }}
+                                        {% endif %}
+                                        
+                                        {% else %}
+                                        {{ datos.nombre }}
+                                        {% endif %}
+                                        
+                                        </span><br>
+                                    
+                                    
+			                        {% if datos.autorespecie %}
+                                    	<b>Autor de Nombre Científico:</b> {{ datos.autorespecie}}<br>
+                                    {% endif %}
+                                    
+                                    {% if datos.nombrecomun %}
+                                    	<b>Nombre Común:</b> {{ datos.nombrecomun }}<br>
+                                    {% endif %}
+                                    
+                                    {% if datos.otrosnombrec %}
+                                        <b>Otros Nombres Comunes:</b> 
+                                        {% autoescape off %}
+                                            {{ datos.otrosnombrec|removetags:"b span"|safe }}
+                                        {% endautoescape %}<br>
+                                    {% endif %}
+                                    
+                                    {% if datos.comentariotaxonomico %}
+                                        <b>Comentario Taxonómico:</b> 
+                                        {% autoescape off %}
+                                            {{ datos.comentariotaxonomico|removetags:"b span"|safe }}
+                                        {% endautoescape %}<br>
+                                    {% endif %}
+                                            </td>
+                                        </tr>
+                                        </table>
+								</fieldset> 
+                        </li></ul></li>
+                        
+                        <li style="list-style:none;"><a class="button button-blue2 desplegable" style="cursor:pointer;" id="0"><span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Formulario de Incidencia</span></a>
+                            <ul class="subnavegador">
+                            <li style="list-style:none;">
+                            
+                            <table width="100%" align="center" style="margin-left:25px;">
+        <tr>
+          <td>
+          <label style="
+    font-size: 12px;
+    color: dimgrey;">
+            Titulo
+            </label>
+            <br>
+            <input type="text" style="width:300px; height:25px; border:1px solid #e5e5e5;" name="nombreE" id="nombreE">
+          </td>
+        </tr>
+        <tr>
+        	<td width="315" align="left">
+            <label style="
+    font-size: 12px;
+    color: dimgrey;">
+           Descripción
+            </label>
+            <br>
+        	  <textarea style="width:300px; border:1px solid #e5e5e5; height:250px;" name="descripcion" id="descripcion">
+		        </textarea>
+      	  </td>
+        </tr>
+        <tr>
+        	<td align="right" >
+                         <a href="/extincion/6" class="button2 button-blue" style="margin-right:50px;"><span>Reportar</span></a>              
+            </td>
+        </tr>
+    </table>
+
+                            
+                        </li></ul></li>
+                                            
+                           
+
+                            </ul>
+                        </div>    
+						</div>
+                        <br>    
+                        <br>
+                    	
+                    </div>
+                </div>
+                
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+            {% if persona %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% else %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+				<br />
+                <span style="margin-left:25px; margin-right:25px;">Te invitamos a que inicies tu sesion y asi poder disfrutar de mas opciones <a href="/perfil">Iniciar Sesión</a></span>
+                <br />
+                <br />
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endif %}
+            
+            
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

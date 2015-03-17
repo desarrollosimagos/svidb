@@ -1,0 +1,98 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Estatus Insripción', 'N° Participantes'],
+{% for s in resultado %} 
+{% if s.0 == 0 %}['Sin Evluar',{{ s.1 }}],{% endif %}
+{% if s.0 == 2 %}['Pre-inscritos',{{ s.1 }}],{% endif %}
+{% if s.0 == 3 %}['Inscritos',{{ s.1 }}],{% endif %}
+{% if s.0 == None %}['Inscritos',{{ s.1 }}],{% endif %}  
+{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Número de personas participantes'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+			<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Estadísticas de los Congresos Venezolanos de Diversidad Biológica
+                  			</span>
+                        </div>
+				<div id="chart_div" style="width: 650px; height: 500px;"></div>
+
+                    </div>
+                </div>
+			<!-- Fin Columna Principal -->
+				<div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF; background-image:url(/media/css/plantilla/images/login_bg2.png)">
+                        	{% if form.errors %}
+                            	<p class="error">Lo siento, el nombre de usuario y clave no son válidos</p>
+                          	{% endif %}
+                            
+                  	<fieldset id="login">
+                    	<h4>Panel de Acceso</h4>
+                            <form method='post' name="hongkiat" id="hongkiat-form" action="/perfil"> {% csrf_token %}
+                                <p class="clearfix"><label for="username">Correo:</label>
+                                <input type="text" name="username" value="" id="username"></p>
+                                <p class="clearfix"><label for="password">Clave:</label>
+                                <input type="password" name="password" value="" id="password"></p>
+
+                                <section id="buttons2">
+                                    <input type="submit" name="submit" id="submitbtn2" class="submitbtn" tabindex="7" value="Enviar">
+                                    <br style="clear:both;">
+                            	</section>
+                                <input type="hidden" name="next" value="{{ next }}" />
+  							</form> 
+					</fieldset> 
+ 
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Todos los campos que tengan la siguiente imagen <img src="/media/css/plantilla/images/icon_alert_error.gif" height="15px" /> se consideran importante, por lo tanto, son obligatorios.
+                </div>
+                <div id="secCol-punta">
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

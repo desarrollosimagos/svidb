@@ -1,0 +1,269 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+	
+</script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>-->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>-->
+<script src="/media/librerias/form-validator/jquery.form-validator.min.js"></script>
+
+<script type="text/javascript">
+function ValidaSoloNumeros() {
+ if ((event.keyCode < 48) || (event.keyCode > 57)) 
+  event.returnValue = false;
+}
+
+$(document).ready(function() {
+	var myLanguage = {
+      errorTitle : '<h3 style="color:#F00">Envío del formulario fallido! </h3>',
+      requiredFields : '<h3 style="color:#F00">No ha respondido a todos los campos requeridos </h3>',
+      badTime : '<h3 style="color:#F00">No ha dado una hora correcta </h3>',
+      badEmail : '<h3 style="color:#F00">No ha dado una dirección de correo electrónico correcta </h3>',
+      badTelephone : '<h3 style="color:#F00">No ha dado un número de teléfono correcto </h3>',
+      badSecurityAnswer : '<h3 style="color:#F00">No ha dado una respuesta correcta a la pregunta de seguridad </h3>',
+      badDate : '<h3 style="color:#F00">No ha dado una fecha correcta </h3>',
+      lengthBadStart : '<h3 style="color:#F00">Usted debe dar una respuesta entre </h3>',
+      lengthBadEnd : 'caracteres</h3>',
+      lengthTooLongStart : '<h3 style="color:#F00">Usted ha dado una respuesta más larga que </h3>',
+      lengthTooShortStart : '<h3 style="color:#F00">Su contraseña debe contener al menos ',
+      notConfirmed : '<h3 style="color:#F00">Los valores no pudieron ser confirmados</h3>',
+      badDomain : '<h3 style="color:#F00">Valor de dominio incorrecto</h3>',
+      badUrl : '<h3 style="color:#F00">La respuesta que dio no era un URL correcto</h3>',
+      badCustomVal : '<h3 style="color:#F00">Usted dio una respuesta incorrecta</h3>',
+      badInt : '<h3 style="color:#F00">La respuesta que dio no era un número correcto</h3>',
+      badSecurityNumber : '<h3 style="color:#F00">Su número de seguro social es incorrecto</h3>',
+      badUKVatAnswer : '<h3 style="color:#F00">Error</h3>',
+      badStrength : '<h3 style="color:#F00">La contraseña no es lo suficientemente fuerte</h3>',
+      badNumberOfSelectedOptionsStart : '<h3 style="color:#F00">Tienes que elegir al menos </h3>',
+      badNumberOfSelectedOptionsEnd : '<h3 style="color:#F00"> respuestas</h3>',
+      badAlphaNumeric : '<h3 style="color:#F00">La respuesta que diste debe contener sólo caracteres alfanuméricos </h3>',
+      badAlphaNumericExtra: ' and ',
+      wrongFileSize : '<h3 style="color:#F00">El archivo que está tratando de subir es demasiado grande</h3>',
+      wrongFileType : '<h3 style="color:#F00">El archivo que está tratando de subir es de tipo incorrecto</h3>',
+      groupCheckedRangeStart : '<h3 style="color:#F00">Por favor, elija entre </h3>',
+      groupCheckedTooFewStart : '<h3 style="color:#F00">Por favor, elija al menos </h3>',
+      groupCheckedTooManyStart : '<h3 style="color:#F00">Por favor, elija un máximo de </h3>',
+      groupCheckedEnd : '<h3 style="color:#F00"> item(s)</h3>'
+    };
+	$.validate({
+      modules : 'security',
+	  language : myLanguage,
+	  onModulesLoaded : function() {
+    	var optionalConfig = {
+		  fontSize: '12pt',
+		  padding: '4px',
+		  bad : 'Muy Mala',
+		  weak : 'Normal',
+		  good : 'Buena',
+		  strong : 'Excelente'
+		};
+
+    	$('input[name="password1_confirmation"]').displayPasswordStrength(optionalConfig);
+	  }
+	});
+
+
+
+});
+</script>
+{% if error %}
+{% if error = 'Si' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Notificacion de Error!</b>',
+		// (string | mandatory) the text inside the notification
+		text: '{{ mensaje_error }}',
+		// (string | optional) the image to display on the left
+		image: '/media/librerias/css/plantilla/notificaciones/css/safe_image.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: ''
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+{% if error = 'No' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Registro procesado!</b>',
+		// (string | mandatory) the text inside the notification
+		text: '{{ mensaje_error }}',
+		// (string | optional) the image to display on the left
+		image: '/media/librerias/css/plantilla/notificaciones/css/AZ.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: ''
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+{% endif %}
+
+    <script type="text/javascript">
+         function FilterInput (event) {
+            var chCode = ('charCode' in event) ? event.charCode : event.keyCode;
+                // returns false if a numeric character has been entered
+            return (chCode==300);
+        }
+    </script>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+    	<div id="mainCol" class="clearfix">
+         	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+				<br />
+            	<br />
+                <div style="text-align:center;margin-left:25px; margin-right:25px;">
+                    <span style="text-align:center; font-style:italic;" class="titulo1">
+                        ¡Registrate!
+                    </span>
+                   	</div>
+              		<br />
+				  	<br>
+                    <section id="container">
+                        <form name="hongkiat" id="hongkiat-form" method="post" style="margin-left:10px;" class="has-validation-callback">
+                        	<div id="wrapping" class="clearfix">
+                            	<section id="aligned">
+                                	<p>
+                                   		{% if recuperar %}
+                                    		<span style="color:#F00; font-size:12px;">Diríjase  al siguiente enlace para <a href="/perfil" style="color:#06F;">Recuperar contraseña</a></span><br />
+                                    	{% endif %}
+                            		<label style="font-size:14px;">
+                                    	<img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px">Correo Electrónico (Nota: No usar espacios)
+                               		</label>
+						 			<input id="id_username" type="text" name="username" maxlength="250" class="txtinput" placeholder="Ingresa tu Correo Electronico" style="text-transform:lowercase;" data-validation="server" data-validation-url="/validarcorreo">
+                                    </p>
+                                    <p>
+						 			<label style="font-size:14px;">
+                              			<img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px">Contraseña
+                                	</label>	
+                               		<input type="password" name="password1_confirmation" id="id_password1" class="txtinput" placeholder="Tu clave" data-validation="length" data-validation-length="min8">
+                                    </p>
+                                    <p>
+                                    <label style="font-size:14px;">
+                         				<img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px">Contraseña (confirmación)
+                                 	</label>
+						 			<input type="password" name="password1" id="id_password2" class="txtinput" placeholder="Repite tu clave" data-validation="confirmation">
+                                    </p>
+                                    <p>
+                                    <label style="font-size:14px;">
+                                 		<img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px">Tipo de Documento
+                                   	</label>
+									<select name="tipodoci" id="id_tipodoci" class="txtinput" data-validation="required">
+                                        <option value="" selected="selected">---------</option>
+                                        <option value="0">Venezolano</option>
+                                        <option value="1">Extranjero</option>
+                                        <option value="2">Pasaporte</option>
+                                        <option value="3">Cedula Escolar</option>
+                                    </select>
+                                    </p>
+                                    <p>
+                                	<label style="font-size:14px;">
+                           				<img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px">Documento de Identidad(Nota: Cédula de Identidad - ¡No usar puntos!)
+     								</label>
+									<input type="text" name="documentoidentidad" id="id_documentoidentidad" class="txtinput" placeholder="Tu documento de identidad"  data-validation="required">
+                                    </p>
+                                    <p>
+                        			<label style="font-size:14px;">
+                          				<img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px">Nombre 
+                        			</label>
+									<input id="id_nombre" type="text" name="nombre" maxlength="180" class="txtinput" placeholder="Tu nombre" data-validation="required">
+                                    </p>
+                                    <p>
+                               		<label style="font-size:14px;">
+                      					<img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px">Apellido 
+                     				</label>
+									<input id="id_apellido" type="text" name="apellido" maxlength="180" class="txtinput" placeholder="Tu apellido" data-validation="required"> 
+                                    {% if url %}  
+                                    	<input type="hidden" name="url" value="{{ url }}"  >
+                                    {% endif %}
+                                     
+                                    </p> 
+                            	</section>
+                       		</div>
+							<div class="g-recaptcha" data-sitekey="6Lfy__4SAAAAAPN5GxRzd_WnwbU57jKDgBaep5Rk"></div>
+                            <section id="buttons">
+                                <input type="reset" name="reset" id="resetbtn" class="resetbtn" value="Limpiar">
+                                <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                <br style="clear:both;">
+                            </section>
+                     	</form>
+                	</section>
+              	</div>
+        	</div>
+			<!-- Fin Columna Principal -->
+				<div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF; background-image:url(/media/librerias/css/plantilla/images/login_bg2.png)">
+                        	{% if form.errors %}
+                            	<p class="error">Lo siento, el nombre de usuario y clave no son válidos</p>
+                          	{% endif %}
+                            
+                  	<fieldset id="login">
+                    	<h4>Panel de Acceso</h4>
+                            <form method='post' name="hongkiat" id="hongkiat-form" action="/perfil"> {% csrf_token %}
+                                <p class="clearfix"><label for="username">Correo:</label>
+                                <input type="text" name="username" value="" id="username"></p>
+                                <p class="clearfix"><label for="password">Clave:</label>
+                                <input type="password" name="password" value="" id="password"></p>
+                                {% if url %}  
+                                    	<input type="hidden" name="url" value="{{ url }}"  >
+                                    {% endif %}
+
+                                <section id="buttons2">
+                                    <input type="submit" name="submit" id="submitbtn2" class="submitbtn" tabindex="7" value="Enviar">
+                                    <br style="clear:both;">
+                            	</section>
+                                <input type="hidden" name="next" value="{{ next }}" />
+  							</form> 
+					</fieldset> 
+ 
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Todos los campos que tengan la siguiente imagen <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" /> se consideran importante, por lo tanto, son obligatorios.
+                </div>
+                <div id="secCol-punta">
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends "completo.html"%}
+{% block jscript %}
+
+		<link rel="stylesheet" type="text/css" href="/media/librerias/FullWidthImageSlider/css/component.css" />
+		<script src="/media/librerias/FullWidthImageSlider/js/modernizr.custom.js"></script>
+		<!-- We only want the thunbnails to display when javascript is disabled -->
+
+<script>
+	function menu(){
+		document.getElementById('plataforma').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+{% endblock %}
+{% block content %}
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px; color:#000; ">
+                    	Banco Audiovisual
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; width:740px;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Banco Audiovisual
+                  			</span>
+                        </div>
+                        <br />
+                         <br />
+                       	<div style="text-align:justify;margin-left:25px; margin-right:25px; ">
+                        {% if mesn %}
+    
+                        <div class="container">	
+
+			<div id="cbp-fwslider" class="cbp-fwslider">
+				<ul style="list-style:none; ">
+                {% for lista in mesn.object_list %}
+					<li><a onclick="cargarInformacion('{{ lista.directorio.nombre }} {{ lista.directorio.apellido }}','/media/{{ lista.licencia.pathimg1 }}')"><img src="/media/{{ lista.pathimg }}" alt="img01" width="500px" height="500px"/></a></li>
+				{% endfor %}	
+				</ul>
+			</div>
+		</div>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="/media/librerias/FullWidthImageSlider/js/jquery.cbpFWSlider.min.js"></script>
+		<script>
+			$( function() {
+				/*
+				- how to call the plugin:
+				$( selector ).cbpFWSlider( [options] );
+				- options:
+				{
+					// default transition speed (ms)
+					speed : 500,
+					// default transition easing
+					easing : 'ease'
+				}
+				- destroy:
+				$( selector ).cbpFWSlider( 'destroy' );
+				*/
+
+				$( '#cbp-fwslider' ).cbpFWSlider();
+
+			} );
+			function cargarInformacion(nombre,imagen){
+				document.getElementById('licenciaID').src=imagen;
+			    document.getElementById('nombreAutor').innerHTML=nombre;
+			}
+		</script>
+            
+{% endif %}
+{% if mesn %}
+    <br>
+    <div class="pagination">
+        <span class="step-links">
+            {% if mesn.has_previous %}
+                <a onClick="cargarpagina({{ mesn.previous_page_number }})" style="cursor:pointer;">Anterior</a>
+            {% endif %}
+            <span class="current">
+                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+            </span>
+
+            {% if mesn.has_next %}
+                <a onClick="cargarpagina({{ mesn.next_page_number }})" style="cursor:pointer;">Proximo</a>
+            {% endif %}
+        </span>
+       
+    </div>
+{% endif %}
+
+						</div>
+                        <table width="700px" align="center">
+                        	<tr>
+                            	<td align="center"><img src="/media/librerias/imgs/Carpeta-fotos.png" width="150px" /></td>
+                                <td align="center"><img src="/media/librerias/imgs/Carpeta-fotos.png" width="150px" /></td>
+                                <td align="center"><img src="/media/librerias/imgs/Carpeta-fotos.png" width="150px" /></td>
+                            </tr>
+                            <tr>
+                            	<td align="center">Autores</td><td align="center">Fechas</td><td align="center">Secciones</td>
+                            </tr>
+                        </table>
+                 </div>
+                </div>
+			<!-- Fin Columna Principal -->
+            <div id="secCol">
+            	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+           		<br /><br />
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                <table align="center" width="200px">
+                <tr>
+                	<td align="left"><b>Información</b></td>
+                </tr>
+				<tr>
+					<td align="left"><b>Autor de la Fotografía:</b><div id="nombreAutor"></div>  </td>
+                </tr>
+                <tr>
+					<td align="left"><b>Licencia:</b><a href="/licencias"><img src="" id="licenciaID"></a></td>
+                </tr>
+
+				</table>
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            
+            </div>
+        </div>
+    </div>
+{% endblock %}

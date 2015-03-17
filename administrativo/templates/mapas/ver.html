@@ -1,0 +1,41 @@
+<html>
+<head>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
+//(1) Cargamos la API
+</script>
+ 
+ 
+<script type="text/javascript">
+  function iniciar() {
+    var coordenadas = new google.maps.LatLng({{ value1 }});
+
+    //(2) Inicializamos el mapa en la variable 'coordenadas'
+ 
+    var myOptions = { //Opciones:
+      zoom: 13, 
+      //(3)Cantidad de Zoom
+      center: coordenadas,
+      //(4) establecemos el centro
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+      //(5) seleccionamos el tipo de mapa
+	  
+    };
+	var marker = new google.maps.Marker({ //opciones
+      position: coordenadas,
+	  point:  coordenadas,
+      //Decimos que la posición es la de la variable 'coordenadas'
+      map: map,
+      //Nombre del mapa
+      title:"{{ value1 }}"
+      //Titulo (visible cuando colocamos el ratón sobre el punto)
+ 	});
+    var map = new google.maps.Map(document.getElementById("mapa"), myOptions, marker);
+  }
+ 
+</script>
+</head>
+<body onLoad="iniciar()">
+coordenadas {{ value1 }}<br>
+  <div id="mapa" style="width:100%; height:100%"></div>
+</body>
+</html>

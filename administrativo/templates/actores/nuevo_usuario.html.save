@@ -1,0 +1,297 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<link rel="stylesheet" type="text/css" href="/media/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+{% if error %}
+
+{% else %}
+	document.getElementById("id_username").value = '';
+{% endif %}
+	document.getElementById("id_username").className='txtinput';
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_username").placeholder='Tu nombre de usuario';
+{% endif %}
+	
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_password1").value = '';
+{% endif %}
+	document.getElementById("id_password1").className='txtinput';
+
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_password1").placeholder='Tu contraseña';
+{% endif %}
+	
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_password2").value = '';
+{% endif %}
+document.getElementById("id_password2").className='txtinput';
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_password2").placeholder='Repite tu contraseña';
+{% endif %}
+	
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_documentoidentidad").value = '';
+{% endif %}
+	document.getElementById("id_documentoidentidad").className='txtinput';
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_documentoidentidad").placeholder='Tu documento de identidad';
+{% endif %}
+	
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_tipodoci").value = '';
+{% endif %}
+	document.getElementById("id_tipodoci").className='txtinput';
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_tipodoci").selected=0;
+{% endif %}
+	
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_nombre").value = '';
+{% endif %}
+	document.getElementById("id_nombre").className='txtinput';
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_nombre").placeholder='Tu nombre';
+{% endif %}
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_apellido").value = '';
+{% endif %}
+	document.getElementById("id_apellido").className='txtinput';
+
+
+{% if error %}
+
+{% else %}
+	document.getElementById("id_apellido").placeholder='Tu apellido';
+{% endif %}
+
+	
+{% if error %}
+
+{% else %}
+	document.getElementById("id_correo").value = '';
+{% endif %}
+	document.getElementById("id_correo").className='txtinput';
+	document.getElementById("id_correo").placeholder='Tu correo';
+
+});
+</script>
+{% if error %}
+{% if error = 'Si' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Notificacion de Error!</b>',
+		// (string | mandatory) the text inside the notification
+		text: 'Se ha presentado un error al momento de realizar el envio del formulacion, por favor verifique la informacion e intentelo nuevamente...',
+		// (string | optional) the image to display on the left
+		image: '/media/css/plantilla/notificaciones/css/safe_image.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: '800000'
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+{% if error = 'No' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Registro procesado!</b>',
+		// (string | mandatory) the text inside the notification
+		text: 'La información ha sido registrada en el sistema. Gracias por participar en la Construcción Colectiva. SVIDB.',
+		// (string | optional) the image to display on the left
+		image: '/media/css/plantilla/notificaciones/css/AZ.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: '800000'
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+{% endif %}
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/css/plantilla/images/bbplataforma.png) top repeat-x;">
+			<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				¡Registrate!
+                  			</span>
+                        </div>
+                        <br />
+                  
+				  <br>
+                    <section id="container">
+                    	
+                        <form name="hongkiat" id="hongkiat-form" method="post" style="margin-left:10px;">{% csrf_token %}
+                        <div id="wrapping" class="clearfix">
+                            <section id="aligned">
+                           			{% for field in formulario %}
+                                            {{ field.errors }}
+                                            <label style="font-size:14px;">
+                                                <img src="/media/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                                {{ field.label }}
+						{% if field.html_name == "username" %}
+							 (Nota: No usar espacios)
+						{% endif %}
+                                            </label>
+						{% if field.html_name == "username" %}					
+						{% if field.html_name == "username" %}
+
+						{% else %}
+	                                            {{ field }}
+						{% endif %}
+                                    {% endfor %}
+                                    {% for field in personas_form %}
+                                            {{ field.errors }}
+                                            <label style="font-size:14px;">
+                                                <img src="/media/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                                {{ field.label }} 
+						{% if field.html_name == "documentoidentidad" %}
+                                                         (Nota: Cedula de Identidad - ¡No usar puntos!)
+                                                {% endif %}
+
+                                            </label>
+                                            {{ field }}
+                                    {% endfor %}
+                            </section>
+                        </div>
+                            <section id="buttons">
+                                <input type="reset" name="reset" id="resetbtn" class="resetbtn" value="Limpiar">
+                                <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                <br style="clear:both;">
+                            </section>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+			<!-- Fin Columna Principal -->
+				<div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF; background-image:url(/media/css/plantilla/images/login_bg2.png)">
+                        	{% if form.errors %}
+                            	<p class="error">Lo siento, el nombre de usuario y clave no son válidos</p>
+                          	{% endif %}
+                            
+                  	<fieldset id="login">
+                    	<h4>Panel de Acceso</h4>
+                            <form method='post' name="hongkiat" id="hongkiat-form" action="/perfil"> {% csrf_token %}
+                                <p class="clearfix"><label for="username">usuario:</label>
+                                <input type="text" name="username" value="" id="username"></p>
+                                <p class="clearfix"><label for="password">Clave:</label>
+                                <input type="password" name="password" value="" id="password"></p>
+
+                                <section id="buttons2">
+                                    <input type="submit" name="submit" id="submitbtn2" class="submitbtn" tabindex="7" value="Enviar">
+                                    <br style="clear:both;">
+                            	</section>
+                                <input type="hidden" name="next" value="{{ next }}" />
+  							</form> 
+					</fieldset> 
+ 
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Todos los campos que tengan la siguiente imagen <img src="/media/css/plantilla/images/icon_alert_error.gif" height="15px" /> se consideran importante, por lo tanto, son obligatorios.
+                </div>
+                <div id="secCol-punta">
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}

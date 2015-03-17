@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>SVIDB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="stilearning">
+
+        <meta http-equiv="x-pjax-version" content="v173">
+
+
+
+        <link rel="stylesheet" href="/media/librerias/stilearn-admin/styles/9281c719.vendor.css"/>        
+        <link rel="stylesheet" href="/media/librerias/stilearn-admin/styles/3fc417cd.main.css"/>
+        <script type="text/javascript" src="/media/librerias/autocat/jquery-1.4.2.js"></script>
+
+        
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+        <![endif]-->
+    </head>
+
+     <body class="animated fadeIn">
+        <!-- section header -->
+        <header class="header">
+            <!-- header brand -->
+            <div class="header-brand">
+                <!-- <h2><a data-pjax=".content-body" href="index.php"><span class="text-primary">Sti</span>learn</a></h2> -->
+                <a data-pjax=".content-body" href="index.php">
+                    SVIDB
+                </a>
+            </div><!-- header brand -->
+            
+            <!-- header-profile -->
+            <div class="header-profile">
+                <div class="profile-nav">
+                    <span class="profile-username">{{ persona.nombre }}</span>
+                    <a href="widget-tabs.php#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu animated flipInX pull-right" role="menu">
+                        <li><a href="/perfil"><i class="fa fa-user"></i> Perfil</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/salir"><i class="fa fa-sign-out"></i>Salir</a></li>
+                    </ul>
+                </div>
+                <div class="profile-picture">
+                    <img alt="me" src="images/dummy/0c31c9dc.profile.jpg">
+                </div>
+            </div><!-- header-profile -->
+
+            <form role="form" class="form-inline" method="post" >
+                <button type="button" class="btn btn-default btn-expand-search"><i class="fa fa-search"></i></button>
+                <div class="toggle-search">
+                    <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Search something">    
+                    <button type="button" class="btn btn-default btn-collapse-search"><i class="fa fa-times"></i></button>
+                </div>
+            </form><!--/form-search-->
+
+            <!-- header menu -->
+            <ul class="hidden-xs header-menu pull-right">
+                <li>
+                    <a href="widget-tabs.php#" title="Notifications" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="badge badge-success">0</span>
+                        <i class="header-menu-icon icon-only fa fa-warning"></i>
+                    </a>
+                </li><!-- /header-menu-item -->
+                <li>
+                    <a href="widget-tabs.php#" title="Inboxs" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="badge badge-warning animated animated-repeat flash">0</span>
+                        <i class="header-menu-icon icon-only fa fa-envelope-o"></i>
+                    </a>
+                </li><!-- /header-menu-item -->
+                <li>
+                    <a href="widget-tabs.php#" title="Tasks" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="badge badge-danger">0</span>
+                        <i class="header-menu-icon icon-only fa fa-tasks"></i>
+                    </a>
+                </li><!-- /header-menu-item -->
+            </ul><!--/header-menu pull-right-->
+        </header><!--/header-->
+
+        
+        <!-- content section -->
+        <section class="section">
+            <!-- DONT FORGET REPLACE IT FOR PRODUCTION! -->
+            <aside class="side-left">
+                <ul class="sidebar">
+                    <li>
+                        <a href="/panel/coord/index/{{ id2 }}" data-pjax=".content-body">
+                            <i class="sidebar-icon fa fa-home"></i>
+                            <span class="sidebar-text">Inicio</span>
+                        </a>
+                    </li><!--/sidebar-item-->
+                    <li>
+                        <a href="/panel/coord/cursos/{{ id2 }}">
+                            <i class="sidebar-icon fa fa-files-o"></i>
+                            <span class="sidebar-text">Cursos</span>
+                        </a>
+                    </li>
+                </ul><!--/sidebar-->
+            </aside><!--/side-left-->
+
+            <div class="content">
+                <div class="content-header">
+                    <div class="content-header-extra">
+                        <a class="item-ch-extra" href="widget-tabs.php#">
+                            <span class="sparkline-bar" data-height="36px" data-barwidth="3" data-barcolor="#5BB75B" data-value="0,0,0,0,0"></span>
+                            <div class="data-text text-success">
+                                0% <p class="text-muted">Graficos</p>
+                            </div>
+                        </a><!--/item-ch-extra-->
+                    </div><!--/content-header-extra -->
+
+                    <h2 class="content-title"><i class="fa fa-home"></i> Bienvenido al SVIDB</h2>
+                </div><!--/content-header -->
+                
+                <!-- content-control -->
+                <div class="content-control">
+                    <!--control-nav-->
+                    <ul class="control-nav pull-right">
+                        <li class="divider"></li>
+                        <li>
+                            <a href="widget-tabs.php#">
+                                <i class="fa fa-money"></i> Inscritos <span class="text-danger">(0)</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li rel="popover-left" data-context="inverse" data-trigger="hover" data-content="Click me to toggle Chat box!">
+                            <a data-toggle="side-right" href="widget-tabs.php#">
+                                Chat <i class="fa fa-comment-o animated animated-repeat flash"></i>
+                            </a>
+                        </li>
+                    </ul><!--/control-nav-->
+                    
+                    <!--breadcrumb-->
+                    <ul class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home"></i> SVIDB</a></li>
+                        <li><a href="/panel/coord/index/{{ id2 }}">Inicio</a></li>
+                        <li class="active">Inscripciones</li>
+                    </ul><!--/breadcrumb-->
+                </div><!-- /content-control -->
+
+                <div class="content-body">
+                    <!-- APP CONTENT
+                    ================================================== -->
+                                        <!-- WIDGET TABS
+                    ================================================== -->
+                    <!-- Tabs -->
+                    {% if sis %}
+                    
+                    {% else %}
+                    <div class="callout callout-info">
+                        <h4>{{ actividades.nombre }}</h4>
+                        <p>{{ actividades.descripcion }}</p>
+                        
+                    </div>
+                    <div id="panel-fvalidate" class="panel panel-default sortable-widget-item">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <button data-refresh="#panel-fvalidate" title="" class="btn-panel" data-original-title="refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <button data-expand="#panel-fvalidate" title="" class="btn-panel" data-original-title="expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                                <button data-collapse="#panel-fvalidate" title="" class="btn-panel" data-original-title="collapse">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div><!-- /panel-actions -->
+                            <h3 class="panel-title">Añadir Participante</h3>
+                        </div><!-- /panel-heading -->
+
+                        <div class="panel-body">
+                            <p>Ingrese documento de identidad</p>
+                            <form role="form" name="buscarid" id="buscarid"data-validate="form" class="form-horizontal form-bordered" novalidate="novalidate" method="post">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="cname">Documento de Identidad (Obligatorio, Minimo 6 digitos, Solo Numeros)</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="cedulaid" name="cedula" class="form-control text-danger" minlength="6" required="">
+                                    <label for="cname" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-5">
+                                        <input class="btn btn-primary" type="submit" value="Entrar">
+                                    </div><!--/cols-->
+                                </div><!--/form-group-->
+
+                            </form><!--/form-->
+                        </div><!-- /panel-body -->
+                    </div>
+                    
+                    <div id="panel-tblbasic" class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-actions">
+                                        <button data-refresh="#panel-tblbasic" title="" class="btn-panel" data-original-title="refresh">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                        <button data-expand="#panel-tblbasic" title="" class="btn-panel" data-original-title="expand">
+                                            <i class="fa fa-expand"></i>
+                                        </button>
+                                        <button data-collapse="#panel-tblbasic" title="" class="btn-panel" data-original-title="collapse">
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        <button data-close="#panel-tblbasic" title="" class="btn-panel" data-original-title="close">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div><!-- /panel-actions -->
+                                    <h3 class="panel-title">Listado de Participantes</h3>
+                                </div><!-- /panel-heading -->
+
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Cedula</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                    </tbody>
+                                </table><!-- /table -->
+                            </div>
+                    {% endif %}
+
+
+                    </div><!-- /row -->                </div><!--/content-body -->
+            </div><!--/content -->
+
+        </section><!--/content section -->
+        
+
+        <!-- side-right -->
+        <aside class="side-right">
+            <div class="module" data-toggle="niceScroll">
+                <div class="chat-contact">
+                    <h3 class="contact-heading">
+                        <div class="btn-group pull-right">
+                            <a href="widget-tabs.php#" data-toggle="side-right">
+                                <i class="fa fa-times text-sm"></i>
+                            </a>
+                        </div>
+                        <i class="fa fa-group"></i> Hangouts 
+                        <div class="btn-group">
+                            <a href="widget-tabs.php#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-angle-down text-sm"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="active"><a href="widget-tabs.php#"><i class="fa fa-circle text-primary"></i> Online</a></li>
+                                <li><a href="widget-tabs.php#"><i class="fa fa-circle text-danger"></i> Offline</a></li>
+                                <li><a href="widget-tabs.php#"><i class="fa fa-circle text-warning"></i> Idle</a></li>
+                                <li class="divider"></li>
+                                <li><a href="widget-tabs.php#"><i class="fa fa-circle text-midnight"></i> Disable</a></li>
+                            </ul>
+                        </div>
+                    </h3><!-- /contact-heading -->
+
+                    <div class="contact-body">
+                        <ul class="contacts-list">
+                            <li class="separate">Top friends</li>
+                            <!--<li class="online"><a href="widget-tabs.php#"><i class="fa fa-circle-o" title="online" rel="tooltip-bottom"></i> Phillip Morrison</a></li>-->
+                            
+                        </ul><!-- /contacts-list -->
+                    </div><!-- /contact-body -->
+                </div><!-- /chat-contact -->
+
+                <div class="chatbox">
+                    <h3 class="chatbox-heading">
+                        <a data-toggle="chatbox-close" href="widget-tabs.php#" class="pull-right text-sm text-silver"><i class="fa fa-times"></i></a>
+                        <i class="fa fa-circle-o text-primary"></i> 
+                        Phillip Morrison
+                    </h3><!-- /chatbox-heading -->
+
+                    <div class="chatbox-body" data-toggle="niceScroll">
+
+                        <div class="chat-separate"><time class="chat-time" datetime="">Jan 9, 2014</time></div>
+
+                        <div class="chat-in">
+                            <div class="chat-user">Phillip Morrison</div>
+                            <div class="chat-msg">
+                                <p>Praesent cras quisque. Volutpat sit interdum. Magnis leo, duis faucibus eu, in rutrum nulla. Eget sed, dolor nibh. Vero mi habitant</p>
+                                <time class="chat-time" datetime="2013-12-13T20:00">01:14 PM</time>
+                            </div>
+                        </div><!-- /chat-in -->
+
+                        <div class="chat-out">
+                            <div class="chat-user">Me</div>
+                            <div class="chat-msg">
+                                <p>Dictum at aenean, faucibus euismod convallis. Ipsum nec, platea amet nulla.</p>
+                                <time class="chat-time" datetime="2013-12-13T20:00">01:16 PM</time>
+                            </div>
+                        </div><!-- /chat-out -->
+
+                        <div class="chat-in">
+                            <div class="chat-user">Phillip Morrison</div>
+                            <div class="chat-msg">
+                                <p>Eu augue, proin rutrum. Et vehicula, wisi fusce, ut ipsum</p>
+                                <time class="chat-time" datetime="2013-12-13T20:00">01:20 PM</time>
+                            </div>
+                        </div><!-- /chat-in -->
+
+                        <div class="chat-separate"><time class="chat-time" datetime="">Jan 14, 2014</time></div>
+
+                        <div class="chat-out">
+                            <div class="chat-user">Me</div>
+                            <div class="chat-msg">
+                                <p>Est penatibus pellentesque, augue tincidunt, a suspendisse</p>
+                                <time class="chat-time" datetime="2013-12-13T20:00">09:36 AM</time>
+                            </div>
+                        </div><!-- /chat-out -->
+
+                        <div class="chat-in">
+                            <div class="chat-user">Phillip Morrison</div>
+                            <div class="chat-msg">
+                                <p>Nunc nulla. Donec laoreet non, lobortis praesent</p>
+                                <time class="chat-time" datetime="2013-12-13T20:00">09:40 AM</time>
+                            </div>
+                        </div><!-- /chat-in -->
+
+                        <div class="chat-separate"><time class="chat-time" datetime="">Recent</time></div>
+
+                        <div class="chat-in">
+                            <div class="chat-user">Phillip Morrison</div>
+                            <div class="chat-msg">
+                                <p>Dui posuere. Reprehenderit felis libero, potenti vitae</p>
+                                <time class="chat-time" datetime="2013-12-13T20:00">12 min</time>
+                            </div>
+                        </div><!-- /chat-out -->
+
+                    </div><!-- /chatbox-body -->
+
+                    <div class="chatbox-footer">
+                        <form class="chat-form">
+                            <p class="chat-status"><i class="fa fa-spinner fa-spin"></i> Phillip Morrison is type...</p>
+                            <div class="form-group">
+                                <button type="submit" class="btn" title="Send"><i class="fa fa-share"></i></button>
+                                <input type="text" class="chat-input" name="send_chat" placeholder="Type a message">
+                            </div>
+                        </form>
+                    </div><!-- /chatbox -->
+                </div><!-- /chatbox -->
+            </div><!-- /module -->
+        </aside><!--/side-right -->
+
+
+        <!-- section footer -->
+        <a rel="to-top" href="widget-tabs.php#top"><i class="fa fa-arrow-up"></i></a>
+        <footer>
+            <p>&copy; 2014 Stilearning. </p>
+        </footer>
+
+
+
+
+        <!-- javascript
+        ================================================== -->
+        <script src="/media/librerias/stilearn-admin/scripts/39914ff3.vendor-main.js"></script>        
+        <script src="/media/librerias/stilearn-admin/scripts/756399db.vendor-usefull.js"></script>
+        <script src="/media/librerias/stilearn-admin/scripts/e7058f60.vendor-form.js"></script>        
+        <script src="/media/librerias/stilearn-admin/scripts/fc9d433c.vendor-editor.js"></script>        
+        <!--[if lte IE 8]>
+        <script src="/media/librerias/stilearn-admin/scripts/eae815b5.excanvas.js"></script>
+        <![endif]-->
+        <script src="/media/librerias/stilearn-admin/scripts/2ce1156c.vendor-graph.js"></script>    
+        <script src="/media/librerias/stilearn-admin/scripts/37a77790.vendor-table.js"></script>
+        <script src="/media/librerias/stilearn-admin/scripts/1581b2aa.vendor-maps.js"></script>        
+        <script src="/media/librerias/stilearn-admin/scripts/5f4fd25b.vendor-util.js"></script>
+
+
+        <!-- required stilearn template js -->
+        <script src="/media/librerias/stilearn-admin/scripts/5917523f.main.js"></script>
+        <!-- This scripts will be reload after pjax or if popstate event is active (use with class .re-execute) -->
+        <script src="/media/librerias/stilearn-admin/scripts/89c3d6c9.initializer.js"></script>
+        
+        <script>
+          (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+          ga('create','UA-48454066-1');ga('send','pageview');
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,449 @@
+{% extends "completo.html"%}
+
+{% block content %}
+
+<script type="text/javascript">
+tinyMCE.init({
+	mode: "textareas"
+});
+
+
+</script>
+<table border="0" align="center" width="985" cellpadding="0" cellspacing="0" height="192">
+	<tr>
+		<td>
+			<div>&nbsp;</div>
+		</td>
+	</tr>								
+	<tr>
+		<td valign="top">
+			<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="750" valign="top">                                                            
+						<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="25" background="/media/librerias/imgs/esqsi.png">
+
+								</td>
+								<td width="700" background="/media/librerias/imgs/latsup.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/librerias/imgs/esqsd.png">
+
+								</td>                                                       
+							</tr> 
+							<tr>
+								<td width="25" background="/media/librerias/imgs/latizq.png">
+
+								</td>
+								<td width="700">
+<div class="titulo1">Planilla de Construccion Colectiva de Informacion sobre Actores - Organizaciones</div>
+<br>
+<form action="" method="POST"> {% csrf_token %}
+<fieldset>
+<legend class="titulo3">Datos Basicos</legend>
+<table>
+
+<tr>
+	<td class="style1">
+	Categoria:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.categorias }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Nombre:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.nombre_completo }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Tipo de Coleccion:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.tipocolec }}<br>
+	</td>
+</tr>
+
+
+<tr>
+	<td class="style1">
+	Siglas:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.siglas }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Organismos de Adscripcion:
+	</td>
+</tr>
+<tr>
+	<td>
+	-------------------------- por confirmar<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Tipo de Organizacion:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.tipoorganizacion }}<br>
+	</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td class="style1" colspan="2">
+	Razon Social:
+	</td>
+	<td>
+	RIF
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+	{{ form.nombre }}
+	</td>
+	<td>
+	{{ form.rif }}
+	</td>
+</tr>
+<tr>
+	<td class="style1" colspan="3">
+	Pais:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.pai }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Estado:
+	</td>
+	<td class="style1">
+	Municipio:
+	</td>
+	<td class="style1">
+	Parriquia:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.estado }}
+	</td>
+	<td>
+	{{ form.municipio }}<br>
+	</td>
+	<td>
+	{{ form.parroquia }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1" colspan="3">
+	Direccion:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.direccion }}<br>
+	</td>
+</tr>
+
+
+<tr>
+	<td class="style1" colspan="2">
+	Telefono:
+	</td>
+	<td class="style1">
+	Fax:
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+	{{ form.telefono }}
+	</td>
+	<td>
+	{{ form.fax }}
+	</td>
+</tr>
+<tr>
+	<td colspan="2">Pagina Web</td>
+	<td>Redes Sociales</td>
+</tr>
+<tr>
+	<td colspan="2">----------</td>
+	<td>---------</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Correo Electronico:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.correo }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1" colspan="3">
+	Logotipo:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.logotipo }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Año de Fundacion:
+	</td>
+	<td>Responsable Autorizado</td>
+	<td>Numero de Miembros</td>
+</tr>
+<tr>
+	<td>
+	{{ form.aniofundacion }}
+	</td>
+	<td>------------</td>
+	<td>
+	{{ form.numeromiembros }}
+	</td>
+</tr>
+<tr>
+	<td class="style1" colspan="3">
+	Reseña Historica:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.reseniahistorica }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Estructura Organizativa:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	------------<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1" colspan="3">
+	Objetivos:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.objetivos }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Particularidades:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.particularidades }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Publicaciones Periodicas:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.publicacionesPeriodicas }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Ambito de Accion:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.ambitoaccion }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Especie o Grupos de Especies (Grupo Biologico):
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.grupobio }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Areas de Accion
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.tiposAreasAccion }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1" colspan="3">
+	Programas y Proyectos
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.actinteres }}<br>
+	</td>
+</tr>
+</table>
+</fieldset>
+
+
+<fieldset>
+<legend class="titulo3">Informacion del Colaborador</legend>
+<table>
+	
+</table>
+</fieldset>
+<input type="submit" value="Guardar">
+</form>
+
+
+
+								</td>
+								<td width="25" background="/media/imgs/latder.png">
+								
+								</td>                                                            
+							</tr> 
+							<tr>
+								<td width="25" background="/media/imgs/esqid.png">
+
+								</td>
+								<td width="700" background="/media/imgs/latinf.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqii.png">
+								
+								</td>                                                      
+							</tr>                    
+						</table>
+					</td>
+					<td width="10">
+			
+					</td>
+					<td width="225" valign="top">									
+						<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="25" background="/media/imgs/esqsi.png">
+
+								</td>
+								<td width="175" background="/media/imgs/latsup.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqsd.png">
+
+								</td>                                                       
+							</tr>
+							<tr>
+								<td width="25" background="/media/imgs/latizq.png">
+								
+								</td>
+								<td width="175" align="center">
+
+								<table width="100%">
+                                    	<tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	<a href="plataforma.php">La Plataforma</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	<a href="colaboradores.php">Equipo y Colaboradores</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	<a href="construccion.php">Construcci&oacute;n Colectiva</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	<a href="estrategias.php">La Estrategia</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	<a href="diversidadbiologica.info.ve/blog">Blog</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+								</td>
+								<td width="25" background="/media/imgs/latder.png">
+								
+								</td>
+							</tr>
+							<tr>
+								<td width="25" background="/media/imgs/esqid.png">
+								
+								</td>
+								<td width="175" background="/media/imgs/latinf.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqii.png">
+								
+								</td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;
+			
+		</td>
+	</tr>
+</table>
+
+
+
+{% endblock %}

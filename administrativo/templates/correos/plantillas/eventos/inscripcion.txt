@@ -1,0 +1,4 @@
+<h1 style="font-size:16px; color:#000;">Sistema de Notificaciones SVIDB</h1>
+Estimado {{ nombre }} {{ apellido }}<br>
+Se ha registrado como participante en el {{ evento }}<br>
+Codigo: {{ d }}

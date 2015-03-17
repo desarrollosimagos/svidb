@@ -1,0 +1,76 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Eventos
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                  <div class="titulo"><span style="font-style:italic;">Próximos Eventos</span></div>
+                  	<div style="text-align:justify; font-size:13px;">
+			</div>
+					
+                        {% for item in eventos_activos %}
+                        	<a href="/eventos/ver/{{ item.id }}" class="button button-blue2"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
+                        {% empty %}
+                            <br />No hay Congresos Activos
+                        {% endfor %}
+					<br /><br />
+			<div class="titulo"><span style="font-style:italic;">Eventos Realizados</span></div>
+                        <div style="text-align:justify; font-size:13px;">
+                        </div>
+                                    
+                        {% for item in realizados %}
+                            <a href="/eventos/ver/{{ item.id }}" class="button button-blue2"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
+                        {% empty %}
+                             <br />No hay Congresos Activos
+                        {% endfor %}
+                                     
+
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+            {% if persona %}
+                <div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+
+            {% else %}
+                <div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                                <br />
+                <span style="margin-left:25px; margin-right:25px;">Te invitamos a que inicies tu sesion y asi poder disfrutar de mas opciones <a href="/perfil">Iniciar Sesion </span>
+                <br />
+                <br />
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

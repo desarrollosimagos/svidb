@@ -1,0 +1,12 @@
+{% if datos %}        
+	<img src="/media/{{ datos.pathimg1 }}" width="675px" id="fotogaleria" /><br>
+	<table  width="650px">
+	<tr>
+		<td>{{ datos.nombre }}</td>
+		<td align="right"><a href="/media/{{ datos.pathimg2 }}">PDF</a> <a href="/media/{{ datos.pathimg2 }}">Capas</a></td>
+	</tr>
+	</table>
+	{% autoescape off %} {{ datos.basecartogra|removetags:"p span br"|safe }} {% endautoescape %}<br><br>
+	{% autoescape off %} {{ datos.observaciones|removetags:"p span br"|safe }} {% endautoescape %}<br>
+	<br><br>
+{% endif %}

@@ -1,0 +1,126 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<link rel="stylesheet" type="text/css" href="/media/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+
+{% if error = 'No' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+                // (string | mandatory) the heading of the notification
+                title: '<b style="color:#fff">Registro procesado!</b>',
+                // (string | mandatory) the text inside the notification
+                text: 'La información ha sido registrada en el sistema. Gracias por participar en la Construcción Colectiva. SVIDB.',
+                // (string | optional) the image to display on the left
+                image: '/media/css/plantilla/notificaciones/css/AZ.png',
+                // (bool | optional) if you want it to fade out on its own or just sit there
+                sticky: false,
+                // (int | optional) the time you want it to be alive for before fading out
+                time: '3000000000'
+        });
+
+        return false;
+
+});
+</script>
+{% endif %}
+
+{% if error = 'Si' %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+                // (string | mandatory) the heading of the notification
+                title: '<b style="color:#fff">Notificacion de Error!</b>',
+                // (string | mandatory) the text inside the notification
+                text: 'Se ha presentado un error al momento de realizar el envio del formulacion, por favor verifique la informacion e intentelo nuevamente',
+                // (string | optional) the image to display on the left
+                image: '/media/css/plantilla/notificaciones/css/safe_image.png',
+                // (bool | optional) if you want it to fade out on its own or just sit there
+                sticky: false,
+                // (int | optional) the time you want it to be alive for before fading out
+                time: '8000000'
+        });
+
+        return false;
+
+});
+</script>
+{% endif %}
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/css/plantilla/images/bbplataforma.png) top repeat-x;">
+					<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				¿Aún no eres usuario?
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                        	<b>Regístrate gratuitamente y en menos de un minuto! </b><br />
+                    		<br>
+                              <img src="/media/css/plantilla/images/medioinfo.png" width="680px" />
+                              <div style="text-align:center; font-size:13px;">
+                              <br />
+                              <a href="/nuevo_usuario.php" style="font-size:24px;">Regístrate
+</a>
+                              </div>
+						</div>
+                        <br />
+                        </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF; background-image:url(/media/css/plantilla/images/login_bg2.png)">
+                        	{% if form.errors %}
+                            	<p class="error">Lo siento, el nombre de usuario y clave no son válidos</p>
+                          	{% endif %}
+                  	<fieldset id="login">
+                    	<h4>Panel de Acceso</h4>
+                            <form method='post' id="formulario" action="/perfil"> {% csrf_token %}
+                                <p class="clearfix"><label for="username">Correo:</label>
+                                <input type="text" name="username" value="" id="username"></p>
+                                <p class="clearfix"><label for="password">Clave:</label>
+                                <input type="password" name="password" value="" id="password"></p>
+
+                                <section id="buttons2">
+                                    <input type="submit" name="submit" id="submitbtn2" class="submitbtn" tabindex="7" value="Enviar">
+                                    <br style="clear:both;">
+                            	</section>
+                                <input type="hidden" name="next" value="{{ next }}" />
+  							</form> 
+					</fieldset> 
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

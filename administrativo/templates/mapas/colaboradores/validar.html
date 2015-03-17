@@ -1,0 +1,18 @@
+<script>
+	function validar(id,estatus){
+		
+		$("#capa_"+id).load('/panel/especies/colaboraciones/change/estatus/'+id+'/'+estatus+'/');
+	}
+</script>
+{% if datos.estatu == 0 %}
+    <a onclick="validar('{{ datos.id }}','{{ datos.estatu }}');"><img src="/static/admin/img/admin/icon-yes.gif" alt="True"></a>
+{% endif %}
+{% if datos.estatu == 1 %}
+    <a onclick="validar('{{ datos.id }}','{{ datos.estatu }}');"><img src="/static/admin/img/admin/icon-no.gif" alt="False"></a>
+{% endif %}
+{% if datos.estatu == 2 %}
+    <a onclick="validar('{{ datos.id }}','{{ datos.estatu }}');"><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></a>
+{% endif %}
+{% if datos.estatu == 3 %}
+    <a onclick="validar('{{ datos.id }}','2');"><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></a>
+{% endif %}

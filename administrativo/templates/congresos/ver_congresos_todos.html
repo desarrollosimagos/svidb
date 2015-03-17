@@ -1,0 +1,313 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+		function loadFile(url,name,feactures){
+	window.open(url,name,feactures);
+	}
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+
+</script>
+<script type="text/javascript">
+var i = 0;
+  $(document).ready(function() {
+	$(".registrar_ins").click(function(event) {
+		if (confirm('Deseas registrarte como participante en el Evento {{ congreso }}?')) {
+			document.getElementById('mensaje_registro').innerHTML='<img src=\'/media/css/img/ajax-loading.gif\'>';
+      		$("#mensaje_registro").load('/inscribir_evento/'+this.id);
+		} else {
+			
+		}
+
+    });
+  });
+</script>
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+	height:25px;
+	width:120px;
+    
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background:#0C0; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0C0), to(#0C0) );
+    background: -moz-linear-gradient(-90deg, #0C0, #0C0);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0C0', endColorstr='#0C0');
+	color:#FFF;
+}
+
+.button-inac
+{
+    background:#F90; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F90), to(#F90) );
+    background: -moz-linear-gradient(-90deg, #F90, #F90);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F90', endColorstr='#F90');
+	color:#FFF;
+}
+
+.button-pen
+{
+    background:#F00; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F00), to(#F00) );
+    background: -moz-linear-gradient(-90deg, #F00, #F00);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F00', endColorstr='#F00');
+	color:#FFF;
+}
+
+
+</style>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu Cuenta -> Tus Aportes
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                  <div class="titulo"><span style="font-style:italic;">Tus Aportes</span></div>
+                  	<table width="100%" bgcolor="#FFCC66" style="border:1px solid #FC0;">
+                    	<tr>
+                        	<td>Estamos en proceso de carga de la información, quizás no visualices tu participarían por completo.</td>
+                        </tr>
+                    </table>
+                  	<div style="text-align:justify; font-size:13px;">
+                    <br />
+                    	<span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Participación en Eventos</b></span>
+                       	<hr />
+                        <div style="margin-left:25px;">
+                            {% regroup parti by evento as parti_even %}
+                            <ul>
+                            {% for item in parti_even %}
+                               <li style="font-size:14px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;">{{ item.grouper }} -  
+                               <b style="font-style:italic;">{{ item.grouper.fecha }} - {{ item.grouper.fechaFin }}</b></li>
+                            {% endfor %}
+                            </ul>
+						</div>
+						<span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Trabajos en Eventos</b></span>
+                       	<hr />
+                        <div style="margin-left:25px;">
+                            {% regroup trabajos by evento as trabajos_por_eventos %}
+                            <ul>
+                            {% for item in trabajos_por_eventos %}
+                                
+                                    <li style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>{{ item.grouper }}</b>
+                                        <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                                        {% for item2 in item.list %}
+                                            <li>{{ item2.titulo }} - {{ item2.modalidad }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    </li>
+                                
+                            {% endfor %}
+                            
+                           </ul>
+						</div>
+                        {% if banco %}
+                        <div style="text-align:justify; font-size:13px;">
+                        
+								<span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Banco Audiovisual</b></span>
+                                <hr />
+                                <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                                	{% if banco %}
+                                    <table width="100%">
+                                	<tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                                    	<td width="80%" align="center">Image</td>
+                                        <td width="10%" align="center">Estatus</td>
+                                        <td width="10%" align="center">Ver</td>
+                                    </tr>
+                                    <tr>
+                                    	<td colspan="3">
+                                        	<hr>
+                                        </td>
+                                    </tr>
+                                    {% for item in banco %}
+                                    <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666;">
+                                    	<td>
+                                        	<img src="/media/{{ item.retorno_nombre }}.157_118{{ item.retorno_extencion }}" width="100px" />
+                                        </td>
+                                        <td>
+                                        	{% if item.estatu = 2 %}
+                                            	<a class="button button-blue"><span>Activo</span></a>
+                                            {% endif %}
+											{% if item.estatu = 1 %}
+                                            	<a class="button button-inac"><span>Sin vinculo</span></a>
+                                            {% endif %}
+                                            {% if item.estatu = 0 %}
+                                            	<a class="button button-pen"><span>Pendiente</span></a>
+                                            {% endif %}
+                                        </td>
+                                        <td align="center">
+                                        	<a><img src="/media/css/plantilla/images/ver.png" width="45px" /></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                    {% else %}
+                                    <table>
+                            <tr>
+                            <td width="160" align="center">
+								<h1 style="color:#333; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:50px;">
+                                	:(
+                                </h1>
+                             </td>
+                             <td width="899">
+                                No has realizado aportes al Banco Audiovisual. De presentarse algún error, comuníquese al correo diversidadbiologica@minamb.gob.ve
+<br />
+Te invitamos a participar haciendo clic en el siguiente enlace: <a href="/panel/bancoaudio/add"> Nueva Contribución</a>
+<br /><br />
+Gracias...
+
+                              </td>
+                              </tr>
+                              </table>
+                                    {% endif %}
+                                </ul>
+                                </div>
+                                {% endif %}
+                                
+                                {% if constr %}
+                                <div style="text-align:justify; font-size:13px;">
+								<span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Construcción Colectiva del SVIDB</b></span>
+                                <hr />
+                                <div style="margin-left:25px;">
+                                {% regroup constr by tipoColaboracion as tipo_cola %}
+                                <ul>
+                                {% for item in tipo_cola %}
+                                	
+                                        <li style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>{{ item.grouper }}</b>
+                                            <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                                            {% for item2 in item.list %}
+                                                <li>{{ item2.titulo }} - <b style="font-style:italic;">{{ item2.fecha }}</b></li>
+                                            {% endfor %}
+                                            </ul>
+                                        </li>
+                                    
+                                {% endfor %}
+                                </ul>
+                                </div>
+                                </div>
+                                {% endif %}
+                                <br />
+                                {% if biblioteca %}
+                                <div style="text-align:justify; font-size:13px;">
+								<span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Biblioteca</b></span>
+                                <hr />
+                                {% if biblioteca %}
+                            	<br>
+                            	<table width="100%">
+                                	<tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                                    	<td width="80%" align="center">Titulo</td>
+                                        <td width="10%" align="center">Estatus</td>
+                                        <td width="10%" align="center">Ver</td>
+                                    </tr>
+                                    <tr>
+                                    	<td colspan="3">
+                                        	<hr>
+                                        </td>
+                                    </tr>
+                                    {% for item in biblioteca %}
+                                    <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666;">
+                                    	<td>
+                                        	{{ item.titulo }}
+                                        </td>
+                                        <td>
+                                        	{% if item.estatu = 0 %}
+                                            	<a class="button button-blue"><span>Activo</span></a>
+                                            {% endif %}
+											{% if item.estatu = 1 %}
+                                            	<a class="button button-inac"><span>Inactivo</span></a>
+                                            {% endif %}
+                                            {% if item.estatu = 2 %}
+                                            	<a class="button button-pen"><span>Pendiente</span></a>
+                                            {% endif %}
+                                        </td>
+                                        <td align="center">
+                                        	{% if item.repositoriolinea %}
+                                                <span onclick="loadFile('/media/{{ item.repositoriolinea }}','_blank', 'width=750,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                	<img src="/media/css/plantilla/images/ver.png" width="45px" />
+                                                </span><br>
+                                            {% else %}
+                                                <span onclick="alert('Lo sentimos, actualmente no hay documentos asociados.')" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                	<img src="/media/css/plantilla/images/ver.png" width="45px" />
+                                                </span><br>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            {% else %}
+                            <table>
+                            <tr>
+                            <td width="160" align="center">
+								<h1 style="color:#333; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:50px;">
+                                	:(
+                                </h1>
+                             </td>
+                             <td width="899">
+                                No has realizado aportes a la biblioteca. De presentarse algún error, comuníquese al correo diversidadbiologica@minamb.gob.ve<br />
+
+Te invitamos a participar haciendo clic en el siguiente enlace: <a href="/panel/biblioteca/add">Nueva Contribución</a><br />
+<br />
+Gracias... 
+                              </td>
+                              </tr>
+                              </table>
+                            {% endif %}
+                                </div>{% endif %}
+                                </div>
+                    
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Buzon de Mensajes
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                  <div class="titulo"><span style="font-style:italic;">Buzon de Solicitudes</span></div>
+                  <div style="text-align:justify; font-size:13px;"><b>Podras asignar y verificar solicitudes.</b></div>
+                  <br>
+				  <table width="640px" style="border:none; border:1px solid #CCC;" cellpadding="2" cellspacing="2">
+					<tr>
+                    	<td  align="center" bgcolor="#999999">
+                        	Remitente
+                        </td>
+                        <td  align="center" bgcolor="#999999">
+                        	Asunto
+                        </td>
+                        <td  align="center" bgcolor="#999999">
+                        	Fecha
+                        </td>
+                        <td  align="center" bgcolor="#999999">
+                        	Prioridad
+                        </td>
+                    </tr>
+                  	{% for contact in mesn.object_list %}
+					<tr>
+                    	<td  >
+                        	{{ contact.remi }}
+                        </td>
+                        <td  >
+                        	{{ contact.asunto }}
+                        </td>
+                        <td  >
+                        	{{ contact.fecha }}
+                        </td>
+                        <td>
+                        	{{ contact.prioridad }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                  	<div class="pagination">
+                        <span class="step-links">
+                            {% if mesn.has_previous %}
+                                <a href="?page={{ mesn.previous_page_number }}">Anterior</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if mesn.has_next %}
+                                <a href="?page={{ mesn.next_page_number }}">Proximo</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                  
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                    	<table width="90%" style="margin-left:10px;">
+                                    	<tr>
+                                        	<td style="background-color:#D6D6D6;" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/perfil">Solicitar</a>
+                                            </td>
+                                         </tr>
+                                         <tr>
+                                        	<td style="background-color:#D6D6D6;" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/perfil">Abiertas</a>
+                                            </td>
+                                         </tr>
+                                         <tr>
+                                        	<td style="background-color:#D6D6D6;" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/perfil">Cerradas</a>
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                        	<td style="background-color:#D6D6D6;" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/perfil">Pausadas</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+            	</div>
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                    	<table width="90%" style="margin-left:10px;">
+                                    	<tr>
+                                        	<td style="background-color:#D6D6D6;" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/perfil">Portada</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/mis_datos.php">Mis datos</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/mis_publicaciones.php">Mis aportes a la CC</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/eventos.php">Participacion en Eventos</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+            	</div>
+            </div>
+        </div>
+    </div>						
+							
+{% endblock %}
+
+
+
+
+</body>
+</html>

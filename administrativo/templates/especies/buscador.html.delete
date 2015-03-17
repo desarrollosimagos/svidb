@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ve" xml:lang="es-ve" ><head>
+<title>Añadir Taxón | BIODIVERSIDAD</title>
+
+
+<style>
+
+</style>
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+
+<script type="text/javascript" src="/manager/jsi18n/"></script>
+<link href="/media//jquery.autocomplete.css" type="text/css" media="all" rel="stylesheet" />
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
+<script type="text/javascript" src="/media/admin/js/jquery.autocomplete.public.js"></script>
+
+</head>
+
+
+<body class="especies-taxon change-form">
+
+<form enctype="multipart/form-data" action="/manager/especies/taxon/" method="post" id="taxon_form">
+
+                <div>
+
+                        <input type="hidden" name="taxonrelax" id="id_taxonrelax" />
+			<input type="text" id="lookup_taxonrelax" value="" size="40" search_fields="nombrecomun,taxonrelax__nombre,nombre" app_label="especies" model_name="taxon" autocomplete_mode="ForeignKey" class="to_autocomplete" base_url="/manager/especies/taxon/"/>
+			<a class="deletelink" title="удалить связь" onclick="autocomplete_delete(this)">&nbsp;</a>
+                        
+                    
+                    
+                </div>
+
+
+
+</form>
+
+
+</script>
+</body>
+</html>
+

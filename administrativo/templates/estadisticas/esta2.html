@@ -1,0 +1,203 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+		  
+        var data = google.visualization.arrayToDataTable([
+          ['Clasificacion', 'Numero'],
+          ['Especies Sometidas al Tráfico o Comercio Ilícito',     {{ esptraf }}],
+          ['Especies para el Aprovechamiento Sustentable',      {{ espaprove }} ],
+          ['Especies de Impacto sobre la Salud Humana',     {{ espsalud }}],
+          ['Especies de Animales en Peligro de Extinción y Árboles en Veda',      {{ esppeligr }} ],
+          ['Especies Exóticas o Introducidas',     {{ espexot }}],
+          ['Especies de Impacto sobre la Producción Agropecuaria y Forestal',      {{ espagrico }} ],
+          ['Otras Especies',      {{ falseCla }} ],
+		  
+		  
+        ]);
+
+        var options = {
+          title: 'N° Especies en Listas Temáticas'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+    
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #00679A; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#00679A), to(#00679A) );
+    background: -moz-linear-gradient(-90deg, #00679A, #00679A);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00679A', endColorstr='#00679A');
+	color:#FFF;
+}
+
+.button-naranja
+{
+    background:#F07F3B; /*ffcc99*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F07F3B), to(#F07F3B) );
+    background: -moz-linear-gradient(-90deg, #F07F3B, #F07F3B);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F07F3B', endColorstr='#F07F3B');
+	color:#FFF;
+}
+.button-verde
+{
+    background:#52A851; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#52A851), to(#52A851) );
+    background: -moz-linear-gradient(-90deg, #52A851, #52A851);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#52A851', endColorstr='#52A851');
+	color:#FFF;
+}
+
+.button-marron
+{
+    background: #cd6530; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#cd6530), to(#cd6530) );
+    background: -moz-linear-gradient(-90deg, #cd6530, #cd6530);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cd6530', endColorstr='#cd6530');
+	color:#FFF;
+}
+
+.button-gris
+{
+    background:#999; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#999) );
+    background: -moz-linear-gradient(-90deg, #999, #999);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#999', endColorstr='#999');
+	color:#FFF;
+}
+
+.button-morado
+{
+    background:#936; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#936), to(#936) );
+    background: -moz-linear-gradient(-90deg, #936, #936);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#936', endColorstr='#936');
+	color:#FFF;
+}
+
+.button-amarillo
+{
+    background:#F90; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F90), to(#F90) );
+    background: -moz-linear-gradient(-90deg, #F90, #F90);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F90', endColorstr='#F90');
+	color:#FFF;
+}
+
+.button-masmorado
+{
+    background:#99F; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#99F), to(#99F) );
+    background: -moz-linear-gradient(-90deg, #99F, #99F);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99F', endColorstr='#99F');
+	color:#FFF;
+}
+
+.button-mapas
+{
+    background:#996; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#996), to(#996) );
+    background: -moz-linear-gradient(-90deg, #996, #996);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#996', endColorstr='#996');
+	color:#FFF;
+}
+
+.button-biorregiones
+{
+    background:#F60; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F60), to(#F60) );
+    background: -moz-linear-gradient(-90deg, #F60, #F60);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F60', endColorstr='#F60');
+	color:#FFF;
+}
+
+.button-origenes
+{
+    background:#090;
+    background: -webkit-gradient(linear, left top, left bottom, from(#090), to(#090) );
+    background: -moz-linear-gradient(-90deg, #090, #090);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#090', endColorstr='#090');
+	color:#FFF;
+}
+
+</style>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; width:940px;">
+			<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Estadísticas de Especies
+                  			</span>
+                            <br /><br />
+                            <a href="/estadisticas/especies/graph1"  class="button button-blue"><span>Especies Vs Especies en Listas Temáticas</span></a>&nbsp;
+                            <a href="/estadisticas/especies/graph2"  class="button button-blue"><span>N° Especies en Listas Temáticas</span></a>&nbsp;
+                        <a href="/estadisticas/especies/graph5" class="button button-blue"><span>Taxones según Clasificación</span></a>&nbsp;
+                        </div>
+				<div id="piechart" style="width: 900px; height: 500px;"></div>
+
+                </div>
+                </div>
+			<!-- Fin Columna Principal -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,352 @@
+{% extends "completo.html"%}
+
+{% block content %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#submitbtn").click(function() {
+                    var input_string = $("#id_nombre").val();
+					alert(input_string);
+                    $.ajax({
+                        url : "/panel/actores/ajax/paso2", 
+                        type : "POST",
+                        dataType: "json", 
+                        data : {
+                            client_response : input_string,
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                            },
+                            success : function(json) {
+                                /*$('#result').append( 'Server Response: ' + json.server_response);*/
+								alert(json.actor)
+                            },
+                            error : function(xhr,errmsg,err) {
+                                alert(xhr.status + ": " + xhr.responseText);
+                            }
+                    });
+                    return false;
+            });
+        });
+    </script>
+    
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+
+</script>
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+{% if actor %}
+
+{% else %}
+<script type="text/javascript">
+/*
+$(document).ready(function() {
+	document.getElementById("id_tiposAreasAccion").className='txtinput';
+	document.getElementById("id_actoresrex").className='txtinput';
+	document.getElementById("id_bancoaudio").className='txtinput';
+	document.getElementById("id_horarios").className='txtinput';
+	document.getElementById("id_fund").className='txtinput';
+	document.getElementById("id_url").className='txtinput';
+	document.getElementById("id_ambitoaccion").className='txtinput';
+	document.getElementById("id_principalesorgfinan").className='txtinput';
+	document.getElementById("id_objetivos").className='txtinput';
+	document.getElementById("id_publicacionesPeriodicas").className='txtinput';
+	document.getElementById("id_aniofundacion").className='txtinput';
+	document.getElementById("id_telefono").className='txtinput';
+	document.getElementById("id_fax").className='txtinput';
+	document.getElementById("id_address").className='txtinput';
+	document.getElementById("id_geolocation").className='txtinput';
+	document.getElementById("id_rif").className='txtinput';
+	document.getElementById("id_siglas").className='txtinput';
+	document.getElementById("id_nombre").className='txtinput';
+	document.getElementById("id_nombre_completo").className='txtinput';
+	document.getElementById("id_direccion").className='txtinput';
+	document.getElementById("id_pai").className='txtinput';
+	document.getElementById("id_estado").className='txtinput';
+	document.getElementById("id_municipio").className='txtinput';
+	document.getElementById("id_parroquia").className='txtinput';
+	document.getElementById("id_correo").className='txtinput';
+	document.getElementById("id_reseniahistorica").className='txtinput';
+	document.getElementById("id_pubp").className='txtinput';
+	document.getElementById("id_grupobio").className='txtinput';
+	document.getElementById("id_logotipo").className='txtinput';
+	document.getElementById("id_categoriact").className='txtinput';
+	document.getElementById("id_tipocolec").className='txtinput';
+	document.getElementById("id_particularidades").className='txtinput';
+	document.getElementById("id_estrOrganz").className='txtinput';
+	document.getElementById("id_actinteres").className='txtinput';
+	document.getElementById("id_coord").className='txtinput';
+	document.getElementById("id_estrucorg").className='txtinput';
+	document.getElementById("id_tipoorganizacion").className='txtinput';
+	document.getElementById("id_userupdate").className='txtinput';
+	document.getElementById("id_areasesconserv").className='txtinput';
+	document.getElementById("id_directorio").className='txtinput';
+	
+	document.getElementById("id_tiposAreasAccion").placeholder='...';
+	document.getElementById("id_actoresrex").placeholder='...';
+	document.getElementById("id_bancoaudio").placeholder='...';
+	document.getElementById("id_horarios").placeholder='...';
+	document.getElementById("id_fund").placeholder='...';
+	document.getElementById("id_url").placeholder='...';
+	document.getElementById("id_ambitoaccion").placeholder='...';
+	document.getElementById("id_principalesorgfinan").placeholder='...';
+	document.getElementById("id_objetivos").placeholder='...';
+	document.getElementById("id_publicacionesPeriodicas").placeholder='...';
+	document.getElementById("id_aniofundacion").placeholder='...';
+	document.getElementById("id_telefono").placeholder='...';
+	document.getElementById("id_fax").placeholder='...';
+	document.getElementById("id_address").placeholder='...';
+	document.getElementById("id_geolocation").placeholder='...';
+	document.getElementById("id_rif").placeholder='...';
+	document.getElementById("id_siglas").placeholder='...';
+	document.getElementById("id_nombre").placeholder='...';
+	document.getElementById("id_nombre_completo").placeholder='...';
+	document.getElementById("id_direccion").placeholder='...';
+	document.getElementById("id_pai").placeholder='...';
+	document.getElementById("id_estado").placeholder='...';
+	document.getElementById("id_municipio").placeholder='...';
+	document.getElementById("id_parroquia").placeholder='...';
+	document.getElementById("id_correo").placeholder='...';
+	document.getElementById("id_reseniahistorica").placeholder='...';
+	document.getElementById("id_pubp").placeholder='...';
+	document.getElementById("id_grupobio").placeholder='...';
+	document.getElementById("id_logotipo").placeholder='...';
+	document.getElementById("id_categoriact").placeholder='...';
+	document.getElementById("id_tipocolec").placeholder='...';
+	document.getElementById("id_particularidades").placeholder='...';
+	document.getElementById("id_estrOrganz").placeholder='...';
+	document.getElementById("id_actinteres").placeholder='...';
+	document.getElementById("id_coord").placeholder='...';
+	document.getElementById("id_estrucorg").placeholder='...';
+	document.getElementById("id_tipoorganizacion").placeholder='...';
+	document.getElementById("id_userupdate").placeholder='...';
+	document.getElementById("id_areasesconserv").placeholder='...';
+	document.getElementById("id_directorio").placeholder='...';
+});*/
+</script>
+{% endif %}
+{% if msm %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Registro procesado!</b>',
+		// (string | mandatory) the text inside the notification
+		text: 'La información ha sido registrada en el sistema. Gracias por participar en la Construcción Colectiva. SVIDB.',
+		// (string | optional) the image to display on the left
+		image: '/media/css/plantilla/notificaciones/css/AZ.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: ''
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta > Actores Colectivos > Agregar
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Actores Colectivos
+                  			</span>
+                        </div>
+                        <br />
+                        {% if actor %}
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		El sistema ha identicado que el nombre <span style="font-style:italic;"><b>"{{ nombre }}"</b></span>, se encuentra registrado en la base de datos.<br>
+                            Tomando en cuenta ciertos requerimientos se genero la siguiente lista de elementos.<br />
+                            Por favor, seleccione uno de ellos para continuar con el registro
+                        </div>
+                           
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                         <section id="container">
+                         
+                         		<ul>
+                         		{% for item in actor %}   
+                                                            
+                            	<li><a {% if item.directorio %} href="/panel/eventos/trabajos/actores/paso/4/{{ id }}/{{ item.id }}/" {% else %} href="/panel/eventos/trabajos/actores/paso/3/{{ id }}/{{ item.id }}/" {% endif %}>{{ item.nombre_completo }} {% if item.directorio %} -  No se puede modificar {% else %} {% endif %}</a></li>
+                                {% endfor %}
+                                </ul>
+                         </section>
+                         </div>
+                         {% else %}
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		El sistema ha identicado que el nombre <span style="font-style:italic;">"{{ nombre }}"</span>, No se encuentra registrado en la base de datos.<br>
+                            Lo invitamos a prosiga con el registro del mismo en el sistema.
+                        </div>
+                        <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                         <br />
+Complete los siguientes datos de la organización o institución
+<br />
+    {% if mensaje %}
+     <p class="error">{{ mensaje }} </p>
+     <br />
+    {% endif %}
+<form action="/panel/eventos/trabajos/actores/paso/7/{{ id }}/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+<input type="hidden" id="nombre_bb" name="nombre_bb" value="{{ nombre }}" />
+<table width="444">
+<tr>
+	<td colspan="3">{{ msm }}</td>
+</tr>
+<tr>
+	<td class="style1">
+	Rif:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.rif }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Nombre Completo:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.nombre_completo }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Siglas :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.siglas }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Teléfono :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.telefono }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Fax :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.fax }}<br>
+	</td>
+</tr>
+
+<tr>
+  <td class="style1">
+    Correo Electrónico :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.correo }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    País :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.pai }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Estado :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.estado }}<br>
+	</td>
+</tr><br />
+
+<tr>
+  <td class="style1">
+    Dirección :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.direccion }}<br>
+	</td>
+</tr>
+<tr>
+  <td class="style1">
+    Ámbito de acción :
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.ambitoaccion }}<br>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+    <bt>
+    <input type="submit" value="Guardar y vincular con el trabajo" style="border:1px solid #009; background-color:#06F; color:#FFF; width:350px; height:20px;"/>
+    <br>
+    </td>
+</tr>
+</table>
+
+
+</form>
+                         </div>
+                         {% endif %}
+                         
+                         
+                            </div>
+                    </div>        
+
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+						
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

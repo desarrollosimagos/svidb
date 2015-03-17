@@ -1,0 +1,300 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<link rel="stylesheet" type="text/css" href="/media/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+{% if error %}
+	{% if error = 'Si' %}
+	<script>
+	$(document).ready(function() {
+	$.gritter.add({
+		        // (string | mandatory) the heading of the notification
+		        title: '<b style="color:#fff">Notificacion de Error!</b>',
+		        // (string | mandatory) the text inside the notification
+		        text: 'Se ha presentado un error al momento de realizar el envio ',
+		        // (string | optional) the image to display on the left
+		        image: '/media/css/plantilla/notificaciones/css/safe_image.png',
+		        // (bool | optional) if you want it to fade out on its own or just sit there
+		        sticky: false,
+		        // (int | optional) the time you want it to be alive for before fading out
+		        time: '300'
+		});
+
+		return false;
+
+	});
+
+	</script>
+	{% endif %}
+	{% if error = 'No' %}
+	<script>
+	$(document).ready(function() {
+	$.gritter.add({
+		        // (string | mandatory) the heading of the notification
+		        title: '<b style="color:#fff">Bienvenido, {{ persona.nombre }}</b>',
+		        // (string | mandatory) the text inside the notification
+		        text: 'Has logrado ingresar con exito al panel de usuarios, . ¡Felicitaciones!',
+		        // (string | optional) the image to display on the left
+		        image: '/media/css/plantilla/notificaciones/css/AZ.png',
+		        // (bool | optional) if you want it to fade out on its own or just sit there
+		        sticky: false,
+		        // (int | optional) the time you want it to be alive for before fading out
+		        time: ''
+		});
+
+		return false;
+
+	});
+	</script>
+	{% endif %}
+{% endif %}
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				¡Hola!
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		<b>Bienvenido(a) al panel de usuarios del Sistema Venezolano de Información sobre Diversidad Biológica</b>
+                            <br /><br />
+                        </div>
+                            <hr style=" border:none;background:url(/media/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                            <span style="text-align:left; font-style:italic; font-size:16px;" class="titulo1">
+                  				Panel Personal<br />
+                  			</span>
+                            <br />
+                            A través de estos enlaces puedes modificar tus datos personales y visualizar tus contribuciones al portal y la participación en eventos de la Estrategia Nacional de Conservación de la Diversidad Biológica.  
+                            <br />
+                            <table cellpadding="10" cellspacing="10" border="0">
+                            <tr>
+                            <td>
+                            <a href="/panel/datos"><img src="/media/css/plantilla/images/6.png" /></a>
+                            </td>
+                            <td>
+                            <a href="/panel/publicaciones"><img src="/media/css/plantilla/images/4.png" /></a>
+                            </td>
+                            <td>
+                           
+                            <!--<a href="/mensajes.php?page=1"><img src="/media/css/plantilla/images/correo.png" /></a>-->
+                            </td>
+                            </tr>
+                            <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                            	<td align="center">Mis Datos</td>
+                                <td align="center">Mis Publicaciones</td>
+                                <td align="center"></td>
+                            </tr>
+                            
+                            </table>
+                            <br />&nbsp;<br />
+                          </div>
+                          {% if usuario.is_staff %}
+<hr style=" border:none;background:url(/media/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                            <span style="text-align:left; font-style:italic; font-size:16px;" class="titulo1">
+                  				Panel Administrativo<br />
+                  			</span>
+                            <br />
+                            Accesos a las aplicaciones administrativas  
+                            <br />
+                            <table cellpadding="10" cellspacing="10" border="0">
+                            <tr>
+                            <td>
+                            {% if usuario.is_staff %}
+                            <a href="/manager"><img src="/media/css/plantilla/images/administrativo.png" /></a>
+                            {% else %}
+                            
+                            {% endif %}
+                            </td>
+                            <td>
+                            
+                            </td>
+                            <td>
+                            
+                            <!--<a href="/mensajes.php?page=1"><img src="/media/css/plantilla/images/correo.png" /></a>-->
+                            </td>
+                            </tr>
+                            <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                            	<td align="center">{% if usuario.is_staff %}Panel Administrativo{% endif %}</td>
+                                <td align="center"></td>
+                                <td align="center"></td>
+                            </tr>
+                            
+                            </table>
+                            <br />&nbsp;<br />
+                          </div>
+                          {% endif %}
+                          <hr style=" border:none;background:url(/media/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+                       <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                            <span style="text-align:left; font-style:italic; font-size:16px;" class="titulo1">
+                  				Panel para la Construccion Colectiva<br />
+                  			</span>
+                            <br />
+                             Acá puedes contribuir con la construcción colectiva del sistema, aportando material audiovisual y documentos, además puedes registrar organizaciones que aporten a la conservación de la Diversidad Biológica en Venezuela y también puedes hacer reportes de avistamiento de las especies exóticas presentes en el pais.
+                            <br />
+                          <table cellpadding="10" cellspacing="10" border="0">
+                            <tr>
+                            <td>
+                            <a href="/panel/biblioteca"><img src="/media/css/plantilla/images/biblio1.png" /></a>
+                            </td>
+                            <td>
+                            <a href="/panel/bancoaudio"><img src="/media/css/plantilla/images/banco2.png" /></a>
+                            </td>
+                            <td>
+                            <a href="/panel/avistamientos"><img src="/media/css/plantilla/images/avistamiento1.png" /></a>
+                            </td>
+                            </tr>
+                            <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                            	<td align="center">Biblioteca</td>
+                                <td align="center">Banco Audiovisual</td>
+                                <td align="center">Avistamiento de Especies Exóticas</td>
+                            </tr>
+                            <!--
+                            <tr>
+                            <td>
+                            <a href="/organizaciones"><img src="/media/css/plantilla/images/organizacion.png" /></a>
+                            </td>
+                            <td>
+                            
+                            </td>
+                            <td>
+                            
+                            </td>
+                            </tr>
+                            <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                            	<td align="center">Actores Colectivos</td>
+                                <td align="center"></td>
+                                <td align="center"></td>
+                            </tr>-->
+                            </table>
+						</div>
+                        <br />
+                	</div>
+                </div>
+             
+             
+             
+             
+             
+             
+<!--             
+             
+				  <table width="735px" style="border:none;" cellpadding="5" cellspacing="5">
+                  	<tr>
+                    	<td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/mis_datos.php"><img src="/media/css/plantilla/images/datos.png" /></a>
+                        </td>
+                        <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/mis_publicaciones.php"><img src="/media/css/plantilla/images/aportes.png" /></a>
+                        </td>
+                        <td  align="center" width="236px">
+                        	
+                        </td>
+                    </tr>
+-->
+<!--
+                  <tr>
+                    	<td  align="center" style="border:1px #ce6631 solid;">
+                        	<a href="/mensajes.php?page=1"><img src="/media/css/plantilla/images/mensajes.png" /></a>
+                        </td>
+                        <td  align="center" colspan="2">
+							{% if mensajes %}
+                            <div style="width:472px; background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        <a href="/mensajes.php?page=1">Mensajes</a> <b style="font-style:italic;">({{ mensajes }})</b>
+                                    </span>
+                                </div>
+                            <br />
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td colspan="3"><br /></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="3"><span style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold;">Eventos</span></td>
+                    </tr>
+                  	<tr>
+                    	<td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/eventos.php"><img src="/media/css/plantilla/images/eventos.png" /></a>
+                        </td>
+                        <td  align="center" colspan="2">
+							{% if eventos_activos %}
+                            <div style="width:472px; background-color:#B4FEBF; border:1px solid #86F294; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        Tenemos eventos activos, te invitamos a revisar y participar.
+                                    </span>
+                                </div>
+                            <br />
+                            {% endif %}
+                        </td>
+                    </tr>
+                  </table>
+                  {% if actores %}
+                  <br /><br />
+                  <b style="font-style:italic;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold;">Actores Colectivos Asociados a su usuario</b>
+                  <br />
+                      {% for field in actores %}
+                      		&nbsp;&nbsp;<b>{{ field.nombre_completo }} - {{ field.nombre }}</b>
+                          <table width="735px" style="border:none;" cellpadding="5" cellspacing="5">
+                            <tr>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/mis_datos.php"><img src="/media/css/plantilla/images/organizaciond.png" /></a>
+                                </td>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/mis_publicaciones.php"><img src="/media/css/plantilla/images/miembros.png" /></a>
+                                </td>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/eventos.php"><img src="/media/css/plantilla/images/noticias1.png" /></a>
+                                </td>
+                            </tr>
+                          </table>
+                          <br />
+                      {% endfor %}
+                  {% endif %}	
+                  </div>
+                </div>
+                -->
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

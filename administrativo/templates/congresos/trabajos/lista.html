@@ -1,0 +1,228 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta -> Arbitraje -> Eventos -> Activos
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+<br />
+					<div style="margin-left:25px; margin-right:25px;">
+                  <div class="titulo"><span style="font-style:italic;">Arbitraje</span></div>
+                  	<div style="text-align:justify; font-size:13px;">
+                    <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                  <div style="text-align:justify; font-size:13px;font-style:italic;"><b>Selecciona un resumen para obtener mayor información.</b></div>
+                                    </span>
+                                </div>
+                  	
+					</div>
+                    <br />
+                    {% if arbitro2 %}
+                    <b>Trabajos asignados a : {{ arbitro2.arbitro.nombre }} {{ arbitro2.arbitro.apellido }}</b><br />
+                    <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/filtro/{{ id }}/estatus/3/arbitro/{{ arbitro2.id }}"><span style="color:#000;">En arbitraje <img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></span></a>
+                <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/filtro/{{ id }}/estatus/1/arbitro/{{ arbitro2.id }}"><span style="color:#000;">Aprobado <img src="/static/admin/img/admin/icon-yes.gif" alt="True"></span></a>
+                
+                <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/filtro/{{ id }}/estatus/2/arbitro/{{ arbitro2.id }}"><span style="color:#000;">Rechazado <img src="/static/admin/img/admin/icon-no.gif" alt="False"></span></a>
+                <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/{{ id }}/arbitro/{{ arbitro2.id }}"><span style="color:#000;">Ver todos</span></a>
+                <a class="button2 button-blue2" href="{{ url3 }}{{ id }}"><span style="color:#000;">Ver todos los arbitros</span></a>
+                <br />
+                
+                    {% else %}
+					<b>Trabajos</b><br />
+                    
+                    <a class="button2 button-blue2" href="{{ url2 }}{{ id }}/3"><span style="color:#000;">En arbitraje <img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></span></a>
+                <a class="button2 button-blue2" href="{{ url2 }}{{ id }}/1"><span style="color:#000;">Aprobado <img src="/static/admin/img/admin/icon-yes.gif" alt="True"></span></a>
+                
+                <a class="button2 button-blue2" href="{{ url2 }}{{ id }}/2"><span style="color:#000;">Rechazado <img src="/static/admin/img/admin/icon-no.gif" alt="False"></span></a>
+                <a class="button2 button-blue2" href="{{ url3 }}{{ id }}"><span style="color:#000;">Ver todos</span></a><br />
+                {% endif %}
+                Selecciona para ver o modificar resúmenes
+                <br />
+                <hr />
+                        <table width="100%">
+                    {% for item in trabajos %}
+                    	{% if item.estatu %}
+                            {% if item.estatu == 1 %}
+                              <tr>
+                                <td width="6%"><img src="/static/admin/img/admin/icon-yes.gif" alt="True">&nbsp;</td>
+                                
+                                <td width="20%">
+                                	<b style="font-style:italic;"> ({{ item.trabajos.modalidad }})</b>
+                                </td>
+                                <td width="74%">{% autoescape off %}{{ item.trabajos.titulo }}{% endautoescape %}</td>
+                             </tr>
+                             <tr >
+                             	<td></td>
+                                {% if item.trabajos.estatu %}
+                                    {% if item.trabajos.estatu == 1 %}
+                                    <td align="center"  style="background-color:#0C0;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Aceptado.</span>
+                                    {% endif %}
+                                    {% if item.trabajos.estatu == 2 %}
+                                    <td align="center"  style="background-color:#F00;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Rechazado.</span>
+                                    {% endif %}
+                                    {% if item.trabajos.estatu == 3 %}
+                                    <td align="center"  style="background-color:#06C;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Aceptado con Mod.</span>
+                                    {% endif %}
+                                {% else %}
+                                	<td align="center">
+                                {% endif %}
+                                </td>
+                                <td align="right"><a class="buttonCorto buttonCorto-evento" target="_new" href="/panel/eventos/trabajos/previsual/{{ item.trabajos.id }}"><span style="color:#000;color:#fff;">Pre-visualizar</span></a>&nbsp;&nbsp;
+                                <a class="buttonCorto buttonCorto-evento" href="{{ url }}{{ item.trabajos.id }}"><span style="color:#000;color:#fff;">Ver</span></a></td>
+                                </tr>                
+                            
+                            
+                            {% endif %}
+                            {% if item.estatu == 2 %}
+                            
+                            <tr>
+                                <td><img src="/static/admin/img/admin/icon-no.gif" alt="False">&nbsp;</td>
+                                <td width="20%">
+                                	<b style="font-style:italic;"> ({{ item.trabajos.modalidad }})</b>
+                                </td>
+                                <td width="74%">{% autoescape off %}{{ item.trabajos.titulo }}{% endautoescape %}</td>
+                             </tr>
+                             <tr>
+                             	<td>
+
+                             	</td>
+                                {% if item.trabajos.estatu %}
+                                    {% if item.trabajos.estatu == 1 %}
+                                    <td align="center"  style="background-color:#0C0;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Aceptado.</span>
+                                    {% endif %}
+                                    {% if item.trabajos.estatu == 2 %}
+                                    <td align="center"  style="background-color:#F00;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Rechazado.</span>
+                                    {% endif %}
+                                    {% if item.trabajos.estatu == 3 %}
+                                    <td align="center"  style="background-color:#06C;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Aceptado con Mod.</span>
+                                    {% endif %}
+                                {% else %}
+                                	<td align="center">
+                                {% endif %}
+                                </td>
+                                <td align="right"><a class="buttonCorto buttonCorto-evento" target="_new" href="/panel/eventos/trabajos/previsual/{{ item.trabajos.id }}"><span style="color:#000;color:#fff;">Pre-visualizar</span></a>&nbsp;&nbsp;
+                                <a class="buttonCorto buttonCorto-evento" href="{{ url }}{{ item.trabajos.id }}"><span style="color:#000;color:#fff;">Ver</span></a></td>
+                                </tr>     
+                            {% endif %}
+                            {% if item.estatu == 3 %}
+                           
+                            <tr>
+                                <td><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">&nbsp;</td>
+                                <td width="20%">
+                                	<b style="font-style:italic;"> ({{ item.trabajos.modalidad }})</b>
+                                </td>
+                                <td width="74%">{% autoescape off %}{{ item.trabajos.titulo }}{% endautoescape %}</td>
+                             </tr>
+                             <tr><td></td>
+                             	{% if item.trabajos.estatu %}
+                                    {% if item.trabajos.estatu == 1 %}
+                                    <td align="center"  style="background-color:#0C0;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Aceptado.</span>
+                                    {% endif %}
+                                    {% if item.trabajos.estatu == 2 %}
+                                    <td align="center"  style="background-color:#F00;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Rechazado.</span>
+                                    {% endif %}
+                                    {% if item.trabajos.estatu == 3 %}
+                                    <td align="center"  style="background-color:#06C;">
+                                        &nbsp;&nbsp;<span style="color:#FFF; font-size:14px;">Aceptado con Mod.</span>
+                                    {% endif %}
+                                {% else %}
+                                	<td align="center">
+                                {% endif %}
+                                </td>
+                                <td align="right"><a class="buttonCorto buttonCorto-evento" target="_new" href="/panel/eventos/trabajos/previsual/{{ item.trabajos.id }}"><span style="color:#000;color:#fff;">Pre-visualizar</span></a>&nbsp;&nbsp;
+                                <a class="buttonCorto buttonCorto-evento" href="{{ url }}{{ item.trabajos.id }}"><span style="color:#000;color:#fff;">Editar</span></a></td>
+                                </tr>      
+                            {% endif %}
+                        {% else %}
+
+                        {% endif %}
+                    {% empty %}
+                        <a href="" class="button button-blue2"><span>No existen eventos <b style="font-style:italic;">Activos</b></span></a>
+                    {% endfor %}
+                    </table>
+                    {% if arbitro2 %}
+
+                    <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/filtro/{{ id }}/estatus/3/arbitro/{{ arbitro2.id }}"><span style="color:#000;">En arbitraje <img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></span></a>
+                <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/filtro/{{ id }}/estatus/1/arbitro/{{ arbitro2.id }}"><span style="color:#000;">Aprobado <img src="/static/admin/img/admin/icon-yes.gif" alt="True"></span></a>
+                
+                <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/filtro/{{ id }}/estatus/2/arbitro/{{ arbitro2.id }}"><span style="color:#000;">Rechazado <img src="/static/admin/img/admin/icon-no.gif" alt="False"></span></a>
+                <a class="button2 button-blue2" href="/panel/coordinador/eventos/activos/{{ id }}/arbitro/{{ arbitro2.id }}"><span style="color:#000;">Ver todos</span></a>
+                <a class="button2 button-blue2" href="{{ url3 }}{{ id }}"><span style="color:#000;">Ver todos los arbitros</span></a><br />
+                
+                    {% else %}
+                    
+                    <a class="button2 button-blue2" href="{{ url2 }}{{ id }}/3"><span style="color:#000;">En arbitraje <img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></span></a>
+                <a class="button2 button-blue2" href="{{ url2 }}{{ id }}/1"><span style="color:#000;">Aprobado <img src="/static/admin/img/admin/icon-yes.gif" alt="True"></span></a>
+                
+                <a class="button2 button-blue2" href="{{ url2 }}{{ id }}/2"><span style="color:#000;">Rechazado <img src="/static/admin/img/admin/icon-no.gif" alt="False"></span></a>
+                <a class="button2 button-blue2" href="{{ url3 }}{{ id }}"><span style="color:#000;">Ver todos</span></a>
+                <br />
+                {% endif %}
+                Selecciona para ver o modificar resúmenes
+<br>
+						<br />
+                         <br /><br />
+                         </div>
+                         </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					<a href="/panel/documentos/reportes/trabajos/eventos/{{ id }}">Ir a generador de matrix</a>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					Arbitros
+                    <p style="margin-left:10px; margin-right:10px;text-align:left;">
+                    {% for i in arbitros %}
+                    <a href="/panel/coordinador/eventos/activos/{{ id }}/arbitro/{{ i.id }}/">* {{ i.arbitro.nombre }} {{ i.arbitro.apellido }}</a><br />
+                    {% endfor %}
+                  	</p>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    
+                </div>
+                
+        </div>
+    </div>
+
+
+{% endblock %}

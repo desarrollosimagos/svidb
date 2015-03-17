@@ -1,0 +1,85 @@
+<html>
+	<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+	<body>
+    	<table width="100%">
+        <tr>
+        	<td>&nbsp;</td>
+        	<td><img src="{{ url }}media/librerias/pdf/cinsuperior.jpg"></td>
+        	<td>&nbsp;</td>
+          </tr>
+        <tr>
+        	<td width="8%">&nbsp;</td>
+            <td align="right"><br><span style="color:#F00; font-family:Verdana, Geneva, sans-serif; font-size:12px;">Fundación Nacional de Parques Zoológicos y Acuarios</span></td>
+            <td align="right">&nbsp;</td>
+          </tr>
+          <tr>
+        	<td width="8%">&nbsp;</td>
+            <td align="center"><br><br><br><br><br><span style="color:#000; font-family:Verdana, Geneva, sans-serif; font-size:17px;">CONSTANCIA</span></td>
+            <td align="right">&nbsp;</td>
+          </tr>
+        <tr>
+        	<td>&nbsp;</td>
+            <td width="86%"><span style="color:#000; font-family:Verdana, Geneva, sans-serif; font-size:15px;">
+            <br><br>
+            <p style="text-align:justify;">
+            Por medio de la presente se hace constar que su propuesta, registrada con el título:<br>
+            <b>{% autoescape off %}{{ trabajos.titulo|removetags:"p"|safe }} {% endautoescape %}</b>
+            </p>
+            <ul>
+            <li>Autor: {{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }} C.I. V-{{ trabajos.directorio.documentoidentidad }}</li>
+            
+            {% for item in trabajos.coautores.all %}
+            <li>Coautor {{forloop.counter}}: {{ item.nombre|capfirst }} {{ item.apellido|capfirst }} C.I. V-{{ item.documentoidentidad }}</li>
+            {% endfor %}
+            </ul>
+            <br>
+            <p style="text-align:justify;">
+            
+            {% if trabajos.estatu == 1 %}
+            	Ha sido<b>ACEPTADO</b>
+            {% endif %}
+            {% if trabajos.estatu == 2 %}
+            	<b>No ha sido aceptado</b>
+            {% endif %}
+            
+            para su presentación en modalidad de <b>{{ trabajos.modalidad }}</b>,
+            en el {{ trabajos.evento.nombre }} que se realizará del {{ trabajos.evento.fecha|date:"d" }} al {{ trabajos.evento.fechaFin }} en {{ trabajos.evento.lugar }}.
+            <br>
+            <br>
+            Constancia que se expide a solicitud de la parte interesada el {{ dateFormat }}.
+
+            </p>
+			</span>
+            </td>
+            <td width="6%">&nbsp;</td>
+        </tr>
+        
+        <tr>
+        	<td>&nbsp;</td>
+            <td>
+            <span style="color:#000; font-family:Verdana, Geneva, sans-serif; font-size:15px; text-align:center;"><br>
+            <p style="text-align:center;"><br>
+            <img src="{{ url }}media/librerias/imgs/firma.jpg">
+            </p>
+</span>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+        	<td>
+            </td>
+            <td></td>
+            <td>
+            <br><br><br><br><br><br>
+        	{{ trabajos.evento.id }} - {{ trabajos.modalidad.id }}  - {{ trabajos.id }}
+            </td>
+        </tr>
+        
+        </table>
+       
+        
+       
+    </body>
+</html>

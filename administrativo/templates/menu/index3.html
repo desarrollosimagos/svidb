@@ -1,0 +1,224 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<link type="text/css" href="/media/autocat/jquery.ui.all.css" rel="stylesheet" />
+	<script type="text/javascript" src="/media/autocat/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="/media/autocat/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="/media/autocat/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="/media/autocat/jquery.ui.position.js"></script>
+	<script type="text/javascript" src="/media/autocat/jquery.ui.autocomplete.js"></script>
+
+	<script type="text/javascript" src="/media/carrucelcir/js/jquery.tinycircleslider.min.js"></script>
+	<link rel="stylesheet" href="/media/carrucelcir/css/website.css" type="text/css" media="screen"/>
+	<style type="text/css">
+	.ui-autocomplete-category {
+		font-weight:bold;
+		padding:.2em .4em;
+		margin:.8em 0 .2em;
+		line-height:1.5;
+	}
+	</style>
+<script>
+	function menu(){
+		document.getElementById('plataforma').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript">
+	$.extend( $.ui.menu.prototype, {
+		next: function() {
+			this.move("next", ".ui-menu-item:first");
+		},
+
+		previous: function() {
+			this.move("prev", ".ui-menu-item:last");
+		},
+
+		move: function(direction, edge) {
+			if (!this.active) {
+				this.activate(this.element.children(edge));
+				return;
+			}
+			var next = this.active[direction + "All"]('.ui-menu-item').eq( 0 );
+			if (next.length) {
+				this.activate(next);
+			} else {
+				this.activate(this.element.children(edge));
+			}
+		}
+	});
+
+	$.widget("custom.catcomplete", $.ui.autocomplete, {
+		_renderMenu: function( ul, items ) {
+			var self = this,
+				currentCategory = "";
+			$.each( items, function( index, item ) {
+				if ( item.category != currentCategory ) {
+					ul.append( "<li class='ui-autocomplete-category' style='background-color:#E6E6E6;'>" + item.category + "</li>" );
+					currentCategory = item.category;
+				}
+				self._renderItem( ul, item );
+			});
+		}
+	});
+	</script>
+	<script type="text/javascript">
+	$(function() {
+		var data = [
+
+			{ label: "andreas", category: "Especie" },
+			{ label: "antal", category: "Especie" },
+			{ label: "annhhx10", category: "Clase" },
+			{ label: "annk K12", category: "Clase" },
+			{ label: "annttop C13", category: "Reino" },
+			{ label: "anders andersson", category: "Familia" },
+			{ label: "andreas andersson", category: "Familia" },
+			{ label: "andreas johnson", category: "Imperio" }
+		];
+		$('#search').catcomplete({
+	
+			source: "/autocat/"+document.getElementById("search").values
+		});
+	});
+	</script>
+
+	<script type="text/javascript">
+		function enviarBuscador(){
+			document.formbuscar.action="/buscador";
+			document.formbuscar.submit();
+
+		}
+		$(document).ready(function(){
+			$('#rotatescroll').tinycircleslider({ interval: true, snaptodots: true });
+		});
+	</script>
+
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	{{ principal.titulo }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix" style="width:940px;">
+                	<div style="border:1px solid #C0C0C0
+;">
+<form method="GET" id="formbuscar" name="formbuscar">
+<div class="search-wrapper" style="width: 483px;
+height: 78px;
+padding: 14px 19px 18px;
+background: url(/media/discovery/search-bg.png);position: absolute;
+z-index: 200;
+left: 50%;
+margin-left: -160px;
+margin-top: 90px;
+">
+	<!--<a href="/discover" class="see-all">See All Species</a>-->
+	<label style="color:#fff; font-size:14px;"><b>puedes buscar especies, taxonomias, actores, areas..</b></label>
+	<div class="search-box" style="display: block;
+background: #fff;
+border: 1px #666666 solid;
+height: 50px;
+width: 481px;
+position: relative;
+box-shadow: inset 1px 1px 3px #aaa;
+-webkit-transition: all 0.3s;
+-moz-transition: all 0.3s;
+-ms-transition: all 0.3s;
+-o-transition: all 0.3s;
+transition: all 0.3s;">
+		<span><input type="text" class="mousetrap" name="valorForen" id="search"  style="margin: 0;
+padding: 0 0 0 16px;
+height: 50px;
+width: 407px;
+outline: none;
+border: 0;
+background: none;
+font-size: 30px;
+color: #333333;
+vertical-align: middle;
+box-shadow: none !important;">
+<input type="hidden" id="foreingkey" name="foreingkey_id" value="">
+
+</span>
+		<input type="button" value="Search" name="" class="disabled" style="cursor: pointer;
+font-size: 0px;
+line-height: 200px;
+overflow: hidden;
+display: block;
+position: absolute;
+top: -1px;
+bottom: -1px;
+right: -1px;
+border: none;
+outline: none;
+width: 52px;
+height: 52px;
+background-color: transparent;
+background-image: url(/media/discovery/search-button.png);
+background-repeat: no-repeat;
+background-position: left top;
+" onclick="enviarBuscador();">
+	</div>
+	<div class="autocomplete">
+	</div>
+</form>  
+</div>
+<div id="rotatescroll">
+		<div class="viewport">
+			<ul class="overview">
+				<li><img src="/media/carrucelcir/images/hdr3.jpg" height="298px" /></li>
+				<li><img src="/media/carrucelcir/images/hdr2.jpg" height="298px" /></li>
+				<li><img src="/media/carrucelcir/images/hdr1.jpg" height="298px" /></li>
+				<li><img src="/media/carrucelcir/images/hdr3.jpg" height="298px" /></li>
+				<li><img src="/media/carrucelcir/images/hdr2.jpg" height="298px" /></li>
+				<li><img src="/media/carrucelcir/images/hdr1.jpg" height="298px" /></li>
+				<li><img src="/media/carrucelcir/images/hdr3.jpg" height="298px" /></li>
+			</ul>
+		</div>
+
+		
+		<div class="dot"></div>
+		<div class="overlay"></div>
+		<div class="thumb"></div>
+	</div>
+
+ <!--                 		<div style="margin-left:25px; margin-right:25px;" class="texto_regular">
+					
+					<br>
+					<table align="center" width="100%">
+						<tr>
+							<td width="33%">
+								<img src="/media/imgs/especies-en-peligro.jpg" width="280px" height="190px">
+							</td>
+							<td width="34%">
+								<img src="/media/imgs/especias.jpg" width="280px" height="190px">
+							</td>
+							<td width="33%" colspan="2">
+								<img src="/media/imgs/images.jpg" width="280px" height="190px">
+							</td>
+						</tr>
+					</table>
+					
+				</div>
+                        <br />
+-->
+                	</div>
+                </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,61 @@
+<html>
+	<body>
+    	<table width="800px">
+        <tr>
+        	<td>&nbsp;</td>
+        	<td><img src="/media/librerias/css/plantilla/images/gob.jpg" width="760px"></td>
+        	<td>&nbsp;</td>
+          </tr>
+        <tr>
+        	<td width="8%">&nbsp;</td>
+            <td align="right"><br><span style="color:#F00; font-family:Verdana, Geneva, sans-serif; font-size:12px;">Sistema Venezolano de Informaci&oacute;n sobre la Diversidad Biol&oacute;gica.</span></td>
+            <td align="right">&nbsp;</td>
+          </tr>
+          <tr>
+        	<td width="8%">&nbsp;</td>
+            <td align="center"><br><br><br><span style="color:#000; font-family:Verdana, Geneva, sans-serif; font-size:17px;">RESUMEN</span></td>
+            <td align="right">&nbsp;</td>
+          </tr>
+        <tr>
+        	<td>&nbsp;</td>
+            <td width="86%"><span style="color:#000; font-family:Verdana, Geneva, sans-serif; font-size:15px;">
+            <br>
+            {% autoescape off %}{{ publicacion.titulo|removetags:"p"|safe }}{% endautoescape %}<br><br>
+            {% autoescape off %}{{ publicacion.directorio.apellido|removetags:"p"|safe|lower|title }}{% endautoescape %},
+            {% autoescape off %}{{ publicacion.directorio.nombre|removetags:"p"|safe|first|capfirst }}{% endautoescape %}* 
+            {% for ca in publicacion.coautores.all %}
+        		; {% autoescape off %}{{ ca.apellido|removetags:"p"|safe|lower|title  }}{% endautoescape %},
+            	{% autoescape off %}{{ ca.nombre|removetags:"p"|safe|first|capfirst  }}{% endautoescape %}{% endfor %}{% if publicacion.coautores.all %}.{% endif %}
+            
+            <br><br>
+            {% for ca in publicacion.colectivos.all %}
+        		{% autoescape off %}{% if ca.nombre_completo %}{{ca.nombre_completo}} {% else %} {{ca.nombre }} {% endif %}{% endautoescape %}<br>
+    		{% endfor %}
+            *{% autoescape off %}{{ publicacion.directorio.correo|removetags:"p"|safe }}{% endautoescape %}<br>
+            <br><br>
+            <p align="justify">
+            {% autoescape off %}{{ publicacion.resumen|removetags:"p div span"|safe }}{% endautoescape %}<br>
+   			</p>
+			</span>
+            </td>
+            <td width="6%">&nbsp;</td>
+        </tr>
+        
+        <tr>
+        	<td>&nbsp;</td>
+            <td>
+            <span style="color:#000; font-family:Verdana, Geneva, sans-serif; font-size:15px; text-align:center;"><br>
+            <p style="text-align:center;"><br>
+            <img src="{{ url }}media/librerias/imgs/firma.jpg">
+            </p>
+</span>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        
+        </table>
+       
+        
+       
+    </body>
+</html>

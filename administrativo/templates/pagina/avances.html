@@ -1,0 +1,118 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('plataforma').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+
+</script>
+
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	{{ principal.titulo }} > {{ sub.titulo }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				{{ sub.titulo }}
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		<span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Especies Finalizadas</b></span>
+                    <hr />
+                    <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                        {% for item2 in especies_act %}
+                        	<li>{{ item2.taxon.nombrecomun }} <b style="font-style:italic;">({{ item2.taxon.taxonrelax.nombre }} {{ item2.taxon.nombre }})</b> / {{ item2.persona.nombre }} {{ item2.persona.apellido }} 
+                            {% if item2.taxon.detalletaxon.bancoaudio.all %}
+                            +
+                            {% else %}
+                            -
+                            {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Especies en Elaboración</b></span>
+                    <hr />
+                    <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                        {% for item2 in especies_inac %}
+                        	<li>{{ item2.taxon.nombrecomun }} <b style="font-style:italic;">({{ item2.taxon.nombre }} - {{ item2.taxon.taxonrelax.nombre }})</b> / {{ item2.persona.nombre }} {{ item2.persona.apellido }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Areas Finalizados</b></span>
+                    <hr />
+                    <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                        {% for item2 in areas_act %}
+                        	<li>{{ item2.areas.subtipoas }} - {{ item2.areas.nombre }} /{{ item2.persona.nombre }} {{ item2.persona.apellido }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Areas en Elaboración</b></span>
+                    <hr />
+                    <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                        {% for item2 in areas_inac %}
+                        	<li>{{ item2.areas.subtipoas }} - {{ item2.areas.nombre }} / {{ item2.persona.nombre }} {{ item2.persona.apellido }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Actores Finalizados</b></span>
+                    <hr />
+                    <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                        {% for item2 in actores_act %}
+                        	<li>{{ item2.colectivos.nombre_completo }} / {{ item2.persona.nombre }} {{ item2.persona.apellido }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <span style="font-size:14px; font-style:italic; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;"><b>Actores en Elaboración</b></span>
+                    <hr />
+                    <ul style="margin-left:15px;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-style:normal;">
+                        {% for item2 in actores_inac %}
+                        	<li>{{ item2.colectivos.nombre_completo }} / {{ item2.persona.nombre }} {{ item2.persona.apellido }}</li>
+                        {% endfor %}
+                    </ul>
+						</div>
+                        <br />
+                	</div>
+                </div>
+			<!-- Fin Columna Principal -->
+           <div id="secCol">
+            
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

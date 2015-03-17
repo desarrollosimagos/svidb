@@ -1,0 +1,241 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+
+</script>
+<script type="text/javascript">
+var i = 0;
+  $(document).ready(function() {
+	$(".registrar_ins").click(function(event) {
+		if (confirm('Deseas registrarte como participante en el Evento {{ congreso }}?')) {
+			document.getElementById('mensaje_registro').innerHTML='<img src=\'/media/librerias/css/img/ajax-loading.gif\'>';
+      		$("#mensaje_registro").load('/inscribir_evento/'+this.id);
+		} else {
+			
+		}
+
+    });
+  });
+</script>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu Cuenta -> Inscripción en Eventos -> {{ congreso }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+<div id="mainCol" class="clearfix">
+	<div style="border:1px solid #C0C0C0;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+		<br /><br />
+<div style="margin-left:25px; margin-right:25px;">
+			<div class="titulo"><span style="font-style:italic;">{{ congreso }}</span></div>
+			<div style="text-align:justify; font-size:13px;">
+				<div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">{{ congreso.lugar }} <b>({{ congreso.fecha }} - {{ congreso.fechaFin }})</b></div>
+					</span>
+				</div>
+					<br />
+                    {% autoescape off %}
+					{{ congreso.descripcion|removetags:"b span p"|safe }}
+         			{% endautoescape %}<br />
+                    <br />
+				</div>
+                <br>
+                {% if congreso.opt0 or congreso.opt1 %}
+                <b>Preinscripción y postulación de resúmenes para trabajos o actividades.</b>
+                <hr />
+                {% if congreso.opt1 %}
+				<div id="mensaje_registro">
+                    {% if participa %}
+                    {% if activoins %}
+                        {%  else %}
+                        <br />
+                    <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Cerrado el proceso de Pre-inscripción</div>
+					</span>
+					</div>
+                    
+                    {% endif %}
+                    {% if activopos %}
+                        
+                        {% else %}
+                        <br />
+                         <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Cerrado el proceso de postulación de trabajos</div>
+					</span>
+					</div>
+                        {% endif %}
+                    <table width="100%">
+                    <tr>
+                    <td align="left">
+                    	<img src="/media/librerias/imgs/images3.jpg" height="25px"/>Ya estas registrado como participante en este evento.<BR /><br />
+                    </td>
+                    <td align="right">
+                        <!--<a class="buttonCorto buttonCorto-evento" href="/panel/documentos/eventos/planillas/preinscripcion/{{ congreso.id }}" target="_new"><span style="color:#000;color:#fff;"> &nbsp;Descargar Carta de Invitación</span></a>-->
+                    </td>
+                    </tr>
+                    <tr>
+                    	<td>
+                        </td>
+                        <td align="right">
+                        {% if congreso.opt0 %}
+                        {% if activopos %}
+                        <a class="buttonCorto buttonCorto-evento" href="/panel/eventos/registro/{{ congreso.id }}"><span style="color:#000;color:#fff;"> &nbsp;Postular resúmenes de trabajos o actividades</span></a><br />
+                        {% else %}
+                        {% endif %}
+                        {% endif %}
+                        </td>
+                    </tr>
+                    </table>
+                    {% else %}
+                    <table width="100%">
+                    <tr>
+                    <td align="left">
+                    {% if activoins %}
+                        <a class="registrar_ins buttonCorto buttonCorto-evento" id="{{ congreso.id }}"><span style="color:#fff;">Preinscribirse en este evento</span></a>
+                    {%  else %}
+                    <div style="background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+					<span style="text-align:left; margin-left:15px;">
+						<div style="text-align:justify; font-size:13px;font-style:italic;">Cerrado el proceso de Pre-inscripción</div>
+					</span>
+					</div>
+                    {% endif %}
+                    </td>
+                    <td align="right">
+                    	<!--<a class="registrar_ins" id="{{ congreso.id }}" style="cursor:pointer; text-decoration:underline;">Preinscribirse en este evento.</a>-->
+                        
+                    </td>
+                    </tr>
+                    </table>
+                    {% endif %}
+				</div>
+                
+                
+                <br>
+                
+                {% endif %}
+                {% endif %}
+                <br />
+                {% if congreso.opt0 %}
+                {% if trabajos %}
+                <b>Resúmenes registrados en el  {{ congreso }}</b>
+                <hr />
+                
+                
+                
+                
+                
+                <br /><br />
+				<table width="100%">
+                    {% for item in trabajos %}
+                    	{% if item.estatu %}
+                            {% if item.estatu == 1 %}
+                              <tr>
+                                <td width="6%" ><img src="/static/admin/img/admin/icon-yes.gif" alt="True">&nbsp;</td>
+                                
+                                <td width="20%">
+                                	<b style="font-style:italic;"> ({{ item.modalidad }})</b>
+                                </td>
+                                <td width="74%">{% autoescape off %}{{ item.titulo }}{% endautoescape %}</td>
+                             </tr>
+                             <tr>
+                             	<td></td>
+                                <td colspan="2" align="right"><a class="buttonCorto buttonCorto-evento" href="/panel/eventos/trabajos/editar/{{ item.id }}"><span style="color:#000;color:#fff;">Editar</span></a><a class="buttonCorto buttonCorto-evento" href="/panel/documentos/eventos/planillas/resumen/{{ item.id }}" target="_new"><span style="color:#000;color:#fff;">Constancia</span></a></td>
+                                </tr>                
+                            
+                            
+                            {% endif %}
+                            {% if item.estatu == 2 %}
+                            
+                            <tr>
+                                <td><img src="/static/admin/img/admin/icon-no.gif" alt="False">&nbsp;</td>
+                                <td width="20%">
+                                	<b style="font-style:italic;"> ({{ item.modalidad }})</b>
+                                </td>
+                                <td width="74%">{% autoescape off %}{{ item.titulo }}{% endautoescape %}</td>
+                             </tr>
+                             <tr><td></td>
+                                <td colspan="2" align="right"><a class="buttonCorto buttonCorto-evento" href="/panel/eventos/trabajos/editar/{{ item.id }}"><span style="color:#000;color:#fff;">Editar</span></a><a class="buttonCorto buttonCorto-evento" href="/panel/documentos/eventos/planillas/resumen/{{ item.id }}" target="_new"><span style="color:#000;color:#fff;">Constancia</span></a></td>
+                                </tr>     
+                            {% endif %}
+                            {% if item.estatu == 3 %}
+                           
+                            <tr>
+                                <td><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">&nbsp;</td>
+                                <td width="20%">
+                                	<b style="font-style:italic;"> ({{ item.modalidad }})</b>
+                                </td>
+                                <td width="74%">{% autoescape off %}{{ item.titulo }}{% endautoescape %}</td>
+                             </tr>
+                             <tr><td></td>
+                                <td colspan="2" align="right"><a class="buttonCorto buttonCorto-evento" href="/panel/eventos/trabajos/editar/{{ item.id }}"><span style="color:#000;color:#fff;">Editar</span></a>
+                                </td>
+                                </tr>      
+                            {% endif %}
+                        {% else %}
+                        	
+                            <tr>
+                                <td><img src="/media/librerias/imgs/icon-pendiente1.gif" alt="Pendiente">&nbsp;</td>
+                                <td width="20%">
+                                	<b style="font-style:italic;"> ({{ item.modalidad }})</b>
+                                </td>
+                                <td width="74%">{% autoescape off %}{{ item.titulo }}{% endautoescape %}</td>
+                             </tr>
+                             <tr><td></td>
+                                <td colspan="2" align="right"><a class="buttonCorto buttonCorto-evento" href="/panel/eventos/trabajos/editar/{{ item.id }}"><span style="color:#000;color:#fff;">Editar</span></a>
+                                </td>
+                                </tr>       
+                    	
+                        {% endif %}
+                    {% empty %}
+                        <a href="" class="button button-blue2"><span>No existen eventos <b style="font-style:italic;">Activos</b></span></a>
+                    {% endfor %}
+                    </table>
+                    
+				<a class="button2 button-blue2"><span style="color:#000;">En arbitraje <img src="/media/librerias/imgs/icon-pendiente1.gif" alt="Pendiente"></span></a>
+                <a class="button2 button-blue2"><span style="color:#000;">Aceptado con modificaciones <img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></span></a>
+                
+                <a class="button2 button-blue2"><span style="color:#000;">Aceptado <img src="/static/admin/img/admin/icon-yes.gif" alt="True"></span></a>
+                
+                <a class="button2 button-blue2"><span style="color:#000;">Rechazado <img src="/static/admin/img/admin/icon-no.gif" alt="False"></span></a>
+                Selecciona para ver o modificar tus resúmenes
+<br>
+                {% endif %}
+                {% endif %}
+			</div>
+		</div>
+	</div>
+    
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+
+{% endblock %}
+</div>

@@ -1,0 +1,172 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>-->
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+{% if error %}
+	{% if error = 'Si' %}
+	<script>
+	$(document).ready(function() {
+	$.gritter.add({
+		        // (string | mandatory) the heading of the notification
+		        title: '<b style="color:#fff">Notificacion de Error!</b>',
+		        // (string | mandatory) the text inside the notification
+		        text: 'Se ha presentado un error al momento de realizar el envio ',
+		        // (string | optional) the image to display on the left
+		        image: '/media/librerias/css/plantilla/notificaciones/css/safe_image.png',
+		        // (bool | optional) if you want it to fade out on its own or just sit there
+		        sticky: false,
+		        // (int | optional) the time you want it to be alive for before fading out
+		        time: '300'
+		});
+
+		return false;
+
+	});
+
+	</script>
+	{% endif %}
+	{% if error = 'No' %}
+	<script>
+	$(document).ready(function() {
+	$.gritter.add({
+		        // (string | mandatory) the heading of the notification
+		        title: '<b style="color:#fff">Bienvenido, {{ persona.nombre }}</b>',
+		        // (string | mandatory) the text inside the notification
+		        text: 'Has logrado ingresar con exito al panel de usuarios, . ¡Felicitaciones!',
+		        // (string | optional) the image to display on the left
+		        image: '/media/librerias/css/plantilla/notificaciones/css/AZ.png',
+		        // (bool | optional) if you want it to fade out on its own or just sit there
+		        sticky: false,
+		        // (int | optional) the time you want it to be alive for before fading out
+		        time: ''
+		});
+
+		return false;
+
+	});
+	</script>
+	{% endif %}
+{% endif %}
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0; top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  			</span>
+                        </div>
+						
+                        {% regroup seccionesPanel by submodulos.modulos as categorias_act %}
+                        {% for item in categorias_act %}
+                            {% if item.grouper.activo %}
+                                {% if item.grouper.is_admmin %}
+                                	<hr style="border:none;background:url(/media/librerias/css/plantilla/images/bbtaxon.png) top repeat-x; height:47px;"/>
+										<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+											<span style="text-align:left; font-style:italic; font-size:16px;" class="titulo1">
+												{{ item.grouper.modulo }}<br />
+											</span>
+											<br />
+                                            {% autoescape off %}{{ item.grouper.descripcion }}{% endautoescape %}
+											
+											<br />
+											{% for item2 in item.list %}
+												
+													{% if  forloop.last %}
+                                                    	<table cellpadding="10" cellspacing="10" border="0">
+                                                    {% else %}
+                                                    	<table cellpadding="10" cellspacing="10" border="0" style="float:left;">
+                                                    {% endif %}
+                                                        <tr>
+                                                            <td>
+                                                                {% if item2.submodulos.url %}
+                                                                    <a href="{{ item2.submodulos.url }}" target="{{ item2.submodulos.target }}"><img src="/media/{{ item2.submodulos.boton }}" /></a>
+                                                                {% else %}
+                                                                    <a href="/panel/cuenta/modulo/{{ item2.submodulos.id }}" target="{{ item2.submodulos.target }}"><img src="/media/{{ item2.submodulos.boton }}" /></a>
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                                                            <td align="center">{{ item2.submodulos.titulo }}</td>
+                                                        </tr>
+                                                    </table>
+                                                
+                                            {% endfor %}
+                                            <br />&nbsp;<br />
+                                        </div>
+                                {% else %}
+                                	<hr style="border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+										<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+											<span style="text-align:left; font-style:italic; font-size:16px;" class="titulo1">
+												{{ item.grouper.modulo }}<br />
+											</span>
+											<br />
+											{% autoescape off %}{{ item.grouper.descripcion }}{% endautoescape %}
+											<br />
+											{% for item2 in item.list %}
+												
+													{% if  forloop.last %}
+                                                    	<table cellpadding="10" cellspacing="10" border="0">
+                                                    {% else %}
+                                                    	<table cellpadding="10" cellspacing="10" border="0" style="float:left;">
+                                                    {% endif %}
+                                                        <tr>
+                                                            <td>
+                                                                {% if item2.submodulos.url %}
+                                                                    <a href="{{ item2.submodulos.url }}" target="{{ item2.submodulos.target }}"><img src="/media/{{ item2.submodulos.boton }}" /></a>
+                                                                {% else %}
+                                                                    <a href="/panel/cuenta/modulo/{{ item2.submodulos.id }}" target="{{ item2.submodulos.target }}"><img src="/media/{{ item2.submodulos.boton }}" /></a>
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                                                            <td align="center">{{ item2.submodulos.titulo }}</td>
+                                                        </tr>
+                                                    </table>
+                                                
+                                            {% endfor %}
+                                            <br />&nbsp;<br />
+                                        </div>                                
+                                
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                	</div>
+                </div>
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

@@ -1,0 +1,401 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='white';
+	}
+	window.onload=menu();
+</script>
+<script>
+	function contribuir(id,estatus){
+		$("#capa_contribuir"+id).load('/panel/{{ url }}/colaboraciones/change/contribuir/'+id+'/'+estatus+'/');
+	
+	}
+	function publicar(id,estatus){
+		$("#capa_publicar"+id).load('/panel/{{ url }}/colaboraciones/change/publicar/'+id+'/'+estatus+'/');
+	}
+</script>
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+    
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:white;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #0099CC; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:white;
+}
+</style>
+
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; width:940px;">
+			<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				{{ titulo }}
+                  			</span>
+                        </div>
+                        <br />
+				<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+		    Filtro por estatus: 
+                    <a href="/panel/{{ url }}/colaboraciones/1/0/">Activo</a> -
+                    <a href="/panel/{{ url }}/colaboraciones/1/1/">Inactivo</a> - 
+                    <a href="/panel/{{ url }}/colaboraciones/1/2/">Pendiente</a> 
+                    <br />
+                    <br />
+                {% if mesn %}
+                	
+                    <table width="100%">
+                    	<tr style="font-weight:bold;">
+                        	<!--<td>Estatus Colaboración</td><td>Estatus Publicación</td><td>Fecha</td><td>Nombre del Colaborador</td><td>Título</td><td align="center">Ver</td><td align="left">Contribuir</td><td align="center">&nbsp;|&nbsp;&nbsp;</td><td align="right">Publicar</td>
+				-->
+				<td>Estatus Colaboración</td>
+				<td>Estatus Publicación</td>
+				<td>Título o Nombre</td>
+				<td align="center">Ver</td>
+				<td align="left">Contribuir</td>
+				<td align="center">&nbsp;|&nbsp;&nbsp;</td>
+				<td align="right">Publicar</td>
+                        </tr>
+                	{% for lista in mesn.object_list %}
+                    	<tr>
+                        	<td>
+                            	{% if lista.estatu == 0 %}
+                                	<div id="capa_contribuir{{ lista.id }}">
+                                	<img src="/static/admin/img/admin/icon-yes.gif" alt="True">
+                                    </div>
+                                {% endif %}
+                                {% if lista.estatu == 1 %}
+                                	<div id="capa_contribuir{{ lista.id }}">
+                                	<img src="/static/admin/img/admin/icon-no.gif" alt="False">
+                                    </div>
+                                {% endif %}
+                                {% if lista.estatu == 2 %}
+                                	<div id="capa_contribuir{{ lista.id }}">
+                                	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+                                    </div>
+                                {% endif %}
+                                {% if lista.estatu == 3 %}
+                                	<div id="capa_contribuir{{ lista.id }}">
+                                	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+                                    </div>
+                                {% endif %}
+                            </td>
+
+                        	<td>
+				{% if lista.taxon %}
+		                    	{% if lista.taxon.estatu == 0 %}
+		                        	<div id="capa_publicar{{ lista.taxon.id }}">
+		                        	<img src="/static/admin/img/admin/icon-yes.gif" alt="True">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.taxon.estatu == 1 %}
+		                        	<div id="capa_publicar{{ lista.taxon.id }}">
+		                        	<img src="/static/admin/img/admin/icon-no.gif" alt="False">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.taxon.estatu == 2 %}
+		                        	<div id="capa_publicar{{ lista.taxon.id }}">
+		                        	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.taxon.estatu == 3 %}
+		                        	<div id="capa_publicar{{ lista.taxon.id }}">
+		                        	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+		                            </div>
+		                        {% endif %}
+				{% endif %}
+				{% if lista.colectivos %}
+		                    	{% if lista.colectivos.estatu == 0 %}
+		                        	<div id="capa_publicar{{ lista.colectivos.id }}">
+		                        	<img src="/static/admin/img/admin/icon-yes.gif" alt="True">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.colectivos.estatu == 1 %}
+		                        	<div id="capa_publicar{{ lista.colectivos.id }}">
+		                        	<img src="/static/admin/img/admin/icon-no.gif" alt="False">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.colectivos.estatu == 2 %}
+		                        	<div id="capa_publicar{{ lista.colectivos.id }}">
+		                        	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.colectivos.estatu == 3 %}
+		                        	<div id="capa_publicar{{ lista.colectivos.id }}">
+		                        	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+		                            </div>
+		                        {% endif %}
+				{% endif %}
+				{% if lista.areas %}
+		                    	{% if lista.areas.estatu == 0 %}
+		                        	<div id="capa_publicar{{ lista.areas.id }}">
+		                        	<img src="/static/admin/img/admin/icon-yes.gif" alt="True">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.areas.estatu == 1 %}
+		                        	<div id="capa_publicar{{ lista.areas.id }}">
+		                        	<img src="/static/admin/img/admin/icon-no.gif" alt="False">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.areas.estatu == 2 %}
+		                        	<div id="capa_publicar{{ lista.areas.id }}">
+		                        	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+		                            </div>
+		                        {% endif %}
+		                        {% if lista.areas.estatu == 3 %}
+		                        	<div id="capa_publicar{{ lista.areas.id }}">
+		                        	<img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente">
+		                            </div>
+		                        {% endif %}
+				{% endif %}
+				
+                            </td>
+			    <td>
+				    {% if lista.taxon %}
+                                        {% if lista.taxon.subtipo.id >= 26 %}
+                                            {% if lista.taxon.subtipo.id == 26 %}
+                                            {{ lista.taxon.nombrecomun }} <span style="font-style:italic;" >({{ lista.taxon.taxonrelax.nombre }} {{ lista.taxon.nombre }})</span>
+                                            {% endif %}
+                                            {% if lista.taxon.subtipo.id > 26 %}
+                                            {{ lista.taxon.nombrecomun }} <span style="font-style:italic;" >({{ lista.taxon.taxonrelax.taxonrelax.nombre }} {{ lista.taxon.taxonrelax.nombre }} {{ lista.taxon.nombre }})</span>
+                                            {% endif %}
+                                            {% else %}
+                                            {{ lista.taxon.nombrecomun }} <span style="font-style:italic;" >({{ lista.taxon.nombre }})</span>
+                                	{% endif %}
+
+                                    {% endif %}
+                                    {% if lista.colectivos %}
+					{{ lista.colectivos.nombre }}{{ lista.colectivos.nombre_completo }}
+                                    {% endif %}
+                                    {% if lista.areas %}
+					{{ lista.areas.nombre }}
+                                    {% endif %}
+			    </td>
+                            <td align="center"><a  target="_blank" href="/{{ url }}/ficha/{% if lista.taxon %}6{% endif %}{% if lista.colectivos %}{{ lista.colectivos.id }}{% endif %}{% if lista.areas %}{{ lista.areas.id }}{% endif %}/{% if lista.taxon %}{{ lista.taxon.id }}{% endif %}/">Ver ficha</a></td>
+                            <td align="left">
+                            	
+                                		<a onclick="contribuir('{{ lista.id }}','0');"><img src="/static/admin/img/admin/icon-yes.gif" alt="True"></a>&nbsp;
+                                		<a onclick="contribuir('{{ lista.id }}','1');"><img src="/static/admin/img/admin/icon-no.gif" alt="False"></a>&nbsp;
+						<a onclick="contribuir('{{ lista.id }}','2');"><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></a>
+                                    		</td>
+						<td align="center">|</td>
+						<td align="right">
+				{% if lista.taxon %}
+						<a onclick="publicar('{{ lista.taxon.id }}','0');"><img src="/static/admin/img/admin/icon-yes.gif" alt="True"></a>&nbsp;
+                                		<a onclick="publicar('{{ lista.taxon.id }}','1');"><img src="/static/admin/img/admin/icon-no.gif" alt="False"></a>&nbsp;
+						<a onclick="publicar('{{ lista.taxon.id }}','2');"><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></a>
+				{% endif %}
+				{% if lista.colectivos %}
+						<a onclick="publicar('{{ lista.colectivos.id }}','0');"><img src="/static/admin/img/admin/icon-yes.gif" alt="True"></a>&nbsp;
+                                		<a onclick="publicar('{{ lista.colectivos.id }}','1');"><img src="/static/admin/img/admin/icon-no.gif" alt="False"></a>&nbsp;
+						<a onclick="publicar('{{ lista.colectivos.id }}','2');"><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></a>
+                            	{% endif %}
+                            	{% if lista.areas %}
+						<a onclick="publicar('{{ lista.areas.id }}','0');"><img src="/static/admin/img/admin/icon-yes.gif" alt="True"></a>&nbsp;
+                                		<a onclick="publicar('{{ lista.areas.id }}','1');"><img src="/static/admin/img/admin/icon-no.gif" alt="False"></a>&nbsp;
+						<a onclick="publicar('{{ lista.areas.id }}','2');"><img src="/media/librerias/imgs/icon-pendiente.gif" alt="Pendiente"></a>
+                            	{% endif %}
+						
+                            </td>
+                            <td id="extra_{{ lista.id }}">
+                            	<a onclick="ver_detalle({{ lista.id }});">detalle</a>
+                            </td>
+                        </tr>
+                        <tr  style="" id="target_{{ lista.id }}">
+                        	<td colspan="6" >
+                            	<table width="100%" style="background-color:#F0F0F0">
+                                    <tr>
+                                    	<td colspan="2"><b>Detalle de la Ficha</b><hr /></td>
+                                    </tr>
+				{% if lista.taxon %}
+				    <tr>
+				    	<td><b>Taxon Superior:</b></td><td>
+					<a  target="_blank" href="/{{ url }}/ficha/{% if lista.taxon %}6{% endif %}{% if lista.colectivos %}{{ lista.colectivos.id }}{% endif %}{% if lista.areas %}{{ lista.areas.id }}{% endif %}/{% if lista.taxon %}{{ lista.taxon.taxonrelax.id }}{% endif %}/">{{ lista.taxon.taxonrelax }} - (ID: {{ lista.taxon.taxonrelax.id }})</a></td>
+				    </tr>
+				    <tr>
+				    	<td><b>Nivel:</b></td><td>{{ lista.taxon.subtipo.nombre }}</td>
+				    </tr>
+				    <tr>
+				    	<td><b>Otras Caracteristicas:</b></td>
+					<td>
+						<table width="400px" >	
+							{% if lista.taxon.endemica %}
+							<tr>
+								<td bgcolor="yellow">* Es endémica</td>
+							</tr>
+							{% endif %}
+							{% if lista.taxon.extinto %}
+							<tr>
+								<td bgcolor="red" ><span style="color:#ffffff;">* Esta Extinto</span></td>
+							</tr>
+							{% endif %}
+							{% if lista.taxon.detalletaxon.esptraf %}
+							<tr>
+								<td bgcolor="yellow">* Sometidas al Tráfico o Comercio Ilícito</td>
+							</tr>
+							{% endif %}
+							{% if lista.taxon.detalletaxon.espaprove %}
+							<tr>
+								<td bgcolor="green" ><span style="color:#ffffff;">* Son de Aprovechamiento Sustentable</span></td>
+							</tr>
+							{% endif %}
+							{% if lista.taxon.detalletaxon.espsalud %}
+							<tr>
+								<td bgcolor="blue" ><span style="color:#ffffff;">* Tienen Impacto sobre la Salud Humana</span></td>
+							</tr>
+							{% endif %}
+							{% if lista.taxon.detalletaxon.esppeligr %}
+							<tr>
+								<td bgcolor="red" ><span style="color:#ffffff;">* Esta en Peligro de Extinción y Árboles en Veda</span></td>
+							</tr>
+							{% endif %}
+							{% if lista.taxon.detalletaxon.espexot %}
+							<tr>
+								<td bgcolor="yellow">* Son Exóticas o Introducidas</td>
+							</tr>
+							{% endif %}
+							{% if lista.taxon.detalletaxon.espagrico %}
+							<tr>
+								<td bgcolor="green" ><span style="color:#ffffff;">* Tienen Impacto sobre la Producción Agropecuaria y Forestal</span></td>
+							</tr>
+							{% endif %}
+						</table>
+					</td>
+				    </tr>
+				{% endif %}
+				{% if lista.colectivos %}
+				    <tr>
+				    	<td><b>Actor de Adscripción:</b></td><td>
+					<a  target="_blank" href="/{{ url }}/ficha/{% if lista.taxon %}6{% endif %}{% if lista.colectivos %}{{ lista.colectivos.actoresrex.id }}{% endif %}{% if lista.areas %}{{ lista.areas.id }}{% endif %}/{% if lista.taxon %}{{ lista.taxon.taxonrelax.id }}{% endif %}/">{{ lista.colectivos.actoresrex }} - (ID: {{ lista.colectivos.actoresrex.id }})</a></td>
+				    </tr>
+				{% endif %}
+				{% if lista.areas %}
+				    <tr>
+				    	<td><b>Fecha de Colaboración:</b></td><td>{{ lista.fecha }}</td>
+				    </tr>
+				    <tr>
+				    	<td><b>Fecha de Colaboración:</b></td><td>{{ lista.fecha }}</td>
+				    </tr>
+				{% endif %}
+				    <tr>
+                                    	<td colspan="2"><b>Detalle de la Colaboración</b><hr /></td>
+                                    </tr>
+                                    <tr>
+                                    	<td width="170px"><b>Id de la Colaboración:</b></td><td>{{ lista.id }}</td>
+                                    </tr>
+				    <tr>
+				    	<td><b>Fecha de Colaboración:</b></td><td>{{ lista.fecha }}</td>
+				    </tr>
+				    <tr>
+                            	    	<td><b>Autor de la Colaboración:</b></td><td>{{ lista.persona.nombre }}, {{ lista.persona.apellido }}</td>
+				    </tr>
+				    <tr>
+                                    	<td><b>Título de Colaboración:</b></td><td>{{ lista.titulo }}</td>
+				    </tr>
+                                    <tr>
+                                    	<td><b>Tipo de Colaboración:</b></td><td>{{ lista.tipoColaboracion }}</td>
+                                    </tr>
+                                    <tr>
+                                    	<td><b>Descripción:</b></td><td>{{ lista.descripcion }}</td>
+                                    </tr>
+                                    <tr>
+                                    	<td><b>Datos de Contacto:</b></td><td>Telefono: {{ lista.persona.telefono1 }} / {{ lista.persona.telefono2 }} / {{ lista.persona.movil }}</td>
+                                    </tr>
+                                    <tr>
+                                    	<td></td><td>Correo: {{ lista.persona.correo }}</td>
+                                    </tr>
+                                    <tr>
+                                    	<td></td><td>Fax: {{ lista.persona.fax }}</td>
+                                    </tr>
+                                    <tr>
+                                    	<td colspan="2"><hr /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <script>
+							$(document).ready(function(){
+								$('#target_'+{{ lista.id }}).toggle();
+							});
+						</script>
+                    {% endfor%}
+                    </table>
+                    <br />
+                    <script>
+						function ver_detalle(id){
+								$('#target_'+id).toggle();
+						}
+						function ocultar_detalle(id){
+							document.getElementById("extra_"+id).innerHTML="<a onclick=\"ver_detalle({{ lista.id }});\">ver detalle</a>";	
+						}
+					</script>
+                    <br>
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if mesn.has_previous %}
+                                <a href="/panel/{{ url }}/colaboraciones/{{ mesn.previous_page_number }}/{{ estatus }}" style="cursor:pointer;">Anterior</a>
+                            {% endif %}
+                            <span class="current">
+                                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+                            </span>
+                
+                            {% if mesn.has_next %}
+                                <a href="/panel/{{ url }}/colaboraciones/{{ mesn.next_page_number }}/{{ estatus }}" style="cursor:pointer;">Proximo</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+                </div>
+                </div>
+			<!-- Fin Columna Principal -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

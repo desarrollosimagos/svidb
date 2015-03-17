@@ -1,0 +1,714 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('areas').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>-->
+
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
+//(1) Cargamos la API
+</script>
+
+	<script type="text/javascript" src="/media/librerias/css/plantilla/acordeon/js/lib/jquery.js"></script>
+	<script type="text/javascript" src="/media/librerias/css/plantilla/acordeon/js/lib/chili-1.7.pack.js"></script>
+	
+	<script type="text/javascript" src="/media/librerias/css/plantilla/acordeon/js/lib/jquery.easing.js"></script>
+	<script type="text/javascript" src="/media/librerias/css/plantilla/acordeon/js/lib/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/media/librerias/css/plantilla/acordeon/js/jquery.accordion.js"></script>
+    <link type='text/css' href='/media/librerias/css/plantilla/modal-mensaje/osx/css/osx.css' rel='stylesheet' media='screen' />
+    
+<script type="text/javascript">
+	jQuery().ready(function(){
+		// simple accordion
+		jQuery('#list1a').accordion({
+			autoheight: false
+		});
+		{% if areas.bancoaudio.all %}
+		$("#lista_banco").load('/panel/bancoaudio/galeriaPag/areas/{{ areas.id }}/1/');
+		{% endif %}
+	});
+	function cargarpagina(pag){
+	$("#lista_banco").load('/panel/bancoaudio/galeriaPag/areas/{{ areas.id }}/'+pag+'/');	
+		
+	}
+	
+</script>
+<script type="text/javascript">
+ function cargarImagen(url){
+	
+		document.getElementById("galleria_modal").src=url;	 
+	
+	}
+function loadFile(url,name,feactures){
+	window.open(url,name,feactures);
+	}
+</script>
+<style>
+.imgemodal{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:15px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.imgemodal1{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:2px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    	width:100%;
+		height:25px;
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		font-weight:bold;
+		font-size:12px;
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#000;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #00679a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00679a), to(#00679a) );
+    background: -moz-linear-gradient(-90deg, #00679a, #00679a);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00679a', endColorstr='#00679a');
+	color:#FFF;
+}
+.button-blue2
+{
+    background:#E6E6E6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#E6E6E6), to(#E6E6E6) );
+    background: -moz-linear-gradient(-90deg, #E6E6E6, #E6E6E6);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#E6E6E6', endColorstr='#E6E6E6');
+	color:#1A1A1A;
+}
+p{
+	color:#4D4D4D;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+</style>
+<style>
+.button2
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+    
+    
+}
+
+.button2, .button2 span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button2 span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button2-blue
+{
+    background: #0099CC; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+
+.button2-naranja
+{
+    background:#36C; /*ffcc99*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#36C), to(#36C) );
+    background: -moz-linear-gradient(-90deg, #36C, #36C);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#36C', endColorstr='#36C');
+	color:#FFF;
+}
+.button2-verde
+{
+    background:#900; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#900), to(#900) );
+    background: -moz-linear-gradient(-90deg, #900, #900);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#900', endColorstr='#900');
+	color:#FFF;
+}
+
+.button2-marron
+{
+    background: #cd6530; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#cd6530), to(#cd6530) );
+    background: -moz-linear-gradient(-90deg, #cd6530, #cd6530);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cd6530', endColorstr='#cd6530');
+	color:#FFF;
+}
+
+.button2-gris
+{
+    background:#999; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#999) );
+    background: -moz-linear-gradient(-90deg, #999, #999);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#999', endColorstr='#999');
+	color:#FFF;
+}
+
+.button2-morado
+{
+    background:#936; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#936), to(#936) );
+    background: -moz-linear-gradient(-90deg, #936, #936);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#936', endColorstr='#936');
+	color:#FFF;
+}
+
+.button2-amarillo
+{
+    background:#F90; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F90), to(#F90) );
+    background: -moz-linear-gradient(-90deg, #F90, #F90);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F90', endColorstr='#F90');
+	color:#FFF;
+}
+
+.button2-masmorado
+{
+    background:#99F; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#99F), to(#99F) );
+    background: -moz-linear-gradient(-90deg, #99F, #99F);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99F', endColorstr='#99F');
+	color:#FFF;
+}
+
+.button2-mapas
+{
+    background:#996; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#996), to(#996) );
+    background: -moz-linear-gradient(-90deg, #996, #996);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#996', endColorstr='#996');
+	color:#FFF;
+}
+
+.button2-biorregiones
+{
+    background:#F60; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F60), to(#F60) );
+    background: -moz-linear-gradient(-90deg, #F60, #F60);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F60', endColorstr='#F60');
+	color:#FFF;
+}
+
+.button2-origenes
+{
+    background:#090;
+    background: -webkit-gradient(linear, left top, left bottom, from(#090), to(#090) );
+    background: -moz-linear-gradient(-90deg, #090, #090);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#090', endColorstr='#090');
+	color:#FFF;
+}
+
+</style>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#accf83; border:1px solid #accf83; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px; color:#FFF; ">
+                    	{{ categoria.titulo }} > {{ sub.nombre }} > {{ areas.nombre }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #accf83; background:url(/media/librerias/css/plantilla/images/bbareas3.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				{{ areas.nombre }}
+                                
+                  			</span>
+                            {% if usuario.is_staff %}<br />
+                                <a href="/manager/areas/areas/{{ areas.id }}" class="button2 button2-blue"><span>Editar</span></a>
+                            {% endif %}
+                        </div>
+                        <br />
+                         <br />
+                       	<div style="text-align:justify;margin-left:25px; margin-right:25px; "> 
+						{% if areas.bancoaudio.all %}
+                        <div style="text-align:justify;margin-left:25px; margin-right:25px; " id="lista_banco"> 
+                        	
+                        </div>
+                        {% endif %}
+                        <div id="osx-modal-content">
+                            <div id="osx-modal-title">Banco Audiovisual</div>
+                            <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+                            <div id="osx-modal-data">
+                               	<img class="imgemodal" id="galleria_modal" width="300px">
+                            </div>
+                        </div>
+
+                        
+                        <div id="list1a">                       
+                            <a class="button button-blue2" style="cursor:pointer;"><span style="background:right url(/media/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Informacíon General</span></a>
+                            <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                <p>
+                                	{% if areas.nombre %}
+                                   		<b>Nombre:</b> {{ areas.nombre}}<br>
+                                    {% endif %}
+                                    
+                                    {% if areas.siglas %}
+                                    	<b>Siglas:</b> {{ areas.siglas}}<br>
+                                    {% endif %}
+                                    
+                                    {% if areas.descricion %}
+                                    	<b>Descripción General:</b> 
+                                        {% autoescape off %}
+                                        	{{ areas.descricion|removetags:"b span"|safe }}
+                                        {% endautoescape %}<br>
+                                    {% endif %}
+                                    
+                                    {% if areas.datecreado %}
+                                    	<b>Fecha de Creación:</b> {{ areas.datecreado}}<br>
+                                    {% endif %}
+                                    
+                                    {% if areas.biblioteca.all %}
+                                        <b>Documento de Creación:</b><br>
+                                        {% for u in areas.biblioteca.all %}
+                                            {% if u.repositoriolinea %}
+                                                <span onclick="loadFile('/media/{{ u.repositoriolinea }}','_blank', 'width=750,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                	{{ u.titulo }}
+                                                </span><br>
+                                            {% else %}
+                                                <span onclick="alert('Lo sentimos, actualmente no hay documentos asociados.')" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                	{{ u.titulo }}
+                                                </span><br>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    
+                                    {% if areas.objetocreado %}
+                                    	<b>Objetivo de Creación:</b>
+                                        {% autoescape off %}
+                                        	{{ areas.objetocreado|removetags:"b span"|safe }}
+                                        {% endautoescape %}<br>
+                                    {% endif %}
+                                    
+                                    <b>Plan de Ordenamiento y reglamento de Uso:</b><br>
+                                    {% for u in areas.planorden.all %}
+                                    	{% if u.repositoriolinea %}
+                                        	<span onclick="loadFile('/media/{{ u.repositoriolinea }}','_blank', 'width=850,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                            	{{ u.titulo }}
+                                            </span><br>
+                                        {% else %}
+                                        	<span onclick="alert('Lo sentimos, actualmente no hay documentos asociados.')" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                            	{{ u.titulo }}
+                                            </span><br>
+                                        {% endif %}
+                                    {% empty %}
+                                    	No posee Plan de Ordenamiento y/o Reglamento de uso<br />
+                                    {% endfor %}
+                                    
+                                    {% if areas.particuld %}
+                                    	<b>Particularidades:</b> {{ areas.particuld }}<br>
+                                    {% endif %}
+                                    
+                                    {% if areas.actore.all %}
+                                        <b>Organismo de Adscripcion:</b><br />
+                                        
+                                        {% for u in areas.actore.all %}
+                                            <span onclick="loadFile('/actores/ficha/{{ u.id }}','_self', 'width=850,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                            	{{ u.nombre_completo }}
+                                            </span><br>
+                                        {% empty %}
+                                        	<span onclick="loadFile('/actores/ficha/{{ u.id }}','_self', 'width=850,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                            	No posee nombre asociado.
+                                            </span><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                    
+                                    {% if redes %}
+                                        <b>Redes Sociales:</b><br>
+                                            {% for u in redes %}
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                {% if u.red.pathimg %}
+                                                	<img src="/media/{{ u.red.pathimg }}">
+                                                {% else %}
+                                                	<img src="/media/{{ u.red.pathimg }}">
+                                                {% endif %}
+                                                {% if u.url %}
+                                                	<span onclick="loadFile('{{ u.url }}','_blank', 'width=850,height=600');" style="cursor:pointer; text-decoration:underline;" >
+                                                    	{{ u.url }}
+                                                    </span><br>
+                                                {% else %}
+                                                	<span onclick="alert('Lo sentimos, actualmente no hay enlaces asociados.')" style="cursor:pointer; text-decoration:underline;" >
+                                                    	{{ u.url }}
+                                                    </span><br>
+                                                {% endif %}
+                                            {% endfor %}
+                                    {% endif %}
+                                    
+                                    {% if areas.bioregion.all %}
+                                        <b>Ubicación Biorregional:</b><br />
+                                        {% for u in areas.bioregion.all %}
+                                            <span style="margin-left:25px;">{{ u }}</span><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                    
+                                    {% if areas.mapas.all %}
+                                    	<br />
+                                    	{% if areas.mapas.all %}
+                                        	<img src="/media/{{ areas.mapas.all.0.pathimg1 }}" width="670px"><br />
+                                    	{% endif %}
+                                        	Descargar: 
+                                            {% if areas.mapas.all.0.pathimg2 %}
+                                            <span onclick="loadFile('/media/{{ areas.mapas.all.0.pathimg2 }}','_blank', 'width=750,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:5px;" > PDF
+                                            </span>
+                                            {% endif %}
+                                            {% if areas.mapas.all.0.pathimg3 %}
+                                            <span onclick="loadFile('/media/{{ areas.mapas.all.0.pathimg3 }}','_self', 'width=750,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:5px;" > Capas
+                                            </span>
+                                            {% endif%}
+                                            <br />
+                                    {% endif %}
+                                </p>
+                            </div>
+                            
+                            
+                            {% if areas.superficie or  areas.altitud or areas.clima or areas.ecosistema or areas.geologia or areas.geomorfo or areas.hidrografia or areas.suelos %}
+                                <a class="button button-blue2" style="cursor:pointer;">
+                                    <span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Caracteristicas</span>
+                                </a>
+                                    <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                        <p>
+                                            {% if areas.superficie %}
+                                                <b>Superfície:</b> {{ areas.superficie}}<br>
+                                            {% endif %}
+                                            
+                                            {% if areas.altitud %}
+                                                <b>Altitud:</b> {{ areas.altitud}}<br>
+                                            {% endif %}
+                                            
+                                            {% if areas.clima %}
+                                                <b>Clima:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.clima|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br>
+                                            {% endif %}
+                                            
+                                            {% if areas.ecosistema %}
+                                                <b>Ecosistemas:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.ecosistema|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br>
+                                            {% endif %}
+                                            
+                                            {% if areas.geologia %}
+                                                <b>Geología:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.geologia|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br>
+                                            {% endif %}
+                                            
+                                            {% if areas.geomorfo %}
+                                                <b>Geomorfología:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.geomorfo|removetags:"b span"|safe}}
+                                                {% endautoescape %}<br>
+                                            {% endif %}
+                                            
+                                            {% if areas.hidrografia %}
+                                                <b>Hidrografía:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.hidrografia|removetags:"b span"|safe}}
+                                                {% endautoescape %}<br>
+                                            {% endif %}
+                                            
+                                            {% if areas.suelos %}
+                                                <b>Suelos:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.suelos|removetags:"b span"|safe}}
+                                                {% endautoescape %}<br>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                            {% endif %}
+                            
+                            {% if areas.esprepretxt %}
+                                <a class="button button-blue2" style="cursor:pointer;">
+                                    <span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Especies Representativas</span>
+                                </a>
+                                    <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                        <p>
+                                            {% autoescape off %}
+                                                {{ areas.esprepretxt|removetags:"b span"|safe}}
+                                            {% endautoescape %}
+                                         </p>
+                                    </div>
+                            {% endif %}
+                            
+                            {% if areas.impacantro or  areas.concesiones or areas.inicpart or areas.tipoyusrecur%}
+                                <a class="button button-blue2" style="cursor:pointer;">
+                                	<span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Factores Antrópicos</span>
+                                </a>
+                                    <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                        <p>
+                                            {% if areas.impacantro %}
+                                                <b>Impactos Antrópicos:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.impacantro|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br />
+                                            {% endif %}
+                                            
+                                            {% if areas.concesiones %}
+                                                <b>Conseciones:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.concesiones|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br />
+                                            {% endif %}
+                                            
+                                            {% if areas.inicpart %}
+                                                <b>Iniciativas y participación social:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.inicpart|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br />
+                                            {% endif %}
+                                            
+                                            {% if areas.tipoyusrecur %}
+                                                <b>Tipo y Uso de Recursos Naturales:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.tipoyusrecur|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br />
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                            {% endif %}
+                            
+                            {% if areas.asentahumanos or etnias %}
+                                <a class="button button-blue2" style="cursor:pointer;">
+                                	<span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Poblaciones</span>
+                                </a>
+                                    <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                        <p>
+                                            {% if areas.asentahumanos %}
+                                                <b>Asentamientos Humanos:</b> 
+                                                {% autoescape off %}
+                                                    {{ areas.asentahumanos|removetags:"b span"|safe }}
+                                                {% endautoescape %}<br />
+                                            {% endif %}
+                                            
+                                            {% if etnias %}
+                                                <b>Pueblos Indigenas:</b><br />
+                                                {% for item in etnias %}
+                                                    <span style="margin-left:25px;">{{ item }}</span><br />
+                                                {% empty %}
+                                                
+                                                {% endfor %}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                            {% endif %}
+                            
+                            {% if areas.bibliografia.all or areas.url.all %}
+                                <a class="button button-blue2" style="cursor:pointer;">
+                                	<span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Referencias</span>
+                                </a>
+                                    <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                        <p>
+                                            {% if areas.bibliografia.all %}
+                                                <b>Bibliografías:</b><br />
+                                                {% for u in areas.bibliografia.all %}
+                                                    {% if u.repositoriolinea %}
+                                                        <span onclick="loadFile('/media/{{ u.repositoriolinea }}','_blank', 'width=750,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                        	{% if u.autores %}{{ u.autores }},{% endif %}
+                                                            {% if u.fecha %}{{ u.fecha }},{% endif %}
+                                                            {% if u.titulo %}{{ u.titulo }},{% endif %}
+                                                            {% if u.edicion %}{{ u.edicion }},{% endif %}
+                                                            {% if u.numerovolumen %}{{ u.numerovolumen }},{% endif %}
+                                                            {% if u.numeropaginas %}{{ u.numeropaginas }},{% endif %}
+                                                            {% if u.editorial %}{% autoescape off %}
+                                                            	{{ u.editorial|removetags:"p"|safe }}
+                                                            {% endautoescape %}{% endif %}
+                                                        </span><br>
+                                                    {% else %}
+                                                        <span onclick="alert('Lo sentimos, actualmente no se posee documentos asociados.')" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                            {% if u.autores %}{{ u.autores }},{% endif %}
+                                                            {% if u.fecha %}{{ u.fecha }},{% endif %}
+                                                            {% if u.titulo %}{{ u.titulo }},{% endif %}
+                                                            {% if u.edicion %}{{ u.edicion }},{% endif %}
+                                                            {% if u.numerovolumen %}{{ u.numerovolumen }},{% endif %}
+                                                            {% if u.numeropaginas %}{{ u.numeropaginas }},{% endif %}
+                                                            {% if u.editorial %}{% autoescape off %}
+                                                            	{{ u.editorial|removetags:"p"|safe }}
+                                                            {% endautoescape %}{% endif %}
+                                                        </span><br>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            
+                                            {% if areas.url.all %}
+                                                <b>Paginas Web:</b><br />
+                                                {% for u in areas.url.all %}
+                                                    {% if u.url %}
+                                                        <span onclick="loadFile('{{ u.url }}','_blank', 'width=750,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >{{ u.url }}</span><br>
+                                                    {% else %}
+                                                        <span onclick="alert('Lo sentimos, actualmente no hay enlaces asociados.')" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >{{ u.url }}</span><br>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            
+                                        </p>
+                                    </div>
+                            {% endif %}
+                            
+                            {% if areas.docasocia.all %}
+                                <a class="button button-blue2" style="cursor:pointer;">
+                                    <span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Documentos Asociados</span>
+                                </a>
+                                    <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                        <p>
+                                            {% if areas.docasocia.all %}
+                                                <b>Documentos Asociados:</b><br />
+                                                {% for u in areas.docasocia.all %}
+                                                    {% if u.repositoriolinea %}
+                                                            <span onclick="loadFile('/media/{{ u.repositoriolinea }}','_blank', 'width=750,height=600');" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                                {% if u.autores %}{{ u.autores }},{% endif %}
+                                                                {% if u.fecha %}{{ u.fecha }},{% endif %}
+                                                                {% if u.titulo %}{{ u.titulo }},{% endif %}
+                                                                {% if u.edicion %}{{ u.edicion }},{% endif %}
+                                                                {% if u.numerovolumen %}{{ u.numerovolumen }},{% endif %}
+                                                                {% if u.numeropaginas %}{{ u.numeropaginas }},{% endif %}
+                                                                {% if u.editorial %}{% autoescape off %}
+                                                                    {{ u.editorial|removetags:"p"|safe }}
+                                                                {% endautoescape %}{% endif %}
+                                                            </span><br>
+                                                        {% else %}
+                                                            <span onclick="alert('Lo sentimos, actualmente no se posee documentos asociados.')" style="cursor:pointer; text-decoration:underline; margin-left:25px;" >
+                                                                {% if u.autores %}{{ u.autores }},{% endif %}
+                                                                {% if u.fecha %}{{ u.fecha }},{% endif %}
+                                                                {% if u.titulo %}{{ u.titulo }},{% endif %}
+                                                                {% if u.edicion %}{{ u.edicion }},{% endif %}
+                                                                {% if u.numerovolumen %}{{ u.numerovolumen }},{% endif %}
+                                                                {% if u.numeropaginas %}{{ u.numeropaginas }},{% endif %}
+                                                                {% if u.editorial %}{% autoescape off %}
+                                                                    {{ u.editorial|removetags:"p"|safe }}
+                                                                {% endautoescape %}{% endif %}
+                                                            </span><br>
+                                                        {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                            {% endif %}
+                            {% if usuario.is_staff %}
+                            <a class="button button-blue2" style="cursor:pointer;"><span style="background:right url(/media/librerias/imgs/arrow-down.png) no-repeat; background-size:15px 15px">Sistematización de Contribuciones</span></a>
+                            <div style=" margin-left:15px; margin-right:15px;" class="texto_regular">
+                                <p>
+                                {% for u in contribuciones %}
+                                {{ u.update}} - {{ u.tipoColaboracion }} {% if u.titulo %}- <b><i>{{ u.titulo }}</i></b>{% endif %} {% if u.persona.nombre %} - {{ u.persona.nombre }}, {{ u.persona.apellido }}{% endif %}{% if u.persona.correo %} - {{ u.persona.correo }}{% endif %}{% if u.persona.telefono1 %} - telefono: {{ u.persona.telefono1 }}{% endif %} <br />
+                                {% endfor %}
+                                
+                                </p>
+                            </div>
+                           {% endif %}
+                        </div>    
+						</div>
+                        <br>    
+                        <br>
+                    	
+                    </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+            {% if persona %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% else %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+				<br />
+                <span style="margin-left:25px; margin-right:25px;">Te invitamos a que inicies tu sesion y asi poder disfrutar de mas opciones <a href="/perfil">Iniciar Sesión</a></span>
+                <br />
+                <br />
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endif %}
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+<script type='text/javascript' src='/media/librerias/css/plantilla/modal-mensaje/osx/js/jquery.simplemodal.js'></script>
+<script type='text/javascript' src='/media/librerias/css/plantilla/modal-mensaje/osx/js/osx.js'></script>
+{% endblock %}

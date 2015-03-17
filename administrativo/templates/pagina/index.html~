@@ -1,0 +1,131 @@
+{% extends "completo.html"%}
+
+{% block content %}
+
+<script type="text/javascript">
+tinyMCE.init({
+	mode: "textareas"
+});
+
+
+</script>
+<table border="0" align="center" width="985" cellpadding="0" cellspacing="0" height="192">
+	<tr>
+		<td>
+			<div>&nbsp;</div>
+		</td>
+	</tr>								
+	<tr>
+		<td valign="top">
+			<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="750" valign="top">                                                            
+						<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="25" background="/media/imgs/esqsi.png">
+
+								</td>
+								<td width="700" background="/media/imgs/latsup.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqsd.png">
+
+								</td>                                                       
+							</tr> 
+							<tr>
+								<td width="25" background="/media/imgs/latizq.png">
+
+								</td>
+								<td width="700">
+<div class="titulo1">SVIDB</div>
+<br>
+
+
+
+
+								</td>
+								<td width="25" background="/media/imgs/latder.png">
+								
+								</td>                                                            
+							</tr> 
+							<tr>
+								<td width="25" background="/media/imgs/esqid.png">
+
+								</td>
+								<td width="700" background="/media/imgs/latinf.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqii.png">
+								
+								</td>                                                      
+							</tr>                    
+						</table>
+					</td>
+					<td width="10">
+			
+					</td>
+					<td width="225" valign="top">									
+						<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="25" background="/media/imgs/esqsi.png">
+
+								</td>
+								<td width="175" background="/media/imgs/latsup.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqsd.png">
+
+								</td>                                                       
+							</tr>
+							<tr>
+								<td width="25" background="/media/imgs/latizq.png">
+								
+								</td>
+								<td width="175" align="center">
+<table width="175">
+<tr>
+	<td>correo:</td>
+</tr>
+<tr>
+	<td><input type="text" size="13"></td>
+</tr>
+<tr>
+	<td>clave:</td>
+</tr>
+<tr>
+	<td><input type="text" size="13"></td>
+</tr>
+</table>								
+								</td>
+								<td width="25" background="/media/imgs/latder.png">
+								
+								</td>
+							</tr>
+							<tr>
+								<td width="25" background="/media/imgs/esqid.png">
+								
+								</td>
+								<td width="175" background="/media/imgs/latinf.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqii.png">
+								
+								</td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+</table>
+
+
+
+{% endblock %}

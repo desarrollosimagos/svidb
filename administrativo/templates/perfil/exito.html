@@ -1,0 +1,167 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	
+	document.getElementById("id_nombre").style.border="1px solid #666";
+	document.getElementById("id_nombre").style.width="300px";
+	document.getElementById("id_nombre").style.height="20px";
+	
+	document.getElementById("id_sexo").style.border="1px solid #666";
+	document.getElementById("id_sexo").style.width="300px";
+	document.getElementById("id_sexo").style.height="20px";
+
+	document.getElementById("id_apellido").style.border="1px solid #666";
+	document.getElementById("id_apellido").style.width="300px";
+	document.getElementById("id_apellido").style.height="20px";
+
+	document.getElementById("id_edocivil").style.border="1px solid #666";
+	document.getElementById("id_edocivil").style.width="300px";
+	document.getElementById("id_edocivil").style.height="20px";
+
+	document.getElementById("id_nacimiento").style.border="1px solid #666";
+	document.getElementById("id_nacimiento").style.width="300px";
+	document.getElementById("id_nacimiento").style.height="20px";
+
+	document.getElementById("id_correo").style.border="1px solid #666";
+	document.getElementById("id_correo").style.width="300px";
+	document.getElementById("id_correo").style.height="20px";
+
+	document.getElementById("id_telefono1").style.border="1px solid #666";
+	document.getElementById("id_telefono1").style.width="300px";
+	document.getElementById("id_telefono1").style.height="20px";
+	
+	document.getElementById("id_telefono2").style.border="1px solid #666";
+	document.getElementById("id_telefono2").style.width="300px";
+	document.getElementById("id_telefono2").style.height="20px";
+
+	document.getElementById("id_movil").style.border="1px solid #666";
+	document.getElementById("id_movil").style.width="300px";
+	document.getElementById("id_movil").style.height="20px";
+	
+	document.getElementById("id_fax").style.border="1px solid #666";
+	document.getElementById("id_fax").style.width="300px";
+	document.getElementById("id_fax").style.height="20px";
+	
+	document.getElementById("id_pai").style.border="1px solid #666";
+	document.getElementById("id_pai").style.width="300px";
+	document.getElementById("id_pai").style.height="20px";
+	
+	document.getElementById("id_estado").style.border="1px solid #666";
+	document.getElementById("id_estado").style.width="300px";
+	document.getElementById("id_estado").style.height="20px";
+	
+	document.getElementById("id_municipio").style.border="1px solid #666";
+	document.getElementById("id_municipio").style.width="300px";
+	document.getElementById("id_municipio").style.height="20px";
+	
+	document.getElementById("id_parroquia").style.border="1px solid #666";
+	document.getElementById("id_parroquia").style.width="300px";
+	document.getElementById("id_parroquia").style.height="20px";
+	
+	document.getElementById("id_sector").style.border="1px solid #666";
+	document.getElementById("id_sector").style.width="300px";
+	document.getElementById("id_sector").style.height="200px";
+	
+	document.getElementById("id_areasaccion").style.border="1px solid #666";
+	document.getElementById("id_areasaccion").style.width="300px";
+	document.getElementById("id_areasaccion").style.height="200px";
+	
+	
+	document.getElementById("id_gruposespecie").style.border="1px solid #666";
+	document.getElementById("id_gruposespecie").style.width="300px";
+	document.getElementById("id_gruposespecie").style.height="200px";
+	
+
+});
+</script>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Sistema de Verificación de Perfil
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		El Sistema Venezolano de Información sobre la Diversidad Biológica, enviara un correo electrónico para cada una de las operaciones relacionadas a la gestión de su cuenta, en el cual se le indicara los pasos a seguir.
+                            <br /><br />
+                        </div>
+                           
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                      {% if msm %}
+						<div style="width:700px; background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        <b style="font-style:italic;">{{ msm }}</b>
+                                    </span>
+                                </div>
+                                <form method='post' id="formulario" action="/perfil"> {% csrf_token %}
+                                
+						<table width="500px" align="center" style="margin-left:50px;">
+                        <tr>
+                        <td colspan="2">
+                         <h4>Panel de Acceso</h4>
+                         </td></tr>
+                         <tr>
+                         <td width="65">
+                                <label for="username">Correo:</label>
+                                </td><td width="423">
+                                <input type="text" name="username" value="" id="username">
+                                </td></tr>
+                                <tr>
+                                <td>
+                                <label for="password">Clave:</label>
+                                </td><td>
+                                <input type="password" name="password" value="" id="password">
+								</td></tr>
+                                <tr><td align="left">
+                                <section id="buttons2">
+                                    <input type="submit" name="submit" id="submitbtn2" class="submitbtn" tabindex="7" value="Enviar">
+                                    <br style="clear:both;">
+                            	</section>
+                                <input type="hidden" name="next" value="{{ next }}" />
+  							
+                            </td><td></td></tr>
+                            </table> 
+                            </form>
+                         </div>
+                       {% endif %}  
+                            </div>
+                    </div>        
+
+			<!-- Fin Columna Principal -->
+                
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

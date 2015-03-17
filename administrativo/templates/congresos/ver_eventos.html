@@ -1,0 +1,94 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+
+</script>
+<script type="text/javascript">
+var i = 0;
+  $(document).ready(function() {
+	$(".registrar_ins").click(function(event) {
+		if (confirm('Deseas registrarte como participante en el Evento {{ congreso }}?')) {
+			document.getElementById('mensaje_registro').innerHTML='<img src=\'/media/css/img/ajax-loading.gif\'>';
+      		$("#mensaje_registro").load('/inscribir_evento/'+this.id);
+		} else {
+			
+		}
+
+    });
+  });
+</script>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                   	Eventos ->  {{ congreso }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        {% if congreso.pathimgtop %}
+                        <img src="/media/{{ congreso.pathimgtop }}" width="700px" />
+                        <br />
+                        {% endif %}
+                  <div class="titulo"><span style="font-style:italic;">{{ congreso }}</span></div>
+                  	<div style="text-align:justify; font-size:13px;">
+                    <br />
+                    {{ congreso.lugar }}<br />
+                    del {{ congreso.fecha }} al {{ congreso.fechaFin }}<br />
+                    {% autoescape off %}
+					{{ congreso.descripcion }}
+         			{% endautoescape %}<br />
+     
+                    {% for item in estaticaid %}
+                        {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}<br />
+                    {% endfor %}
+                </div></div>
+                </div>
+		</div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+
+{% if persona %}
+                <div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+
+            {% else %}
+                <div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                                <br />
+                <span style="margin-left:25px; margin-right:25px;">Te invitamos a que inicies tu sesion y asi poder disfrutar de mas opciones <a href="/perfil">Iniciar Sesion</span>
+                <br />
+                <br />
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endif %}
+                </div>
+        </div>
+    </div>
+
+{% endblock %}

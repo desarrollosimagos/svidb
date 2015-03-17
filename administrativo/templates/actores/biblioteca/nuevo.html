@@ -1,0 +1,227 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>-->
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	document.getElementById("id_titulo").className='txtinput';
+	document.getElementById("id_titulo").placeholder='Titulo';
+	
+	document.getElementById("id_fecha").className='txtinput';
+	document.getElementById("id_fecha").placeholder='Fecha';
+	
+	document.getElementById("id_autores").className='txtinput';
+	document.getElementById("id_autores").placeholder='Autores';
+
+	document.getElementById("id_editorial").className='txtinput';
+	document.getElementById("id_editorial").placeholder='Editorial';
+	
+	document.getElementById("id_ibsn").className='txtinput';
+	document.getElementById("id_ibsn").placeholder='IBSN';
+
+	document.getElementById("id_edicion").className='txtinput';
+	document.getElementById("id_edicion").placeholder='Edición';
+	
+	document.getElementById("id_numerovolumen").className='txtinput';
+	document.getElementById("id_numerovolumen").placeholder='Numero de Volumen';
+
+	document.getElementById("id_resumen").className='txtinput';
+	document.getElementById("id_resumen").placeholder='Resumen';
+	
+	document.getElementById("id_observaciones").className='txtinput';
+	document.getElementById("id_observaciones").placeholder='Observaciones';
+	
+	document.getElementById("id_tipodocs").className='txtinput';
+	document.getElementById("id_tipodocs").placeholder='Tipo de Documento';
+	
+	document.getElementById("id_idioma").className='txtinput';
+	document.getElementById("id_idioma").placeholder='Idioma';
+	
+	document.getElementById("id_numeropaginas").className='txtinput';
+	document.getElementById("id_numeropaginas").placeholder='Numero de Paginas';
+	
+	document.getElementById("id_repositoriolinea").className='txtinput';
+	document.getElementById("id_repositoriolinea").placeholder='Archivo';
+	
+	document.getElementById("id_licencia").className='txtinput';
+	document.getElementById("id_licencia").placeholder='Licencia';
+	
+
+});
+</script>
+{% if msm %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Notificacion de Error!</b>',
+		// (string | mandatory) the text inside the notification
+		text: 'Se ha presentado un error al momento de realizar el envio del formulacion, por favor verifique la informacion e intentelo nuevamente...',
+		// (string | optional) the image to display on the left
+		image: '/media/librerias/css/plantilla/notificaciones/css/safe_image.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: ''
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+<style>
+#hongkiat-form input {
+background: #fff url('/media/librerias/css/plantilla/images/Libros.png') 5px 4px no-repeat;
+}
+#hongkiat-form select {
+background: #fff url('/media/librerias/css/plantilla/images/Libros.png') 5px 4px no-repeat;
+}
+#hongkiat-form option {
+background: #fff url('/media/librerias/css/plantilla/images/Libros.png') 5px 4px no-repeat;
+}
+#hongkiat-form textarea {
+background: #fff url('/media/librerias/css/plantilla/images/Libros.png') 5px 4px no-repeat;
+}
+
+</style>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta > Biblioteca > Agregar
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Nuevo Aporte a la Biblioteca
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		<section id="container">
+                            	<form enctype="multipart/form-data" action=""name="hongkiat" id="hongkiat-form" method="post" style="margin-left:10px;">
+								{% csrf_token %}
+                        		<div id="wrapping" class="clearfix">
+                            		<section id="aligned">
+                                    <label style="font-size:14px;">
+                                    <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                    Titulo
+                                    </label>
+                                    {{ form.titulo }}
+                                    <label style="font-size:14px;">
+                                    <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                    Archivo 
+                                    </label><br />
+                                    {{ form.repositoriolinea.help_text }}
+                                    {{ form.repositoriolinea }}
+                                    <label style="font-size:14px;">
+                                    <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                    Tipo de Documento 
+                                    </label>
+                                    {{ form.tipodocs }}
+                                    <label style="font-size:14px;">
+                                    <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                    Resumen 
+                                    </label>
+                                    {{ form.resumen }}
+                                    <label style="font-size:14px;">
+                                    <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" />
+                                    Fecha
+
+                                    </label>
+                           			{{ form.fecha }}
+                                    <label style="font-size:14px;">Autores</label>
+                                    {{ form.autores }}
+                                    <label style="font-size:14px;">Eres Autor del Documento?</label>
+                                    <input type="checkbox" name="directorio" id="id_directorio" value="{{ persona.id }}">
+                                    <br /><br />
+                                    <label style="font-size:14px;">Editorial</label>
+                                    {{ form.editorial }}
+                                    <label style="font-size:14px;">IBSN</label>
+                                    {{ form.ibsn }}
+                                    <label style="font-size:14px;">Edición</label>
+                                    {{ form.edicion }}
+                                    <label style="font-size:14px;">Numero de Volumen</label>
+                                    {{ form.numerovolumen }}
+                                    <label style="font-size:14px;">Observaciones</label>
+                                    {{ form.observaciones }}
+                                    
+                                    <input type="hidden" name="userupdate" id="id_userupdate" value="{{ usuario.id }}">
+                                    <input type="hidden" name="estatu" id="id_estatu" value="2">
+                                    <label style="font-size:14px;">Idioma</label>
+                                    {{ form.idioma }}
+                                    <label style="font-size:14px;">Numero de Paginas</label>
+                                    {{ form.numeropaginas }}
+                                    
+                                    
+                                    <label style="font-size:14px;">Licencia</label>
+                                    {{ form.licencia }}
+                            		</section>
+                        		</div>
+                            	<section id="buttons">
+                                	<input type="reset" name="reset" id="resetbtn" class="resetbtn" value="Limpiar">
+                                	<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                	<br style="clear:both;">
+                            	</section>
+                            	</form>
+                        	</section>
+						</div>
+                	</div>
+                </div>
+			<!-- Fin Columna Principal -->
+            <div id="secCol">
+            	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+                <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Todos los campos que tengan la siguiente imagen <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" /> se consideran importante, por lo tanto, son obligatorios.
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,135 @@
+{% extends "completo.html"%}
+
+{% block content %}
+
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<script src="/js/jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
+<script src="/media/librerias/form-validator/jquery.form-validator.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/media/mod_evento/librerias/Remodal-master/src/jquery.remodal.css">
+<script type="text/javascript">
+$(document).ready(function() {
+	document.getElementById("id_titulo").className='txtinput';
+	document.getElementById("id_titulo").placeholder='Titulo';
+	
+	document.getElementById("id_modalidad").className='txtinput';
+	document.getElementById("id_modalidad").placeholder='Modalidad';
+	
+	document.getElementById("id_tematicas").className='txtinput';
+	document.getElementById("id_tematicas").placeholder='Tematicas';
+	
+	document.getElementById("id_resumen").className='txtinput';
+	document.getElementById("id_resumen").placeholder='Resumen';
+	
+});
+</script>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Trabajos Registrados
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<div style="text-align:justify;margin-left:25px; margin-right:25px;">
+                        <br />
+                        <br />
+                        
+                  <div class="titulo"><span style="font-style:italic;">Resumen</span></div>
+                  	<div style="text-align:justify; font-size:13px;">
+                  	Mediante este panel puedes agregar, ver y seleccionar los trabajos publicados para un congreso
+					</div>
+                   	<b>Paso 2</b>
+                    <br />
+                    <br />
+                    El siguiente formulario solicita la información del resumen que deseas registrar. 
+                    <br />
+                    Por favor completa cada uno de los campos.
+                    <br />
+                    <b>Nota:</b> Una vez registrado el resumen diríjase al final del formulario para cargar información correspondiente a coautores, organizaciones e instituciones.<br /><br />
+                        {% if mensaje %}
+                         <p class="error">{{ mensaje }} </p>
+                         <br />
+                        {% endif %}
+                      <section id="container">
+                        <h2 style="font-style:italic;">Formulario para Registro de Resumen.</h2>
+                        <form name="hongkiat" id="hongkiat-form" method="post" style="margin-left:10px;">{% csrf_token %}
+                        <div id="wrapping" class="clearfix">
+                            <section id="aligned">
+                     
+                        Titulo:<br />
+                        {{ formulario.titulo }}
+                        <b style="color:#F00;">Carácteres permitidos para el título(<span id="maxlength1">150</span>)</b>
+                        <br><br>
+                        <script>
+                                  $('#id_titulo').restrictLength($('#maxlength1'));
+                                </script>
+                        {{ formulario.modalidad.label }}:<br />
+                        <select name="modalidad" id="id_modalidad" class="txtinput">
+                        <option value="" selected="selected">---------</option>
+						{% for i in eventos_activos.modalidad.all %}
+                        	<option value="{{ i.id }}" selected="selected">{{ i.nombre }}</option>
+                        {% endfor %}
+                        </select>
+
+                        Temáticas:<br />
+                        <select name="tematicas" id="id_tematicas" class="txtinput">
+                        <option value="" selected="selected">---------</option>
+                        {% for i in eventos_activos.tematicas.all %}
+                        	<option value="{{ i.id }}" selected="selected">{{ i.nombre }}</option>
+                        {% endfor %}
+						</select>
+                        
+                        Resumen (Puedes copiar y pegar en el siguiente campo):<br />
+                        {{ formulario.resumen }}
+                        <b style="color:#F00;">Carácteres permitidos para el resumen(<span id="maxlength">300</span>)<br><br></b>
+                        <script>
+                                  $('#id_resumen').restrictLength($('#maxlength'));
+                                </script>
+                        Evento:<br />
+                        <b><span style="color:#06F;">{{ eventos_activos }}</span></b><br />
+                        <input type="hidden" name="evento" id="id_evento" value="{{ eventos_activos.id }}">
+                        Autor:<br />
+                        <b><span style="color:#06F;">{{ persona.nombre }} {{ persona.apellido }}</span></b><br />
+                        <input type="hidden" name="directorio" id="id_directorio" value="{{ persona.id }}">
+
+                      </section>
+                        </div>
+                            <section id="buttons">
+                                <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                <br style="clear:both;">
+                            </section>
+                            </form>
+                        </section> 
+
+                </div>
+                </div></div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+{% endblock %}
+</div>

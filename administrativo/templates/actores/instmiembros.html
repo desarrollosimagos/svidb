@@ -1,0 +1,140 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	document.getElementById("id_documentoidentidad").className='txtinput';
+	document.getElementById("id_documentoidentidad").placeholder='Documento de Identidad';
+	
+	document.getElementById("id_nombre").className='txtinput';
+	document.getElementById("id_nombre").placeholder='Nombre';
+	
+	document.getElementById("id_apellido").className='txtinput';
+	document.getElementById("id_apellido").placeholder='Apellido';
+
+	document.getElementById("id_correo").className='txtinput';
+	document.getElementById("id_correo").placeholder='Correo';
+
+	document.getElementById("id_telefono1").className='txtinput';
+	document.getElementById("id_telefono1").placeholder='Telefono 1';
+	
+	document.getElementById("id_telefono2").className='txtinput';
+	document.getElementById("id_telefono2").placeholder='Telefono 2';
+
+	document.getElementById("id_movil").className='txtinput';
+	document.getElementById("id_movil").placeholder='Celular';
+	
+	document.getElementById("id_fax").className='txtinput';
+	document.getElementById("id_fax").placeholder='Fax';
+	
+	document.getElementById("id_pai").className='txtinput';
+	document.getElementById("id_pai").placeholder='Pais';
+	
+	document.getElementById("id_estado").className='txtinput';
+	document.getElementById("id_estado").placeholder='Estado';
+	
+	document.getElementById("id_municipio").className='txtinput';
+	document.getElementById("id_municipio").placeholder='Municipio';
+	
+	document.getElementById("id_parroquia").className='txtinput';
+	document.getElementById("id_parroquia").placeholder='Parroquia';
+	
+	document.getElementById("id_sector").className='txtblock';
+	document.getElementById("id_sector").placeholder='Sector';
+	
+	document.getElementById("id_areasaccion").className='txtinput';
+	
+	
+	document.getElementById("id_gruposespecie").className='txtblock';
+	document.getElementById("id_gruposespecie").placeholder='Grupos de Especies';
+	
+
+});
+</script>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Mis datos
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                  <div class="titulo"><span style="font-style:italic;">Mis Datos</span></div>
+                  <div style="text-align:justify; font-size:13px;">Puedes modificar tus datos mediante este formulario.
+				</div>
+				<section id="container">
+                        <h2 style="font-style:italic;">Mis datos</h2>
+                        <form name="hongkiat" id="hongkiat-form" method="post" style="margin-left:10px;">{% csrf_token %}
+                        <div id="wrapping" class="clearfix">
+                            <section id="aligned">
+                           			{% for field in formulario %}
+                                            {{ field.errors }}
+                                            {{ field }}
+                                    {% endfor %}
+                            </section>
+                        </div>
+                            <section id="buttons">
+                                <input type="reset" name="reset" id="resetbtn" class="resetbtn" value="Limpiar">
+                                <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                <br style="clear:both;">
+                            </section>
+                            </form>
+                        </section> 
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                    	<table width="90%" style="margin-left:10px;">
+                                    	<tr>
+                                        	<td style="background-color:#D6D6D6;" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/perfil">Portada</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/mis_datos.php">Mis datos</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/mis_publicaciones.php">Mis aportes a la CC</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="background-color:#D6D6D6" align="center">
+                                            	&nbsp;&nbsp;&nbsp;<a style="text-decoration:none; cursor:pointer;color:#000;font-size:12px; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" href="/eventos.php">Participacion en Eventos</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

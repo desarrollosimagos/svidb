@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+</head>
+
+<body style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color:#333;">
+<b>Titulo del Evento:</b> {{ evento.nombre }}<br />
+<b>Lugar:</b> {{ evento.lugar }}<br />
+<b>Fecha:</b> {{ evento.fecha }}<br />
+<hr />
+<b>Filtro para generar matrix</b><br />
+<form method="post">
+	<table>
+    	<tr>
+        	<td>Tematica:</td>
+            <td>
+            	<select id="tematica" name="tematica">
+                	<option value="">-------</option>
+                    {% for co in evento.tematicas.all %}
+                    <option value="{{ co.id }}">{{ co.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>Modalidad:</td>
+            <td>
+            	<select id="modalidad" name="modalidad">
+                	<option value="">-------</option>
+                    {% for co in evento.modalidad.all %}
+                    <option value="{{ co.id }}">{{ co.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+       </tr>
+       <tr>
+            <td>Estatus Arbitraje:</td>
+            <td>
+            	<select id="arbitro" name="arbitro">
+                	<option value="">-------</option>
+                    <option value="3">Arbitrando</option>
+                    <option value="1">Aprobado</option>
+                    <option value="2">Rechazado</option>
+                </select>
+            </td>
+            <td>Estatus Publicacion:</td>
+            <td>
+            	<select id="coordi" name="coordi">
+                	<option value="">-------</option>
+                    <option value="2">Rechazado</option>
+                    <option value="1">Acpetado</option>
+                    <option value="3">Acpetado con Modificaciones</option>
+                </select>
+            </td>
+        </tr>
+        <tr>    
+            <td colspan="4">
+            	<input type="submit" value="Generar" />
+            </td>
+        </tr>
+        <tr>
+        	<td>Campos:</td>
+            <td colspan="3">
+            	<input type="checkbox" />Titulo
+                <input type="checkbox" />Autor
+                <input type="checkbox" />Co-autor
+                <input type="checkbox" />Tematica
+            	<input type="checkbox" />Modalidad
+                <input type="checkbox" />Instituciones
+                <input type="checkbox" />Estatus Arbitro
+                <input type="checkbox" />Estatus Publicacion
+            </td>
+        </tr>
+    </table>
+</form><br />
+<b>Tabla Matrix</b>
+<hr />
+<table>
+	<tr bgcolor="#0066FF">
+    	<td style="color:#FFF;" width="500px">Id</td>
+    	<td style="color:#FFF;" width="500px">Titulo</td>
+        <td style="color:#FFF;"  width="200px">Autor</td>
+        <td style="color:#FFF;"  width="150px">Tematica</td>
+        <td style="color:#FFF;"  width="150px">Fundamentos</td>
+        <td style="color:#FFF;"  width="150px">Modalidad</td>
+        <td style="color:#FFF;" width="300px">Co-autores</td>
+    	<td style="color:#FFF;" width="500px">Resumen</td>
+        <td style="color:#FFF;" width="100px" id="arbitro2">Estatus de Arbitraje</td>
+        <td style="color:#FFF;" width="100px">Estatus de Publicacion</td>
+    </tr>
+    {% if trabajos %}
+    {% for i in trabajos %}
+    <tr >
+        <td style="border:solid #666 1px;">{{ i.id }}</td>
+    	<td style="border:solid #666 1px;">{% autoescape off %}{{ i.titulo }}{% endautoescape %}</td>
+        <td style="border:solid #666 1px;">{{ i.directorio }}</td>
+        <td style="border:solid #666 1px;">{{ i.tematicas }}</td>
+        <td style="border:solid #666 1px;">{{ i.fundamento }}</td>
+        <td style="border:solid #666 1px;">{{ i.modalidad }}</td>
+        <td style="border:solid #666 1px;">
+        	{% for co in i.coautores.all %}
+            	* {{ co.nombre }} {{ co.apellido }}<br />
+            {% endfor %}
+        </td>
+    	<td style="border:solid #666 1px;">{% autoescape off %}{{ i.resumen }}{% endautoescape %}</td>
+        <td style="border:solid #666 1px;" id="arbitro3">{{ i.trabajosarbitros.estatu }}</td>
+        <td style="border:solid #666 1px;">{{ i.get_estatu_display }}</td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+</table>
+</body>
+</html>
+<script>
+	function mostrar(id){
+		document.getElementById(id).style.display='None';
+	}
+</script>

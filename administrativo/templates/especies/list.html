@@ -1,0 +1,61 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".taxon").click(function(event) {
+      $("#taxon"+this.id).load('list/'+this.id);
+		  this.src='/media/imgs/ftv2mlastnode.gif';
+    });
+	$(".vertax").click(function(event) {
+      $("#minitaxon").load('vertax/'+this.id);
+    });
+  });
+</script>
+ {% for item in list %}
+				 {% if lista2 > 1 %}
+                 		
+                 		{% if lista3.id__max == item.id %}
+                        	<div id="folder{{ item.id }}" style="display: block;">
+                        {% else %}
+                        	<div id="folder{{ item.id }}" style="display: block;background-image:url(/media/imgs/ftv2long.gif); background-repeat:repeat-y;">
+                   		{% endif %}
+                 {% else %}
+                         <div id="folder{{ item.id }}" style="display: block;">
+                 {% endif %}
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+                	<tbody>
+                    	<tr>
+            				<td valign="top">
+                            {% if item.taxonrelax.nombre %}
+                            	<img id="{{ item.id }}" class="taxon" src="/media/imgs/ftv2plastnode.gif" name="plus" width="16" height="22" border="0">
+                            {% else %}
+                                <img id="{{ item.id }}" class="taxon" src="/media/imgs/ftv2node.gif" name="plus" width="16" height="22" border="0">
+                            {% endif %}                            
+            				</td>
+            				<td valign="top"><img src="/media/imgs/ftv2blank.gif" height="2" width="2"></td>
+            				<td valign="middle" width="100%">
+            					<a class="vertax" id="{{ item.id }}">
+                                	<div class="nodos">
+                                    	{{ item.subtipo.nombre }}
+                                    <b>
+                                    	{% if item.subtipo.id >= 26 %}    
+                                        	<i>{{ item.taxonrelax.nombre}} {{ item.nombre }}<span onclick="loadFile('/especies/ficha/0/{{ item.id }}','_self', 'width=750,height=600');" style="cursor:pointer; margin-left:5px;" > +
+                                        </span> *</i>
+                                     	{% else %}
+                                        	{{ item.nombre }}<span onclick="loadFile('/especies/ficha/0/{{ item.id }}','_self', 'width=750,height=600');" style="cursor:pointer; margin-left:5px;" > +
+                                        </span>
+                                        {% endif %}
+                                    </b>
+                    				</div>
+                            </a>
+            				</td>
+            			</tr>
+            		</tbody>
+            	</table>
+               <div id="taxon{{ item.id }}" style="margin-left:15px;">
+
+                
+
+            	</div>
+</div>
+
+			{% endfor %}

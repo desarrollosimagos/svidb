@@ -1,0 +1,87 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta -> Arbitraje -> Eventos -> Activos
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix" style="width:940px;">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+<br />
+					<div style="margin-left:25px; margin-right:25px;">
+                  <div class="titulo"><span style="font-style:italic;">Listado de Actores Colectivos en Eventos</span></div>
+                  	
+                    <br />
+                Listado actores con trabajos publicados
+                <br />
+                <hr />
+                        <table width="100%">
+                        	<tr>
+                            	<td bgcolor="#00CCFF">Institucion</td>
+                                <td bgcolor="#00CCFF">Autor asociado a la institucion</td>
+                                <td bgcolor="#00CCFF">Correo Electrónico</td>
+                                <td bgcolor="#00CCFF">Teléfono</td>
+                            </tr>
+                    {% for item in trabajos %}
+                    	{% for co in item.colectivos.all %}
+                    	{% if item.estatu %}
+                            {% if item.estatu == 1 %}
+                              <tr>
+                                <td >
+                                	<a href="/actores/ficha/{{ co.id }}" target="popup" onclick="window.open(this.href, this.target, 'location=no,width=1024,height=800,resizable=yes,scrollbars=yes' ); return false;">Ver ficha</a> - {{ co.nombre_completo }}
+                                </td>
+                                <td >
+                                	{{ item.directorio.id }} - {{ item.directorio.nombre }}, {{ item.directorio.apellido }}
+                                </td>
+                                <td>
+                                	{{ item.directorio.correo }}
+                                </td>
+                                <td>
+                                	{{ item.directorio.telefono1 }}
+                                </td>
+                                
+                             </tr>
+                            {% endif %}
+                        {% else %}
+							<tr>
+                        		<td>no hay if</td>
+                            </tr>
+                        {% endif %}
+                        {% empty %}
+                        	
+                    	{% endfor %}
+                    {% empty %}
+                        <a href="" class="button button-blue2"><span>No existen eventos <b style="font-style:italic;">Activos</b></span></a>
+                    {% endfor %}
+                    </table>
+
+						<br />
+                         <br /><br />
+                         </div>
+                         </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                
+        </div>
+    </div>
+
+
+{% endblock %}

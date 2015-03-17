@@ -1,0 +1,62 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Sistema de Verificación de Perfil
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		Su registro ha sido satisfactorio!<br /><br />
+                            Para finalizar el proceso solo requerimos que realice la validación de la cuenta haciendo click en el siguiente vínculo.
+<br />
+Tenga en cuenta que de no validar la cuenta, no se podrán activar las diferentes funcionalidades del sistema en su perfil.
+<h3 style="color:#F00;">Tome nota del siguiente código: {{ codigo }} </h3>
+<h3 style="color:#F00;">Se envio una copia de esta información al correo.</h3>
+<form method="post" action="/panel/verificacion/">
+
+                                        <input type="hidden" style="width:200px; height:20px; border:1px solid #666;" id="correo" name="correo" value="{{ correo }}" />
+                                        <input type="hidden" style="width:100px; height:20px; border:1px solid #666;"  id="codigo" name="codigo" value="{{ codigo }}" />
+                                        <input type="submit" value="Validar Cuenta" style="border:1px solid #009; background-color:#06F; color:#FFF; width:250px; height:70px; font-size:28px;"/>
+                                    </form> 
+
+                            <br /><br />
+                        </div>
+
+                    </div>        
+
+			<!-- Fin Columna Principal -->
+                
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

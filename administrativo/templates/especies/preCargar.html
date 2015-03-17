@@ -1,0 +1,13 @@
+<html>
+<body>
+{% for item in resp %}
+   	{% if item %}
+        se completo con exito <br>
+    {% else %}	
+        no se proceso <br>
+    {% endif %}
+{% empty %}
+    No hay Registros
+{% endfor %}
+</body>
+</html>

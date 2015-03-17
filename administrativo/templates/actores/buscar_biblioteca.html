@@ -1,0 +1,50 @@
+					{% if mesn %}
+                            {% for contact in mesn.object_list %}
+                             <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+                            <div style="text-align:justify;margin-left:25px; margin-right:25px; " class="texto_regular">
+                            	{% if contact.autores %}
+                                <b style="color:#000;">Autores:</b> <span style="font-style:italic">{{ contact.autores }}</span>. 
+                                {% endif %}
+                                {% if contact.fecha %}
+                                <b style="color:#000;">Año:</b> <span style="font-style:italic">{{ contact.fecha }}</span>. 
+                                {% endif %}
+                                {% if contact.titulo %}
+                                <b style="color:#000;">Titulo:</b> <span style="font-style:italic">{{ contact.titulo }}</span>. 
+                                {% endif %}
+                                {% if contact.edicion %}
+                                <b style="color:#000;">Edicion:</b> <span style="font-style:italic">{{ contact.edicion }}</span>. 
+                                {% endif %}
+                                {% if contact.numerovolumen %}
+                                <b style="color:#000;">Volumen:</b> <span style="font-style:italic">{{ contact.numerovolumen }}</span>. 
+                                {% endif %}
+                                {% if contact.numeropaginas %}
+                                <b style="color:#000;">Pagina:</b> <span style="font-style:italic">{{ contact.numeropaginas }} </span>. 
+                                {% endif %}
+                                {% if contact.editorial %}
+                                <b style="color:#000;">Editorial:</b> <span style="font-style:italic">{% autoescape off %}{{ contact.editorial|removetags:"p"|safe }}{% endautoescape %}</span>
+                                {% endif %}
+								<br><br />
+                                {% if contact.repositoriolinea %}
+                                	<a target="new" href="/media/{{ contact.repositoriolinea }}"><img src="/media/imgs/document_down.gif" /> Descargar</a>
+                                {% endif %}
+                                <br>
+                                </div>
+                            {% endfor %}
+                            <br>
+                    		<div class="pagination">
+                        <span class="step-links">
+                            {% if mesn.has_previous %}
+                                <a href="/biblioteca/{{ mesn.previous_page_number }}">Anterior</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if mesn.has_next %}
+                                <a href="/biblioteca/{{ mesn.next_page_number }}">Proximo</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    {% endif %}

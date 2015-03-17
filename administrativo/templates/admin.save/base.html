@@ -1,0 +1,215 @@
+{% load url from future %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE|default:"en-us" }}" xml:lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}><head>
+<title>{% block title %}{% endblock %}</title>
+<!--<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% load adminmedia %}{% admin_media_prefix %}css/base.css{% endblock %}" />  -->
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/base.css" />
+{% block extrastyle %}{% endblock %}
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load adminmedia %}{% admin_media_prefix %}css/ie.css{% endblock %}" /><![endif]-->
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% admin_media_prefix %}css/rtl.css{% endblock %}" />{% endif %}
+<link rel="stylesheet" href="/media/bootstrap.css">
+
+<style>
+#wrapper-menu {
+width: 985px;
+margin: auto;
+padding: 0px;
+}
+#secWrapper-menu{
+width: 985px;
+margin: auto;
+padding: 0px 0px 0px 0px;
+}
+#conten-menu {
+width: 985px;
+margin: auto;
+padding: 0px 0px 0px 0px;
+}
+#menu {
+width: 985px;
+float: left;
+margin: auto;
+padding: 0px;
+text-align: left;
+border-left:1px solid #CCC;
+border-right:1px solid #CCC;
+border-top:1px solid #CCC;
+
+
+    font-family: myriad-pro-1,myriad-pro-2,Helvetica,Arial,sans-serif;
+    font-weight: bold;    
+    /* display: inline-block; */
+    min-height: 35px;
+/*    padding: 10px 25px 10px 30px;*/
+    font-size: 14px;
+    color: #b2b2b2;
+        
+    background: #ffc700; /* Old browsers */
+    background: -moz-linear-gradient(top, #CCCCCC 0%, #b2b2b2 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#CCCCCC), color-stop(100%,#b2b2b2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgb(248, 246, 237)  0%,#b2b2b2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #CCCCCC 0%,#b2b2b2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #CCCCCC 0%,#b2b2b2 100%); /* IE10+ */
+    background: linear-gradient(top, #CCCCCC 0%,#b2b2b2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CCCCCC', endColorstr='#b2b2b2',GradientType=0 ); /* IE6-9 */
+}
+</style>
+<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="/media/librerias/bootstrap/js/bootstrap.js"></script>
+<script src="/media/librerias/bootstrap/js/bootstrap.min.js"></script>
+{% block extrahead %}{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+
+<div style="width:100%; height:35px; position:absolute; top:0px; left:0px; z-index:2;">
+<div id="wrapper-menu">
+    	<div id="secWrapper-menu">
+			<div id="conten-menu">
+    			<div id="menu">
+                    <div id="plataforma" style="width:130px; height:35px; float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/" style="text-decoration:none; cursor:pointer;color:#000;">Portada</a><img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#900; border:1px solid #900;" />
+                        </span>
+                    </div>
+                    
+                    <div id="plataforma" style="width:130px; height:35px; float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/plataforma" style="text-decoration:none; cursor:pointer;color:#000;">La Plataforma</a><img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#999; border:1px solid #999;" />
+                        </span>
+                    </div>
+                    
+                    <div id="especies" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/especies" style="text-decoration:none; cursor:pointer;color:#000;">Especies</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#00669b; border:1px solid #00669b;" />
+                        </span>
+                    </div>
+                    <div id="areas" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/areas" style="text-decoration:none; cursor:pointer;color:#000;">Areas</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#6cb639; border:1px solid #6cb639;" />
+                        </span>
+                    </div>
+                    <div id="actores" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/actores" style="text-decoration:none; cursor:pointer; color:#000;">Actores</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#f5963a; border:1px solid #f5963a;" />
+                        </span>
+                    </div>  
+                    <div id="cuenta" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/perfil" style="text-decoration:none; cursor:pointer; color:#000;">Tu Cuenta</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#cd6530; border:1px solid #cd6530;" />
+                        </span>
+                    </div>
+                    
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	</div> 
+<!-- Container -->
+
+<div id="container">
+
+    {% if not is_popup %}
+    <!-- Header -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <span class="brand"><img src="/media/imgs/sa.png"></span>
+        <ul class="nav pull-right">
+          {% block userlinks %}
+          {% if user.is_active and user.is_staff %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Bienvenido" %} 
+                <strong>{% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}</strong>.
+                <span class="caret"></span>
+              </a>
+              
+              
+              <ul class="dropdown-menu">
+                  {% url 'django-admindocs-docroot' as docsroot %}
+                  {% if docsroot %}
+                      <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
+                  {% endif %}
+                  {% url 'admin:password_change' as password_change_url %}
+                  {% if password_change_url %}
+                      <li><a href="{{ password_change_url }}">
+                  {% else %}
+                      <li><a href="{{ root_path }}password_change/">
+                  {% endif %}
+                  {% trans 'Change password' %}</li></a>
+                  <li class="divider"></li>
+                  {% url 'admin:logout' as logout_url %}
+                  {% if logout_url %}
+                      <li><a href="{{ logout_url }}">
+                  {% else %}
+                      <li><a href="{{ root_path }}logout/">
+                  {% endif %}
+                  {% trans 'Log out' %}</li></a>
+              </ul>
+            </li>
+          {% endif %}
+          {% endblock %}
+        </ul>
+    </div>
+  </div>
+</div>    
+    <!-- END Header -->
+    {% block breadcrumbs %}<div class="breadcrumbs"><a href="/">{% trans 'Home' %}</a>{% if title %} &rsaquo; {{ title }}{% endif %}</div>{% endblock %}
+    {% endif %}
+
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	{% endfor %}</ul>
+        {% endif %}
+
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+        {% block content %}
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    {% block footer %}<div id="footer"></div>{% endblock %}
+</div>
+<!-- END Container -->
+<table align="center" width="985" cellpadding="0" cellspacing="0" border="0">
+    	<tr>
+        	<td>
+            	<div align="center">
+                	<a href="http://creativecommons.org/licenses/by/3.0/deed.es" target="_blank"><img src="/media/imgs/ccby.png"/></a>
+				</div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<div align="center" class="style2">
+                	Los contenidos de esta web est&aacute;n sujetos a una licencia de Creative Commons si no se indica lo contrario.
+				</div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<div align="center"><img src="/media/imgs/www.png"/></div>
+            </td>
+        </tr>
+    </table>
+<script type="text/javascript">
+    (function($) {
+        $(document).ready(function($) {
+//            alert('iniciando');
+         });
+    })(django.jQuery);
+</script>
+</body>
+</html>

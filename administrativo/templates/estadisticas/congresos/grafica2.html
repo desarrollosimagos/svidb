@@ -1,0 +1,215 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Modalidad', 'N° de Trabajos'],
+				{% if resultado %} 
+					{% regroup resultado by modalidad as modalidad_lista %}
+					{% for item in modalidad_lista %}
+						['{{ item.grouper.nombre}}', {{ item.list|length }}],
+					{% endfor %}
+				{% endif  %}
+        ]);
+
+        var options = {
+          title: 'Número de trabajos por modalidad'
+        };
+		
+		var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+		
+		var data2 = google.visualization.arrayToDataTable([
+          ['Tematica', 'N° de Trabajos'],
+				{% if resultado2 %} 
+					{% regroup resultado2 by tematicas as tematica_lista %}
+					{% for item in tematica_lista %}
+						['{{ item.grouper.nombre}}', {{ item.list|length }}],
+					{% endfor %}
+				{% endif  %}
+        ]);
+
+        var options = {
+          title: 'Número de trabajos por tematica'
+        };
+		var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
+        chart.draw(data2, options);
+		
+		var data3 = google.visualization.arrayToDataTable([
+          ['Estatus', 'N° de Trabajos'],
+				{% if trabajos5 %} 
+					{% regroup trabajos5 by get_estatu_display as estatus_group %}
+					{% for item in estatus_group %}
+						['{{ item.grouper }}', {{ item.list|length }}],
+					{% endfor %}
+				{% endif  %}
+        ]);
+
+        var options = {
+          title: 'Número de trabajos por Estatus'
+        };
+		var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
+        chart.draw(data3, options);
+		
+		var data4 = google.visualization.arrayToDataTable([
+          ['Estatus Arbitraje', 'N° de Trabajos'],
+				{% if trabajos5 %} 
+					{% regroup arbitrados by get_estatu_display as estatus_group %}
+					{% for item in estatus_group %}
+						['{{ item.grouper }}', {{ item.list|length }}],
+					{% endfor %}
+				{% endif  %}
+        ]);
+
+        var options = {
+          title: 'Número de trabajos por Estatus Arbitraje'
+        };
+		var chart = new google.visualization.PieChart(document.getElementById('chart_div4'));
+        chart.draw(data4, options);
+		
+		 var data5 = google.visualization.arrayToDataTable([
+			['Accion Especifica', 'Numero de Trabajos'],
+			{% regroup resultado4 by accespecifi as accion_listap %}
+					{% for item in accion_listap %}
+						['{{ item.grouper }}', {{ item.list|length }}],
+					{% endfor %}
+			  ]);
+			  
+		var options = {
+          title: 'Número de trabajos por Accion Especifica'
+        };
+		var chart = new google.visualization.PieChart(document.getElementById('chart_div5'));
+		chart.draw(data5, options);
+		var chart = new google.visualization.BarChart(document.getElementById('chart_div6'));
+        chart.draw(data5, options);
+        
+      }
+    </script>
+
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+			<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Estadísticas de los Congresos Venezolanos de Diversidad Biológica
+                  			</span>
+                        </div>
+                {% if resultado %} 
+					 <b>Total de Trabajos Postulados:</b> {{ trabajos5.all.count }}<br />
+                     <b>Total de Trabajos Aceptados:</b> {{ resultado.all.count }}<br />
+				{% endif  %} 
+				<div id="chart_div" style="width: 650px; height: 400px;"></div>
+                <div style="margin-left:100px;">
+                Modalidad<br />
+                {% if resultado %} 
+					{% regroup resultado by modalidad as modalidad_lista %}
+					{% for item in modalidad_lista %}
+						<b>{{ item.grouper.nombre}}:</b> {{ item.list|length }}<br />
+					{% endfor %}
+				{% endif  %}
+                </div>
+                <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;">
+				<div id="chart_div2" style="width: 650px; height: 400px;"></div>
+                <div style="margin-left:100px;">
+                Tematica<br />
+                {% if resultado2 %} 
+					{% regroup resultado2 by tematicas as tematica_lista %}
+					{% for item in tematica_lista %}
+						<b>{{ item.grouper.nombre}}: </b>{{ item.list|length }}<br />
+					{% endfor %}
+				{% endif  %}
+                </div>
+                <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;">
+                
+                <div id="chart_div3" style="width: 650px; height: 400px;"></div>
+                <div style="margin-left:100px;">
+                {% regroup trabajos5 by get_estatu_display as estatus_group %}
+					{% for item in estatus_group %}
+						<b>{{ item.grouper }}:</b> {{ item.list|length }}<br />
+					{% endfor %}
+                </div>
+                <div id="chart_div4" style="width: 650px; height: 400px;"></div>
+                <div style="margin-left:100px;">
+                {% regroup arbitrados by get_estatu_display as estatus_group %}
+					{% for item in estatus_group %}
+						<b>{{ item.grouper }}:</b> {{ item.list|length }}<br />
+					{% endfor %}
+                </div>
+                    <br />
+                <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;">
+                <div id="chart_div5" style="width: 650px; height: 400px;"></div>
+                <div id="chart_div6" style="width: 650px; height: 700px;"></div>
+                <div style="margin-left:100px;">
+                {% if resultado4 %} 
+					{% regroup resultado4 by accespecifi as accion_lista %}
+					{% for item in accion_lista %}
+						<b>{{ item.grouper.nombre }}:</b> <i style="color:#F00;">{{ item.list|length }}</i><br />
+					{% endfor %}
+				{% endif  %}
+                </div>
+                    </div>
+                    
+                </div>
+			<!-- Fin Columna Principal -->
+				<div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF; background-image:url(/media/css/plantilla/images/login_bg2.png)">
+                        	{% if form.errors %}
+                            	<p class="error">Lo siento, el nombre de usuario y clave no son válidos</p>
+                          	{% endif %}
+                            
+                  	<fieldset id="login">
+                    	<h4>Panel de Acceso</h4>
+                            <form method='post' name="hongkiat" id="hongkiat-form" action="/perfil"> {% csrf_token %}
+                                <p class="clearfix"><label for="username">Correo:</label>
+                                <input type="text" name="username" value="" id="username"></p>
+                                <p class="clearfix"><label for="password">Clave:</label>
+                                <input type="password" name="password" value="" id="password"></p>
+
+                                <section id="buttons2">
+                                    <input type="submit" name="submit" id="submitbtn2" class="submitbtn" tabindex="7" value="Enviar">
+                                    <br style="clear:both;">
+                            	</section>
+                                <input type="hidden" name="next" value="{{ next }}" />
+  							</form> 
+					</fieldset> 
+ 
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Todos los campos que tengan la siguiente imagen <img src="/media/css/plantilla/images/icon_alert_error.gif" height="15px" /> se consideran importante, por lo tanto, son obligatorios.
+                </div>
+                <div id="secCol-punta">
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

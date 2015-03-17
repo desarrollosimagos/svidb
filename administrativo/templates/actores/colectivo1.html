@@ -1,0 +1,145 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+
+  
+    <script>
+  $(function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#nombre" ).autocomplete({
+      source: "/autocompletado/actores/"+document.getElementById("nombre").values
+    });
+  });
+  </script>
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+
+</script>
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+
+
+{% if msm %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+		// (string | mandatory) the heading of the notification
+		title: '<b style="color:#fff">Registro procesado!</b>',
+		// (string | mandatory) the text inside the notification
+		text: 'La información ha sido registrada en el sistema. Gracias por participar en la Construcción Colectiva. SVIDB.',
+		// (string | optional) the image to display on the left
+		image: '/media/css/plantilla/notificaciones/css/AZ.png',
+		// (bool | optional) if you want it to fade out on its own or just sit there
+		sticky: false,
+		// (int | optional) the time you want it to be alive for before fading out
+		time: ''
+	});
+
+	return false;
+
+});
+</script>
+{% endif %}
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta > Actores Colectivos > Agregar
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Actores Colectivos
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		Para poder agregar un Actor Colectivo, debera primero proporcionar el nombre del mismo, esto permitira al sistema configurar la forma mas efectiva de este proceso.
+                            <br /><br />
+                        </div>
+                           
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                         <section id="container">
+                            	<form enctype="multipart/form-data" action="/panel/eventos/trabajos/actores/paso/2/{{ id }}" name="hongkiat" id="hongkiat-form" method="post" style="margin-left:10px;">
+								{% csrf_token %}
+                        		<div id="wrapping" class="clearfix">
+                                <section id="aligned">
+                                <label>
+                                	Nombre o Razon Social
+                                </label>
+                         		<input type="text" class="txtinput" name="nombre" id="nombre" style="background: #fff url('/media/librerias/css/plantilla/images/user.png') 5px 4px no-repeat;" placeholder="Nombre o Razon Social">
+                                
+                                </section>
+                                </div>
+                                <section id="buttons">
+                                	<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Verificar" >
+                                	<br style="clear:both;">
+                            	</section>
+                                
+                                </form>
+                         </section>
+                         </div>
+                         
+                            </div>
+                    </div>        
+
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+						
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

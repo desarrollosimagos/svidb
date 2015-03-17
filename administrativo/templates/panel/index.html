@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>SVIDB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="stilearning">
+
+        <meta http-equiv="x-pjax-version" content="v173">
+
+
+
+        <link rel="stylesheet" href="/media/librerias/stilearn-admin/styles/9281c719.vendor.css"/>        
+        <link rel="stylesheet" href="/media/librerias/stilearn-admin/styles/3fc417cd.main.css"/>
+        <script type="text/javascript" src="/media/librerias/autocat/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	{% if persona1 %}
+	{% else %}
+	document.getElementById("id_tipodoci").className='form-control text-danger';
+	document.getElementById("id_tipodoci").placeholder='Tipo de Documento';	
+	
+	document.getElementById("id_documentoidentidad").className='form-control text-danger';
+	document.getElementById("id_documentoidentidad").placeholder='Documento de Identidad';	
+	document.getElementById("id_documentoidentidad").value="{{ id }}";
+	{% endif %}
+	document.getElementById("id_nombre").className='form-control text-danger';
+	document.getElementById("id_nombre").placeholder='Nombre';
+	
+	document.getElementById("id_sexo").className='form-control text-danger';
+	document.getElementById("id_sexo").placeholder='Sexo';
+
+	document.getElementById("id_apellido").className='form-control text-danger';
+	document.getElementById("id_apellido").placeholder='Apellido';
+
+	document.getElementById("id_edocivil").className='form-control text-danger';
+	document.getElementById("id_edocivil").placeholder='Estado Civil';
+
+	document.getElementById("id_nacimiento").className='form-control text-danger';
+	document.getElementById("id_nacimiento").placeholder='Nacimiento';
+
+	document.getElementById("id_correo").className='form-control text-danger';
+	document.getElementById("id_correo").placeholder='Correo';
+
+	document.getElementById("id_telefono1").className='form-control text-danger';
+	document.getElementById("id_telefono1").placeholder='Telefono 1';
+	
+	document.getElementById("id_telefono2").className='form-control text-danger';
+	document.getElementById("id_telefono2").placeholder='Telefono 2';
+
+	document.getElementById("id_movil").className='form-control text-danger';
+	document.getElementById("id_movil").placeholder='Celular';
+	
+	document.getElementById("id_fax").className='form-control text-danger';
+	document.getElementById("id_fax").placeholder='Fax';
+	
+	document.getElementById("id_pai").className='form-control text-danger';
+	document.getElementById("id_pai").placeholder='Pais';
+	
+	document.getElementById("id_estado").className='form-control text-danger';
+	document.getElementById("id_estado").placeholder='Estado';
+	
+	document.getElementById("id_municipio").className='form-control text-danger';
+	document.getElementById("id_municipio").placeholder='Municipio';
+	
+	document.getElementById("id_parroquia").className='form-control text-danger';
+	document.getElementById("id_parroquia").placeholder='Parroquia';
+	
+	document.getElementById("id_sector").className='form-control text-danger';
+	document.getElementById("id_sector").placeholder='Sector';
+	
+	document.getElementById("id_areasaccion").className='form-control text-danger';
+	
+	
+	document.getElementById("id_gruposespecie").className='form-control text-danger';
+	document.getElementById("id_gruposespecie").placeholder='Grupos de Especies';
+	
+
+});
+function buscar(id){
+	document.buscarid.action="/panel/coord/index/"+ {{ id2 }};
+ 	window.location.href="/panel/coord/index/buscar/"+ {{ id2 }} + "/" + id;
+}
+function urlForm(id){
+	document.idBuscarSuperior.action="/panel/coord/index/buscar/"+ {{ id2 }} + "/" + id;
+	}
+function urlForm2(id){
+	document.buscarid.action="/panel/coord/index/buscar/"+ {{ id2 }} + "/" + id;
+	}
+</script>
+        
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+        <![endif]-->
+    </head>
+
+     <body class="animated fadeIn">
+        <!-- section header -->
+        <header class="header">
+            <!-- header brand -->
+            <div class="header-brand">
+                <!-- <h2><a data-pjax=".content-body" href="index.php"><span class="text-primary">Sti</span>learn</a></h2> -->
+                <a data-pjax=".content-body" href="index.php">
+                    SVIDB
+                </a>
+            </div><!-- header brand -->
+            
+            <!-- header-profile -->
+            <div class="header-profile">
+                <div class="profile-nav">
+                    <span class="profile-username">{{ persona.nombre }}</span>
+                    <a href="widget-tabs.php#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu animated flipInX pull-right" role="menu">
+                        <li><a href="/perfil"><i class="fa fa-user"></i> Perfil</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/salir"><i class="fa fa-sign-out"></i>Salir</a></li>
+                    </ul>
+                </div>
+                <div class="profile-picture">
+                    <img alt="me" src="images/dummy/0c31c9dc.profile.jpg">
+                </div>
+            </div><!-- header-profile -->
+
+            <form role="form" class="form-inline" method="post" name="idBuscarSuperior">
+                <button type="button" class="btn btn-default btn-expand-search"><i class="fa fa-search"></i></button>
+                <div class="toggle-search">
+                    <input type="text" class="form-control" id="cedulaid2" name="cedula" placeholder="Documento de Identidad">  
+                    <button type="button" class="btn btn-default btn-collapse-search"><i class="fa fa-times"></i></button>
+                </div>
+            </form><!--/form-search-->
+
+            <!-- header menu -->
+            <ul class="hidden-xs header-menu pull-right">
+                <li>
+                    <a href="widget-tabs.php#" title="Notifications" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="badge badge-success">0</span>
+                        <i class="header-menu-icon icon-only fa fa-warning"></i>
+                    </a>
+                </li><!-- /header-menu-item -->
+                <li>
+                    <a href="widget-tabs.php#" title="Inboxs" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="badge badge-warning animated animated-repeat flash">0</span>
+                        <i class="header-menu-icon icon-only fa fa-envelope-o"></i>
+                    </a>
+                </li><!-- /header-menu-item -->
+                <li>
+                    <a href="widget-tabs.php#" title="Tasks" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="badge badge-danger">0</span>
+                        <i class="header-menu-icon icon-only fa fa-tasks"></i>
+                    </a>
+                </li><!-- /header-menu-item -->
+            </ul><!--/header-menu pull-right-->
+        </header><!--/header-->
+
+        
+        <!-- content section -->
+        <section class="section">
+            <!-- DONT FORGET REPLACE IT FOR PRODUCTION! -->
+            <aside class="side-left">
+                <ul class="sidebar">
+                    <li>
+                        <a href="/panel/coord/index/{{ eventoPadre }}" data-pjax=".content-body">
+                            <i class="sidebar-icon fa fa-home"></i>
+                            <span class="sidebar-text">Evento Principal</span>
+                        </a>
+                    </li><!--/sidebar-item-->
+                    <li>
+                        <a href="/panel/coord/index/{{ id2 }}" data-pjax=".content-body">
+                            <i class="sidebar-icon fa fa-home"></i>
+                            <span class="sidebar-text">Inscripciones</span>
+                        </a>
+                    </li><!--/sidebar-item-->
+{% if tipo_eventos %}
+{% for e in tipo_eventos %}
+                    <li>
+                        <a href="/panel/coord/assoc/{{ e.id }}/{{ id2 }}">
+                            <i class="sidebar-icon fa fa-files-o"></i>
+                            <span class="sidebar-text">{{ e.nombre }}</span>
+                        </a>
+                    </li>
+{% endfor %}
+{% endif %}
+                    <!--
+                    <li>
+                        <a href="/panel/coord/certificados/{{ id2 }}">
+                            <i class="sidebar-icon fa fa-files-o"></i>
+                            <span class="sidebar-text">Certificados</span>
+                        </a>
+                        <ul class="sidebar-child animated flipInY">
+                            <li>
+                                <a href="/panel/coord/certificados/{{ id2 }}" data-pjax=".content-body">
+                                    <span class="sidebar-text">Solo autores</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/panel/coord/certificados/todos/{{ id2 }}" data-pjax=".content-body">
+                                    <span class="sidebar-text">Autores y Coautores</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/panel/coord/certificados/personalizada/{{ id2 }}" data-pjax=".content-body">
+                                    <span class="sidebar-text">Personalizada</span>
+                                </a>
+                            </li>
+                       	</ul>
+                    </li>-->
+                </ul><!--/sidebar-->
+            </aside><!--/side-left-->
+
+            <div class="content">
+                <div class="content-header">
+                    <div class="content-header-extra">
+                        <a class="item-ch-extra" href="widget-tabs.php#">
+                            <span class="sparkline-bar" data-height="36px" data-barwidth="3" data-barcolor="#5BB75B" data-value="0,0,0,0,0"></span>
+                            <div class="data-text text-success">
+                                0% <p class="text-muted">Graficos</p>
+                            </div>
+                        </a><!--/item-ch-extra-->
+                    </div><!--/content-header-extra -->
+
+                    <h2 class="content-title"><i class="fa fa-home"></i> Bienvenido al SVIDB</h2>
+                </div><!--/content-header -->
+                
+                <!-- content-control -->
+                <div class="content-control">
+                    <!--control-nav-->
+                    <ul class="control-nav pull-right">
+                        
+                        <li>
+                            <a href="#">
+                                <b>Operaciones con Certificados:</b>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="/panel/coord/certificados/{{ id2 }}">
+                                <i class="fa fa-money"></i> Masivo Autores
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/panel/coord/certificados/todos/{{ id2 }}">
+                                <i class="fa fa-money"></i> Masivo Autores-Coautores
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/panel/coord/certificados/evento/todos/{{ id2 }}">
+                                <i class="fa fa-money"></i> Masivo Participantes
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/panel/coord/certificados/personalizada/{{ id2 }}">
+                                <i class="fa fa-money"></i> Certificado Personalizado
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li rel="popover-left" data-context="inverse" data-trigger="hover" data-content="Click me to toggle Chat box!">
+                            <a data-toggle="side-right" href="widget-tabs.php#">
+                                Chat <i class="fa fa-comment-o animated animated-repeat flash"></i>
+                            </a>
+                        </li>
+                    </ul><!--/control-nav-->
+                    
+                    <!--breadcrumb-->
+                    <ul class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home"></i> SVIDB</a></li>
+                        <li><a href="/panel/coord/index/{{ id2 }}">Inicio</a></li>
+                        <li class="active">Inscripciones</li>
+                    </ul><!--/breadcrumb-->
+                </div><!-- /content-control -->
+
+                <div class="content-body">
+                    <!-- APP CONTENT
+                    ================================================== -->
+                                        <!-- WIDGET TABS
+                    ================================================== -->
+                    <!-- Tabs -->
+                    {% if sis %}
+                    <div id="panel-fvalidate" class="panel panel-default sortable-widget-item">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <button data-refresh="#panel-fvalidate" data-url="" title="" class="btn-panel" data-original-title="refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <button data-expand="#panel-fvalidate" title="" class="btn-panel" data-original-title="expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                                <button data-collapse="#panel-fvalidate" title="" class="btn-panel" data-original-title="collapse">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div><!-- /panel-actions -->
+                            <h3 class="panel-title">Buscador de Personas</h3>
+                        </div><!-- /panel-heading -->
+
+                        <div class="panel-body collapse">
+                            <p>Ingrese una <code>identificación valida</code> para iniciar con el proceso de inscripción o registro.</p>
+                            <form role="form" name="buscarid" id="buscarid" data-validate="form" class="form-horizontal form-bordered" novalidate="novalidate" method="post" action="/panel/coord/index/{{ id2 }}">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="cname">Documento de Identidad (Obligatorio, Minimo 6 digitos, Solo Numeros)</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="cedulaid" name="cedula" class="form-control text-danger" minlength="6" required="" >
+                                    <label for="cname" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-5">
+                                        <input class="btn btn-primary" type="button" onClick="buscar(document.getElementById('cedulaid').value);" value="Buscar Persona">
+                                    </div><!--/cols-->
+                                </div><!--/form-group-->
+
+                            </form><!--/form-->
+                        </div><!-- /panel-body -->
+                    </div>
+					<div id="panel-alco" class="panel panel-default sortable-widget-item">
+                                <div class="panel-heading">
+                                    <div class="panel-actions">
+                                        <button data-refresh="#panel-alco" title="" class="btn-panel" data-original-title="refresh">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                        <button data-expand="#panel-alco" title="" class="btn-panel" data-original-title="expand">
+                                            <i class="fa fa-expand"></i>
+                                        </button>
+                                        <button data-collapse="#panel-alco" title="" class="btn-panel" data-original-title="collapse">
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        <!--<button data-close="#panel-alco" title="" class="btn-panel" data-original-title="close">
+                                            <i class="fa fa-times"></i>
+                                        </button>-->
+                                    </div><!-- /panel-actions -->
+                                    <h3 class="panel-title sortable-widget-handle">Panel de Inscripciones</h3>
+                                </div><!-- /panel-heading -->
+
+                                <div class="panel-body bordered-bottom">
+                                    <div>
+                                    	{% if persona1 %}
+                                        <div class="alert alert-success fade in">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <strong>Usuario Registrado!</strong> A continuación se mostrara todas las acciones habilitadas.
+                                        </div>
+                                        <b>Cedula:</b> {{ persona1.documentoidentidad }}<br>
+                                        <b>Nombre:</b> {{ persona1.nombre }}<br>
+                                        <b>Apellido:</b> {{ persona1.apellido }}<br>
+                                        {% else %}
+                                        <div class="alert alert-danger fade in">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <strong>Usuario NO Registrado!</strong> A continuación se mostrara todas las acciones habilitadas.
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% if persona1 %}
+                                    {% if colaboracion or pasar %}
+                                   Opciones para el evento <b><i>{{ evento.nombre }}</i></b>:
+                                   <form action="/panel/coord/index/opcion/{{ id2 }}/{{ id }}" method="post">
+                                   {% if registro %}
+                                   {% if registro.estatu == 3 %}
+                                   <div class="nice-checkbox">
+                                    	<input class="checkbox-o" type="checkbox" id="checkbox-o-both-1" checked="checked" disabled="disabled" value="0">
+                                        
+                                    	<label for="checkbox-o-both-1">El usuario ya se encuentra inscrito.</label>
+                                	</div>
+                                    <input class="checkbox-o" type="hidden"  value="0" name="inscrito">
+                                   {% else %}
+                                   <div class="nice-checkbox">
+                                        <input class="checkbox-o" type="checkbox" id="checkbox-o-1" value="1" name="inscrito">
+                                        <label for="checkbox-o-1">Validar Inscripción </label>
+                                    </div>
+                                    {% endif %}
+                                    {% else %}
+                                    <div class="nice-checkbox">
+                                        <input class="checkbox-o" type="checkbox" id="checkbox-o-1" value="1" name="inscrito">
+                                        <label for="checkbox-o-1">Pre-inscribir y validar inscripción</label>
+                                    </div>
+                                    {% endif %}
+                                    {% if varios %}
+                                    {% if varios.certificado %}
+                                   <div class="nice-checkbox">
+                                    	<input class="checkbox-o" type="checkbox" id="checkbox-o-both-1" checked="checked" disabled="disabled" value="0">
+                                        
+                                    	<label for="checkbox-o-both-1">Al usuario ya se le entrego certificado.</label>
+                                	</div>
+                                    <input class="checkbox-o" type="hidden"  value="0" name="certificado">
+                                    {% else %}
+                                    <div class="nice-checkbox">
+                                        <input class="checkbox-o" type="checkbox" id="checkbox-o-2" value="1" name="certificado">
+                                        <label for="checkbox-o-2">Entregar Certificado</label>
+                                    </div>                                
+                                    {% endif %}
+                                    {% if varios.material %}
+                                   <div class="nice-checkbox">
+                                    	<input class="checkbox-o" type="checkbox" id="checkbox-o-both-1" checked="checked" disabled="disabled" value="0">
+                                        
+                                    	<label for="checkbox-o-both-1">Al usuario ya se le entrego el Material.</label>
+                                	</div>
+                                    <input class="checkbox-o" type="hidden"  value="0" name="material">
+                                    {% else %}
+                                   	<div class="nice-checkbox">
+                                        <input class="checkbox-o" type="checkbox" id="checkbox-o-3" value="1" name="material">
+                                        <label for="checkbox-o-3">Entregar material</label>
+                                    </div>
+                                    
+                                    {% endif %}
+                                    {% else %}
+                                    <div class="nice-checkbox">
+                                        <input class="checkbox-o" type="checkbox" id="checkbox-o-2" value="1" name="certificado">
+                                        <label for="checkbox-o-2">Entregar Certificado</label>
+                                    </div>
+                                   	<div class="nice-checkbox">
+                                        <input class="checkbox-o" type="checkbox" id="checkbox-o-3" value="1" name="material">
+                                        <label for="checkbox-o-3">Entregar material</label>
+                                    </div>
+                                    {% endif %}
+                                    {% if registro.estatu == 3 %}
+                                    {% if trabajos %}
+                                    {% if trabajos.presento %}
+                                    <div class="alert alert-info fade in">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong>Este usuario ya posee un certificado por participar en uno o varios resumenes.!</strong>.
+                                    </div>
+                                    {% else %}
+                                    <div class="alert alert-info fade in">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong>Este usuario ya posee un certificado por participar en uno o varios resumenes.!</strong>.
+                                    </div>
+                                    <a class="btn btn-primary btn-sm" target="_blank" href="/panel/coord/certificados/participacion/{{ id2 }}/{{ persona1.id }}">Generar Certificado</a>
+                                    {% endif %}
+                                    {% else %}
+                                    	<a class="btn btn-primary btn-sm" target="_blank" href="/panel/coord/certificados/participacion/{{ id2 }}/{{ persona1.id }}">Generar Certificado</a>
+                                    {% endif %}
+                                    {% endif %}
+                                    <pre class="no-padding prettyprint prettyprinted">
+                                    <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+                                    </pre>
+                                    </form>
+                                    {% else %}
+                                    <div class="alert alert-danger fade in">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong>NO se ha registrado una colaboración!</strong> para poder proceder a la inscripción, entrega de certificado y materiales, se debe realizar una colaboracion previamente.
+                                    </div>
+                                    {% endif %}
+                                    {% endif %}
+                                    
+                                </div><!-- /panel-body -->
+                            </div>
+                            {% if aporte %}
+                            <div id="panel-fvalidate3" class="panel panel-default sortable-widget-item">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <button data-refresh="#panel-fvalidate3" data-url="" title="" class="btn-panel" data-original-title="refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <button data-expand="#panel-fvalidate3" title="" class="btn-panel" data-original-title="expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                                <button data-collapse="#panel-fvalidate3" title="" class="btn-panel" data-original-title="collapse">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div><!-- /panel-actions -->
+                            <h3 class="panel-title">Colaboración</h3>
+                        </div><!-- /panel-heading -->
+
+                        <div class="panel-body collapse">
+                        {% if colaboracion %}
+                        <div class="alert alert-info fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <strong>Ya posee una colaboración Registrada, se registro con el siguiente ID {{ colaboracion.id }}!</strong>.
+                            </div>
+                         {% if aporte.activar1 %}
+                         	<b>{{ aporte.campo1 }}</b>: {{ colaboracion.campo1 }}<br>
+                         {% endif %}
+                         {% if aporte.activar2 %}
+                         	<b>{{ aporte.campo2 }}</b>: {{ colaboracion.campo2 }}<br>
+                         {% endif %}
+                         {% if aporte.activar3 %}
+                         	<b>{{ aporte.campo3 }}</b>: {{ colaboracion.campo3 }}<br>
+                         {% endif %}
+                         {% if aporte.activar4 %}
+                         	<b>{{ aporte.campo4 }}</b>: {{ colaboracion.campo4 }}<br>
+                         {% endif %}
+                         {% if aporte.activar5 %}
+                         	<b>{{ aporte.campo5 }}</b>: {{ colaboracion.campo5 }}<br>
+                         {% endif %}
+                         {% if aporte.activar6 %}
+                         	<b>{{ aporte.campo6 }}</b>: {{ colaboracion.campo6 }}<br>
+                         {% endif %}
+                         {% if aporte.activar7 %}
+                         	<b>{{ aporte.campo7 }}</b>: {{ colaboracion.campo7 }}<br>
+                         {% endif %}
+                         {% if aporte.activar8 %}
+                         	<b>{{ aporte.campo8 }}</b>: {{ colaboracion.campo8 }}<br>
+                         {% endif %}
+                         {% if aporte.activar9 %}
+                         	<b>{{ aporte.campo9 }}</b>: {{ colaboracion.campo9 }}<br>
+                         {% endif %}
+                         {% if aporte.activar10 %}
+                         	<b>{{ aporte.campo10 }}</b>: {{ colaboracion.campo10 }}<br>
+                         {% endif %}
+						{% else %}
+                            <p>Ingrese los datos para registrar la colaboración. Recuerde solo despues de realizar este paso puede acceder a las demas opciones.</p>
+                            <form role="form"  data-validate="form" class="form-horizontal form-bordered" novalidate="novalidate" method="post" action="/panel/coord/index/colaboracion/{{ id2 }}/{{ id }}">
+                            {% if aporte.activar1 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo1">{{ aporte.campo1 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo1" name="campo1" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo1" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar2 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo2">{{ aporte.campo2 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo2" name="campo2" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo2" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar3 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo3">{{ aporte.campo3 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo3" name="campo3" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo3" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar4 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo4">{{ aporte.campo4 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo4" name="campo4" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo4" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar5 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo5">{{ aporte.campo5 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo5" name="campo5" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo5" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar6 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo6">{{ aporte.campo6 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo6" name="campo6" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo6" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar7 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo7">{{ aporte.campo7 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo7" name="campo7" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo7" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar8 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo8">{{ aporte.campo8 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo8" name="campo8" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo8" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar9 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo9">{{ aporte.campo9 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo9" name="campo9" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo9" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+                            {% if aporte.activar10 %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="campo10">{{ aporte.campo10 }}</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="campo10" name="campo10" class="form-control text-danger" minlength="2" required="">
+                                    <label for="campo10" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+							{% endif %}
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-5">
+                                        <input class="btn btn-primary" type="submit" value="Guardar">
+                                    </div><!--/cols-->
+                                </div><!--/form-group-->
+
+                            </form><!--/form-->
+                            
+                            {% endif %}
+                        </div><!-- /panel-body -->
+                    </div>
+                            {% else %}
+                <div class="alert alert-info fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>NO se ha configurado un tipo de colaboración!</strong>.
+                </div>
+                            {% endif %}
+                            
+                            {% if persona1 %}
+                            {% if colaboracion or pasar %}
+					<div id="panel-fvalidate2" class="panel panel-default sortable-widget-item">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <button data-refresh="#panel-fvalidate2" title="" class="btn-panel" data-original-title="refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <button data-expand="#panel-fvalidate2" title="" class="btn-panel" data-original-title="expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                                <button data-collapse="#panel-fvalidate2" title="" class="btn-panel" data-original-title="collapse">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div><!-- /panel-actions -->
+                            <h3 class="panel-title">Actualización de Datos Personales</h3>
+                        </div><!-- /panel-heading -->
+
+                        <div class="panel-body">
+                            <form role="form" id="signupForm" data-validate="form" class="form-horizontal form-bordered" novalidate="novalidate" method="post">
+                                {% for field in formulario %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="firstname">{{ field.label }}</label>
+                                    <div class="col-sm-5">
+                                        <div class="input-group input-group-in">
+                                            <span class="input-group-addon text-silver"><i class="fa fa-user"></i></span>
+                                            {{ field }}
+                                        </div>
+                                    <label for="firstname" class="text-danger" style="display: inline-block;">{{ field.errors }}</label></div><!--/cols-->
+                                </div><!--/form-group-->
+                            	{% endfor %}
+                                
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-5">
+                                        <input class="btn btn-primary" type="submit" value="Actualizar">
+                                    </div><!--/cols-->
+                                </div><!--/form-group-->
+
+                            </form><!--/form-->
+                        </div><!-- /panel-body -->
+                    </div>
+                    		{% endif %}
+                            {% else %}
+                    <div id="panel-fvalidate2" class="panel panel-default sortable-widget-item">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <button data-refresh="#panel-fvalidate2" title="" class="btn-panel" data-original-title="refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <button data-expand="#panel-fvalidate2" title="" class="btn-panel" data-original-title="expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                                <button data-collapse="#panel-fvalidate2" title="" class="btn-panel" data-original-title="collapse">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div><!-- /panel-actions -->
+                            <h3 class="panel-title">Registro de Datos Personales</h3>
+                        </div><!-- /panel-heading -->
+
+                        <div class="panel-body">
+                            <form role="form" id="signupForm" data-validate="form" class="form-horizontal form-bordered" novalidate="novalidate" method="post">
+                                {% for field in formulario %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="firstname">{{ field.label }}</label>
+                                    <div class="col-sm-5">
+                                        <div class="input-group input-group-in">
+                                            <span class="input-group-addon text-silver"><i class="fa fa-user"></i></span>
+                                            {{ field }}
+                                        </div>
+                                    <label for="firstname" class="text-danger" style="display: inline-block;">{{ field.errors }}</label></div><!--/cols-->
+                                </div><!--/form-group-->
+                            	{% endfor %}
+                                
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-5">
+                                        <input class="btn btn-primary" type="submit" value="Actualizar">
+                                    </div><!--/cols-->
+                                </div><!--/form-group-->
+
+                            </form><!--/form-->
+                        </div><!-- /panel-body -->
+                    </div>
+                            {% endif %}
+                            {% if trabajos %}
+                            <div id="panel-fvalidate6" class="panel panel-default sortable-widget-item">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <button data-refresh="#panel-fvalidate6" title="" class="btn-panel" data-original-title="refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <button data-expand="#panel-fvalidate6" title="" class="btn-panel" data-original-title="expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                                <button data-collapse="#panel-fvalidate6" title="" class="btn-panel" data-original-title="collapse">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div><!-- /panel-actions -->
+                            <h3 class="panel-title">Trabajos Inscritos</h3>
+                        </div><!-- /panel-heading -->
+
+                        <div class="panel-body collapse">
+								<p>
+                                
+                                	{% for i in trabajos %}
+                                    
+                                	<b><em>{% autoescape on %}{{ i.titulo|removetags:"p"|safe }} {% endautoescape %}</em></b><br>
+                                    <b>Modalidad:</b> <em>{{ i.modalidad }}</em><br>
+                                    <b>Tematica:</b> <em>{{ i.tematicas }}</em><br>
+                                    <form action="/panel/coord/trabajos/seguimiento/{{ id2 }}/{{ id }}/{{ i.id }}" method="post">
+                                    {% if i.impreso %}
+                                    <div class="alert alert-info fade in">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <strong>Ya se realizo la impresión de este trabajo!</strong>.
+                                    </div>
+                                    {% else %}
+                                    <input type="checkbox" name="impreso" id="impreso" value="1"> Impreso
+                                    {% endif %}
+                                    {% if i.armado %}
+                                    <div class="alert alert-info fade in">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <strong>Ya se armo el Kit de Certificados para este trabajo!</strong>.
+                                    </div>
+                                    {% else %}
+                                    <input type="checkbox" name="armado" id="armado" value="1"> Kit de Certificados Armado
+                                    {% endif %}
+                                    {% if i.entregado %}
+                                    <div class="alert alert-danger fade in">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong>Ya se realizó la entrega de este Trabajo!</strong>
+                                    </div>
+                                    {% else %}
+                                    <input type="checkbox" name="entregado" id="entregado" value="1"> Entregado
+                                    {% endif %}
+                                    
+                                    {% if i.entregado and  i.armado and i.impreso %}                                  
+                                    {% else %}
+                                    <input type="submit" class="btn btn-primary" value="Guardar">
+                                    {% endif %}
+                                    </form>
+                                    <form action="/panel/coord/certificados/variable/{{ i.id}}" method="post" name="{{ i.id}}_form">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Autor:</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/panel/coord/certificados/trabajos/individual/{{ i.id }}/{{ i.directorio.id }}" target="_blank">Imprimir</a>{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}<br>
+                                    {% if i.coautores.all %}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Coautores</b><br>
+                                    {% for co in i.coautores.all %}
+			                          	&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="coautores" value="{{ co.id }}">
+                                        <a target="_blank" href="/panel/coord/certificados/trabajos/individual/{{ i.id }}/{{ co.id }}">Imprimir</a>
+                                        {% autoescape off %}{{ co.nombre|removetags:"p"|safe|capfirst }}{% endautoescape %}{% autoescape off %}{{ co.apellido|removetags:"p"|safe|capfirst }}{% endautoescape %}<br>
+                        			{% endfor %}
+                                    {% endif %}<br>
+                                    <a class="btn btn-primary" target="_blank" href="/panel/coord/certificados/trabajos/todos/{{ i.id }}" >Imprimir Todos</a>
+                                    </form>
+                                    {% if forloop.firts %}{% else %}<br>{% endif %}
+                                    {% endfor %}
+                                    
+                                </p>
+	                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-5">
+                                    	
+                                    </div><!--/cols-->
+                                </div><!--/form-group-->
+
+                            </form><!--/form-->
+                        </div><!-- /panel-body -->
+                    </div>
+                            {% endif %}
+                    {% else %}
+                    <div class="callout callout-info">
+                        <h4>Bienvenidos al SVIDB</h4>
+                        <p>Actualmente solo estara configurado para las opciones de Inscripciones y generación de certificados para el evento: "<i><b>{{ evento.nombre }}</b></i>" .</p>
+                        <p><strong>Suerte!</strong></p>
+                    </div>
+                    <div id="panel-fvalidate" class="panel panel-default sortable-widget-item">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <button data-refresh="#panel-fvalidate" title="" class="btn-panel" data-original-title="refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <button data-expand="#panel-fvalidate" title="" class="btn-panel" data-original-title="expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                                <button data-collapse="#panel-fvalidate" title="" class="btn-panel" data-original-title="collapse">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div><!-- /panel-actions -->
+                            <h3 class="panel-title">Buscador de Personas</h3>
+                        </div><!-- /panel-heading -->
+
+                        <div class="panel-body">
+                            <p>Ingrese una <code>identificación valida</code> para iniciar con el proceso de inscripción o registro.</p>
+                            <form role="form" name="buscarid" id="buscarid"data-validate="form" class="form-horizontal form-bordered" novalidate="novalidate" method="post" action="/panel/coord/index/{{ id2 }}">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="cname">Documento de Identidad (Obligatorio, Minimo 6 digitos, Solo Numeros)</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="cedulaid" name="cedula" class="form-control text-danger" minlength="6" required="">
+                                    <label for="cname" class="text-danger" style="display: inline-block;">Este campo es requerido.</label></div><!--/cols-->
+                                </div><!--/form-group-->
+
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-5">
+                                        <input class="btn btn-primary" type="button" onClick="buscar(document.getElementById('cedulaid').value);" value="Buscar Persona">
+                                    </div><!--/cols-->
+                                </div><!--/form-group-->
+
+                            </form><!--/form-->
+                        </div><!-- /panel-body -->
+                    </div>
+                    {% endif %}
+
+
+                    </div><!-- /row -->                </div><!--/content-body -->
+            </div><!--/content -->
+
+        </section><!--/content section -->
+        
+
+        <!-- side-right -->
+       
+
+
+        <!-- section footer -->
+        <a rel="to-top" href="widget-tabs.php#top"><i class="fa fa-arrow-up"></i></a>
+        <footer>
+            <p>2014 SVIDB </p>
+        </footer>
+
+
+
+
+        <!-- javascript
+        ================================================== -->
+        <script src="/media/librerias/stilearn-admin/scripts/39914ff3.vendor-main.js"></script>        
+        <script src="/media/librerias/stilearn-admin/scripts/756399db.vendor-usefull.js"></script>
+        <script src="/media/librerias/stilearn-admin/scripts/e7058f60.vendor-form.js"></script>        
+        <script src="/media/librerias/stilearn-admin/scripts/fc9d433c.vendor-editor.js"></script>        
+        <!--[if lte IE 8]>
+        <script src="/media/librerias/stilearn-admin/scripts/eae815b5.excanvas.js"></script>
+        <![endif]-->
+        <script src="/media/librerias/stilearn-admin/scripts/2ce1156c.vendor-graph.js"></script>    
+        <script src="/media/librerias/stilearn-admin/scripts/37a77790.vendor-table.js"></script>
+        <script src="/media/librerias/stilearn-admin/scripts/1581b2aa.vendor-maps.js"></script>        
+        <script src="/media/librerias/stilearn-admin/scripts/5f4fd25b.vendor-util.js"></script>
+
+
+        <!-- required stilearn template js -->
+        <script src="/media/librerias/stilearn-admin/scripts/5917523f.main.js"></script>
+        <!-- This scripts will be reload after pjax or if popstate event is active (use with class .re-execute) -->
+        <script src="/media/librerias/stilearn-admin/scripts/89c3d6c9.initializer.js"></script>
+        
+        <script>
+          (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+          ga('create','UA-48454066-1');ga('send','pageview');
+        </script>
+
+    </body>
+</html>

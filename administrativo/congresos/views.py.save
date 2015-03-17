@@ -1,0 +1,305 @@
+# -*- coding: utf8
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext, loader
+from congresos.forms import TrabajosForm,TrabajosFormGuardar,TrabajosEditar
+from django.views.decorators.csrf import csrf_protect
+from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from actores.models import Directorios,Bancoaudiovisuals,Bibliotecas
+from congresos.models import Eventos,Trabajoscongresos,participacioEvento
+from linea.models import Objetivoespecificos,Fundamentos,Accionesgenerales,Accionesespecificas
+from django.contrib.auth.models import User
+from perfil.models import PerfilPublico,ModulosPublicos,PerfilModulos
+from mapas.models import Colaboradorespersonas
+from datetime import *
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
+from django.db.models import Q
+
+
+def eventoslista(request):
+    today = datetime.now() #fecha actual
+    dateFormat = today.strftime("%Y-%m-%d") # fecha con formato
+    try:
+       eventos_activos = Eventos.objects.filter(fecha__gt= dateFormat)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+#    print eventos_activos
+    return render_to_response("congresos/lista.html",{'eventos_activos':eventos_activos,ersona':persona}, context_instance=RequestContext(request))
+
+def eventos_list(request):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    print id_usuario
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    print id_persona
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    today = datetime.now() #fecha actual
+    dateFormat = today.strftime("%Y-%m-%d") # fecha con formato
+    try:
+       eventos_activos = Eventos.objects.filter(fecha__gt= dateFormat)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+    print eventos_activos
+    return render_to_response("congresos/eventos.html",{'eventos_activos':eventos_activos,'persona':persona}, context_instance=RequestContext(request))
+	
+def ver_congresos(request,id):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    print id_usuario
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    print id_persona
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    print persona
+    try:
+       eventos_activos = Eventos.objects.get(pk= id)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+    try:
+       trabajos = Trabajoscongresos.objects.filter(evento= eventos_activos).filter(directorio=persona)
+    except Trabajoscongresos.DoesNotExist:
+       trabajos = None
+    try:
+       participa = participacioEvento.objects.filter(evento=id).filter(directorio=id_persona.persona.id)
+    except participacioEvento.DoesNotExist:
+       participa = None
+    return render_to_response("congresos/ver_congresos.html",{'trabajos':trabajos,'congreso':eventos_activos,'persona':persona,'participa':participa}, context_instance=RequestContext(request))
+	
+
+def ver_todos_trabajos(request):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    print id_usuario
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    print id_persona
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    try:
+       trabajos = Trabajoscongresos.objects.filter(Q(coautores=persona) | Q(directorio=persona)).filter(estatu=0).order_by('evento')
+    except Trabajoscongresos.DoesNotExist:
+       trabajos = None
+    try:
+       parti = participacioEvento.objects.filter(directorio=persona).order_by('evento')
+    except participacioEvento.DoesNotExist:
+       parti = None
+
+    try:
+       constr = Colaboradorespersonas.objects.filter(persona=persona).filter(estatu=0).order_by('tipoColaboracion')
+    except Colaboradorespersonas.DoesNotExist:
+       constr = None
+    try:
+       banco = Bancoaudiovisuals.objects.filter(directorio=persona).filter(Q(estatu=1) | Q(estatu=2))
+    except Bancoaudiovisuals.DoesNotExist:
+       banco = None
+    try:
+        biblioteca = Bibliotecas.objects.filter(directorio=persona).filter(estatu=0).order_by('titulo')
+    except Bibliotecas.DoesNotExist:
+        biblioteca = None
+	   
+    return render_to_response("congresos/ver_congresos_todos.html",{'trabajos':trabajos,'persona':persona,'banco':banco,'constr':constr,'parti':parti,'biblioteca':biblioteca}, context_instance=RequestContext(request))
+
+
+def seleccionfundamentos(request,id):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    print id_usuario
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    print id_persona
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    try:
+       eventos_activos = Eventos.objects.get(pk= id)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+    fundada = Fundamentos.objects.all()
+    return render_to_response("congresos/fundamentos.html",{'funda':fundada,'congreso':eventos_activos,'persona':persona}, context_instance=RequestContext(request))
+		
+		
+def objetivosespecificos(request,id,fund):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    print id_usuario
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    print id_persona
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    try:
+       eventos_activos = Eventos.objects.get(pk= id)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+    objespicific = Objetivoespecificos.objects.filter(fundamento=fund)
+    return render_to_response("congresos/objetivos.html",{'objespicific':objespicific,'congreso':eventos_activos,'persona':persona}, context_instance=RequestContext(request))	
+	
+def accionesgenerales(request,id,acc):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    print id_usuario
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    print id_persona
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    try:
+       eventos_activos = Eventos.objects.get(pk= id)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+    accgen = Accionesgenerales.objects.filter(objetivoespecifico=acc)
+    return render_to_response("congresos/accionesgenerales.html",{'accgen':accgen,'congreso':eventos_activos,'persona':persona}, context_instance=RequestContext(request))		
+		
+def accionesespecificas(request,id,ace):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    print id_usuario
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    print id_persona
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    try:
+       eventos_activos = Eventos.objects.get(pk= id)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+    accespe = Accionesespecificas.objects.filter(accionesgenerale=ace)
+    return render_to_response("congresos/accionesespecificas.html",{'accespe':accespe,'congreso':eventos_activos,'persona':persona}, context_instance=RequestContext(request))		
+		
+
+def form_trabajos(request,id,item):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    try:
+       eventos_activos = Eventos.objects.get(pk= id)
+    except Eventos.DoesNotExist:
+       eventos_activos = None
+    try:
+       objetivos = Accionesespecificas.objects.get(pk= item)
+    except Accionesespecificas.DoesNotExist:
+       objetivos=None
+
+    if request.method == 'POST':
+       trabajos_post = TrabajosFormGuardar(request.POST)
+       if trabajos_post.is_valid():
+          print 'valido'
+          trabajos_post.save()
+          return render_to_response("congresos/exito.html",{'eventos_activos':eventos_activos}, context_instance=RequestContext(request))    
+       else:
+          print 'no valido'
+          trabajos = TrabajosFormGuardar(request.POST)
+          return render_to_response("congresos/registro_trabajos.html",{'formulario':trabajos,'persona':persona,'eventos_activos':eventos_activos,'objetivos':objetivos}, context_instance=RequestContext(request))    
+    else:
+       print id
+       print item
+       trabajos = TrabajosFormGuardar()
+       return render_to_response("congresos/registro_trabajos.html",{'formulario':trabajos,'persona':persona,'eventos_activos':eventos_activos,'objetivos':objetivos}, context_instance=RequestContext(request))
+	   
+	   
+
+def form_editar(request,id):
+    Trabajoscong = Trabajoscongresos.objects.get(pk= id)
+    if request.method == 'POST':
+       trabajo = TrabajosFormGuardar(request.POST, instance = Trabajoscong)
+       if trabajo.is_valid():
+          trabajo.save()
+          trabajos = TrabajosFormGuardar(instance=Trabajoscong)
+          return render_to_response("congresos/editar.html",{'formulario':trabajos,'trab':Trabajoscong}, context_instance=RequestContext(request)) 
+       else:
+          trabajos = TrabajosFormGuardar(instance=Trabajoscong)
+          return render_to_response("congresos/editar.html",{'formulario':trabajos,'trab':Trabajoscong}, context_instance=RequestContext(request))
+    else:
+       trabajos = TrabajosFormGuardar(instance=Trabajoscong)
+       return render_to_response("congresos/editar.html",{'formulario':trabajos,'trab':Trabajoscong}, context_instance=RequestContext(request))
+
+
+def patrticipacion(request,id):
+    _username = request.user.username
+    try:
+       id_usuario = User.objects.get(username=_username)
+    except User.DoesNotExist:
+       id_usuario = None
+    try:
+       id_persona = PerfilPublico.objects.get(user=id_usuario.id)
+    except PerfilPublico.DoesNotExist:
+       id_persona = None
+    try:
+       persona = Directorios.objects.get(pk=id_persona.persona.id)
+    except Directorios.DoesNotExist:
+       persona = None
+    try:
+       evento = Eventos.objects.get(pk= id)
+    except Eventos.DoesNotExist:
+       evento = None  
+    try:
+       registro = participacioEvento(directorio=persona,evento=evento) 
+       registro.save()
+       op=True
+    except Eventos.DoesNotExist:
+       op=False
+    return render_to_response("congresos/parti.html",{'op':op}, context_instance=RequestContext(request))

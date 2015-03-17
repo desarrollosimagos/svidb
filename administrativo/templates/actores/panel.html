@@ -1,0 +1,333 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>-->
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/plantilla/notificaciones/css/jquery.gritter.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/media/librerias/css/plantilla/notificaciones/js/jquery.gritter.js"></script>
+{% if sms %}
+<script>
+$(document).ready(function() {
+$.gritter.add({
+                // (string | mandatory) the heading of the notification
+                title: '<b style="color:#fff">Notificación.</b>',
+                // (string | mandatory) the text inside the notification
+                text: '{{ sms  }}',
+                // (string | optional) the image to display on the left
+                image: '/media/librerias/css/plantilla/notificaciones/css/AZ.png',
+                // (bool | optional) if you want it to fade out on its own or just sit there
+                sticky: false,
+                // (int | optional) the time you want it to be alive for before fading out
+                time: '3000000000'
+        });
+
+        return false;
+
+});
+</script>
+{% endif %}
+
+{% if error %}
+	{% if error = 'Si' %}
+	<script>
+	$(document).ready(function() {
+	$.gritter.add({
+		        // (string | mandatory) the heading of the notification
+		        title: '<b style="color:#fff">Notificacion de Error!</b>',
+		        // (string | mandatory) the text inside the notification
+		        text: 'Se ha presentado un error al momento de realizar el envio ',
+		        // (string | optional) the image to display on the left
+		        image: '/media/librerias/css/plantilla/notificaciones/css/safe_image.png',
+		        // (bool | optional) if you want it to fade out on its own or just sit there
+		        sticky: false,
+		        // (int | optional) the time you want it to be alive for before fading out
+		        time: '300'
+		});
+
+		return false;
+
+	});
+
+	</script>
+	{% endif %}
+	{% if error = 'No' %}
+	<script>
+	$(document).ready(function() {
+	$.gritter.add({
+		        // (string | mandatory) the heading of the notification
+		        title: '<b style="color:#fff">Bienvenido, {{ persona.nombre }}</b>',
+		        // (string | mandatory) the text inside the notification
+		        text: 'Has logrado ingresar con exito al panel de usuarios, . ¡Felicitaciones!',
+		        // (string | optional) the image to display on the left
+		        image: '/media/librerias/css/plantilla/notificaciones/css/AZ.png',
+		        // (bool | optional) if you want it to fade out on its own or just sit there
+		        sticky: false,
+		        // (int | optional) the time you want it to be alive for before fading out
+		        time: ''
+		});
+
+		return false;
+
+	});
+	</script>
+	{% endif %}
+{% endif %}
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+
+<table>
+			<tr>
+                        <td  align="center" colspan="2">
+							{% if seccionesPanel %}
+                            <div style="width:734px; background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        <a href="/mensajes.php?page=1">Mensajes y Notificaciones </a>{% if mensajes %} <b style="font-style:italic;">({{ mensajes }})</b>{% endif %}
+                                    </span>
+                                </div>
+                            <br />
+                            
+                            {% if eventos_activos %}
+                            <div style="width:734px; background-color:#B4FEBF; border:1px solid #86F294; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        Eventos Activos ({{ eventos_activos.count }}) - <a href="/eventos/activos">Ver información</a>
+                                    </span>
+                                </div>
+                            <br />
+                            {% endif %}
+                            {% endif %}
+                            
+                        </td>
+                	</tr>
+			</table>
+
+
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				¡Hola!
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		<b>Bienvenido(a) al panel de usuarios del Sistema Venezolano de Información sobre Diversidad Biológica</b>
+                            <br /><br />
+                        </div>
+
+						{% if seccionesPanel %}
+                        
+                        {% else %}
+                        	Te recordamos que para poder disfrutar de las diferentes características, debes confirmar tu correo electrónico.
+                            <br />
+                             Si no te ha llegado un correo de confirmación, haz clic <a href="/panel/verificacion/reenviar">aquí</a>.
+                        {% endif %}
+                        {% regroup seccionesPanel by modulos.paneles as categorias_act %}
+                        {% for item in categorias_act %}
+                            {% if item.grouper.activo %}
+                                {% if item.grouper.is_admmin %}
+                                	<hr style="border:none;background:url(/media/librerias/css/plantilla/images/bbtaxon.png) top repeat-x; height:47px;"/>
+										<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+											<span style="text-align:left; font-style:italic; font-size:16px;" class="titulo1">
+												{{ item.grouper.panel }}<br />
+											</span>
+											<br />
+											{{ item.grouper.descripcion }}
+<table border="0">										<br />
+<tr>
+{% for item2 in item.list %}
+<td>
+<table cellpadding="5" cellspacing="5" border="0">
+	<tr>
+		<td>
+			{% if item2.modulos.url %}
+			    <a href="{{ item2.modulos.url }}" target="{{ item2.modulos.target }}"><img src="/media/{{ item2.modulos.boton }}" /></a>
+			{% else %}
+			    <a href="/panel/cuenta/modulo/{{ item2.modulos.id }}" target="{{ item2.modulos.target }}"><img src="/media/{{ item2.modulos.boton }}" /></a>
+			{% endif %}
+		</td>
+	</tr>
+	<tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+		<td align="center">{{ item2.modulos.modulo }}</td>
+	</tr>
+</table>
+</td>
+{% if forloop.counter|divisibleby:3 %}
+</tr>
+<tr>
+{% endif %}
+{% endfor %}
+</table>
+                                            <br />&nbsp;<br />
+                                        </div>
+                                {% else %}
+                                	<hr style="border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+										<div style="text-align:justify;margin-left:25px; margin-right:25px; " class="texto_regular">
+											<span style="text-align:left; font-style:italic; font-size:16px;" class="titulo1">
+												{{ item.grouper.panel }}<br />
+											</span>
+											<br />
+											{{ item.grouper.descripcion }}
+											<br />
+<table border="0">										<br />
+<tr>
+{% for item2 in item.list %}
+<td>
+<table cellpadding="5" cellspacing="5" border="0">
+	<tr>
+		<td>
+			{% if item2.modulos.url %}
+			    <a href="{{ item2.modulos.url }}" target="{{ item2.modulos.target }}"><img src="/media/{{ item2.modulos.boton }}" /></a>
+			{% else %}
+			    <a href="/panel/cuenta/modulo/{{ item2.modulos.id }}" target="{{ item2.modulos.target }}"><img src="/media/{{ item2.modulos.boton }}" /></a>
+			{% endif %}
+		</td>
+	</tr>
+	<tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+		<td align="center">{{ item2.modulos.modulo }}</td>
+	</tr>
+</table>
+</td>
+{% if forloop.counter|divisibleby:3 %}
+</tr>
+<tr>
+{% endif %}
+{% endfor %}
+</table>                                            <br />&nbsp;<br />
+                                        </div>                                
+                                
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                	</div>
+                </div>
+             
+             
+             
+             
+             
+             
+<!--             
+             
+				  <table width="735px" style="border:none;" cellpadding="5" cellspacing="5">
+                  	<tr>
+                    	<td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/mis_datos.php"><img src="/media/css/plantilla/images/datos.png" /></a>
+                        </td>
+                        <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/mis_publicaciones.php"><img src="/media/css/plantilla/images/aportes.png" /></a>
+                        </td>
+                        <td  align="center" width="236px">
+                        	
+                        </td>
+                    </tr>
+-->
+<!--
+                  <tr>
+                    	<td  align="center" style="border:1px #ce6631 solid;">
+                        	<a href="/mensajes.php?page=1"><img src="/media/css/plantilla/images/mensajes.png" /></a>
+                        </td>
+                        <td  align="center" colspan="2">
+							{% if mensajes %}
+                            <div style="width:472px; background-color:#e5e598; border:1px solid #cccc31; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        <a href="/mensajes.php?page=1">Mensajes</a> <b style="font-style:italic;">({{ mensajes }})</b>
+                                    </span>
+                                </div>
+                            <br />
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td colspan="3"><br /></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="3"><span style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold;">Eventos</span></td>
+                    </tr>
+                  	<tr>
+                    	<td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                        	<a href="/eventos.php"><img src="/media/css/plantilla/images/eventos.png" /></a>
+                        </td>
+                        <td  align="center" colspan="2">
+							{% if eventos_activos %}
+                            <div style="width:472px; background-color:#B4FEBF; border:1px solid #86F294; height:22px; text-align:left;">
+                                    <span style="text-align:left; margin-left:15px;">
+                                        Tenemos eventos activos, te invitamos a revisar y participar.
+                                    </span>
+                                </div>
+                            <br />
+                            {% endif %}
+                        </td>
+                    </tr>
+                  </table>
+                  {% if actores %}
+                  <br /><br />
+                  <b style="font-style:italic;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold;">Actores Colectivos Asociados a su usuario</b>
+                  <br />
+                      {% for field in actores %}
+                      		&nbsp;&nbsp;<b>{{ field.nombre_completo }} - {{ field.nombre }}</b>
+                          <table width="735px" style="border:none;" cellpadding="5" cellspacing="5">
+                            <tr>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/mis_datos.php"><img src="/media/css/plantilla/images/organizaciond.png" /></a>
+                                </td>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/mis_publicaciones.php"><img src="/media/css/plantilla/images/miembros.png" /></a>
+                                </td>
+                                <td  align="center" width="236px" style="border:1px #ce6631 solid;">
+                                    <a href="/eventos.php"><img src="/media/css/plantilla/images/noticias1.png" /></a>
+                                </td>
+                            </tr>
+                          </table>
+                          <br />
+                      {% endfor %}
+                  {% endif %}	
+                  </div>
+                </div>
+                -->
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)<br />
+                    <a href="/panel/pass/cambiar">Cambiar Contraseña</a>
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    {% for item in lateral %}
+                        <div id="noticias" style="border:1px solid #C0C0C0
+        ; width:218px; background-color:#FFF;">
+                        {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                        </div>
+                        <div id="secCol-punta">
+                        </div>
+                        <br />
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

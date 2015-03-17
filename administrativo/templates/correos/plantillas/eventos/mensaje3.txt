@@ -1,0 +1,43 @@
+<div bgcolor="#999999"> 
+
+<table bgcolor="#FFFFFF" width="700" border="0" cellspacing="0"> 
+<tbody><tr>
+  <td width="700" background="https://ci4.googleusercontent.com/proxy/brTdeD-JP7Zy1AKqYyQw-I03zkM8V7JC8wT_BNgZqTWBClRYHt2qoT2Xh_0G14TBPmZou2l0JFMOp-2-1_PHfHeJ3o2avfC4UzhcKxEbfU2lDTHJtxTWoaRlHxqAgkjxu947=s0-d-e1-ft#http://www.proyectonous.com/boletines/historico/imagenes/header-vcongreso.png" height="320" border="0" vspace="0" hspace="0" alt="V Congreso Venezolano de Diversidad Biológica"> 
+   </td>
+   </tr><tr>
+   
+  	
+   <td width="700" background="https://ci3.googleusercontent.com/proxy/ejt4eHRSf7OwOQwB2AeemLkoEKxDH8q6U1yFpkDiw5KcNVA3Zjn30Ud8ysmAwAYwQzTzWWw_8RpJ0rM30ihMKkQsA29bIZfDP5w97b-4VG03-hwm1inijLEX14xmDmnmrw=s0-d-e1-ft#http://www.proyectonous.com/boletines/historico/imagenes/base-vcongreso.png">
+   
+<blockquote><p align="justify"><font face="Arial, Verdana"><font size="4"><font color="#666666">
+<br>
+<strong>HACIA EL V CONGRESO VENEZOLANO DE DIVERSIDAD BIOLÓGICA</strong>
+<br>
+<br>
+Estimado {{ nombre }} {{ apellido }}.<br>
+<br>
+Su resumen titulado "{% autoescape off %}{{ titulo|removetags:"b span p"|safe }}{% endautoescape %}" no ha sido aceptado.
+<br>
+<br>
+<br>
+Para  responder los mensajes debe entrar <a href="http://diversidadbiologica.minamb.gob.ve/panel/eventos/ver/7/?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">aqui.</a></font></font></font></p>
+  <p align="justify"><font color="#666666"><br>
+  <a href="http://diversidadbiologica.minamb.gob.ve/panel/eventos/ver/7/?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">http://diversidadbiologica.<wbr>minamb.gob.ve/panel/eventos/<wbr>ver/7/</a><br>
+  <br>
+  <br>
+  <strong>Comité Organizador</strong><br>
+  <a href="http://diversidadbiologica.minamb.gob.ve?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">www.diversidadbiologica.<wbr>minamb.gob.ve</a>
+  <br><br>
+    
+  </font></p>
+</blockquote>
+   
+   
+   
+    
+   
+   </td>
+	
+  </tr>
+</tbody></table>
+</div>

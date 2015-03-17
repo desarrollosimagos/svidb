@@ -1,0 +1,18 @@
+{% if taxoninferior1 %}
+    <ul>
+    {% for i in taxoninferior1 %}
+        {% if i.subtipo.id >= 26 %}
+            {% if i.subtipo.id == 26 %}
+            <li><a href="/especies/ficha/6/{{ i.id }}">{{ i.nombrecomun }} <span style="font-style:italic;">({{ i.taxonrelax.nombre }} {{ i.nombre }})</span></a></li>
+            {% endif %}
+            {% if i.subtipo.id > 26 %}
+            <li><a href="/especies/ficha/6/{{ i.id }}">{{ taxon.nombrecomun }} <span style="font-style:italic;"> ({{ i.taxonrelax.taxonrelax.nombre }} {{ i.taxonrelax.nombre }} {{ i.nombre }})</span></a></li>
+            {% endif %}
+         {% else %}
+            <li><a href="/especies/ficha/6/{{ i.id }}">{{ i.nombrecomun }} <span style="font-style:italic;">({{ i.nombre }})</span></a></li>
+         {% endif %}
+    {% endfor%}
+    </ul>
+{% else %}
+ 
+{% endif %}

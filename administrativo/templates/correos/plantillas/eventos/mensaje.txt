@@ -1,0 +1,9 @@
+<h1 style="font-size:16px; color:#000;">Sistema de Notificaciones SVIDB</h1>
+Estimado {{ nombre }} {{ apellido }}<br>
+Has recibido un mensaje del proceso de arbitraje en el <b>{% autoescape off %}{{ congreso|removetags:"b span p"|safe }}{% endautoescape %}</b><br><br>
+para el resumen <b>{% autoescape off %}{{ titulo|removetags:"b span p"|safe }}{% endautoescape %}</b>.<br><br><br>
+<i>"{% autoescape off %}{{ mensajes|removetags:"b span p"|safe }}{% endautoescape %}"</i>
+<br><br>
+<a href="{{ d }}panel/eventos/trabajos/editar/{{ id }}">Responder</a>
+<br>
+<h2><strong style="color: #F00">No responda este correo. Por favor ingrese a la plataforma y responda directamente desde el formulario de edición del resumen. </strong></h2>

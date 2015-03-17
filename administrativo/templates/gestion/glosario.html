@@ -1,0 +1,173 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>-->
+
+<script>
+	function menu(){
+		document.getElementById('plataforma').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+	
+	function cargarpagina(){
+		va = document.getElementById('btnglos').value;
+		$("#buscar").load('/buscar/'+va+'/1');
+	}
+</script>
+
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+    
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #cccccc;
+    background: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#cccccc) );
+    background: -moz-linear-gradient(-90deg, #cccccc, #cccccc);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cccccc', endColorstr='#cccccc');
+	color:#FFF;
+}
+</style>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	{{ principal.titulo }} > {{ sub.titulo }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                    <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				{{ sub.titulo }}
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;" class="texto_regular">
+                                <input id="btnglos" type="text" style="border:1px solid #999" width="200px" height="25px"  onKeyUp="cargarpagina();"><br><br>
+                                <span style="font-size:12px; color:#999; text-decoration:none; cursor:pointer;">
+                                <a href="/glosario/A/1">A</a> &nbsp;
+                                <a href="/glosario/B/1">B</a> &nbsp;
+                                <a href="/glosario/C/1">C</a> &nbsp;
+                                <a href="/glosario/D/1">D</a> &nbsp;
+                                <a href="/glosario/E/1">E</a> &nbsp;
+                                <a href="/glosario/F/1">F</a> &nbsp;
+                                <a href="/glosario/G/1">G</a> &nbsp;
+                                <a href="/glosario/H/1">H</a> &nbsp;
+                                <a href="/glosario/I/1">I</a> &nbsp;
+                                <a href="/glosario/J/1">J</a> &nbsp;
+                                <a href="/glosario/K/1">K</a> &nbsp;
+                                <a href="/glosario/L/1">L</a> &nbsp;
+                                <a href="/glosario/M/1">M</a> &nbsp;
+                                
+                                <a href="/glosario/N/1">N</a> &nbsp;
+                                <a href="/glosario/O/1">O</a> &nbsp;
+                                <a href="/glosario/P/1">P</a> &nbsp;
+                                <a href="/glosario/Q/1">Q</a> &nbsp;
+                                <a href="/glosario/R/1">R</a> &nbsp;
+                                <a href="/glosario/S/1">S</a> &nbsp;
+                                <a href="/glosario/T/1">T</a> &nbsp;
+                                
+                                <a href="/glosario/V/1">V</a> &nbsp;
+                                <a href="/glosario/W/1">W</a> &nbsp;
+                                <a href="/glosario/X/1">X</a> &nbsp;
+                                <a href="/glosario/Y/1">Y</a> &nbsp;
+                                <a href="/glosario/Z/1">Z</a> &nbsp;
+                                </span>
+                        </div>
+                        <br>
+                        <div id="buscar">
+                         {% if mesn %}
+                            {% for contact in mesn.object_list %}
+                             <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+                            <div style="text-align:justify;margin-left:25px; margin-right:25px; ">
+                                <b>{{ contact.nombre }}</b><br>
+                                <br>
+								{% autoescape off %}{{ contact.definicion }}{% endautoescape %}
+								<br>
+                                <br>
+                                </div>
+                            {% endfor %}
+                            <br>
+                    		<div class="pagination">
+                        <span class="step-links">
+                            {% if mesn.has_previous %}
+                                <a href="/glosario/{{ letra }}/{{ mesn.previous_page_number }}">Anterior</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if mesn.has_next %}
+                                <a href="/glosario/{{ letra }}/{{ mesn.next_page_number }}">Proximo</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    {% endif %}
+						</div>
+                        <br />
+                	</div>
+
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+            
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

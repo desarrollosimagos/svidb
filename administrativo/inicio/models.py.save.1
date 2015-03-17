@@ -1,0 +1,252 @@
+from django.db import models
+from areas.models import *
+from gestion.models import *
+from demografia.models import *
+from linea.models import *
+from congresos.models import *
+from especies.models import *
+from actores.models import *
+
+from os import path
+import Image
+
+TINY_SIZE = (80,80)
+
+
+from django.conf import settings
+
+from django.contrib import admin
+from datetime import datetime
+
+
+class Actoresorganismosads(models.Model):
+    actore = models.ForeignKey(Actores, null=True, blank=True)
+    organismoadscrito = models.ForeignKey(Organismoadscritos, null=True, db_column='organismoAdscrito_id', blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+
+    class Meta:
+        db_table = u'actoresOrganismosAds'
+        verbose_name_plural='Relacion Actores Organismos Adscritos'
+    def __unicode__(self):
+        return u"%s <=> %s" %(self.actore.nombre, self.organismoadscrito.name)
+
+#class Horarios(models.Model):
+#    horariodetalle = models.ForeignKey(Horariodetalles, null=True, db_column='horarioDetalle_id', blank=True)
+#    actore = models.ForeignKey(Actores, null=True, blank=True)
+#    update = models.DateTimeField(default=datetime.now(),editable = False)
+#    userupdate = models.ForeignKey(User)
+#    estatu = models.ForeignKey(Estatus)
+#    class Meta:
+#        db_table = u'horarios'
+#        verbose_name_plural='Horarios'
+#    def __unicode__(self):
+#        return u"%s" %(self.horariodetalle)
+
+class Bancoaudiovisuals(models.Model):
+    directorio = models.ForeignKey(Directorios, null=True, blank=True)
+    fecha = models.DateField(null=True, blank=True)
+    lugar = models.TextField(blank=True)
+    descripcion = models.TextField(blank=True)
+    tipo = models.CharField(choices=(('0','Fotografia'),('1','Video'),('2','Audio'),('3','Ilustracion')),max_length=135, blank=True)
+    pathimg = StdImageField(upload_to='pathImg/Bancoaudiovisuals',size=, thumbnail_size=(157,118), micro_size=(59,59), mini_size=(118,118), blank=True)
+    licencia = models.ForeignKey(Licencias, null=True, blank=True)
+    observaciones = models.TextField(blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    url = models.URLField()
+    class Meta:
+        db_table = u'bancoAudiovisuals'
+        verbose_name_plural='Bancos AudioVisuales'
+    def __unicode__(self):
+        return u"%s" %(self.fecha)
+    def get_image_filename(self):
+        return '%s%s' % (settings.MEDIA_ROOT, self.pathimg, )
+    def get_image_url(self):
+        return '%s%s' % (settings.MEDIA_URL, self.pathimg, )
+    def show_thumb(self):
+        tiny = path.join(path.dirname(self.get_image_filename()), 'tiny', str(self.pathimg))
+        if not path.exists(tiny):
+           im = Image.open(self.get_image_filename())
+           im.thumbnail(TINY_SIZE, Image.ANTIALIAS)
+           if not path.exists(path.dirname(tiny)):
+               from os import makedirs
+               makedirs(path.dirname(tiny))
+           im.save(tiny, 'JPEG')
+        tiny_url = path.join(path.dirname(self.get_image_url()), 'tiny', str(self.pathimg))
+        return '<a href="%s/"><img src="%s" alt="tiny thumbnail image"/></a>' % (self.id, tiny_url)
+    show_thumb.allow_tags = True
+    show_thumb.short_description = ''
+
+
+class RelacionBancoAudioVisuals(models.Model):
+    tipoelemento = models.ForeignKey(Tipoelementos, null=True, db_column='tipoElemento_id', blank=True)
+    elemento_id = models.IntegerField(null=True, blank=True)
+    bancoaudiovisual = models.ForeignKey(Bancoaudiovisuals, null=True, db_column='bancoaudiovisual_id', blank=True)
+    class Meta:
+        db_table = u'relacionBancoAudioVisuals'
+        verbose_name_plural='Relacion Bancos Audio Visuales'
+    def __unicode__(self):
+        return u"%s" %(self.bancoaudiovisual)
+
+class RelacionBibliotecas(models.Model):
+    tipoelemento = models.ForeignKey(Tipoelementos, null=True, db_column='tipoElemento_id', blank=True)
+    elemento_id = models.IntegerField(null=True, blank=True)
+    biblioteca = models.ForeignKey(Bibliotecas, null=True, db_column='biblioteca_id', blank=True)
+    class Meta:
+        db_table = u'relacionBibliotecas'
+        verbose_name_plural='Relacion Bibliotecas'
+    def __unicode__(self):
+        return u"%s" %(self.biblioteca)
+
+class Bioregions(models.Model):
+    bioregion = models.TextField(db_column='bioRegion', blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'bioRegions'
+        verbose_name_plural='BioRegiones'
+    def __unicode__(self):
+        return u"%s" %(self.bioregion)
+
+class Tipocolaboradors(models.Model):
+    nombre = models.CharField(max_length=300, blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'tipoColaboradors'
+        verbose_name_plural='Tipo Colaboradores'
+    def __unicode__(self):
+        return u"%s" %(self.name)
+
+class Colaboradoresinstitutes(models.Model):
+    actore = models.ForeignKey(Actores, null=True, blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'colaboradoresInstitutes'
+        verbose_name_plural='Institutos Colaboradores'
+    def __unicode__(self):
+        return u"%s" %(self.actore)
+
+class Colaboradorespersonas(models.Model):
+    tipocolaborador = models.ForeignKey(Tipocolaboradors, null=True, db_column='tipoColaborador_id', blank=True)
+    directorio = models.ForeignKey(Directorios, null=True, blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'colaboradoresPersonas'
+        verbose_name_plural='Personas Colaboradores'
+    def __unicode__(self):
+        return u"%s" %(self.directorio)
+
+class Directoriotipoareaaccions(models.Model):
+    directorio = models.ForeignKey(Directorios, null=True, blank=True)
+    tipoareaaccion = models.ForeignKey(Tipoareaaccions, null=True, db_column='tipoAreaAccion_id', blank=True)
+    class Meta:
+        db_table = u'directorioTipoAreaAccions'
+        verbose_name_plural='Directorio Tipos Areas de Accion'
+    def __unicode__(self):
+        return u"%s" %(self.directorio)
+
+class Documentosasociados(models.Model):
+    elemento_id = models.IntegerField(null=True, blank=True)
+    biblioteca = models.ForeignKey(Bibliotecas, null=True, blank=True)
+    tipoelemento = models.ForeignKey(Tipoelementos, null=True, db_column='tipoElemento_id', blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'documentosAsociados'
+        verbose_name_plural='Documentos Asociados'
+    def __unicode__(self):
+        return u"%s" %(self.biblioteca)
+
+class Listarelacionpalabrasclaves(models.Model):
+    tipoelemento = models.ForeignKey(Tipoelementos, null=True, db_column='tipoElemento_id', blank=True)
+    pablabrasclave = models.ForeignKey(Pablabrasclaves, null=True, db_column='pablabrasClave_id', blank=True)
+    elemento_id = models.IntegerField(null=True, blank=True)
+    class Meta:
+        db_table = u'listaRelacionPalabrasClaves'
+        verbose_name_plural='Lista Relacion Palabras Claves'
+    def __unicode__(self):
+        return u"%s" %(self.palabrasclave)
+
+class Mapas(models.Model):
+    tipoelemento = models.ForeignKey(Tipoelementos, null=True, db_column='tipoElemento_id', blank=True)
+    elemento_id = models.IntegerField(null=True, blank=True)
+    nombre = models.CharField(max_length=135, blank=True)
+    fuente = models.TextField(blank=True)
+    pathimg1 = models.ImageField(upload_to='mapas/imagenes',db_column='pathImg1',verbose_name='Imagen') 
+    pathimg2 = models.FileField(upload_to='mapas/pdf',db_column='pathImg2',verbose_name='PDF') 
+    pathimg3 = models.FileField(upload_to='mapas/capas',db_column='pathImg3',verbose_name='Capas') 
+    basecartogra = models.TextField(blank=True) 
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    observaciones = models.TextField(blank=True)
+    class Meta:
+        db_table = u'mapas'
+        verbose_name_plural='Mapas'
+    def __unicode__(self):
+        return u"%s" %(self.nombre)
+
+class Personalasociados(models.Model):
+    directorio = models.ForeignKey(Directorios, null=True, blank=True)
+    actore = models.ForeignKey(Actores, null=True, blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'personalAsociados'
+        verbose_name_plural='Personal Asociado'
+    def __unicode__(self):
+        return u"%s" %(self.directorio)
+
+
+class Redessociales(models.Model):
+    actore = models.ForeignKey(Actores, null=True, blank=True)
+    red = models.ForeignKey(Reds, null=True, blank=True)
+    url = models.URLField(max_length=300)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'redesSociales'
+        verbose_name_plural='Redes Sociales'
+    def __unicode__(self):
+        return u"%s %s" %(self.red,self.actore)
+
+
+class Referencias(models.Model):
+    elemento_id = models.IntegerField(null=True, blank=True)
+    paginas = models.CharField(max_length=135, blank=True)
+    biblioteca = models.ForeignKey(Bibliotecas, null=True, blank=True)
+    tipoelemento = models.ForeignKey(Tipoelementos, null=True, db_column='tipoElemento_id', blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'referencias'
+        verbose_name_plural='Referencias'
+    def __unicode__(self):
+        return u"%s" %(self.biblioteca)
+
+class Vinculacionactores(models.Model):
+    actore = models.ForeignKey(Actores, null=True, blank=True)
+    fundamento = models.ForeignKey(Fundamentos, null=True, blank=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    userupdate = models.ForeignKey(User)
+    estatu = models.ForeignKey(Estatus)
+    class Meta:
+        db_table = u'vinculacionActores'
+        verbose_name_plural='Vinculaciones Actores'
+    def __unicode__(self):
+        return u"%s" %(self.actore)
+

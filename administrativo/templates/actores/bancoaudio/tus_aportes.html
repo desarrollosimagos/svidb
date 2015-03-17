@@ -1,0 +1,180 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+	height:25px;
+	width:120px;
+    
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background:#0C0; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0C0), to(#0C0) );
+    background: -moz-linear-gradient(-90deg, #0C0, #0C0);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0C0', endColorstr='#0C0');
+	color:#FFF;
+}
+
+.button-inac
+{
+    background:#F90; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F90), to(#F90) );
+    background: -moz-linear-gradient(-90deg, #F90, #F90);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F90', endColorstr='#F90');
+	color:#FFF;
+}
+
+.button-pen
+{
+    background:#F00; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F00), to(#F00) );
+    background: -moz-linear-gradient(-90deg, #F00, #F00);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F00', endColorstr='#F00');
+	color:#FFF;
+}
+
+
+</style>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #C0C0C0
+; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta > Banco Audiovisual > Tus Aportes
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+             <div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Tus Aportes al Banco Audiovisual
+                  			</span>
+                        </div>
+                        <br />
+                  		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                    		Aquí podrás visualizar todos tus aportes al Banco Audiovisual, así como ver el estatus en que se encuentran. <br>
+                        </div>
+                           
+                         <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                            {% if biblioteca %}
+                            <br>
+                            	<table width="100%">
+                                	<tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666; font-weight:bold;">
+                                    	<td width="80%" align="center">Titulo</td>
+                                        <td width="10%" align="center">Estatus</td>
+                                        <td width="10%" align="center">Ver</td>
+                                    </tr>
+                                    <tr>
+                                    	<td colspan="3">
+                                        	<hr>
+                                        </td>
+                                    </tr>
+                                    {% for item in biblioteca %}
+                                    <tr style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:12px; color:#666;">
+                                    	<td>
+                                        	<img src="/media/{{ item.retorno_nombre }}.157_118{{ item.retorno_extencion }}" width="100px" />
+                                        </td>
+                                        <td>
+                                        	{% if item.estatu = 2 %}
+                                            	<a class="button button-blue"><span>Activo</span></a>
+                                            {% endif %}
+											{% if item.estatu = 1 %}
+                                            	<a class="button button-inac"><span>Sin vinculo</span></a>
+                                            {% endif %}
+                                            {% if item.estatu = 0 %}
+                                            	<a class="button button-pen"><span>Pendiente</span></a>
+                                            {% endif %}
+                                        </td>
+                                        <td align="center">
+                                        	<a><img src="/media/librerias/css/plantilla/images/ver.png" width="45px" /></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            {% else %}
+                            <table>
+                            <tr>
+                            <td width="160" align="center">
+								<h1 style="color:#333; font-family:'Trebuchet MS', Arial, Helvetica, sans-serif; font-size:50px;">
+                                	:(
+                                </h1>
+                             </td>
+                             <td width="899">
+                                No has realizado aportes al Banco Audiovisual. De presentarse algún error, comuníquese al correo diversidadbiologica@minamb.gob.ve
+<br />
+Te invitamos a participar haciendo clic en el siguiente enlace: <a href="/panel/bancoaudio/add"> Nueva Contribución</a>
+<br /><br />
+Gracias...
+
+                              </td>
+                              </tr>
+                              </table>
+                            {% endif %}
+                            <br />&nbsp;<br />
+                          </div>
+                         
+                            </div>
+                    </div>        
+
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                    <br />
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+						
+                    </div>
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>				
+							
+{% endblock %}

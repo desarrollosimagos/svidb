@@ -1,0 +1,45 @@
+DEBUG = True
+MAINTENANCE_MODE = False
+MAINTENANCE_IGNORE_URLS = (
+    r'^manager',
+)
+
+ALLOWED_HOSTS = ['127.0.0.1']
+#DEBUG404 = True
+#TEMPLATE_DEBUG = DEBUG
+
+URL_SET_SITE = 'http://diversidadbiologica.minamb.gob.ve/'
+
+ADMINS = (
+    ('Diversidad Biologica', 'webbiodiversidad@gmail.com'),
+)
+
+
+MANAGERS = ADMINS
+#EMAIL_HOST = '10.1.254.80'
+#EMAIL_HOST_USER = 'diversidadbiologica@minamb.gob.ve'
+#EMAIL_HOST_PASSWORD = 'catatumbo$$2014'
+#EMAIL_PORT = 25
+#EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'webbiodiversidad@gmail.com'
+EMAIL_HOST_PASSWORD = 'biologica$$11'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'svidb',                      # Or path to database file if using sqlite3.
+        'USER': 'postgres',                      # Not used with sqlite3.
+#        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': 'admin',                  # Not used with sqlite3.
+#        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+#        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
+#        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}

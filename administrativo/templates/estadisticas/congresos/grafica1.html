@@ -1,0 +1,243 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Estatus Insripción', 'N° Participantes'],
+{% for s in resultado %} 
+{% if s.0 == 0 %}['Sin Evluar',{{ s.1 }}],{% endif %}
+{% if s.0 == 2 %}['Pre-inscritos',{{ s.1 }}],{% endif %}
+{% if s.0 == 3 %}['Inscritos',{{ s.1 }}],{% endif %}
+{% if s.0 == None %}['Sin estatus',{{ s.1 }}],{% endif %}  
+{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Número de personas participantes'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Sexo - Género', 'N° Participantes'],
+{% regroup datosparticipantes by directorio.sexo as sexo_group %}
+{% for item in sexo_group %}
+{% if item.grouper == 0 %}['Masculino',{{ item.list|length }}],{% endif %}
+{% if item.grouper == 1 %}['Femenino',{{ item.list|length }}],{% endif %}
+{% if item.grouper == 2 %}['Diversidad Sexual',{{ item.list|length }}],{% endif %}
+{% if item.grouper == None %}['Sin especificar',{{ item.list|length }}],{% endif %}  
+{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Número de personas participantes por sexo - género'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('div_sexo'));
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <script type='text/javascript'>
+     google.load('visualization', '1', {'packages': ['geochart']});
+     google.setOnLoadCallback(drawMarkersMap);
+
+      function drawMarkersMap() {
+      var data2 = google.visualization.arrayToDataTable([
+        ['Estados',   'N° Participantes'],
+        {% if resultado %} 
+			{% for s in participantes %} 
+				['{{ s.0 }}',{{ s.1 }}],
+			{% endfor %}
+		{% endif  %}
+
+      ]);
+
+      var options = {
+		title: 'Número de personas participantes por estados',
+        region: 'VE',
+        displayMode: 'markers',
+        colorAxis: {colors: ['green', 'blue']},
+      };
+
+      var chart = new google.visualization.GeoChart(document.getElementById('chart_div2'));
+      chart.draw(data2, options);
+    };
+    </script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Años', 'Numero de Personas'],
+				{% regroup datosparticipantesNacimiento by directorio.nacimiento.year as anio_group %}
+					{% for item in anio_group %}
+						['{{ item.grouper }}', {{ item.list|length }}],
+					{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Número de personas participantes por Año de Nacimiento'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+			<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Estadísticas de los Congresos Venezolanos de Diversidad Biológica
+                  			</span>
+                        </div>
+                <div>
+                </div>
+				<div id="chart_div" style="width: 650px; height: 350px;">
+                </div>
+                <div style="margin-left:100px;">
+                {% for s in resultado %} 
+                    {% if s.0 == 0 %}<b>Sin Evluar:</b> <i>{{ s.1 }}</i><br />{% endif %}
+                    {% if s.0 == 2 %}<b>Pre-inscritos:</b> <i>{{ s.1 }}</i><br />{% endif %}
+                    {% if s.0 == 3 %}<b>Inscritos:</b> <i>{{ s.1 }}</i><br />{% endif %}
+                    {% if s.0 == None %}<b>Sin estatus:</b> <i>{{ s.1 }}</i><br />{% endif %}  
+                {% endfor %}
+                </div>
+                <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;">
+                <div id="div_sexo" style="width: 650px; height: 350px;">
+                </div>
+                <div style="margin-left:100px;">
+                {% regroup datosparticipantes by directorio.sexo as sexo_group %}
+                	<table>
+                    	<tr>
+					{% for item in sexo_group %}
+						<td width="120px" align="center">
+                        <table align="center">
+                        	<tr>
+                            	<td align="center" height="80px">
+                                {% if item.grouper == 0 %}
+                                	<img src="/media/librerias/imgs/masculino.png" />
+                                {% endif %}
+                                {% if item.grouper == 1 %}
+                                	<img src="/media/librerias/imgs/femenino.png" />
+                                {% endif %}
+                                {% if item.grouper == 2 %}
+                                	<img src="/media/librerias/imgs/diversidad.png" />
+                                {% endif %}
+                                {% if item.grouper == None %}
+                                	<h1 style="font-size:30px;">?</h1>
+                                {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td align="center">
+                                {% if item.grouper == 0 %}
+                                	Masculino
+                                {% endif %}
+                                {% if item.grouper == 1 %}
+                                	Femenino
+                                {% endif %}
+                                {% if item.grouper == 2 %}
+                                	Diversidad Sexual
+                                {% endif %}
+                                {% if item.grouper == None %}
+                                	Sin especificar
+                                {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td align="center">{{ item.list|length }}</td>
+                            </tr>
+                        </table>
+                        </td>
+					{% endfor %}
+                    	</tr>
+                    </table>
+                </div>
+				<hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;">
+                <b style="font-size:14px; margin-left:100px;">Número de personas participantes por estados</b>
+                <div id="chart_div2" style="width: 650px; height: 500px;"></div>
+                <div style="margin-left:100px;">
+                {% if resultado %} 
+                    {% for s in participantes %} 
+                        <b>{{ s.0 }}</b>: <i>{{ s.1 }}</i><br />
+                    {% endfor %}
+                {% endif  %}
+                </div>
+                <div id="chart_div3" style="width: 650px; height: 350px;">
+                </div>
+                    </div>
+                </div>
+			<!-- Fin Columna Principal -->
+				<div id="secCol">
+                	{% if persona %}
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+					&nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                  	
+                    </div>
+                    {% else %}
+                    <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF; background-image:url(/media/css/plantilla/images/login_bg2.png)">
+                        	{% if form.errors %}
+                            	<p class="error">Lo siento, el nombre de usuario y clave no son válidos</p>
+                          	{% endif %}
+                            
+                  	<fieldset id="login">
+                    	<h4>Panel de Acceso</h4>
+                            <form method='post' name="hongkiat" id="hongkiat-form" action="/perfil"> {% csrf_token %}
+                                <p class="clearfix"><label for="username">Correo:</label>
+                                <input type="text" name="username" value="" id="username"></p>
+                                <p class="clearfix"><label for="password">Clave:</label>
+                                <input type="password" name="password" value="" id="password"></p>
+
+                                <section id="buttons2">
+                                    <input type="submit" name="submit" id="submitbtn2" class="submitbtn" tabindex="7" value="Enviar">
+                                    <br style="clear:both;">
+                            	</section>
+                                <input type="hidden" name="next" value="{{ next }}" />
+  							</form> 
+					</fieldset> 
+ 					
+                    </div>
+                    {% endif %}
+                    <div id="secCol-punta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

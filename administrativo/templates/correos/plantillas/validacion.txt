@@ -1,0 +1,6 @@
+<h1 style="font-size:16px; color:#000;">Sistema de Notificaciones SVIDB</h1>
+Estimado usuario, le damos la bienvenida al Sistema Venezolano de Información sobre Diversidad Biológica.<br>
+El siguiente correo tiene por finalidad la confirmación de su cuenta de usuario.<br>
+Para continuar con la verificación, ingrese en el siguiente enlace:<br>
+<a href="{{ d }}panel/verificacion/">{{ d }}panel/verificacion/<a><br>
+e introduzca el código de validación: <b>{{ salt }}</b>

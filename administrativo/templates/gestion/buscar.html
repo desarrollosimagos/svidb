@@ -1,0 +1,29 @@
+					{% if mesn %}
+                            {% for contact in mesn.object_list %}
+                             <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+                            <div style="text-align:justify;margin-left:25px; margin-right:25px; ">
+                                <b>{{ contact.nombre }}</b><br>
+                                <br>
+								{% autoescape off %}{{ contact.definicion }}{% endautoescape %}
+								<br>
+                                <br>
+                                </div>
+                            {% endfor %}
+                            <br>
+                    		<div class="pagination">
+                        <span class="step-links">
+                            {% if mesn.has_previous %}
+                                <a href="/glosario/{{ letra }}/{{ mesn.previous_page_number }}">Anterior</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if mesn.has_next %}
+                                <a href="/glosario/{{ letra }}/{{ mesn.next_page_number }}">Proximo</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    {% endif %}

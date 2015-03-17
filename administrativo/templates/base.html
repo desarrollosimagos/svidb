@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta property="og:site_name" content="Sistema Venezolano de Información sobre la Diversidad Biólogica">
+<meta property="og:url" content="http://diversidadbiologica.info.ve">
+<meta property="og:title" content="Diversidad Biologica">
+<!--<meta property="og:image" content="http://i1.ytimg.com/vi/LwKhIHkxseM/hqdefault.jpg?feature=og">-->
+<link href="/media/librerias/css/plantilla/estilo.css" rel="stylesheet" type="text/css" />
+<title>Diversidad Biológica</title>
+
+{% block librerias %}{% endblock %}
+{% block librerias2 %}{% endblock %}
+
+<!--
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link href="/media//jquery.autocomplete.css" type="text/css" media="all" rel="stylesheet">
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+-->
+
+<!--<script type="text/javascript" src="/manager/jsi18n/"></script>-->
+<!--<link href="/media//jquery.autocomplete.css" type="text/css" media="all" rel="stylesheet" />-->
+
+<!--<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>-->
+
+
+
+<!--<script type="text/javascript" src="/media/admin/js/jquery.autocomplete.public.js"></script>-->
+{% block jscript %}{% endblock %}
+{% block cssScript %}{% endblock %}
+{% block jscript2 %}{% endblock %}
+{% block cssScript2 %}{% endblock %}
+</head>
+<body>
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+
+(function() {
+var u=(("https:" == document.location.protocol) ? "https" : "http") + "://estadisticas.proyectonous.com/";
+_paq.push(["setTrackerUrl", u+"piwik.php"]);
+_paq.push(["setSiteId", "7"]);
+var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+})();
+</script>
+<!-- End Piwik Code -->
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-18521785-3', 'diversidadbiologica.info.ve');
+ga('send', 'pageview');
+
+</script>
+	{% block cabecera %}{% endblock %}
+    {% block menutop %}{% endblock %}
+	{% block content %}{% endblock %}
+	{% block pie %}{% endblock %}	
+</body>
+</html>
+

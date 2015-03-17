@@ -1,0 +1,328 @@
+{% extends "completo.html"%}
+
+{% block content %}
+
+<script type="text/javascript">
+tinyMCE.init({
+	mode: "textareas"
+});
+
+
+</script>
+<table border="0" align="center" width="985" cellpadding="0" cellspacing="0" height="192">
+	<tr>
+		<td>
+			<div>&nbsp;</div>
+		</td>
+	</tr>								
+	<tr>
+		<td valign="top">
+			<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="750" valign="top">                                                            
+						<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="25" background="/media/imgs/esqsi.png">
+
+								</td>
+								<td width="700" background="/media/imgs/latsup.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqsd.png">
+
+								</td>                                                       
+							</tr> 
+							<tr>
+								<td width="25" background="/media/imgs/latizq.png">
+
+								</td>
+								<td width="700">
+<div class="titulo1">Planilla de Construccion Colectiva de Informacion sobre Actores - Personas</div>
+<br>
+<form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+<fieldset>
+<legend class="titulo3">Datos Basicos</legend>
+<table>
+<tr>
+	<td colspan="3">{{ msm }}</td>
+</tr>
+<tr>
+	<td class="style1">
+	Documento de Identidad:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.documentoidentidad }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Nombres:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.nombre }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Apellidos:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.apellido }}<br>
+	</td>
+</tr>
+
+
+<tr>
+	<td class="style1">
+	Correo Electronico:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.correo }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Telefono #1:
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	{{ form.telefono1 }}<br>
+	</td>
+</tr>
+
+<tr>
+	<td class="style1">
+	Telefono #2:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.telefono2 }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Telefono Movil:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.movil }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Fax:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.fax }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1" colspan="3">
+	Pais:
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	{{ form.pai }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Estado:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.estado }}
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Municipio:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.municipio }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Parriquia:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.parroquia }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Sector:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.sector }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Organizacion:
+	</td>
+</tr>
+<tr>
+	<td>
+	-----------<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Dependencia:
+	</td>
+</tr>
+<tr>
+	<td>
+	-----------<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Especies o Grupos de Especies:
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.gruposespecie }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Areas Estrategicas para la Conservacion
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	------------<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	Areas de Accion
+	</td>
+</tr>
+<tr>
+	<td>
+	{{ form.areasaccion }}<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	{{ form.suscritobool }} Deseo Aparecer en el Directorio de Contacto del SVIDB<br>
+	</td>
+</tr>
+<tr>
+	<td class="style1">
+	{{ form.correobool }} Deseo recibir boletines informativos del SVIDB<br>
+	</td>
+</tr>
+
+</table>
+</fieldset>
+<input type="submit" value="Guardar">
+</form>
+
+
+
+								</td>
+								<td width="25" background="/media/imgs/latder.png">
+								
+								</td>                                                            
+							</tr> 
+							<tr>
+								<td width="25" background="/media/imgs/esqid.png">
+
+								</td>
+								<td width="700" background="/media/imgs/latinf.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqii.png">
+								
+								</td>                                                      
+							</tr>                    
+						</table>
+					</td>
+					<td width="10">
+			
+					</td>
+					<td width="225" valign="top">									
+						<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="25" background="/media/imgs/esqsi.png">
+
+								</td>
+								<td width="175" background="/media/imgs/latsup.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqsd.png">
+
+								</td>                                                       
+							</tr>
+							<tr>
+								<td width="25" background="/media/imgs/latizq.png">
+								
+								</td>
+								<td width="175" align="center">
+								<a href="construccion.php" style="border:none;decoration:none;">
+									<img src="/media/imgs/cc_panel.png" width="178px">
+								</a>	
+									
+								</td>
+								<td width="25" background="/media/imgs/latder.png">
+								
+								</td>
+							</tr>
+							<tr>
+								<td width="25" background="/media/imgs/esqid.png">
+								
+								</td>
+								<td width="175" background="/media/imgs/latinf.png">
+									<div>&nbsp;</div>
+								</td>
+								<td width="25" background="/media/imgs/esqii.png">
+								
+								</td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+</table>
+
+
+
+{% endblock %}

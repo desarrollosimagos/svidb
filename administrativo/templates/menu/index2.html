@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta property="og:site_name" content="Sistema Venezolano de Información sobre la Diversidad Biólogica" />
+<meta property="og:url" content="http://diversidadbiologica.info.ve" />
+<meta property="og:title" content="Diversidad Biologica" />
+<!--<meta property="og:image" content="http://i1.ytimg.com/vi/LwKhIHkxseM/hqdefault.jpg?feature=og">-->
+<link type="text/css" href="/media/librerias/autocat/jquery.ui.all.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/media/librerias/css/taxon/estilo.css" />
+
+<link href="/media/librerias/css/plantilla/estilo.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="/media/librerias/autocat/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.position.js"></script>
+	<script type="text/javascript" src="/media/librerias/autocat/jquery.ui.autocomplete.js"></script>
+    	<style type="text/css">
+	.ui-autocomplete-category {
+		font-weight:bold;
+		padding:.2em .4em;
+		margin:.8em 0 .2em;
+		line-height:1.5;
+	}
+	ul { 
+     width: 481px;
+    height:300px;
+    display: block;
+    overflow-y: scroll;
+     }
+li { 
+     display: inline-block;
+     }
+	</style>
+    <script type="text/javascript">
+	$.extend( $.ui.menu.prototype, {
+		next: function() {
+			this.move("next", ".ui-menu-item:first");
+		},
+
+		previous: function() {
+			this.move("prev", ".ui-menu-item:last");
+		},
+
+		move: function(direction, edge) {
+			if (!this.active) {
+				this.activate(this.element.children(edge));
+				return;
+			}
+			var next = this.active[direction + "All"]('.ui-menu-item').eq( 0 );
+			if (next.length) {
+				this.activate(next);
+			} else {
+				this.activate(this.element.children(edge));
+			}
+		}
+	});
+
+	$.widget("custom.catcomplete", $.ui.autocomplete, {
+		_renderMenu: function( ul, items ) {
+			var self = this,
+				currentCategory = "";
+			$.each( items, function( index, item ) {
+				if ( item.category != currentCategory ) {
+					ul.append( "<li class='ui-autocomplete-category' style='background-color:#E6E6E6;'>" + item.category + "</li>" );
+					currentCategory = item.category;
+				}
+				self._renderItem( ul, item );
+			});
+		}
+	});
+	</script>
+	<script type="text/javascript">
+	$(function() {
+		var data = [
+
+			{ label: "andreas", category: "Especie" },
+			{ label: "antal", category: "Especie" },
+			{ label: "annhhx10", category: "Clase" },
+			{ label: "annk K12", category: "Clase" },
+			{ label: "annttop C13", category: "Reino" },
+			{ label: "anders andersson", category: "Familia" },
+			{ label: "andreas andersson", category: "Familia" },
+			{ label: "andreas johnson", category: "Imperio" }
+		];
+		$('#search').catcomplete({
+	
+			source: "/autocat/"+document.getElementById("search").values
+		});
+	});
+	</script>
+
+	<script type="text/javascript">
+		function enviarBuscador(){
+			document.formbuscar.action="/buscador";
+			document.formbuscar.submit();
+
+		}
+		function ajustar(){
+			var w=window.screen.availWidth;
+			var h=window.screen.availHeight;
+			if(w >= 1024 ){
+				w =w-4;
+				document.getElementById('bannerAbajo').style.width=w+'px';
+				//document.getElementById('tablabannerAbajo').style.width=w+'px';
+			}else{
+				document.getElementById('bannerAbajo').style.width='1024px';
+				//document.getElementById('tablabannerAbajo').style.width='1024px';
+			}
+			//alert(h);
+			if(h >= 700 ){
+				f=h-250;
+				//alert(f);
+				//document.getElementById('bannerAbajo').style.top=f+'px';
+//				document.getElementById('tablabannerAbajo').style.top=h+'px';
+			}else{
+				document.getElementById('bannerAbajo').style.top='540px';
+//				document.getElementById('tablabannerAbajo').style.top='540px';
+			}
+		}
+		function cambiar(id,img){
+			document.getElementById(id).src='/media/index/'+img;
+		}
+		function cargarId(id){
+			document.getElementById('foreingkey').value=id;
+//			alert(id);	
+		}
+		$(document).ready(function(){
+			$('#rotatescroll').tinycircleslider({ interval: true, snaptodots: true });
+		});
+	</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Diversidad Biológica</title>
+</head>
+
+<body background="/media/librerias/index/index.jpg" style="background-size: 100%;background-attachment: fixed; 
+background-repeat: no-repeat; 
+background-position: center center;" onload="ajustar();">
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+
+(function() {
+var u=(("https:" == document.location.protocol) ? "https" : "http") + "://estadisticas.proyectonous.com/";
+_paq.push(["setTrackerUrl", u+"piwik.php"]);
+_paq.push(["setSiteId", "7"]);
+var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+})();
+</script>
+<!-- End Piwik Code -->
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-18521785-3', 'diversidadbiologica.info.ve');
+ga('send', 'pageview');
+
+</script>
+
+<div style="width:100%; height:35px; position:absolute; top:0px; left:0px; z-index:2;">
+<div id="wrapper-menu">
+    	<div id="secWrapper-menu">
+			<div id="conten-menu">
+    			<div id="menu">
+                    <div id="plataforma" style="width:130px; height:35px; float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/" style="text-decoration:none; cursor:pointer;color:#000;">Portada</a><img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#900; border:1px solid #900;" />
+                        </span>
+                    </div>
+                    
+                    <div id="plataforma" style="width:130px; height:35px; float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/plataforma" style="text-decoration:none; cursor:pointer;color:#000;">La Plataforma</a><img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#999; border:1px solid #999;" />
+                        </span>
+                    </div>
+                    
+                    <div id="especies" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/especies" style="text-decoration:none; cursor:pointer;color:#000;">Especies</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#00669b; border:1px solid #00669b;" />
+                        </span>
+                    </div>
+                    <div id="areas" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/areas" style="text-decoration:none; cursor:pointer;color:#000;">Areas</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#6cb639; border:1px solid #6cb639;" />
+                        </span>
+                    </div>
+                    <div id="actores" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/actores" style="text-decoration:none; cursor:pointer; color:#000;">Actores</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#f5963a; border:1px solid #f5963a;" />
+                        </span>
+                    </div>  
+                    <div id="cuenta" style="width:130px; height:35px;float:left;color:#000; text-align:center; border-right:1px solid #CCC;">
+                        <span style="text-align:center"><a href="/perfil" style="text-decoration:none; cursor:pointer; color:#000;">Tu Cuenta</a> <img src="/media/librerias/css/plantilla/images/v.png" width="5px" height="5px" />
+                        <hr width="110px" align="center" style="margin-left:10px; background:#cd6530; border:1px solid #cd6530;" />
+                        </span>
+                    </div>
+                    
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	</div>      	
+
+<div style="position:absolute; z-index:6; left:0px; top:100%; margin-top:-110px; width:100%; height:95px; background-image:url(/media/librerias/index/bandalogos.png); background-repeat:repeat-x;" id="bannerAbajo2">
+                        <table width="100%" id="tablabannerAbajo" height="95px" style="margin-top:-5px;">
+                            <tr>
+                                <td align="center" height="95px">
+                                       <img src="/media/librerias/index/index1.0.png" />
+                                </td>
+                            </tr>
+                    	</table>
+</div>
+
+<div class="search-wrapper" style="width: 483px;
+height: 50px;
+padding: 8px 12px 12px;
+background: url(/media/librerias/discovery/search-bg.png);position: absolute;
+z-index: 200;
+left: 30%;
+margin-left: 0px;
+margin-top: 250px;
+">
+<form method="GET" id="formbuscar" name="formbuscar" action="/buscador">
+	<!--<a href="/discover" class="see-all">See All Species</a>-->
+	<label style="color:#fff; font-size:14px;"><b>¿Que deseas buscar hoy?</b></label>
+	<div class="search-box" style="display: block;
+background: #fff;
+border: 1px #666666 solid;
+height: 30px;
+width: 481px;
+position: relative;
+box-shadow: inset 1px 1px 3px #aaa;
+-webkit-transition: all 0.3s;
+-moz-transition: all 0.3s;
+-ms-transition: all 0.3s;
+-o-transition: all 0.3s;
+transition: all 0.3s;">
+		<span><input type="text" class="mousetrap" name="valorForen" id="search"  style="margin: 0;
+padding: 0 0 0 16px;
+height: 30px;
+width: 407px;
+outline: none;
+border: 0;
+background: none;
+font-size: 12px;
+color: #333333;
+vertical-align: middle;
+box-shadow: none !important;" />
+		<input type="hidden" id="foreingkey" name="foreingkey_id" />
+    <input type="hidden" id="modelo_id" name="modelo" value="Especies" />
+
+</span>
+		<input type="submit" value="Search" name="" class="disabled" style="cursor: pointer;
+font-size: 0px;
+line-height: 200px;
+overflow: hidden;
+display: block;
+position: absolute;
+top: -1px;
+bottom: -1px;
+right: -1px;
+border: none;
+outline: none;
+width: 80px;
+height: 31px;
+background-color: transparent;
+background-image: url(/media/librerias/index/buscar80x36.png);
+background-repeat: no-repeat;
+background-position: left top;
+" />
+<!--onclick="enviarBuscador();"-->
+	</div>
+	<div class="autocomplete">
+	</div>
+ </form> 
+ <br />
+ <a href="/eventos/ver/51/" class="buttonCorto buttonCorto-blue"><span>VI Congreso Venezolano de Diversidad Biológica</span></a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('cuenta').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>-->
+<script type="text/javascript" src="/js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="/js/textareas.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	
+	document.getElementById("id_nombre").className='txtinput';
+	document.getElementById("id_nombre").placeholder='Nombre';
+	
+	document.getElementById("id_sexo").className='txtinput';
+	document.getElementById("id_sexo").placeholder='Sexo';
+
+	document.getElementById("id_apellido").className='txtinput';
+	document.getElementById("id_apellido").placeholder='Apellido';
+
+	document.getElementById("id_edocivil").className='txtinput';
+	document.getElementById("id_edocivil").placeholder='Estado Civil';
+
+	document.getElementById("id_nacimiento").className='txtinput';
+	document.getElementById("id_nacimiento").placeholder='Nacimiento';
+
+	document.getElementById("id_correo").className='txtinput';
+	document.getElementById("id_correo").placeholder='Correo';
+
+	document.getElementById("id_telefono1").className='txtinput';
+	document.getElementById("id_telefono1").placeholder='Telefono 1';
+	
+	document.getElementById("id_telefono2").className='txtinput';
+	document.getElementById("id_telefono2").placeholder='Telefono 2';
+
+	document.getElementById("id_movil").className='txtinput';
+	document.getElementById("id_movil").placeholder='Celular';
+	
+	document.getElementById("id_fax").className='txtinput';
+	document.getElementById("id_fax").placeholder='Fax';
+	
+	document.getElementById("id_pai").className='txtinput';
+	document.getElementById("id_pai").placeholder='Pais';
+	
+	document.getElementById("id_estado").className='txtinput';
+	document.getElementById("id_estado").placeholder='Estado';
+	
+	document.getElementById("id_municipio").className='txtinput';
+	document.getElementById("id_municipio").placeholder='Municipio';
+	
+	document.getElementById("id_parroquia").className='txtinput';
+	document.getElementById("id_parroquia").placeholder='Parroquia';
+	
+	document.getElementById("id_sector").className='txtblock';
+	document.getElementById("id_sector").placeholder='Sector';
+	
+	document.getElementById("id_areasaccion").className='txtinput';
+	
+	
+	document.getElementById("id_gruposespecie").className='txtblock';
+	document.getElementById("id_gruposespecie").placeholder='Grupos de Especies';
+	
+
+});
+</script>
+<style>
+#hongkiat-form input {
+background: #fff url('/media/librerias/css/plantilla/images/email.png') 5px 4px no-repeat;
+}
+#hongkiat-form select {
+background: #fff url('/media/librerias/css/plantilla/images/email.png') 5px 4px no-repeat;
+}
+#hongkiat-form option {
+background: #fff url('/media/librerias/css/plantilla/images/email.png') 5px 4px no-repeat;
+}
+#hongkiat-form textarea {
+background: #fff url('/media/librerias/css/plantilla/images/email.png') 5px 4px no-repeat;
+}
+
+</style>
+
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#E6E6E6; border:1px solid #CCC; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px;">
+                    	Tu cuenta > Tus datos
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                <div style="border:1px solid #C0C0C0
+; background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
+                  <br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				Tus Datos
+                  			</span>
+                        </div>
+                        <br />
+                        
+                <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                <span style="margin-left:25px;">Acá podrás mantener tus datos personales actualizados. Estos datos no serán publicados.</span>
+                        <br />
+                        <br />
+				<section id="container">
+                        <form name="hongkiat" id="hongkiat-form" method="post" style="margin-left:10px;">{% csrf_token %}
+                        <div id="wrapping" class="clearfix">
+                            <section id="aligned">
+                           	{% for field in formulario %}
+                                            {{ field.errors }}
+                                            <label style="font-size:14px;">
+                                            	{{ field.label }} 
+                                    		</label>
+                                            {{ field }}
+                                            {{ field.help_text }}
+                            	{% endfor %}
+                            </section>
+                        </div>
+                            <section id="buttons">
+                                <input type="reset" name="reset" id="resetbtn" class="resetbtn" value="Limpiar">
+                                <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Enviar">
+                                <br style="clear:both;">
+                            </section>
+                            </form>
+                        </section> 
+                      </div>
+                      </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+                	<div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+                <div id="noticias" style="border:1px solid #CCC; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Todos los campos que tengan la siguiente imagen <img src="/media/librerias/css/plantilla/images/icon_alert_error.gif" height="15px" /> se consideran importante, por lo tanto, son obligatorios.
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "completo.html"%}
+
+{% block content %}
+<script>
+	function menu(){
+		document.getElementById('areas').style.backgroundColor='#FFF';
+	}
+	window.onload=menu();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+
+</script>
+
+<style>
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #000;
+    
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#000;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #accf83; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#accf83), to(#accf83) );
+    background: -moz-linear-gradient(-90deg, #accf83, #accf83);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#accf83', endColorstr='#accf83');
+	color:#000;
+}
+</style>
+ <div id="wrapper">
+    	<div id="secWrapper">
+        	<div id="container" class="clearfix">
+            <br />
+            <br />
+            <br />
+            	<div style="width:940px; background-color:#accf83; border:1px solid #accf83; height:22px; text-align:left;">
+                	<span style="text-align:left; margin-left:15px; color:#000;">
+                    	{{ principal.titulo }}
+                    </span>
+                </div>
+             <br />
+			 <!-- Columna Principal -->
+            	<div id="mainCol" class="clearfix">
+                	<div style="border:1px solid #accf83; background:url(/media/librerias/css/plantilla/images/bbareas3.png) top repeat-x;">
+                    	<br />
+                        <br />
+                  		<div style="text-align:center;margin-left:25px; margin-right:25px;">
+                        	<span style="text-align:center; font-style:italic;" class="titulo1">
+                  				{{ principal.titulo }}
+                  			</span>
+                        </div>
+                        <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                  			{% autoescape off %}{{ principal.descripcion}}{% endautoescape %}<br>
+                        </div>
+                         
+                            {% regroup areas by categoria as categorias_act %}
+                            {% for item in categorias_act %}
+                             <hr style=" border:none;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x; height:47px;"/>
+                            <div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
+                                <a href="/areas/{{ item.grouper.id }}" class="titulo2"><b class="titulo2">{{ item.grouper.titulo }}</b></a><br>
+                                {% autoescape off %}{{ item.grouper.descri}}{% endautoescape %} <br>
+								<table align="center" width="100%">
+                                	<tr align="center">
+                                		<td align="center">
+                                        {% for item2 in item.list %}
+                                            <a href="/list_areas/{{ item2.id }}" class="button button-blue"><span>{{ item2.nombre|truncatewords:3 }}</span></a>
+                                        {% endfor %}
+                                		</td>
+                                	</tr>
+                                </table>
+								<br>
+                                </div>
+                            {% endfor %}
+                            <br>
+                    	
+                    </div>
+                </div>
+			<!-- Fin Columna Principal -->
+                <div id="secCol">
+            {% if persona %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                &nbsp;&nbsp;&nbsp;Hola, <span style="font-style:italic;">{{ persona.nombre }}</span> (<a href="/salir.php">Salir</a>)
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% else %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+				<br />
+                <span style="margin-left:25px; margin-right:25px;">Te invitamos a que inicies tu sesion y asi poder disfrutar de mas opciones <a href="/perfil">Iniciar Sesión</a></span>
+                <br />
+                <br />
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endif %}
+            {% for item in lateral %}
+            	<div id="noticias" style="border:1px solid #C0C0C0
+; width:218px; background-color:#FFF;">
+                {% autoescape off %}{{ item.descripcion	 }}{% endautoescape %}
+                </div>
+                <div id="secCol-punta">
+                </div>
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

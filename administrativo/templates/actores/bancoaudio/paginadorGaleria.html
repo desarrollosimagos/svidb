@@ -1,0 +1,131 @@
+<script>
+function mostrarFotos(url){
+	/*alert(url);*/
+/*	document.getElementById('fotogaleria').src='/media/imgs/ico_cargando2.gif';*/
+	document.getElementById('fotogaleria').src=url;
+}
+</script>
+<style>
+.imgemodal{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:15px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.bordeGaleria{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:2px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    	width:100%;
+		height:25px;
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		font-weight:bold;
+		font-size:12px;
+    
+}
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#000;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #00679a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00679a), to(#00679a) );
+    background: -moz-linear-gradient(-90deg, #00679a, #00679a);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00679a', endColorstr='#00679a');
+	color:#FFF;
+}
+.button-blue2
+{
+    background:#E6E6E6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#E6E6E6), to(#E6E6E6) );
+    background: -moz-linear-gradient(-90deg, #E6E6E6, #E6E6E6);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#E6E6E6', endColorstr='#E6E6E6');
+	color:#1A1A1A;
+}
+p{
+	color:#4D4D4D;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+</style>
+
+
+{% if mesn %}
+    {% for lista in mesn.object_list %}
+
+	 {% if forloop.first %}
+        <img src="/media/{{ lista.pathimg }}" width="650px" id="fotogaleria" /><br>
+	<table  width="650px">
+<tr>
+	<td><b>Autor de la Fotografía:</b> {{ lista.directorio.nombre }} {{ lista.directorio.apellido }} </td>
+	<td align="right"><b>Licencia:</b><a href="/licencias"><img src="/media/{{ lista.licencia.pathimg1 }}"></a></td>
+</tr>
+</table>
+	<br>
+         {% endif %}
+
+    	<a onclick="mostrarFotos('/media/{{ lista.pathimg }}');" style="text-decoration:none;">
+        <img class="bordeGaleria" src="/media/{{ lista.retorno_nombre }}.157_118{{ lista.retorno_extencion }}" width="80px" />
+        </a>
+    {% endfor %}
+{% endif %}
+{% if mesn %}
+    <br>
+    <div class="pagination">
+        <span class="step-links">
+            {% if mesn.has_previous %}
+                <a onClick="cargarpagina({{ mesn.previous_page_number }})" style="cursor:pointer;">Anterior</a>
+            {% endif %}
+            <span class="current">
+                Pagina {{ mesn.number }} de {{ mesn.paginator.num_pages }}.
+            </span>
+
+            {% if mesn.has_next %}
+                <a onClick="cargarpagina({{ mesn.next_page_number }})" style="cursor:pointer;">Proximo</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+<script type='text/javascript' src='/media/librerias/css/plantilla/modal-mensaje/osx/js/jquery.simplemodal.js'></script>
+<script type='text/javascript' src='/media/librerias/css/plantilla/modal-mensaje/osx/js/osx.js'></script>
