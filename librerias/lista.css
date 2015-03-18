@@ -1,0 +1,303 @@
+/* CSS Document */
+
+a:link 
+{
+	color: #333333; 
+	text-decoration: none;
+	font-family: "Arial";
+	font-size: 13px;
+	font-weight: bold;
+}
+
+a:visited 
+{
+	color: #333333; 
+	text-decoration: none;
+	font-family: "Arial";
+	font-size: 13px;
+	font-weight: bold;
+}
+
+a:hover 
+{
+	color: #c3c0c0;	
+	text-decoration: none;
+	font-family: "Arial";
+	font-size: 13px;
+	font-weight: bold;	
+}
+
+img
+{
+	border: 0px;
+}
+
+.titulo1
+{
+	color: #333333;
+	font-family: "Arial";
+	font-weight:bold;
+	font-size: 21px;
+	text-align:justify;
+}
+
+.titulo2
+{
+	color: #333333;
+	font-family: "Arial";
+	font-weight:bold;	
+	font-size: 15px;
+	text-align:justify;
+}
+
+.titulo3
+{
+	color: #4D4D4D;
+	font-family: "Arial";
+	font-weight:bold;	
+	font-size: 13px;
+	text-align:justify;
+}
+
+.style1
+{
+	font-family: "Arial";
+	font-size: 12px;
+	color: #4D4D4D;
+	text-align:justify;
+	/*color: #686868;*/
+}
+
+.style2
+{
+	color: #000000;
+	font-family: "Arial";
+	font-size: 10px;
+	text-align:center;	
+}
+
+.style3
+{
+	color: #333333; 
+	text-decoration: none;
+	font-family: "Arial";
+	font-size: 13px;
+	font-weight: bold;
+	text-align:justify;
+}
+
+.style4
+{
+	color: #4D4D4D; 	
+	font-family: "Arial";
+	font-size: 11px;
+	font-weight: bold;
+	vertical-align: middle;
+	text-align:justify;
+}
+
+.style5
+{
+	color: #D31C1C; 	
+	font-family: "Arial";
+	font-size: 11px;
+	font-weight: bold;
+	text-align:justify;
+}
+
+.inputbox
+{
+	text-decoration: none;
+	font-family: "Arial";
+	font-size: 11px;	
+	color: #4D4D4D;
+	vertical-align: bottom;
+	text-align:justify;
+}
+
+.aligntable
+{
+	vertical-align: bottom;	
+}
+
+.nodos
+{
+ font-size: 11px; 
+ font-family: "Arial"; 
+ text-decoration: none;
+ text-align:justify;
+ color: black;
+}
+
+.nodos2
+{
+ font-size: 10pt; 
+ font-family: verdana,helvetica; 
+ text-decoration: none;
+ color: #808080;
+}
+
+.btn_examinar {
+	background: url(../imgs/guardar.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;	
+}
+
+.btn_guardar {
+	background: url(../imgs/guardar.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;	
+}
+
+.btn_cargar {
+	background: url(../imgs/cargar.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;	
+}
+
+.btn_saber {
+	background: url(../imgs/saber+.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;	
+}
+
+.btn_expandir {
+	max-width: 113px;
+	min-width: 113px;
+	max-height: 21px;
+	min-height: 21px;
+	height: 21px;
+	width: 113px;
+	background-repeat: no-repeat;
+	background: url(../imgs/expandir.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.btn_contraer {
+	max-height: 21px;
+	min-height: 21px;
+	height: 21px;
+	max-width: 113px;
+	min-width: 113px;
+	width: 113px;
+	background-repeat: no-repeat;
+	background: url(../imgs/contraer.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.btn_descargar {
+	max-height: 21px;
+	max-width: 91px;
+	min-height: 21px;
+	min-width: 91px;
+	height: 21px;
+	width: 91px;
+	background-repeat: no-repeat;
+	background: url(../imgs/descargar.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.btn_descargar_sin_text {
+
+	height: 21px;
+	background-repeat: no-repeat;
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.btn_descpicture {
+	max-height: 21px;
+	min-height: 21px;
+	height: 21px;
+	max-width: 90px;
+	min-width: 90px;
+	width: 90px;
+	background-repeat: no-repeat;
+	background: url(../imgs/descargarpicture.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.btn_capas {
+	background: url(../imgs/capas.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.btn_imprimir {
+	background-repeat: no-repeat;
+	max-height: 21px;
+	max-width: 90px;
+	min-height: 21px;
+	min-width: 90px;
+	height: 21px;
+	width: 90px;
+	background: url(../imgs/imprimir.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.btn_correo {
+	background-repeat: no-repeat;
+	max-height: 21px;
+	max-width: 125px;
+	min-height: 21px;
+	min-width: 125px;
+	height: 21px;
+	width: 125px;
+	background: url(../imgs/correo.png);
+	font-family: Franklin Gothic Demi, Arial;
+	font-size: 13px;
+	color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+.Imperio{
+	left:10px;
+}
+
+.Reino{
+	margin-left:15px;
+}
+.Phylum {
+	margin-left:30px;
+}
+.Clase{
+	margin-left:45px;
+}
+.Orden{
+	margin-left:60px;
+}
+.Familia{
+	margin-left:75px;
+}
+.Genero{
+	margin-left:90px;
+}
+.Especie{
+	margin-left:105px;
+}

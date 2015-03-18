@@ -1,0 +1,49 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-ch" lang="fr-ch">
+<head>
+<title>A light weight RTE jQuery Plugin</title>
+<style>.frameBody{font-family:sans-serif;font-size:12px;margin:0;width:100%;height:100%}.frameBody p{border:1px #bbb solid;padding:2px}.rte-zone{width:350px;margin:0;padding:0;height:160px;border:1px #999 solid;clear:both}.rte-toolbar{overflow:hidden}.rte-toolbar a,.rte-toolbar a img{border:0}.rte-toolbar p{float:left;margin:0;padding-right:5px}</style>
+<style type="text/css">body,textarea{font-family:sans-serif;font-size:12px}body{margin:20px;padding-bottom:40px}</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+			
+			var info;
+			function contador(name){
+				iframe = document.getElementById('id_'+name);
+				var content = iframe.contentWindow.document.getElementsByTagName("body")[0].innerHTML;
+				document.getElementById('html_'+name).value=content;
+				var n = content.length;
+				var maxi=200;
+				document.getElementById('cont_'+name).value=n;
+				document.getElementById('max_'+name).value=maxi - n;
+			}
+		</script>
+</head>
+<!--<body onload="javascript:document.body.contentEditable='true'; document.designMode='on';">-->
+<body>
+<div id="main" >
+
+
+<form style="border:1px #bbb solid;padding:1em;">
+    <p>
+        <textarea name="description" id="id_description" class="rte-zone" >jQuery RTE 1</textarea>
+        <textarea name="html_description" id="html_description" style="border:1px solid; margin:0; height:155px; width:300px;" disabled="disabled"></textarea><br />
+<input type="text" size="4" id="cont_description" value="0" /> / <input type="text" size="4" id="max_description" value="200" /></p>
+    <p>
+        <textarea name="description2" id="id_description2" class="rte-zone">jQuery RTE 2</textarea>
+        <textarea name="html_description2" id="html_description2" style="border:1px solid; margin:0; height:155px; width:300px;" disabled="disabled"></textarea><br />
+<input type="text" size="4" id="cont_description2" value="0" /> / <input type="text" size="4" id="max_description2" value="200" />
+    </p>
+    <input type="submit"/>
+</form>
+   </div> 
+
+
+<script type="text/javascript" src="jquery.rte.js.pagespeed.jm.d00RQdGiCR.js"></script>
+
+<script type="text/javascript">$('.rte-zone').rte('','');</script>
+
+</body>
+</html>

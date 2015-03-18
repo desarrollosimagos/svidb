@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Tiny Carousel: A lightweight jQuery plugin</title>
+	<link rel="stylesheet" href="css/website.css" type="text/css" media="screen"/>
+
+	<!--[if lte IE 6]>
+		<style type="text/css">
+		/* Internet Explorer 6 PNG transparency fix */
+		#rotatescroll .overlay { background: none; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg-rotatescroll.png", sizingmethod='scale'); }
+		#rotatescroll .thumb { background: none; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg-thumb.png", sizingmethod='scale'); }
+		</style>
+	<![endif]-->
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tinycircleslider.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#rotatescroll').tinycircleslider({ interval: true, snaptodots: true });
+		});
+	</script>	
+</head>
+<body><div class="search-wrapper" style="width: 483px;
+height: 78px;
+padding: 14px 19px 18px;
+background: url(/media/discovery/search-bg.png);position: absolute;
+z-index: 200;
+left: 50%;
+margin-left: -400px;
+margin-top: 0px;
+">
+	<!--<a href="/discover" class="see-all">See All Species</a>-->
+	<label style="color:#333; font-size:20px;"><b>Que buscas? (Especies, Areas, Actores)</b></label>
+	<div class="search-box" style="display: block;
+background: #fff;
+border: 1px #EBE3E3 solid;
+height: 50px;
+width: 481px;
+position: relative;
+box-shadow: inset 1px 1px 3px #aaa;
+-webkit-transition: all 0.3s;
+-moz-transition: all 0.3s;
+-ms-transition: all 0.3s;
+-o-transition: all 0.3s;
+transition: all 0.3s;">
+		<span><input type="text" class="mousetrap" value="" placeholder="" name="" id="search"  style="margin: 0;
+padding: 0 0 0 16px;
+height: 50px;
+width: 407px;
+outline: none;
+border: 0;
+background: none;
+font-size: 30px;
+color: #333333;
+vertical-align: middle;
+box-shadow: none !important;"></span>
+		<input type="submit" value="Search" name="" class="disabled" style="cursor: pointer;
+font-size: 0px;
+line-height: 200px;
+overflow: hidden;
+display: block;
+position: absolute;
+top: -1px;
+bottom: -1px;
+right: -1px;
+border: none;
+outline: none;
+width: 52px;
+height: 52px;
+background-color: transparent;
+background-image: url(/media/discovery/search-button.png);
+background-repeat: no-repeat;
+background-position: left top;
+">
+	</div>
+	<div class="autocomplete">
+	</div>
+</div>
+	<div id="rotatescroll">
+		<div class="viewport">
+			<ul class="overview">
+				<li><a href="http://www.baijs.nl"><img src="images/hdr3.jpg" /></a></li>
+				<li><a href="http://www.baijs.nl"><img src="images/hdr2.jpg" /></a></li>
+				<li><a href="http://www.baijs.nl"><img src="images/hdr1.jpg" /></a></li>
+				<li><a href="http://www.baijs.nl"><img src="images/hdr4.jpg" /></a></li>
+				<li><a href="http://www.baijs.nl"><img src="images/hdr5.jpg" /></a></li>															
+			</ul>
+		</div>
+
+		
+		<div class="dot"></div>
+		<div class="overlay"></div>
+		<div class="thumb"></div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Accordion 1</title>
+<link rel="stylesheet" href="css/demo.css" />
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script type="text/javascript" src="js/lib/chili-1.7.pack.js"></script>
+	
+	<script type="text/javascript" src="js/lib/jquery.easing.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="js/jquery.accordion.js"></script>
+
+<script type="text/javascript">
+	jQuery().ready(function(){
+		// simple accordion
+		jQuery('#list1a').accordion();
+		jQuery('#acordeon').accordion({
+			autoheight: false
+		});
+	});
+</script>
+
+<style type="text/css">
+body {
+	margin: 10px auto;
+	width: 570px;
+	font: 75%/120% Arial, Helvetica, sans-serif;
+}
+.accordion {
+	width: 480px;
+	border-bottom: solid 1px #c4c4c4;
+}
+.accordion a {
+	background: #e9e7e7 url(images/arrow-square.gif) no-repeat right -51px;
+	padding: 7px 15px;
+	margin: 0;
+	font: bold 120%/100% Arial, Helvetica, sans-serif;
+	border: solid 1px #c4c4c4;
+	border-bottom: none;
+	cursor: pointer;
+}
+.accordion a:hover {
+	background-color: #e3e2e2;
+}
+.accordion a.active {
+	background-position: right 5px;
+}
+.accordion p {
+	background: #f7f7f7;
+	margin: 0;
+	padding: 10px 15px 20px;
+	border-left: solid 1px #c4c4c4;
+	border-right: solid 1px #c4c4c4;
+}
+</style>
+</head>
+
+<body>
+			
+	<div class="basic" style="float:left;"  id="list1a">
+			<a>There is one obvious advantage:</a>
+			<div>
+				<p>
+					You've seen it coming!<br/>
+					Buy now and get nothing for free!<br/>
+					Well, at least no free beer. Perhaps a bear,<br/>
+					if you can afford it.
+				</p>
+			</div>
+			<a>Now that you've got...</a>
+			<div>
+				<p>
+					your bear, you have to admit it!<br/>
+					No, we aren't selling bears.
+				</p>
+			</div>
+			<a>Rent one bear, ...</a>
+			<div>
+				<p>
+					get two for three beer.
+				</p>
+				<p>
+					And now, for something completely different.<br/>
+					And now, for something completely different.<br/>
+					And now, for something completely different.<br/>
+					And now, for something completely different.<br/>
+					And now, for something completely different.<br/>
+					And now, for something completely different.<br/>
+					And now, for something completely different.<br/>
+					And now, for something completely different.<br/>
+					Period.
+				</p>
+			</div>
+		</div>
+
+</body>
+</html>

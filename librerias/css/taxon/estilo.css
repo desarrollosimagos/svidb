@@ -1,0 +1,325 @@
+
+.imgemodal{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:15px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.imgemodal1{
+	-webkit-border-top-left-radius: 25px;
+-webkit-border-bottom-right-radius: 25px;
+-moz-border-radius-topleft: 25px;
+-moz-border-radius-bottomright: 25px;
+border-top-left-radius: 25px;
+border-bottom-right-radius: 25px;
+
+
+box-shadow: 0px 0px 15px #000; /* Sombra */
+padding:2px; /* Espacio entre la imagen y el borde */
+background:#FFF; /* Color de fondo que se ve entre el espacio */
+
+}
+.button
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    	width:100%;
+		height:25px;
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		font-weight:bold;
+		font-size:12px;
+    
+}
+
+
+.button, .button span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#000;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button-blue
+{
+    background: #0099CC;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+.button-blue2
+{
+    background:#E6E6E6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#E6E6E6), to(#E6E6E6) );
+    background: -moz-linear-gradient(-90deg, #E6E6E6, #E6E6E6);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#E6E6E6', endColorstr='#E6E6E6');
+	color:#1A1A1A;
+}
+
+.button-masmorado
+{
+    background:#99F; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#99F), to(#99F) );
+    background: -moz-linear-gradient(-90deg, #99F, #99F);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99F', endColorstr='#99F');
+	color:#FFF;
+}
+
+.button-mapas
+{
+    background:#996; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#996), to(#996) );
+    background: -moz-linear-gradient(-90deg, #996, #996);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#996', endColorstr='#996');
+	color:#FFF;
+	
+}
+
+p{
+	color:#4D4D4D;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+	
+.button2
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+    
+    
+}
+
+.button2, .button2 span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.button2 span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.button2-blue
+{
+    background: #0099CC; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+
+.button2-naranja
+{
+    background:#36C; /*ffcc99*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#36C), to(#36C) );
+    background: -moz-linear-gradient(-90deg, #36C, #36C);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#36C', endColorstr='#36C');
+	color:#FFF;
+}
+.button2-verde
+{
+    background:#900; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#900), to(#900) );
+    background: -moz-linear-gradient(-90deg, #900, #900);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#900', endColorstr='#900');
+	color:#FFF;
+}
+
+.button2-marron
+{
+    background: #cd6530; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#cd6530), to(#cd6530) );
+    background: -moz-linear-gradient(-90deg, #cd6530, #cd6530);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cd6530', endColorstr='#cd6530');
+	color:#FFF;
+}
+
+.button2-gris
+{
+    background:#999; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#999) );
+    background: -moz-linear-gradient(-90deg, #999, #999);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#999', endColorstr='#999');
+	color:#FFF;
+}
+
+.button2-morado
+{
+    background:#936; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#936), to(#936) );
+    background: -moz-linear-gradient(-90deg, #936, #936);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#936', endColorstr='#936');
+	color:#FFF;
+}
+
+.button2-amarillo
+{
+    background:#F90; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F90), to(#F90) );
+    background: -moz-linear-gradient(-90deg, #F90, #F90);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F90', endColorstr='#F90');
+	color:#FFF;
+}
+
+.button2-masmorado
+{
+    background:#99F; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#99F), to(#99F) );
+    background: -moz-linear-gradient(-90deg, #99F, #99F);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99F', endColorstr='#99F');
+	color:#FFF;
+}
+
+.button2-mapas
+{
+    background:#996; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#996), to(#996) );
+    background: -moz-linear-gradient(-90deg, #996, #996);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#996', endColorstr='#996');
+	color:#FFF;
+}
+
+.button2-biorregiones
+{
+    background:#F60; /*71b63a*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#F60), to(#F60) );
+    background: -moz-linear-gradient(-90deg, #F60, #F60);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F60', endColorstr='#F60');
+	color:#FFF;
+}
+
+.button2-origenes
+{
+    background:#090;
+    background: -webkit-gradient(linear, left top, left bottom, from(#090), to(#090) );
+    background: -moz-linear-gradient(-90deg, #090, #090);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#090', endColorstr='#090');
+	color:#FFF;
+}
+
+.buttonCorto
+{
+    margin: 2px;
+    text-decoration: none;
+    display:inline-block;
+    color: #fff;
+    
+    
+}
+
+.buttonCorto, .buttonCorto span
+{
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+}
+
+.buttonCorto span
+{
+    border-top: 1px solid #fff; /* Fallback style */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: block;
+    padding: 0.5em 2.5em;
+	color:#FFF;
+
+    
+    -moz-background-size: 3px 3px;
+    -webkit-background-size: 3px 3px;
+    background-size: 3px 3px;            
+}
+
+.buttonCorto-blue
+{
+    background: #0099CC; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
+    background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+
+.buttonCorto-en-arbitraje
+{
+    background: #00ec88; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#00ec88), to(#00ec88) );
+    background: -moz-linear-gradient(-90deg, #00ec88, #00ec88);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00ec88', endColorstr='#00ec88');
+	color:#FFF;
+}
+
+.buttonCorto-con-modificaciones
+{
+    background: #ece700; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#ece700), to(#ece700) );
+    background: -moz-linear-gradient(-90deg, #ece700, #ece700);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ece700', endColorstr='#ece700');
+	color:#FFF;
+}
+
+.buttonCorto-rechazado
+{
+    background: #de2121; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#de2121), to(#de2121) );
+    background: -moz-linear-gradient(-90deg, #de2121, #de2121);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#de2121', endColorstr='#de2121');
+	color:#FFF;
+}
+
+.buttonCorto-aceptado
+{
+    background: #44ad41; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#44ad41), to(#44ad41) );
+    background: -moz-linear-gradient(-90deg, #44ad41, #44ad41);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#44ad41', endColorstr='#44ad41');
+	color:#FFF;
+}
+.buttonCorto-tu-cuenta
+{
+    background: #cd6530; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#cd6530), to(#cd6530) );
+    background: -moz-linear-gradient(-90deg, #cd6530, #cd6530);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cd6530', endColorstr='#cd6530');
+	color:#FFF;
+}
+.buttonCorto-evento
+{
+    background: #198182; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#198182), to(#198182) );
+    background: -moz-linear-gradient(-90deg, #198182, #198182);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#198182', endColorstr='#198182');
+	color:#FFF;
+}
+
+
+
