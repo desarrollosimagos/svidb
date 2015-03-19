@@ -1,7 +1,11 @@
 #!/usr/bin/python -u
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
+#---DESARROLLO ---- 
+=======
 #prueba ramas
 
+>>>>>>> desarrollo
 from django.db import models
 from django.db.models import Max
 from demografia.models import *
