@@ -157,8 +157,8 @@ def perfil(request):
               lateral = TemplatesInfoLateral.objects.filter((Q(seccion=principal) & Q(subseccion=sub)) | (Q(seccion=principal) & Q(activar=True))).order_by('posicion')
           except TemplatesInfoLateral.DoesNotExist:
               lateral = None
-          if request.POST['url']:
-             url = request.POST['url']
+          if request.method == 'GET':
+             url = request.GET.get('url', False)
              if url == "not":
                 return render_to_response("actores/panel.html",{'persona':persona,'actores':actores,'usuario':id_usuario,'mensajes':mensajes,'solicitud':solicitud,'eventos_activos':eventos_activos,'error':'No','seccionesPanel':seccionesPanel,'principal':principal,'sub':sub,'lateral':lateral}, context_instance=RequestContext(request))
              else:
