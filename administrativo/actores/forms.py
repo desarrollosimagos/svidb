@@ -2,7 +2,7 @@
 from django import forms
 from models import *
 import re
-from captcha.fields import ReCaptchaField
+
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 class MiembrosInstForm(forms.ModelForm):
