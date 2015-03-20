@@ -74,7 +74,7 @@ $(document).ready(function() {
                      
                         Titulo:<br />
                         {{ formulario.titulo }}
-                        <b style="color:#F00;">Carácteres permitidos para el título(<span id="maxlength1">450</span>)</b>
+                        <b style="color:#F00;">Carácteres permitidos para el título(<span id="maxlength1">150</span>)</b>
                         <br><br>
                         <script>
                                   $('#id_titulo').restrictLength($('#maxlength1'));
@@ -97,7 +97,7 @@ $(document).ready(function() {
                         
                         Resumen (Puedes copiar y pegar en el siguiente campo):<br />
                         {{ formulario.resumen }}
-                        <b style="color:#F00;">Carácteres permitidos para el resumen(<span id="maxlength">2000</span>)<br><br></b>
+                        <b style="color:#F00;">Carácteres permitidos para el resumen(<span id="maxlength">300</span>)<br><br></b>
                         <script>
                                   $('#id_resumen').restrictLength($('#maxlength'));
                                 </script>
