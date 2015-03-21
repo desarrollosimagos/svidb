@@ -40,9 +40,9 @@ class UserCreationFormSVIDB(forms.ModelForm):
         'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
-    username = forms.RegexField(label=_("Username"), max_length=30,
+    username = forms.RegexField(label=_("Username"), max_length=255,
         regex=r'^[\w.@+-]+$',
-        help_text = _("Required. 30 characters or fewer. Letters, digits and "
+        help_text = _("Required. 255 characters or fewer. Letters, digits and "
                       "@/./+/-/_ only."),
         error_messages = {
             'invalid': _("This value may contain only letters, numbers and "
