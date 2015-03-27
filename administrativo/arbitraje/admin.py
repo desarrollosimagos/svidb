@@ -31,12 +31,14 @@ admin.site.register(coordinador,coordinadorAdmin)
 #      }
 
 class arbitrosAdmin(AutocompleteModelAdmin):
-#      inlines = [TabTrabajosArbitrosAdmin,]
       list_filter = ('evento','estatu','coordinador','modalidad','tematicas','accespecifi',)
       search_fields = ('coordinador__documentoidentidad','coordinador__nombre', 'coordinador__apellido','coordinador__correo','arbitro__documentoidentidad','arbitro__nombre', 'arbitro__apellido','arbitro__correo')
       list_display = ('evento','coordinador','arbitro','estatu',)
+      fieldsets = [
+            ('Datos Generales',               {'fields':  ['evento','coordinador','arbitro']}),
+            ('Datos Trasversales', {'fields': ['accespecifi','modalidad','tematicas','estatu'],}),
+        ]
       related_search_fields = {
-                'coordinador': ('coordinador__id','coordinador__documentoidentidad','coordinador__nombre',),
                 'arbitro': ('id','documentoidentidad','nombre',),
       }
 
@@ -56,14 +58,16 @@ def cambiarEstadoRechazado(modeladmin, request, queryset):
 cambiarEstadoRechazado.short_description = "Cambiar estatus a Rechazado"
 
 
-class TrabajosArbitrosAdmin(AutocompleteModelAdmin):
+class TrabajosArbitrosAdmin(admin.ModelAdmin):
       actions = [cambiarEstadoArbitrando,cambiarEstadoAprobado,cambiarEstadoRechazado]
       list_filter = ('estatu','arbitro')
       search_fields = ('arbitro__arbitro__documentoidentidad','arbitro__arbitro__nombre', 'arbitro__arbitro__apellido','arbitro__arbitro__correo')
       list_display = ('trabajos','arbitro','estatu',)
-      related_search_fields = {
-                'arbitro': ('arbitro__id','arbitro__documentoidentidad','arbitro__nombre',),
-      }
+      fieldsets = [
+            ('Datos Generales',               {'fields':  ['evento','coordinador','arbitro']}),
+            ('Datos Trasversales', {'fields': ['trabajos','estatu'],}),
+        ]
+
 
 admin.site.register(TrabajosArbitros,TrabajosArbitrosAdmin)
 

@@ -17,9 +17,9 @@ class coordinador(models.Model):
         return u"%s" %(self.coordinador)
 	  
 class arbitros(models.Model):
-    coordinador = models.ForeignKey(coordinador,null=True, blank=True,verbose_name='Coordinador')
-    arbitro = models.ForeignKey(Directorios,null=True, blank=True,verbose_name='Arbitro')
     evento = models.ForeignKey(Eventos,null=True, blank=True)
+    coordinador = ChainedForeignKey(coordinador,chained_field="evento",chained_model_field="evento",show_all=False,auto_choose=True,verbose_name='Coordinador',null=True)
+    arbitro = models.ForeignKey(Directorios,null=True, blank=True,verbose_name='Arbitro')
     accespecifi = models.ManyToManyField(Accionesespecificas,blank=True,null=True)
     modalidad = models.ManyToManyField(Modalidads,blank=True,null=True)
     tematicas = models.ManyToManyField(Tematicas,blank=True,null=True)
@@ -31,8 +31,10 @@ class arbitros(models.Model):
         return u"%s" %(self.arbitro)
 	
 class TrabajosArbitros(models.Model):
-    arbitro = models.ForeignKey(arbitros,null=True, blank=True,verbose_name='Arbitro')
-    trabajos = models.ForeignKey(Trabajoscongresos,null=True, blank=True)
+    evento = models.ForeignKey(Eventos,null=True, blank=True)
+    coordinador = ChainedForeignKey(coordinador,chained_field="evento",chained_model_field="evento",show_all=False,auto_choose=True,verbose_name='Coordinador',null=True)
+    arbitro = ChainedForeignKey(arbitros,chained_field="coordinador",chained_model_field="coordinador",show_all=False,auto_choose=True,verbose_name='Arbitros',null=True)
+    trabajos = ChainedForeignKey(Trabajoscongresos,chained_field="evento",chained_model_field="evento",show_all=False,auto_choose=True,verbose_name='Trabajos por evento',null=True)
     estatu = models.IntegerField(choices=((1,'Aprobado'),(2,'Rechazado'),(3,'Arbitrando')),verbose_name='Estatus',null=True,blank=True)
     class Meta:
         verbose_name_plural='Trabajos asignados por arbitros'
