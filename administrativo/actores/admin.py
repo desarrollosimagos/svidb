@@ -15,8 +15,7 @@ from django_google_maps.widgets import GoogleMapsAddressWidget
 from django_google_maps.fields import AddressField, GeoLocationField
 from django.forms.widgets import TextInput
 from django.utils.translation import ugettext_lazy as _
-#from django.contrib.admin import SimpleListFilter
-#comentarios de prueba
+from import_export.admin import ImportExportModelAdmin
 
 from posiciones.autocomplete.widgets import *
 
@@ -66,7 +65,9 @@ class ManifestacionesculturalesAdmin(AutocompleteModelAdmin):
 admin.site.register(Manifestacionesculturales,ManifestacionesculturalesAdmin)
 
 #-===========================================================================
-class DirectoriosAdmin(admin.ModelAdmin):
+class DirectoriosAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+      resource_class = DirectoriosResource
+      pass
       filter_horizontal = ('areasaccion','fund')
       list_filter = ('estatu','areasaccion','estado','fund','tipodoci')
       search_fields = ('documentoidentidad','nombre', 'apellido','correo')
@@ -119,7 +120,9 @@ class TrabajosInline(admin.TabularInline):
       model = Trabajoscongresos.colectivos.through
 
 
-class ActoresAdmin(AutocompleteModelAdmin):
+class ActoresAdmin(ImportExportModelAdmin,AutocompleteModelAdmin):
+      resource_class = ActoresResource
+      pass
       inlines = [DocAsocActAdmin,RedesAdmin,ColaboradorespersonasAdmin,TrabajosInline]
       list_filter = ('estatu','estado','categoriact','tipocolec',)
       related_search_fields = { 

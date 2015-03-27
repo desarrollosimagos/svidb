@@ -21,6 +21,10 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from stdimage import StdImageField
 
+from import_export import resources
+from import_export import fields
+from django.utils.html import strip_tags
+
 from django_google_maps.fields import AddressField, GeoLocationField
 
 
@@ -44,12 +48,10 @@ class Directorios(models.Model):
     sexo = models.IntegerField(choices=((0,'Masculino'),(1,'Femenino'),(2,u'Diversidad Sexual')), verbose_name='Género', blank=True,null=True)
     edocivil = models.IntegerField(choices=((0,'Soltero(a)'),(1,'Casado(a)'),(2,'Divorciado(a)'),(3,'Viudo(a)')), verbose_name='Estado Civil',null=True)
     nacimiento = models.DateField(verbose_name='Fecha de Nacimiento (DD/MM/AAAA)')
-#    documentoidentidad = models.IntegerField(verbose_name='Documento de Identidad',unique=True,help_text=u"Ingrese un numero de documento de Identidad Valido..")
     documentoidentidad = models.CharField(max_length=75,verbose_name='Documento de Identidad',unique=True,help_text=u"Ingrese un número de documento de Identidad Válido.")
     areasaccion = models.ManyToManyField(Tipoareaaccions,related_name='Areas de Accion',help_text=u"Seleccione las principales áreas de acción de su trabajo. Para seleccionar más de una opción Manten presionado Control, o Command.",verbose_name=u'Áreas de Acción',blank=True)
     nombre = models.CharField(max_length=180,verbose_name='Nombre')
     apellido = models.CharField(max_length=180,verbose_name='Apellido')
-#    correo = models.EmailField(verbose_name='Correo Electrónico',unique=True,null=True,blank=True )
     correo = models.EmailField(max_length=250,verbose_name='Correo Electrónico (Solo para Notificaciones)',null=True,blank=True)
     telefono1 = models.CharField(max_length=135, blank=True,verbose_name='Teléfono #1')
     telefono2 = models.CharField(max_length=135, blank=True, verbose_name='Teléfono #2')
@@ -79,6 +81,11 @@ class Directorios(models.Model):
         return u"%s  - %s - %s " %(self.nombre, self.apellido, self.correo)
     def AreasAccion(self):
         return ', '.join([obj.nombre for obj in self.areasaccion.all()])
+        
+class DirectoriosResource(resources.ModelResource):
+    class Meta:
+        model = Directorios
+        fields = ('id','tipodoci','documentoidentidad','sexo','edocivil','nacimiento','nombre','apellido','correo','telefono1','telefono2','fax','movil','sector','pai','estado','municipio','parroquia','suscritobool','organizacion','gruposespecie','localidadesaccion','ocupacion','estatu')
 
 
 class Bancoaudiovisuals(models.Model):
@@ -188,6 +195,11 @@ class Actores(models.Model):
         verbose_name = 'Actores Colectivos'
     def __unicode__(self):
         return u"%s %s" %(self.siglas, self.nombre)
+        
+class ActoresResource(resources.ModelResource):
+    class Meta:
+        model = Actores
+        fields = ('id','actoresrex','tiposAreasAccion','bancoaudio','horarios','fund','url','ambitoaccion','principalesorgfinan','objetivos','publicacionesPeriodicas','aniofundacion','telefono','fax','address','geolocation','rif','siglas','nombre','nombre_completo','direccion','pai','estado','municipio','parroquia','correo','reseniahistorica','pubp','grupobio','logotipo','logotipo','categoriact','tipocolec','particularidades','estrOrganz','actinteres','numeromiembros','coord','estrucorg','tipoorganizacion','update','userupdate','estatu','areasesconserv','directorio')
 
 class ActoresCCModificados(models.Model):
     actorbase = models.OneToOneField(Actores,related_name='actor0')
