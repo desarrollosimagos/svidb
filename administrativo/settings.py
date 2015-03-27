@@ -136,7 +136,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ajax_select',
     'templateaddons',
     'smart_selects',
     'import_export',
@@ -189,14 +188,6 @@ LOGGING = {
         },
     }
 }
-
-AJAX_LOOKUP_CHANNELS = {
-    #  simple: search Person.objects.filter(name__icontains=q)
-    'person'  : {'model': 'example.person', 'search_field': 'name'},
-    # define a custom lookup channel
-    'song'   : ('example.lookups', 'SongLookup')
-}
-
 AJAX_SELECT_BOOTSTRAP = True
 
 AJAX_SELECT_INLINES = 'inline'
