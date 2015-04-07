@@ -173,8 +173,10 @@ class Trabajoscongresos(models.Model):
     update = models.DateTimeField(default=datetime.now(),editable = False,null=True, blank=True)
     userupdate = models.ForeignKey(User,null=True, blank=True,verbose_name='Usuario')
     coautores = models.ManyToManyField(Directorios,null=True, blank=True,related_name='Co-Autores')
+    palabrasclave = models.ManyToManyField(Pablabrasclaves,null=True, blank=True,related_name='Palabras Claves')
     colectivos = models.ManyToManyField(Actores,null=True, blank=True,related_name='Colectivos')
     estatu = models.IntegerField(choices=SHIRT_SIZES,verbose_name='Estatus' ,null=True,blank=True,db_column='estatu_id')
+    ambitoaccion = models.CharField(choices=(('0','Global'),('1','Nacional'),('2','Regional'),('3','Municipal'),('3','Local')),max_length=10, blank=True,verbose_name='Ambito de Acción',null=True)
     class Meta:
         db_table = u'trabajosCongresos'
         verbose_name_plural='Trabajos Congreso'

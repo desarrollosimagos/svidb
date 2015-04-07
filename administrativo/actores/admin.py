@@ -142,7 +142,7 @@ class ActoresAdmin(ImportExportModelAdmin,AutocompleteModelAdmin):
             ('Datos de Contenido', {'fields': ['aniofundacion','reseniahistorica','numeromiembros','estrucorg','objetivos','particularidades','principalesorgfinan','publicacionesPeriodicas','horarios'],}),
             ('Accionar', {'fields': ['ambitoaccion','actinteres','grupobio','tiposAreasAccion','fund','areasesconserv'],}),
             ('Datos Trasversales', {'fields': ['bancoaudio'],}),
-            ('Datos de Validación', {'fields': ['userupdate','estatu'],}),
+            ('Datos de Validación', {'fields': ['userupdate','estatu','estatuConstruccion'],}),
         ]
       filter_horizontal = ('fund','tiposAreasAccion','bancoaudio')
       search_fields = ('nombre', 'siglas','nombre_completo','rif')

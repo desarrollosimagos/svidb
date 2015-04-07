@@ -168,12 +168,14 @@ class TrabajoscongresosAdmin(ImportExportModelAdmin,AutocompleteModelAdmin):
       list_display = ('titulo','directorio','presento','impreso','armado','entregado','devueto','estatu',)
       list_editable = ('presento','impreso','armado','entregado','devueto')
       related_search_fields = { 
-                'coautores':  ('id','documentoidentidad','nombre','apellido',),
-                'colectivos': ('id','nombre_completo',),
-                'directorio': ('id','documentoidentidad','nombre','apellido',),
+                'coautores':  ('documentoidentidad','nombre','apellido',),
+                'palabrasclave':  ('palabrasclave',),
+                'colectivos': ('nombre_completo',),
+                'evento': ('nombre',),
+                'directorio': ('documentoidentidad','nombre','apellido',),
       }
       fieldsets = [
-            ('Datos Generales',               {'fields': ['presento','impreso','armado','entregado','devueto','evento','titulo','resumen','modalidad','fundamento','objetivoespecifico','accionesgenerale','accespecifi','tematicas']}),
+            ('Datos Generales',               {'fields': ['presento','impreso','armado','entregado','devueto','evento','titulo','resumen','modalidad','fundamento','objetivoespecifico','accionesgenerale','accespecifi','tematicas','palabrasclave','ambitoaccion']}),
             ('Vinculación con Actores', {'fields': ['directorio','coautores','colectivos'],}),
             ('Datos de Validación', {'fields': ['userupdate','estatu'],}),
         ]
