@@ -185,7 +185,7 @@ class Actores(models.Model):
     tipoorganizacion = models.ForeignKey(Tipoorganizacions, null=True, db_column='tipoOrganizacion_id', blank=True,verbose_name='Tipo de Organización')
     update = models.DateTimeField(default=datetime.now(),editable = False)
     userupdate = models.ForeignKey(User,verbose_name='Usted es?',null=True,blank=True)
-    estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo'),(2,'Pendiente'),(3,u'Solo nombre'),(4,'Media'),(5,'Alta'),(6,'Completa')),verbose_name='Estatus',null=True,blank=True,db_column='estatu_id')
+    estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo'),(2,'Pendiente')),verbose_name='Estatus',null=True,blank=True,db_column='estatu_id')
     estatuConstruccion = models.IntegerField(choices=((1,u'Solo nombre'),(2,'Media'),(3,'Alta'),(4,'Completa')),verbose_name='Estatus Construcción',null=True,blank=True)
     areasesconserv = models.TextField(verbose_name='Áreas Estrategicas para la Conservación',null=True,blank=True)
     directorio = models.ForeignKey(Directorios,verbose_name='Responsable Autorizado',null=True,blank=True)
