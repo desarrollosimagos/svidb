@@ -194,9 +194,9 @@ def ReportesCongresosTrabajos(request,id):
              if coordi:
                 trabajos = trabajos.filter(estatu=coordi)
 
-             return render_to_response("congresos/trabajos/matrix.html",{'evento':evento,'trabajos':trabajos,'eventoPadre':eventoPadre,'tipo_eventos':tipo_eventos}, context_instance=RequestContext(request))  
+             return render_to_response("congresos/trabajos/matrix.html",{'evento':evento,'trabajos':trabajos}, context_instance=RequestContext(request))  
           else:
-             return render_to_response("congresos/trabajos/matrix.html",{'evento':evento,'eventoPadre':eventoPadre,'tipo_eventos':tipo_eventos}, context_instance=RequestContext(request))       
+             return render_to_response("congresos/trabajos/matrix.html",{'evento':evento}, context_instance=RequestContext(request))       
        else:
           return HttpResponseRedirect("/perfil")
     else:
