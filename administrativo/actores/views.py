@@ -276,9 +276,10 @@ def nuevo_usuario(request):
                    validacion = validaciones(usuario=perfil_publico,codigo=salt,estatu=0,estado=True)
                    validacion.save()
                    subject, from_email, to = 'SVIDB Registro de Usuarios', settings.EMAIL_HOST_USER, request.POST['username']
+                   correo4= request.POST['username']
                    text_content = 'SVIDB Registro de Usuarios'
                    d= settings.URL_SET_SITE
-                   ctx_dict = {'salt': salt,'d': d}
+                   ctx_dict = {'salt': salt,'d': d,'correo':correo4}
                    html_content= render_to_string('correos/plantillas/validacion.txt',ctx_dict)
                    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
                    msg.attach_alternative(html_content, "text/html")
@@ -320,7 +321,8 @@ def nuevo_usuario(request):
                          subject, from_email, to = 'SVIDB Registro de Usuarios', settings.EMAIL_HOST_USER, request.POST['username']
                          text_content = 'SVIDB Registro de Usuarios'
                          d= settings.URL_SET_SITE
-                         ctx_dict = {'salt': salt,'d': d}
+                         correo4= request.POST['username']
+                         ctx_dict = {'salt': salt,'d': d,'correo':correo4}
                          html_content= render_to_string('correos/plantillas/validacion.txt',ctx_dict)
                          msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
                          msg.attach_alternative(html_content, "text/html")
@@ -431,7 +433,8 @@ def nuevo_usuario2(request):
            subject, from_email, to = 'SVIDB Registro de Usuarios', settings.EMAIL_HOST_USER, request.POST['username']
            text_content = 'SVIDB Registro de Usuarios'
            d= settings.URL_SET_SITE
-           ctx_dict = {'salt': salt,'d': d}
+           correo4= request.POST['username']
+           ctx_dict = {'salt': salt,'d': d,'correo':correo4}
            html_content= render_to_string('correos/plantillas/validacion.txt',ctx_dict)
            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
            msg.attach_alternative(html_content, "text/html")

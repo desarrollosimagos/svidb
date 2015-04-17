@@ -105,7 +105,7 @@ def activacion(request):
                    per_submodulos.save()
           validacion.estado = False
           validacion.save()
-          return render_to_response('perfil/exito.html',{'msm':"Se ha realizado la operación con éxito. Ahora podrás ingresar a la plataforma usando tu correo y la clave suministrada."})
+          return HttpResponseRedirect("/perfil")
        else:
           personas_post_edit = PersonasEditForm2(request.POST)
           return render_to_response('perfil/verificacion.html',{'msm':"Se ha generado un error, Complete el siguiente formulario.",'formulario':personas_post_edit,'validacion':validacion})
@@ -129,7 +129,7 @@ def cambiar(request):
           validacion.save()
           u.set_password(clave)
           u.save()
-          return render_to_response('perfil/exito.html',{'msm':"Se ha realizado la operación con exito. Ahora podra ingresar a la plataforma usando su correo y la clave suministrada."})
+          return HttpResponseRedirect("/perfil")
        else:
           return HttpResponseRedirect("/panel/verificacion/")
     else:
@@ -211,9 +211,10 @@ def recuperacion(request):
               validacion = validaciones(usuario=perfil,codigo=salt,estatu=1,estado=True)
               validacion.save()
               subject, from_email, to = 'SVIDB Recuperación de Datos de Acceso', settings.EMAIL_HOST_USER, persona.correo
+              correo4 = persona.correo
               text_content = 'SVIDB Recuperación de Datos de Acceso'
               d= settings.URL_SET_SITE
-              ctx_dict = {'salt': salt,'d': d}
+              ctx_dict = {'salt': salt,'d': d,'correo':correo4}
               html_content= render_to_string('correos/plantillas/recuperar.txt',ctx_dict)
               msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
               msg.attach_alternative(html_content, "text/html")

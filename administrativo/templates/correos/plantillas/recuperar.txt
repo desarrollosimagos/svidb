@@ -1,6 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Documento sin título</title>
+</head>
+
+<body>
 <h1 style="font-size:16px; color:#000;">Sistema de Notificaciones SVIDB</h1>
-Estimado usuario, le damos la bienvenidad al Sistema Venezolano de Informacion sobre la Diversidad Biologica.<br>
-El siguiente correo tiene por finalidad la confirmacion de su cuenta de usuario para generar una nueva clave de acceso que permita la reactivación de su cuenta y posibilite su acceso al portal.<br>
-Para continuar con la verificacion, ingrese en el siguiente url:<br>
-<a href="{{ d }}panel/verificacion/">{{ d }}panel/verificacion/<a><br>
-e introduzca el codigo de validacion: <b>{{ salt }}</b>
+<p>Estimado usuario, le damos la bienvenida al Sistema Venezolano de Información sobre Diversidad Biológica.<br>
+  El siguiente correo tiene por finalidad la confirmación de su cuenta de usuario.<br>
+  Para continuar con la verificación, ingrese en el siguiente enlace:<br>
+</p>
+<form method="post" action="{{ d }}panel/verificacion/">
+<input type="hidden"  id="correo" name="correo"  value="{{ correo }}"/><br />
+<input type="hidden"  id="codigo" name="codigo"  value="{{ salt }}"/>
+<input type="submit" value="VALIDAR CORREO" style="border:1px solid #009; background-color:#06F; color:#FFF; width:300px; height:60px;"/>
+</form>  
+Si el enlace no funciona tambien puede ingresar mediante el siguiente URL:
+<p><a href="{{ d }}panel/verificacion/">{{ d }}panel/verificacion/<a><br>
+e introduzca el código de validación: <b style="font-size:24px; color:#06F">{{ salt }}</b></p>
+
+</body>
+</html>

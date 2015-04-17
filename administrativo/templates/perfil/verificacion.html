@@ -111,9 +111,7 @@ $(document).ready(function() {
                         </div>
                         <br />
                   		<div style="text-align:justify;margin-left:25px; margin-right:25px;" class="texto_regular">
-                    		A continuación deberá ingresar tu correo electrónico y el código de verificación recibido.
-<br /><br />
-Ten en cuenta que de no hacerlo no podrás finalizar el proceso de registro.
+                    		
                             <br /><br />
                         </div>
                            
@@ -152,9 +150,14 @@ Ten en cuenta que de no hacerlo no podrás finalizar el proceso de registro.
                                         </form> 
                                     {% endif %} 
                                 {% else %}
+                                <br>
+                                A continuación deberá ingresar tu correo electrónico y el código de verificación recibido.
+<br /><br />
+Ten en cuenta que de no hacerlo no podrás finalizar el proceso de registro.
+<br><br>
                                     <form method="post">
                                         <label>Correo Electrónico</label><br />
-                                        <input style="width:200px; height:20px; border:1px solid #666;" id="correo" name="correo" /><br />
+                                        <input style="width:200px; height:20px; border:1px solid #666;" id="correo" name="correo" /><br /><br>
                                         <label>Código de Verificación <b>(Sensible a las mayúsculas y minúsculas)</b></label><br />
                                         <input style="width:100px; height:20px; border:1px solid #666;"  id="codigo" name="codigo"  />
                                         <br /><br />
