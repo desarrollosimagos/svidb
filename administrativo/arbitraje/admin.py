@@ -33,7 +33,7 @@ admin.site.register(coordinador,coordinadorAdmin)
 class arbitrosAdmin(AutocompleteModelAdmin):
       list_filter = ('evento','estatu','coordinador','modalidad','tematicas','accespecifi',)
       search_fields = ('coordinador__documentoidentidad','coordinador__nombre', 'coordinador__apellido','coordinador__correo','arbitro__documentoidentidad','arbitro__nombre', 'arbitro__apellido','arbitro__correo')
-      list_display = ('evento','coordinador','arbitro','estatu',)
+      list_display = ('evento','coordinador','arbitro_cedula','arbitro','estatu',)
       fieldsets = [
             ('Datos Generales',               {'fields':  ['evento','coordinador','arbitro']}),
             ('Datos Trasversales', {'fields': ['accespecifi','modalidad','tematicas','estatu'],}),
@@ -41,7 +41,9 @@ class arbitrosAdmin(AutocompleteModelAdmin):
       related_search_fields = {
                 'arbitro': ('id','documentoidentidad','nombre',),
       }
-
+      def arbitro_cedula(self,instance):
+          return instance.arbitro.documentoidentidad
+        
 admin.site.register(arbitros,arbitrosAdmin)
 
 

@@ -17,6 +17,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
+from posiciones.autocomplete.widgets import *
 
 from perfil.models import *
 
@@ -27,7 +28,8 @@ import csv
 
 from django.template import loader, Context
 
-class TabPerfilPublicoAdmin(admin.TabularInline):
+#class TabPerfilPublicoAdmin(admin.TabularInline):
+class TabPerfilPublicoAdmin(AutocompleteTabularInline):
       model = PerfilPublico
       extra = 1
 
