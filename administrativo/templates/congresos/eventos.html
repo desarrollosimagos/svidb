@@ -40,7 +40,7 @@
 					<b>Eventos disponibles</b>
 					
                         {% for item in eventos_activos %}
-                        	<a href="/panel/eventos/ver/{{ item.id }}" class="button button-blue2"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
+                        	<a href="/panel/eventos/ver/{{ item.id }}" class="button button-blue3"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
                             
                         {% empty %}
                            <br /> Actualmente no hay eventos en qué inscribirse

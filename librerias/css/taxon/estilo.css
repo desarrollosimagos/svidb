@@ -78,6 +78,8 @@ background:#FFF; /* Color de fondo que se ve entre el espacio */
 	color:#1A1A1A;
 }
 
+
+
 .button-masmorado
 {
     background:#99F; /*71b63a*/
@@ -138,6 +140,15 @@ p{
     background: -webkit-gradient(linear, left top, left bottom, from(#0099CC), to(#0099CC) );
     background: -moz-linear-gradient(-90deg, #0099CC, #0099CC);
     filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099CC', endColorstr='#0099CC');
+	color:#FFF;
+}
+
+.button-blue3
+{
+    background: #0abbf6; /*1784ea*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#0abbf6), to(#0abbf6) );
+    background: -moz-linear-gradient(-90deg, #0abbf6, #0abbf6);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0abbf6', endColorstr='#0abbf6');
 	color:#FFF;
 }
 

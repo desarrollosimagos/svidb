@@ -40,26 +40,26 @@
                     {% if coordinador2 %}
                     <b>Ver Trabajos asignados como arbitro para este evento</b>
                     {% for item in eventos_activos %}
-                        	<a href="{{ url }}{{ item.id }}" class="button button-blue2"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
+                        	<a href="{{ url }}{{ item.id }}" class="button button-blue3"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
                             
                         {% empty %}
-                           <br /> Actualmente no hay eventos en qué inscribirse
+                           <br /> Actualmente no hay eventos.
                         {% endfor %}
                         <br /><br />
                         <b>Ver todos los trabajos para este evento</b>
                     {% for item in eventos_activos %}
-                        	<a href="{{ url2 }}{{ item.id }}" class="button button-blue2"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
+                        	<a href="{{ url2 }}{{ item.id }}" class="button button-blue3"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
                             
                         {% empty %}
-                           <br /> Actualmente no hay eventos en qué inscribirse
+                           <br /> Actualmente no hay eventos.
                         {% endfor %}
                     {% else %}
                     <b>Eventos</b>
                     {% for item in eventos_activos %}
-                        	<a href="{{ url }}{{ item.id }}" class="button button-blue2"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
+                        	<a href="{{ url }}{{ item.id }}" class="button button-blue3"><span>{{ item.nombre }} <b style="font-style:italic;">({{ item.fecha }} - {{ item.fechaFin }})</b></span></a>
                             
                         {% empty %}
-                           <br /> Actualmente no hay eventos en qué inscribirse
+                           <br /> Actualmente no hay eventos.
                         {% endfor %}
                     {% endif %}
 					
