@@ -165,8 +165,9 @@ class TrabajoscongresosAdmin(ImportExportModelAdmin,AutocompleteModelAdmin):
       inlines = [TrabajosAdminArbitros,TabSeguimientoTrabajos,]
       list_filter = ('evento','modalidad','tematicas','accespecifi','presento','impreso','armado','entregado','devueto','estatu',FiltroArbitros)
       search_fields = ('titulo','directorio__nombre', 'directorio__apellido','directorio__correo','directorio__documentoidentidad',)
-      list_display = ('titulo','directorio','presento','impreso','armado','entregado','devueto','estatu',)
+      list_display = ('titulo_html','directorio','presento','impreso','armado','entregado','devueto','estatu',)
       list_editable = ('presento','impreso','armado','entregado','devueto')
+      #titulo.allow_tags = True      
       related_search_fields = { 
                 'coautores':  ('documentoidentidad','nombre','apellido',),
                 'palabrasclave':  ('palabrasclave',),

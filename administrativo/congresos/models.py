@@ -184,6 +184,9 @@ class Trabajoscongresos(models.Model):
         #app_label = 'Eventos'
     def __unicode__(self):
         return u"%s - %s" %(self.id, self.titulo)
+    def titulo_html(self):
+        return u" %s"%(self.titulo)	
+    titulo_html.allow_tags = True
 		
 class TrabajoscongresosResource(resources.ModelResource):
     full_coautores = fields.Field()
