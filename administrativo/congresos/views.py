@@ -1145,7 +1145,7 @@ def mensajesArbitraje(request,id):
           mensajes.save()
           text_content = 'SVIDB - Nuevo mensaje de Arbitraje'
           d= settings.URL_SET_SITE
-          if arbitro or coordinador2:
+          if arbitro:
              subject, from_email, to = 'SVIDB - Nuevo mensaje de Arbitraje', settings.EMAIL_HOST_USER, mensajes.trabajos.directorio.correo
              ctx_dict = {'nombre': mensajes.trabajos.directorio.nombre, 'apellido':mensajes.trabajos.directorio.apellido,'d':d,'congreso':mensajes.trabajos.evento.nombre,'titulo':mensajes.trabajos.titulo,'mensajes':mensajes.mensaje,'id':mensajes.trabajos.id}
              html_content= render_to_string('correos/plantillas/eventos/mensaje.txt',ctx_dict)

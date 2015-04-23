@@ -29,13 +29,13 @@
 					<div style="margin-left:25px; margin-right:25px;">
                   <div class="titulo"><span style="font-style:italic;">Arbitraje</span></div>
                   	<div style="text-align:justify; font-size:13px;">
-                    <div style="background-color:#e5e598; border:1px solid #cccc31; height:50px; text-align:left;">
+                    <div style="background-color:#e5e598; border:1px solid #cccc31; height:25px; text-align:left;">
                                     <span style="text-align:left; margin-left:15px;">
                   					Trabajo id: {{ trabajos.id }}<br />
                                     </span>
-                                    <span style="text-align:left; margin-left:15px;">
+                                    <!--<span style="text-align:left; margin-left:15px;">
                                     Autor: {{ trabajos.directorio }}<br />
-                                    </span>
+                                    </span>-->
                                 </div>
                   	
 					</div>
@@ -46,7 +46,7 @@
                         {% for i in historial %}
                         	<div style="background-color:#e5e598; border:1px solid #e5e598; height:22px; text-align:left;">
                                 <span style="text-align:left; margin-left:15px;">
-                                    <div style="text-align:justify; font-size:13px;font-style:italic;"><b>({{ i.update }})</b>: {% autoescape off %}{{ i.userupdate|removetags:"p"|safe }}{% endautoescape %}</div>
+                                    <div style="text-align:justify; font-size:13px;font-style:italic;"><b>({{ i.update }})</b><!--: {% autoescape off %}{{ i.userupdate|removetags:"p"|safe }}{% endautoescape %}--></div>
                                 </span>
 							</div>  
                             {{ i.campo }}: {% autoescape off %}{{ i.modificacion|removetags:"p"|safe }}{% endautoescape %}<br />                      
