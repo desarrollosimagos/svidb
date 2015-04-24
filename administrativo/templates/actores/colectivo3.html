@@ -178,118 +178,152 @@ $.gritter.add({
      <p class="error">{{ mensaje }} </p>
      <br />
     {% endif %}
-<form action="/panel/eventos/trabajos/actores/paso/6/{{ id }}/{{ actor.id }}/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <form action="/panel/eventos/trabajos/actores/paso/6/{{ id }}/{{ actor.id }}/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
 <table width="444">
 <tr>
 	<td colspan="3">{{ msm }}</td>
 </tr>
+{% if form.rif.value %}
 <tr>
 	<td class="style1">
-	Rif:
-	</td>
-</tr>
-<tr>
-	<td>
-	{{ form.rif }}<br>
-	</td>
-</tr>
-<tr>
-	<td class="style1">
-	Nombre Completo:
-	</td>
-</tr>
-<tr>
-	<td>
-	<b>{{ form.nombre_completo.value }}<br></b>
-	</td>
-</tr>
-<tr>
-  <td class="style1">
-    Siglas :
-    </td>
-</tr>
-<tr>
-	<td>
-	{{ form.siglas }}<br>
-	</td>
-</tr>
-<tr>
-  <td class="style1">
-    Teléfono :
-    </td>
-</tr>
-<tr>
-	<td>
-	{{ form.telefono }}<br>
-	</td>
-</tr>
-<tr>
-  <td class="style1">
-    Fax :
-    </td>
-</tr>
-<tr>
-	<td>
-	{{ form.fax }}<br>
+	<b>Rif:</b>
 	</td>
 </tr>
 
 <tr>
-  <td class="style1">
-    Correo Electrónico :
-    </td>
-</tr>
-<tr>
 	<td>
-	{{ form.correo }}<br>
+	{{ form.rif.value }}<br>
+	</td>
+</tr>
+{% endif %}
+{% if form.nombre_completo.value %}
+<tr>
+	<td class="style1">
+	<b>Nombre Completo:</b>
 	</td>
 </tr>
 <tr>
-  <td class="style1">
-    País :
-    </td>
-</tr>
-<tr>
 	<td>
-	{{ form.pai }}<br>
+	{{ form.nombre_completo.value }}<br>
 	</td>
 </tr>
+{% endif %}
+{% if form.siglas.value %}
 <tr>
   <td class="style1">
-    Estado :
+    <b>Siglas :</b>
     </td>
 </tr>
 <tr>
 	<td>
-	{{ form.estado }}<br>
+	{{ form.siglas.value }}<br>
+	</td>
+</tr>
+{% endif %}
+{% if form.telefono.value %}
+<tr>
+  <td class="style1">
+    <b>Teléfono :</b>
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.telefono.value }}<br>
+	</td>
+</tr>
+{% endif %}
+{% if form.fax.value %}
+<tr>
+  <td class="style1">
+    <b>Fax :</b>
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.fax.value }}<br>
+	</td>
+</tr>
+{% endif %}
+{% if form.correo.value %}
+<tr>
+  <td class="style1">
+    <b>Correo Electrónico :</b>
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.correo.value }}<br>
+	</td>
+</tr>
+{% endif %}
+{% if form.pai.value %}
+<tr>
+  <td class="style1">
+    <b>País :</b>
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.pai.value }}<br>
+	</td>
+</tr>
+{% endif %}
+{% if form.estado.value %}
+<tr>
+  <td class="style1">
+    <b>Estado :</b>
+    </td>
+</tr>
+<tr>
+	<td>
+	{{ form.estado.value }}<br>
 	</td>
 </tr><br />
-
+{% endif %}
+{% if form.direccion.value %}
 <tr>
   <td class="style1">
-    Dirección :
+    <b>Dirección :</b>
     </td>
 </tr>
 <tr>
 	<td>
-	{{ form.direccion }}<br>
+	{{ form.direccion.value }}<br>
 	</td>
 </tr>
+{% endif %}
+{% if form.ambitoaccion.value %}
 <tr>
   <td class="style1">
-    Ámbito de acción :
+    <b>Ámbito de acción :</b>
     </td>
 </tr>
 <tr>
 	<td>
-	{{ form.ambitoaccion }}<br>
+	{{ form.ambitoaccion.value }}<br>
+    
 	</td>
+</tr>
+{% endif %}
+<tr>
+	<td>
+	<br><br>
+	</td>
+</tr>
+<tr>
+	<td >
+    <span style="color:#EA8149">Los registros de actores colectivos se encuentran en mantenimiento. Si considera que la información proporcionada por la plataforma es errada o insuficiente, por favor indicarselo al arbitro para generar un reporte.
+    <br><br>
+    Gracias por su colaboracón.
+    </span>
+    <br>
+    </td>
 </tr>
 <tr>
 	<td colspan="2">
-    <bt>
-    <input type="submit" value="Guardar y vincular con el trabajo" style="border:1px solid #009; background-color:#06F; color:#FFF; width:350px; height:20px;"/>
+    <br><br>
+    <input type="submit" value="Vincular con el trabajo" style="border:1px solid #009; font-size:16px; background-color:#06F; color:#FFF; width:350px; height:60px;"/>
     <br><br />
     </td>
 </tr>

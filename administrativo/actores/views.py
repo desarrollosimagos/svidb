@@ -944,9 +944,11 @@ def paso3_colectivos(request,id,actor):
        actor = None
     if actor == None:
        organizaciones_form = InstitucionesForm()
+       return render_to_response('actores/colectivo3.html', {'form':organizaciones_form,'actor':actor,'id':id,'persona':persona})
     else:
        organizaciones_form = InstitucionesForm(instance=actor)
-    return render_to_response('actores/colectivo3.html', {'form':organizaciones_form,'actor':actor,'id':id,'persona':persona})   
+       return render_to_response('actores/colectivo3.html', {'form':organizaciones_form,'actor':actor,'id':id,'persona':persona})
+       
 	
 	
 def paso4_colectivos(request,id,actor):
@@ -1023,19 +1025,20 @@ def paso6_colectivos(request,id,actor):
     Trabajoscong = Trabajoscongresos.objects.get(pk= id)
 	 
     try:
-       int = Actores.objects.get(pk= actor)
+        int = Actores.objects.get(pk= actor)
     except Actores.DoesNotExist:
         int = None
     if request.method == 'POST':
-        organizaciones_form = InstitucionesForm(request.POST, instance = int)
-        if organizaciones_form.is_valid():
-            org = organizaciones_form.save()
-            if org:
-               Trabajoscong.colectivos.add(org)
-            return HttpResponseRedirect("/panel/eventos/trabajos/editar/"+id)
-        else:
-           
-            return render_to_response('actores/colectivo3.html', {'form':organizaciones_form,'actor':int,'id':id,'persona':persona}) 
+        Trabajoscong.colectivos.add(int)
+        return HttpResponseRedirect("/panel/eventos/trabajos/editar/"+id)
+        #organizaciones_form = InstitucionesForm(request.POST, instance = int)
+        #if organizaciones_form.is_valid():
+        #    org = organizaciones_form.save()
+        #    if org:
+        #       Trabajoscong.colectivos.add(org)
+        #    return HttpResponseRedirect("/panel/eventos/trabajos/editar/"+id)
+        #else:   
+        #    return render_to_response('actores/colectivo3.html', {'form':organizaciones_form,'actor':int,'id':id,'persona':persona}) 
     else:
         organizaciones_form = InstitucionesForm(request.POST, instance = int)
         return render_to_response('actores/colectivo3.html', {'form':organizaciones_form,'actor':int,'id':id,'persona':persona}) 
