@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     'perfil',
     'plantillas',
     'estadisticas',
+    'mogie',
     'django_qbe',
     'suit',
 #    'django_dumpdb',

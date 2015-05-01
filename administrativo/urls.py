@@ -9,6 +9,9 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'menu.views.laPlataforma', name='home'),
+    
+    url(r'^mogie/', include('mogie.urls')),
+
 #    url(r'^', 'pagina.views.error', name='home'),
     url(r'^autocat/undefined', 'menu.views.ajax', name='home'),
     url(r'^autocompletado/actores/undefined', 'menu.views.ajax2', name='home'),

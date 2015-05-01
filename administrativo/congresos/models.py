@@ -84,15 +84,22 @@ class Eventos(models.Model):
     tematicas = models.ManyToManyField(Tematicas)
     pathimg = models.ImageField(upload_to='pathImg',db_column='pathImg',null=True, blank=True) 
     pathimgtop = models.ImageField(upload_to='pathImgTop',db_column='pathImgTop',null=True, blank=True,verbose_name='Header') 
+    #fechas de configuracion del sistema
     fecha = models.DateField(null=True, blank=True)
-    fechaInicioInscripcion = models.DateField(null=True, blank=True, verbose_name='Fecha cierre de Pre-inscripción')
-    fechaFinInscripcion = models.DateField(null=True, blank=True, verbose_name='Fecha cierre de Postulación de Trabajos')
     fechaFin = models.DateField(null=True, blank=True, verbose_name='Fecha fin del congreso',db_column='fechafin')
+    
+    fechaInicioInscripcion = models.DateField(null=True, blank=True, verbose_name='Fecha Inicio de Pre-inscripción')
+    fechaFinInscripcion = models.DateField(null=True, blank=True, verbose_name='Fecha cierre de Pre-inscripción')
+    
+    fechaInicioTrabajos = models.DateField(null=True, blank=True, verbose_name='Fecha Inicio de Postulación de Trabajos')
+    fechaFinTrabajos = models.DateField(null=True, blank=True, verbose_name='Fecha cierre de Postulación de Trabajos')
+    
+    
     update = models.DateTimeField(default=datetime.now(),editable = False)
     bancoaudios = models.ManyToManyField(Bancoaudiovisuals,related_name='Bancos Audio Visuales',help_text=u"Por nombre",verbose_name='Banco Audio Visual',null=True, blank=True)
     biblio = models.ManyToManyField(Bibliotecas,related_name='Biblioteca',help_text=u"Por nombre",verbose_name='Bibliotecas',null=True, blank=True)
     userupdate = models.ForeignKey(User,null=True, blank=True,verbose_name='Usuario ')
-    estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo'),(2,'Pendiente'),(3,'Realizado')),verbose_name='Estatus',null=True,blank=True,db_column='estatu_id')
+    estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo'),(2,'Proximo'),(3,'Realizado')),verbose_name='Estatus',null=True,blank=True,db_column='estatu_id')
     opt0 = models.BooleanField(db_column='opt0', blank=True,verbose_name='Inscripcion de Trabajos')
     opt1 = models.BooleanField(db_column='opt1', blank=True,verbose_name='Necesita Inscripcion')
     class Meta:

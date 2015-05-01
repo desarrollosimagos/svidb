@@ -17,7 +17,7 @@ class PerfilPublico(models.Model):
         unique_together=('user','persona')
         #app_label = 'Sistematizacion_de_modulos_publicos'
     def __unicode__(self):
-        return u"%s" %(self.persona.nombre)
+        return u"%s , %s " %(self.persona.documentoidentidad,self.persona.nombre)
 		
 class SeccionesPanelPublico(models.Model):
     panel = models.CharField(max_length=180,verbose_name='Modulo')

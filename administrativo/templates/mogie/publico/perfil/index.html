@@ -1,0 +1,191 @@
+{% extends "mogie/publico/base.html"%}
+{% block MenuSuperior %}
+				<!-- end mobile sidebar expand / collapse button -->
+				<div class="collapse navbar-collapse pull-left" id="top-navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="/mogie" class="dropdown-toggle">
+                                <i class="fa fa-th-large fa-fw"></i> Inicio <b class="caret"></b>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-th-large fa-fw"></i> Eventos <b class="caret"></b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+				<!-- end navbar-collapse -->
+{% endblock %} 
+				
+{% block MenuPerfil %}
+				<!-- begin header navigation right -->
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Buscador" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					
+					<li class="dropdown navbar-user">
+					{% if perfil %}
+					   <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+						    <img src="/media/{{ usuario.foto }}" alt="" /> 
+						    <span class="hidden-xs">{{ perfil.persona.nombre }} {{ perfil.persona.apellido }} </span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+						    <li class="arrow"></li>
+						    <li><a href="#">Editar Perfil</a></li>
+						    <li><a href="/mogie/admin">Panel de Usuario</a></li>
+						    <li class="divider"></li>
+						    <li><a href="/mogie/salir">Cerrar Sesión</a></li>
+						</ul>
+					{% else %}
+						<a href="/mogie/admin" class="dropdown-toggle">
+							Iniciar Sesión
+						</a>
+				    {% endif %}
+					</li>
+					
+				</ul>
+				<!-- end header navigation right -->
+{% endblock %}
+{% block ContenidoPagina %}
+<div id="content" class="content">
+
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				<li><a href="javascript:;">Home</a></li>
+				<li><a href="javascript:;">Extra</a></li>
+				<li class="active">Profile Page</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">Pagina de Perfil de Usuario</h1>
+			<!-- end page-header -->
+			<!-- begin profile-container -->
+            <div class="profile-container">
+                <!-- begin profile-section -->
+                <div class="profile-section">
+                    <!-- begin profile-left -->
+                    <div class="profile-left">
+                        <!-- begin profile-image -->
+                        <div class="profile-image">
+                        	{% if usuario.foto %}
+                            <img src="/media/{{ usuario.foto }}" />
+                            {% else %}
+                            <img src="/media/{{ usuario.foto }}" />
+                            {% endif %}
+                            <i class="fa fa-user hide"></i>
+                        </div>
+                        <!-- end profile-image -->
+                        <form action="/mogie/perfil/foto/guardar" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="m-b-10">
+                            {{ formulario_extension }}
+                        </div>
+                        <div class="m-b-10">
+                            <input type="submit" class="btn btn-warning btn-block btn-sm" value="Cambiar Foto">
+                        </div>
+                        </form>
+                    </div>
+                    <!-- end profile-left -->
+                    <!-- begin profile-right -->
+                    <div class="profile-right">
+                        <!-- begin profile-info -->
+                        <div class="profile-info">
+                            <!-- begin table -->
+                            <div class="table-responsive">
+                            <form method="post">
+                                <table class="table table-profile">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>
+                                                <h4>{{ perfil.persona.apellido }}<small>{{ perfil.persona.nombre }}</small></h4>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="highlight">
+                                            <td class="field">Documento de Identidad</td>
+                                            <td>{{ perfil.persona.documentoidentidad }}</td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Nombres</td>
+                                            <td>{{ formulario_personas.nombre }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Apellidos</td>
+                                            <td>{{ formulario_personas.apellido }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Teléfono</td>
+                                            <td>{{ formulario_personas.telefono1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Celular</td>
+                                            <td>{{ formulario_personas.movil }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Fecha de Nacimiento</td>
+                                            <td>
+                                            <input type="text" name="nacimiento" id="datepicker-default" placeholder="Select Date" value="{{ formulario_personas.nacimiento.value|date:"d/m/Y" }}" />
+                                            
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Sexo</td>
+                                            <td>{{ formulario_personas.sexo }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Estado Civil</td>
+                                            <td>{{ formulario_personas.edocivil }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Pais</td>
+                                            <td>{{ formulario_personas.pai }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Estado</td>
+                                            <td>{{ formulario_personas.estado }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Municipio</td>
+                                            <td>{{ formulario_personas.municipio }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Parroquia</td>
+                                            <td>{{ formulario_personas.parroquia }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Sector</td>
+                                            <td>{{ formulario_personas.sector }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Ocupación</td>
+                                            <td>{{ formulario_personas.ocupacion }}</td>
+                                        </tr>
+
+                                        <tr>
+                                        	<td></td>
+                                        	<td><input type="submit" class="btn btn-warning btn-block btn-sm" value="Actualizar Datos"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                            </div>
+                            <!-- end table -->
+                        </div>
+                        <!-- end profile-info -->
+                    </div>
+                    <!-- end profile-right -->
+                </div>
+			</div>
+{% endblock %}
