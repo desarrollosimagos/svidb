@@ -29,9 +29,12 @@ import csv
 from django.template import loader, Context
 
 #class TabPerfilPublicoAdmin(admin.TabularInline):
-class TabPerfilPublicoAdmin(AutocompleteTabularInline):
-      model = PerfilPublico
-      extra = 1
+#class TabPerfilPublicoAdmin(AutocompleteTabularInline):
+#      model = PerfilPublico
+#      extra = 1
+#      related_search_fields = { 
+#	           'persona' : ('id','documentoidentidad',),
+#      }
 
 class UsuariosFiltro(SimpleListFilter):
 
@@ -49,7 +52,7 @@ class UsuariosFiltro(SimpleListFilter):
            return queryset.filter(perfilpublico__perfilmodulos__activo=True)
 		   
 class UserAdmin(admin.ModelAdmin):
-    inlines = [TabPerfilPublicoAdmin,]
+    #inlines = [TabPerfilPublicoAdmin,]
     add_form_template = 'admin/auth/user/add_form.html'
     change_user_password_template = None
     fieldsets = (
