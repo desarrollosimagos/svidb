@@ -187,14 +187,14 @@ $(document).ready(function() {
                             	{% if arbitro or coordinador2 %}
                                 	<form  method="post" style="margin-left:10px;">{% csrf_token %}
                                 {% else %}
-                            		</form><form  method="post" style="margin-left:10px;">{% csrf_token %}
+                            		<form  method="post" style="margin-left:10px;">{% csrf_token %}
                                 {% endif %}
                             {% endif %}
                         {% else %}
                         {% if arbitro or coordinador2 %}
-                            </form><form  method="post" style="margin-left:10px;">{% csrf_token %}
+                            <form  method="post" style="margin-left:10px;">{% csrf_token %}
                         {% else %}
-                        	</form><form  method="post" style="margin-left:10px;">{% csrf_token %}
+                        	<form  method="post" style="margin-left:10px;">{% csrf_token %}
                         {% endif %}
                         {% endif %}
                         <div id="wrapping" class="clearfix">
@@ -487,14 +487,14 @@ $(document).ready(function() {
                                 	{% if arbitro %}
                                     	</form>
     								{% else %}
-                                	
+                                	</form>
                                     {% endif %}
                                 {% endif %}
                         	{% else %}
                             	{% if arbitro %}
-                                	
+                                	</form>
     							{% else %}
-                        		
+                        		</form>
                                 {% endif %}
                         	{% endif %}
                         </section> 
@@ -505,19 +505,22 @@ $(document).ready(function() {
 		<div style="border:1px solid #C0C0C0;background:url(/media/librerias/css/plantilla/images/bbplataforma.png) top repeat-x;">
 			<br /><br />
 			<div style="margin-left:25px; margin-right:25px;">
-            	<!--<div class="titulo"><span style="font-style:italic;">Registro de Arbitraje del Resumen</span></div>-->
-                <br />
                 <section id="container">
-				
-			  	<form name="mensajes" action="/panel/eventos/mensajes/{{ trab.id }}" method="POST" style="margin-left:10px;">
+				<form action="/panel/eventos/mensajes/{{ trab.id }}" method="POST" style="margin-left:10px;">
+			  	
 			 	<label>Escriba en el siguiente cuadro de diálogo para responder o comentar:</label>
+			 	
                 <textarea style="width:670px; height:100px;" id="mensajes" name="mensajes">
+                
                 </textarea>
                 <section id="buttons">
+                
                 <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="comentar">
+                
+                </section>
+                
                 </section>
                 </form>
-                </section>
                 <br /><br />
                 <div class="titulo"><span style="font-style:italic;">Historial de Arbitraje</span></div>
                 <hr />
