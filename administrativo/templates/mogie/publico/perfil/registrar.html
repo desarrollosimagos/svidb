@@ -51,7 +51,7 @@
             <!-- begin news-feed -->
             <div class="news-feed">
                 <div class="news-image">
-                    <img src="/media/librerias/mogie/assets/img/login-bg/bg-2.jpg" alt="" />
+                    <img src="/media/librerias/mogie/imagenes/fondos/02.jpg" alt="" />
                 </div>
                 <div class="news-caption">
                     <h4 class="caption-title"><i class="fa fa-cogs text-success"></i> Sistema Venezolano de Información sobre la Diversidad Biológica.</h4>
@@ -61,28 +61,37 @@
             <!-- end news-feed -->
             <!-- begin right-content -->
             <div class="right-content">
+            	
                 <!-- begin register-header -->
                 <h1 class="register-header">
                     Nuevo Usuario
                     <small>Formulario de registro.</small>
                 </h1>
+                {% if mensaje %}
+            	<div class="modal-body">
+					<div class="alert alert-danger m-b-0">
+						<h4><i class="fa fa-info-circle"></i> Datos Incorrectos</h4>
+						<p>Los datos ingresados en el formulario son incorrectos. Reviselos y vuelva a intentarlo.</p>
+					</div>
+				</div>
+            	{% endif%}
                 <!-- end register-header -->
                 <!-- begin register-content -->
                 <div class="register-content">
-                    <form class="form-horizontal form-bordered" data-parsley-validate="true" name="demo-form">
+                    <form class="form-horizontal form-bordered" data-parsley-validate="true" name="demo-form" method="post">
                         <label class="control-label">Nombres</label>
                         <div class="row row-space-10">
                             <div class="col-md-6 m-b-15">
-                                <input class="form-control" type="text" id="id_nombre" name="nombre" placeholder="Nombres" data-parsley-required="true" />
+                                <input class="form-control" type="text" id="id_nombre" name="nombre" data-parsley-required-message="Campo requerido." placeholder="Nombres" data-parsley-required="true" />
                             </div>
                             <div class="col-md-6 m-b-15">
-                                <input class="form-control" type="text" id="id_apellido" name="apellido" placeholder="Apellidos" data-parsley-required="true" />
+                                <input class="form-control" type="text" id="id_apellido" name="apellido" placeholder="Apellidos" data-parsley-required="true" data-parsley-required-message="Campo requerido." />
                             </div>
                         </div>
                         <label class="control-label">Tipo de Documento</label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <select name="tipodoci" id="id_tipodoci" class="form-control" data-parsley-required="true">
+                                <select name="tipodoci" id="id_tipodoci" class="form-control" data-parsley-required="true" data-parsley-required-message="Campo requerido.">
                                     <option value="" selected="selected">---------</option>
                                     <option value="0">Venezolano</option>
                                     <option value="1">Extranjero</option>
@@ -94,13 +103,13 @@
                         <label class="control-label">Documento de Identidad</label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="text" name="documentoidentidad" id="id_documentoidentidad" class="form-control" data-parsley-required="true">
+                                <input type="text" name="documentoidentidad" id="id_documentoidentidad" class="form-control" data-parsley-required="true" data-parsley-required-message="Campo requerido.">
                             </div>
                         </div>
                         <label class="control-label">Correo Eléctronico</label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input id="id_username" type="text" name="username" class="form-control" data-parsley-required="true" data-parsley-type="email">
+                                <input id="id_username" type="text" name="username" class="form-control" data-parsley-required="true" data-parsley-type="email" data-parsley-required-message="Campo requerido.">
                                 
                             </div>
                         </div>
@@ -108,7 +117,7 @@
                         <label class="control-label">Clave</label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="password" name="password" id="password-indicator-default" data-parsley-required="true" class="form-control m-b-5">
+                                <input type="password" name="password1" id="password-indicator-default" data-parsley-required="true" class="form-control m-b-5" data-parsley-required-message="Campo requerido.">
                                 
                                 <div id="passwordStrengthDiv" class="is0 m-t-5 is40"></div>
                             </div>
@@ -116,14 +125,14 @@
                         <label class="control-label">Repetir clave</label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="password" class="form-control" placeholder="Password" data-parsley-required="true" />
+                                <input type="password" class="form-control" placeholder="Password" data-parsley-required="true" data-parsley-required-message="Campo requerido." name="password2"/>
                             </div>
                         </div>
                         
                         
                         <div class="checkbox m-b-30">
                             <label>
-                                <input type="checkbox" /> 
+                                <input type="checkbox" data-parsley-required="true" data-parsley-required-message="Campo requerido." /> 
                                 Al hacer clic en Inscribir , usted acepta nuestros <a href="#">Términos</a> y que has leído nuestra <a href="#">Política de Datos</a>, incluyendo nuestro manejo de <a href="#">Cookies</a>.
                             </label>
                         </div>
@@ -135,7 +144,8 @@
                         </div>
                         <hr />
                         <p class="text-center text-inverse">
-                            &copy; Color Admin All Right Reserved 2015
+                            &copy; Color Admin All Right Reserved 2015<br>
+                            &copy; Imago Desarrollos Derechos Reservados 2015
                         </p>
                     </form>
                 </div>
@@ -185,13 +195,17 @@
     <script src="/media/librerias/mogie/assets/plugins/select2/dist/js/select2.min.js"></script>
 	<script src="/media/librerias/mogie/assets/js/form-plugins.demo.min.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
-
+    
 
 	<script>
 		$(document).ready(function() {
 			App.init();
 			FormPlugins.init();
 		});
+	</script>
+	<script src="/media/librerias/form-validator/jquery.form-validator.min.js"></script>
+	<script>
+	$.validate();
 	</script>
 </body>
 </html>

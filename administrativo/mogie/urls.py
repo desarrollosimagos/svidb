@@ -18,6 +18,18 @@ urlpatterns = patterns('mogie',
     
     url(r'^perfil/nuevo/crear$', 'views.RegistrarUsuarios', name="mogie"),
     
+    url(r'^eventos/(\d+)$', 'views.verEvento', name="mogie"),
+    
+    url(r'^eventos/pagina/(\d+)$', 'views.eventos', name="mogie"),
+    
+    url(r'^eventos/pagina/activos/(\d+)$', 'views.eventosActivos', name="mogie"),
+    
+    url(r'^eventos/pagina/proximos/(\d+)$', 'views.eventosProximos', name="mogie"),
+    
+    url(r'^eventos/pagina/realizados/(\d+)$', 'views.eventosRealizados', name="mogie"),
+    
+    url(r'^eventos/detalle/(\d+)$', 'views.detalleEvento', name="mogie"),
+    
     url(r'^$', 'views.publico', name='mogie'),
     
     url(r'^ajax/index_v2.html$', 'views.indexvs2', name='mogie'),

@@ -6,6 +6,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.validators import URLValidator
 from perfil.models import *
+from congresos.models import *
 
 
 class ConfiguracionIndexPatrocinador(models.Model):
@@ -41,5 +42,17 @@ class ComentariosModulo(models.Model):
         verbose_name='Comentarios'
     def __unicode__(self):
         return u"%s" %(self.perfil)
+        
+
+class ColaboracionInscripcion(models.Model):
+    titulo = models.CharField(max_length=150,verbose_name='Titulo')
+    evento = models.ForeignKey(Eventos,null=True, blank=True,verbose_name='Evento')
+    estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo')),verbose_name='Estatus',null=True,blank=True)
+    class Meta:
+        verbose_name_plural='Colaboraciones'
+        verbose_name='Colaboraciones'
+    def __unicode__(self):
+        return u"%s" %(self.titulo)
+        
+
     
-		

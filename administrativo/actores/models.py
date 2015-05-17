@@ -48,7 +48,7 @@ class Directorios(models.Model):
     sexo = models.IntegerField(choices=((0,'Masculino'),(1,'Femenino'),(2,u'Diversidad Sexual')), verbose_name='Género', blank=True,null=True)
     edocivil = models.IntegerField(choices=((0,'Soltero(a)'),(1,'Casado(a)'),(2,'Divorciado(a)'),(3,'Viudo(a)')), verbose_name='Estado Civil',null=True)
     nacimiento = models.DateField(verbose_name='Fecha de Nacimiento (DD/MM/AAAA)')
-    documentoidentidad = models.CharField(max_length=75,verbose_name='Documento de Identidad',unique=True,help_text=u"Ingrese un número de documento de Identidad Válido.")
+    documentoidentidad = models.CharField(max_length=75,verbose_name='Documento de Identidad',help_text=u"Ingrese un número de documento de Identidad Válido.")
     areasaccion = models.ManyToManyField(Tipoareaaccions,related_name='Areas de Accion',help_text=u"Seleccione las principales áreas de acción de su trabajo. Para seleccionar más de una opción Manten presionado Control, o Command.",verbose_name=u'Áreas de Acción',blank=True)
     nombre = models.CharField(max_length=180,verbose_name='Nombre')
     apellido = models.CharField(max_length=180,verbose_name='Apellido')
@@ -76,11 +76,13 @@ class Directorios(models.Model):
         db_table = u'directorios'
         verbose_name_plural='Personas'
         verbose_name = 'Persona'
+        unique_together = ("tipodoci", "documentoidentidad")
         #app_label = 'Actores'
     def __unicode__(self):
         return u"%s  - %s - %s " %(self.nombre, self.apellido, self.correo)
     def AreasAccion(self):
         return ', '.join([obj.nombre for obj in self.areasaccion.all()])
+    #ALTER TABLE directorios ADD CONSTRAINT clave_unica_documento UNIQUE (tipodoci, documentoidentidad);
         
 class DirectoriosResource(resources.ModelResource):
     class Meta:

@@ -1,5 +1,8 @@
 #!/usr/bin/python -u
 # -*- coding: utf-8 -*-
+import hashlib
+import random
+import re
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404,HttpResponseRedirect
 from django.template.loader import render_to_string
@@ -19,6 +22,8 @@ from django.db.models import *
 from models import *
 from forms import *
 from actores.forms import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from datetime import date
 
 
 def admin(request):
@@ -69,6 +74,105 @@ def publico(request):
     resultado,perfil = accesoValidacion(_username)
     return render_to_response("mogie/publico/index.html",{'congreso':eventos,'participacion':participacion,'patrocinadores':patrocinadores,'usuario':resultado,'perfil':perfil,'comentarios':comentarios},context_instance=RequestContext(request))
     
+
+def eventos(request,id):  
+    try:
+       eventos = Eventos.objects.filter(eventpadre=None).order_by('-fecha')
+    except Eventos.DoesNotExist:
+       eventos = None
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    
+    if len(eventos) == 0:
+       mesn=None
+    else:
+        paginator = Paginator(eventos, 10)
+        page = id
+        try:
+           mesn = paginator.page(page)
+        except PageNotAnInteger:
+           # If page is not an integer, deliver first page.
+           mesn = paginator.page(1)
+    
+    resultado,perfil = accesoValidacion(_username)
+    return render_to_response("mogie/publico/eventos/eventos.html",{'eventos':eventos,'usuario':resultado,'perfil':perfil,'mesn':mesn,'hoy':date.today()},context_instance=RequestContext(request))
+    
+def eventosActivos(request,id):  
+    try:
+       eventos = Eventos.objects.filter(eventpadre=None).order_by('-fecha')
+       eventos = eventos.filter(estatu=0)
+    except Eventos.DoesNotExist:
+       eventos = None
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    
+    if len(eventos) == 0:
+       mesn=None
+    else:
+        paginator = Paginator(eventos, 10)
+        page = id
+        try:
+           mesn = paginator.page(page)
+        except PageNotAnInteger:
+           # If page is not an integer, deliver first page.
+           mesn = paginator.page(1)
+    
+    resultado,perfil = accesoValidacion(_username)
+    return render_to_response("mogie/publico/eventos/eventos.html",{'eventos':eventos,'usuario':resultado,'perfil':perfil,'mesn':mesn,'hoy':date.today()},context_instance=RequestContext(request))
+    
+def eventosProximos(request,id):  
+    try:
+       eventos = Eventos.objects.filter(eventpadre=None).order_by('-fecha')
+       eventos = eventos.filter(estatu=2)
+    except Eventos.DoesNotExist:
+       eventos = None
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    
+    if len(eventos) == 0:
+       mesn=None
+    else:
+        paginator = Paginator(eventos, 10)
+        page = id
+        try:
+           mesn = paginator.page(page)
+        except PageNotAnInteger:
+           # If page is not an integer, deliver first page.
+           mesn = paginator.page(1)
+    
+    resultado,perfil = accesoValidacion(_username)
+    return render_to_response("mogie/publico/eventos/eventos.html",{'eventos':eventos,'usuario':resultado,'perfil':perfil,'mesn':mesn,'hoy':date.today()},context_instance=RequestContext(request))
+    
+def eventosRealizados(request,id):  
+    try:
+       eventos = Eventos.objects.filter(eventpadre=None).order_by('-fecha')
+       eventos = eventos.filter(estatu=3)
+    except Eventos.DoesNotExist:
+       eventos = None
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    
+    if len(eventos) == 0:
+       mesn=None
+    else:
+        paginator = Paginator(eventos, 10)
+        page = id
+        try:
+           mesn = paginator.page(page)
+        except PageNotAnInteger:
+           # If page is not an integer, deliver first page.
+           mesn = paginator.page(1)
+    
+    resultado,perfil = accesoValidacion(_username)
+    return render_to_response("mogie/publico/eventos/eventos.html",{'eventos':eventos,'usuario':resultado,'perfil':perfil,'mesn':mesn,'hoy':date.today()},context_instance=RequestContext(request))
     
 def logout(request):
     auth.logout(request)
@@ -166,37 +270,107 @@ def agregarFotoPerfil(request):
           formulario_perfil_foto.save()
           return HttpResponseRedirect("/mogie/perfil")
        else:
-          return HttpResponseRedirect("/mogie/perfil2")
+          return HttpResponseRedirect("/mogie/perfil")
     else:
-       return HttpResponseRedirect("/mogie/perfil3")
+       return HttpResponseRedirect("/mogie/perfil")
+       
+def verEvento(request,id):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username)  
+    
+    try:
+       eventos = Eventos.objects.get(pk=id)
+    except Eventos.DoesNotExist:
+       eventos = None   
+       
+    if resultado:
+       return render_to_response('mogie/publico/eventos/index.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado}, context_instance=RequestContext(request))
+    else:
+       return render_to_response('mogie/publico/eventos/index.html',{'eventos':eventos,'cursos':cursos}, context_instance=RequestContext(request))
+       
+       
+def detalleEvento(request,id):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username)  
+    try:
+       eventos = Eventos.objects.get(pk=id)
+    except Eventos.DoesNotExist:
+       eventos = None  
+       
+    try:
+       cursos = Eventos.objects.filter(eventpadre__pk=id)
+    except Eventos.DoesNotExist:
+       cursos = None 
+    if resultado:
+       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado,'hoy':date.today()}, context_instance=RequestContext(request))
+    else:
+       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos}, context_instance=RequestContext(request))       
+
+
        
        
 def RegistrarUsuarios(request):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    if resultado:
+       return HttpResponseRedirect("/mogie")
     if request.method == 'POST':
-       personas_form_post = PersonasRegForm(request.POST)
-       formulario_post = UserCreationFormSVIDB(request.POST)
-       if request.POST['g-recaptcha-response']:
-          robot = request.POST['g-recaptcha-response']
-          if request.POST['documentoidentidad'] and  request.POST['tipodoci'] and request.POST['username'] :
+       persona_formulario = PersonasRegForm(request.POST)
+       usuario_formulario = UserCreationForm(request.POST)
+       if persona_formulario.is_valid() and usuario_formulario.is_valid():
+          
+          usuario_validado = usuario_formulario.save()
+          validando_persona = persona_formulario.save()
+          
+          perfil_publico = PerfilPublico(user=usuario_validado,persona=validando_persona)
+          perfil_publico.save() 
+          
+          salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+          validacion = validaciones(usuario=perfil_publico,codigo=salt,estatu=0,estado=True)
+          validacion.save()
+          subject, from_email, to = 'SVIDB Registro de Usuarios', settings.EMAIL_HOST_USER, request.POST['username']
+          correo4= request.POST['username']
+          text_content = 'SVIDB Registro de Usuarios'
+          d= settings.URL_SET_SITE
+          ctx_dict = {'salt': salt,'d': d,'correo':correo4}
+          html_content= render_to_string('correos/plantillas/validacion.txt',ctx_dict)
+          msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+          msg.attach_alternative(html_content, "text/html")
+          msg.send()
+
+          return render_to_response('mogie/publico/perfil/registro_exitoso.html')
+
+       else:
+          # Si el usuario es valido
+          if usuario_formulario.is_valid():
+             #Se guarda el tipo de documento y el documento en dos variables
              cedula = request.POST['documentoidentidad']
              tipod = request.POST['tipodoci']
-             username = request.POST['username']
+             #Se realiza una consulta para ver si existen en la base de datos
              try:
                  validando_persona = Directorios.objects.get(Q(documentoidentidad=cedula) & Q(tipodoci=tipod))
              except Directorios.DoesNotExist:
                  validando_persona = False
-             try:
-                 validando_user = User.objects.get(username=username)
-             except User.DoesNotExist:
-                 validando_user = False
-             if not validando_persona and not validando_user:
-                #registrar persona y crear usuario
-                if personas_form_post.is_valid() and formulario_post.is_valid():
-                   result_user = formulario_post.save()
-                   validando_persona = personas_form_post.save()
-                   validando_persona.correo = username
-                   validando_persona.save()
-                   perfil_publico = PerfilPublico(user=result_user,persona=validando_persona)
+             #Si existe un registro con ese documento de identidad    
+             if validando_persona:
+                #Se realiza una consulta para ver si la persona tiene un registro en perfil
+                try:
+                    validando_perfil = PerfilPublico.objects.filter(persona=validando_persona)
+                except PerfilPublico.DoesNotExist:
+                    validando_perfil = False
+                #Si no existe un registro en perfil con esa cedula
+                if not validando_perfil:
+                   usuario_validado = usuario_formulario.save()
+                   perfil_publico = PerfilPublico(user=usuario_validado,persona=validando_persona)
                    perfil_publico.save()
                    salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
                    validacion = validaciones(usuario=perfil_publico,codigo=salt,estatu=0,estado=True)
@@ -210,63 +384,26 @@ def RegistrarUsuarios(request):
                    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
                    msg.attach_alternative(html_content, "text/html")
                    msg.send()
-                   formulario = UserCreationFormSVIDB()
-                   personas_form = PersonasRegForm()
-                   return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'error':'No','mensaje_error':'Su registro ha sido satisfactorio.','personas_form':personas_form,'url':url}, context_instance=RequestContext(request))
+                   return render_to_response('mogie/publico/perfil/registro_exitoso.html')
+                #Existe un perfil con el documento de identidad asociado
                 else:
-                   formulario = UserCreationFormSVIDB()
-                   personas_form = PersonasRegForm()
-                   return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'error':'Si','mensaje_error':'Los datos del Formulario son incorrectos','personas_form':personas_form,'url':url}, context_instance=RequestContext(request))
+                   return render_to_response('mogie/publico/perfil/registrar.html',{'persona_formulario':persona_formulario,'usuario_formulario':usuario_formulario,'mensaje':'Se ha presentado un error en el formulario. Revise el contenido y vuelva a intentarlo.'}, context_instance=RequestContext(request))
+             #No existe un registro de persona con ese documento de identidad
              else:
-                if not validando_user:
-                   #crear usuario
-                   if formulario_post.is_valid():
-                      try:
-                          validando_perfil = PerfilPublico.objects.filter(persona=validando_persona)
-                      except PerfilPublico.DoesNotExist:
-                          validando_perfil = False
-                      if validando_perfil:
-                         formulario = UserCreationFormSVIDB()
-                         personas_form = PersonasRegForm()
-                         return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'error':'Si','mensaje_error':'El documento de identidad suministrado ya posee un registro de usuario en el sistema. Ingrese en la seccion de recuperar datos.','personas_form':personas_form,'recuperar':'si','url':url}, context_instance=RequestContext(request))	
-                      else:				  
-                         result_user = formulario_post.save()
-                         validando_persona.correo = username
-                         validando_persona.save()
-                         perfil_publico = PerfilPublico(user=result_user,persona=validando_persona)
-                         perfil_publico.save()
-                         salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
-                         validacion = validaciones(usuario=perfil_publico,codigo=salt,estatu=0,estado=True)
-                         validacion.save()
-                         subject, from_email, to = 'SVIDB Registro de Usuarios', settings.EMAIL_HOST_USER, request.POST['username']
-                         text_content = 'SVIDB Registro de Usuarios'
-                         d= settings.URL_SET_SITE
-                         correo4= request.POST['username']
-                         ctx_dict = {'salt': salt,'d': d,'correo':correo4}
-                         html_content= render_to_string('correos/plantillas/validacion.txt',ctx_dict)
-                         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-                         msg.attach_alternative(html_content, "text/html")
-                         msg.send()
-                         formulario = UserCreationFormSVIDB()
-                         personas_form = PersonasRegForm()
-						 
-                         return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'error':'No','mensaje_error':'Se ha registrado su usuario y asociado a sus datos previamente almacenados en nuestra base de datos','personas_form':personas_form,'url':url}, context_instance=RequestContext(request))
-                else:
-                   formulario = UserCreationFormSVIDB()
-                   personas_form = PersonasRegForm()
-                   return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'error':'Si','mensaje_error':'El correo electronico ya esta asociado a una cuenta de usuario.','personas_form':personas_form,'url':url}, context_instance=RequestContext(request))
+                return render_to_response('mogie/publico/perfil/registrar.html',{'persona_formulario':persona_formulario,'usuario_formulario':usuario_formulario,'mensaje':'Se ha presentado un error en el formulario. Revise el contenido y vuelva a intentarlo.'}, context_instance=RequestContext(request))
+          #Los datos de usuarios son incorrectos
           else:
-             formulario = UserCreationFormSVIDB()
-             personas_form = PersonasRegForm()
-             return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'error':'Si','mensaje_error':'No se enviaron los datos completos para procesar el formulario.','personas_form':personas_form,'url':url}, context_instance=RequestContext(request))
-       else:
-          formulario = UserCreationFormSVIDB()
-          personas_form = PersonasRegForm()
-          return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'error':'Si','mensaje_error':'Se envio el formulario sin formato POST','personas_form':personas_form,'url':url}, context_instance=RequestContext(request))
-    else: 
-       formulario = UserCreationFormSVIDB()
-       personas_form = PersonasRegForm()
-       return render_to_response('mogie/publico/perfil/registrar.html',{'formulario':formulario,'personas_form':personas_form}, context_instance=RequestContext(request))
+             return render_to_response('mogie/publico/perfil/registrar.html',{'persona_formulario':persona_formulario,'usuario_formulario':usuario_formulario,'mensaje':'Se ha presentado un error en el formulario. Revise el contenido y vuelva a intentarlo.'}, context_instance=RequestContext(request))
+    else:
+       return render_to_response('mogie/publico/perfil/registrar.html')
+
+    
+    
+    
+    
+    
+    
+    
        
        
        
