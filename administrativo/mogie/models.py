@@ -44,15 +44,59 @@ class ComentariosModulo(models.Model):
         return u"%s" %(self.perfil)
         
 
-class ColaboracionInscripcion(models.Model):
+class ColaboracionConf(models.Model):
     titulo = models.CharField(max_length=150,verbose_name='Titulo')
     evento = models.ForeignKey(Eventos,null=True, blank=True,verbose_name='Evento')
     estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo')),verbose_name='Estatus',null=True,blank=True)
     class Meta:
-        verbose_name_plural='Colaboraciones'
-        verbose_name='Colaboraciones'
+        verbose_name_plural='Colaboracion Conf'
+        verbose_name='Colaboracion Conf'
     def __unicode__(self):
         return u"%s" %(self.titulo)
         
-
-    
+class ValoresDefectoSeleccion(models.Model):
+    valor = models.CharField(max_length=150,verbose_name='Titulo')
+    class Meta:
+        verbose_name_plural='Valores Defecto Seleccion'
+        verbose_name='Valores Defecto Seleccion'
+    def __unicode__(self):
+        return u"%s" %(self.valor)
+        
+class DetalleColaboracionConf(models.Model):
+    colaboracion = models.ForeignKey(ColaboracionConf,verbose_name='Perfil',null=True, blank=True)
+    titulo = models.CharField(max_length=150,verbose_name='Titulo',null=True, blank=True)
+    tipo = models.IntegerField(choices=((0,'Texto'),(1,'Numero'),(2,'Fecha'),(3,'Booleano'),(4,'Seleccion'),(5,'Imagen'),(6,'Archivo')),verbose_name='Tipo',null=True,blank=True)
+    valorDefaultSelect = models.ManyToManyField(ValoresDefectoSeleccion,related_name='valordefaultselect',verbose_name='Valores por Defecto de Seleccion',blank=True,null=True)
+    valorDefault = models.CharField(max_length=150,verbose_name='Valor por defecto Textos',null=True, blank=True)
+    requerido = models.BooleanField(verbose_name='Requerido', blank=True)
+    validacion = models.CharField(max_length=150,verbose_name='Validacion',null=True, blank=True)
+    class Meta:
+        verbose_name_plural='Detalle Colaboracion Conf'
+        verbose_name='Detalle Colaboracion Conf'
+    def __unicode__(self):
+        return u"%s" %(self.titulo)
+        
+class ColaboracionPersonas(models.Model):
+    colaboracionconf = models.ForeignKey(ColaboracionConf,null=True, blank=True,verbose_name='Colaboracion Conf')
+    personas = models.ForeignKey(Directorios,null=True, blank=True,verbose_name='Personas')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    metodo = models.IntegerField(choices=((0,'Inscripcion'),(1,'Pre-inscripcion')),verbose_name='Metodo',null=True,blank=True)
+    estatu = models.IntegerField(choices=((0,'Procesada'),(1,'Por procesar'),(3,'Rechazada')),verbose_name='Estatus',null=True,blank=True)
+    class Meta:
+        verbose_name_plural='Colaboracion Personas'
+        verbose_name='Colaboracion Personas'
+    def __unicode__(self):
+        return u"%s" %(self.personas)
+        
+class ColaboracionInformacion(models.Model):
+    colaboracionconf = models.ForeignKey(ColaboracionConf,null=True, blank=True,verbose_name='Colaboracion Conf')
+    colaboracionpersonas = models.ForeignKey(ColaboracionPersonas,null=True, blank=True,verbose_name='Colaboracion Personas')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    textos = models.CharField(max_length=300,verbose_name='Textos',null=True, blank=True)
+    foto = models.ImageField(upload_to='colaboracion/image',null=True, blank=True)
+    archivo = models.FileField(upload_to='colaboracion/files',verbose_name='Archivo',blank=True,null=True)
+    class Meta:
+        verbose_name_plural='Colaboracion Informacion'
+        verbose_name='Colaboracion Informacion'
+    def __unicode__(self):
+        return u"%s" %(self.colaboracionpersonas)      

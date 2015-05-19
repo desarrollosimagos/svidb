@@ -308,7 +308,7 @@ def detalleEvento(request,id):
     except Eventos.DoesNotExist:
        cursos = None 
     if resultado:
-       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado,'hoy':date.today()}, context_instance=RequestContext(request))
+       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado,'hoy':date.today(),'perfil':perfil}, context_instance=RequestContext(request))
     else:
        return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos}, context_instance=RequestContext(request))       
 

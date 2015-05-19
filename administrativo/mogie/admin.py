@@ -23,3 +23,13 @@ admin.site.register(ConfiguracionIndexPatrocinador)
 admin.site.register(ExtensionPerfilUsuario)
 
 admin.site.register(ComentariosModulo)
+
+admin.site.register(ColaboracionConf)
+
+admin.site.register(ValoresDefectoSeleccion)
+
+admin.site.register(DetalleColaboracionConf)
+
+admin.site.register(ColaboracionPersonas)
+
+admin.site.register(ColaboracionInformacion)

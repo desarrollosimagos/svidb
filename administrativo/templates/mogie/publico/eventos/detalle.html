@@ -55,7 +55,7 @@
 					<li class="dropdown navbar-user">
 					{% if perfil %}
 					   <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-						    <img src="/media/{{ usuario.foto }}" alt="" /> 
+						    <img src="/media/{{ resultado.foto }}" alt="" /> 
 						    <span class="hidden-xs">{{ perfil.persona.nombre }} {{ perfil.persona.apellido }} </span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
@@ -182,8 +182,10 @@
                                     </td>
                                     
                                     <td>
+                                    {% if eventos.estatu == 0 %}
                                     {% if hoy >= eventos.fechaInicioTrabajos and hoy <= eventos.fechaFinTrabajos %}
                                     <a href="/mogie/eventos/resumenes/{{ eventos.id }}/{{ i.id }}" class="btn btn-sm btn btn-warning m-b-10"><i class="fa fa-print m-r-5"></i> POSTULAR RESUMEN</a>
+                                    {% endif %}
                                     {% endif %}
                                     </td>
                                 </tr>
