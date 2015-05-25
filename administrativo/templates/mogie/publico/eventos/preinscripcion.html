@@ -1,0 +1,228 @@
+{% extends "mogie/publico/base.html"%}
+{% block LibreriasCSS %}
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+	<link href="/media/librerias/mogie/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="/media/librerias/mogie/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/media/librerias/mogie/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="/media/librerias/mogie/assets/css/animate.min.css" rel="stylesheet" />
+	<link href="/media/librerias/mogie/assets/css/style.min.css" rel="stylesheet" />
+	<link href="/media/librerias/mogie/assets/css/style-responsive.min.css" rel="stylesheet" />
+	<link href="/media/librerias/mogie/assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+		
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+    <link href="/media/librerias/mogie/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />	
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="/media/librerias/mogie/assets/plugins/pace/pace.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+
+{% endblock %}
+
+		{% block MenuSuperior %}
+				<!-- end mobile sidebar expand / collapse button -->
+				<div class="collapse navbar-collapse pull-left" id="top-navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="/mogie" class="dropdown-toggle">
+                                <i class="fa fa-th-large fa-fw"></i> Inicio <b class="caret"></b>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="/mogie/eventos/pagina/1" class="dropdown-toggle">
+                                <i class="fa fa-th-large fa-fw"></i> Eventos <b class="caret"></b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+				<!-- end navbar-collapse -->
+		{% endblock %} 
+				
+		{% block MenuPerfil %}
+				<!-- begin header navigation right -->
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Buscador" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					
+					<li class="dropdown navbar-user">
+					{% if perfil %}
+					   <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+						    <img src="/media/{{ resultado.foto }}" alt="" /> 
+						    <span class="hidden-xs">{{ perfil.persona.nombre }} {{ perfil.persona.apellido }} </span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+						    <li class="arrow"></li>
+						    <li><a href="/mogie/perfil">Editar Perfil</a></li>
+						    <li><a href="/mogie/admin">Panel de Usuario</a></li>
+						    <li class="divider"></li>
+						    <li><a href="/mogie/salir">Cerrar Sesión</a></li>
+						</ul>
+					{% else %}
+						<a href="/mogie/admin" class="dropdown-toggle">
+							Iniciar Sesión
+						</a>
+				    {% endif %}
+					</li>
+					
+				</ul>
+				<!-- end header navigation right -->
+		{% endblock %}
+		
+		{% block ContenidoPagina %}
+		<br>
+		<br>
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				<li><a href="/mogie">Inicio</a></li>
+				<li><a href="/mogie/eventos/pagina/1">Eventos</a></li>
+				<li class="active">Pre-inscripción</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">Pre-inscripción del Eventos <small></small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row">
+			    <!-- begin col-12 -->
+			    <div class="col-md-12">
+			        <div class="result-container">
+                        <ul class="result-list">
+                        	{% if eventos %}
+                            <li>
+                                <div class="result-image">
+                                    <a href="javascript:;"><img src="/media/{{ eventos.pathimg }}" alt="" /></a>
+                                </div>
+                                <div class="result-info">
+                                    <h4 class="title">{{eventos.nombre}}</h4>
+                                    <p class="location">{{eventos.lugar}}</p>
+                                    <p class="desc">
+                                        {% autoescape off %}{{ eventos.descripcion }}{% endautoescape %}
+                                    </p>
+                                    <div class="btn-row">
+                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Analytics"><i class="fa fa-fw fa-bar-chart-o"></i></a>
+                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Tasks"><i class="fa fa-fw fa-tasks"></i></a>
+                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Configuration"><i class="fa fa-fw fa-cog"></i></a>
+                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Performance"><i class="fa fa-fw fa-tachometer"></i></a>
+                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Users"><i class="fa fa-fw fa-user"></i></a>
+                                    </div>
+                                </div>
+                       
+                            </li>
+                            {% endif %}
+                        </ul>
+                        
+                    </div>
+			    </div>
+			    <!-- end col-12 -->
+			</div>
+			<br>
+			<br>
+			<div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Requisitos de Pre-inscripción</h4>
+                        </div>
+                        <div class="panel-body">
+                            <form action="/mogie/eventos/preinscripcion/registro/{{ eventos.id }}/{{ colaboracion.id }}" method="POST" enctype="multipart/form-data" data-parsley-validate="true">
+                                <fieldset>
+                                    <legend>Requerimientos</legend>
+                                    {% for i in detallecolaboracion %}
+                                    
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">{{ i.titulo }}</label>
+                                        {% if i.tipo == 0 %}
+                                        	<input id="id_textos" type="text" class="form-control" name="{{ i.id }}" maxlength="300" {% if i.requerido %} data-parsley-required="true" {% endif %}>
+                                        {% endif %}
+                                        {% if i.tipo == 1 %}
+                                        	<input id="id_textos" type="text" class="form-control" name="{{ i.id }}" maxlength="300" {% if i.requerido %} data-parsley-required="true" {% endif %}>
+                                        {% endif %}
+                                        {% if i.tipo == 2 %}
+                                        	<input id="id_textos" type="text" class="form-control" name="{{ i.id }}" maxlength="300" {% if i.requerido %} data-parsley-required="true" {% endif %}>
+                                        {% endif %}
+                                        {% if i.tipo == 3 %}
+                                        	<input id="id_textos" type="text" class="form-control" name="{{ i.id }}" maxlength="300" {% if i.requerido %} data-parsley-required="true" {% endif %}>
+                                        {% endif %}
+                                        {% if i.tipo == 4 %}
+                                        	<input id="id_textos" type="text" class="form-control" name="{{ i.id }}" maxlength="300" {% if i.requerido %} data-parsley-required="true" {% endif %}>
+                                        {% endif %}
+                                        {% if i.tipo == 5 %}
+                                        	<input type="file" name="{{ i.id }}" class="form-control" id="id_foto" {% if i.requerido %} data-parsley-required="true" {% endif %}>
+                                        {% endif %}
+                                        {% if i.tipo == 6 %}
+                                        	<input type="file" name="{{ i.id }}" class="form-control" id="id_archivo" {% if i.requerido %} data-parsley-required="true" {% endif %}>
+                                        {% endif %}
+                                        
+                                    </div>
+                                    {% endfor %}
+                                    <button type="submit" class="btn btn-sm btn-primary m-r-5">Procesar Pre-inscripción</button>
+                                    <button type="submit" class="btn btn-sm btn-default">Cancelar</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+			
+			<BR>
+			<br>
+			
+			<div class="invoice">
+                <div class="invoice-note">
+                    * Normas<br>
+                    * Normas<br>
+                    * Normas
+                </div>
+                <div class="invoice-footer text-muted">
+                    <p class="text-center m-b-5">
+                        SISTEMA VENEZOLANO DE INFORMACION SOBRE LA DIVERSIDAD BIOLOGICA
+                    </p>
+                    <p class="text-center">
+                        <span class="m-r-10"><i class="fa fa-globe"></i> matiasgallipoli.com</span>
+                        <span class="m-r-10"><i class="fa fa-phone"></i> T:016-18192302</span>
+                        <span class="m-r-10"><i class="fa fa-envelope"></i> rtiemps@gmail.com</span>
+                    </p>
+                </div>
+            </div>			
+		</div>
+		<!-- end #content -->
+		
+		
+		
+		{% endblock %}
+
+{% block LibreriasJS %}
+<!-- ================== BEGIN BASE JS ================== -->
+	<script src="/media/librerias/mogie/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+	<script src="/media/librerias/mogie/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+	<script src="/media/librerias/mogie/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+	<script src="/media/librerias/mogie/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="/media/librerias/mogie/assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="/media/librerias/mogie/assets/crossbrowserjs/respond.min.js"></script>
+		<script src="/media/librerias/mogie/assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	<script src="/media/librerias/mogie/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="/media/librerias/mogie/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	<script src="/media/librerias/mogie/assets/plugins/gritter/js/jquery.gritter.js"></script>
+	<script src="/media/librerias/mogie/assets/plugins/parsley/dist/parsley.js"></script>
+	<script src="/media/librerias/mogie/assets/js/ui-modal-notification.demo.min.js"></script>
+	<script src="/media/librerias/mogie/assets/js/apps.min.js"></script>
+	<!-- ================== END PAGE LEVEL JS ================== -->
+	
+	<script>
+		$(document).ready(function() {
+			App.init();
+			Notification.init();
+		});
+	</script>
+{% endblock %}

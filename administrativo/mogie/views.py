@@ -4,6 +4,7 @@ import hashlib
 import random
 import re
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.shortcuts import render_to_response, get_object_or_404,HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
@@ -302,15 +303,146 @@ def detalleEvento(request,id):
        eventos = Eventos.objects.get(pk=id)
     except Eventos.DoesNotExist:
        eventos = None  
+    
+    try:
+       participacion = participacioEvento.objects.get(Q(evento=eventos) & Q(directorio=perfil.persona))
+    except participacioEvento.DoesNotExist:
+       participacion = None    
        
     try:
        cursos = Eventos.objects.filter(eventpadre__pk=id)
     except Eventos.DoesNotExist:
        cursos = None 
     if resultado:
-       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado,'hoy':date.today(),'perfil':perfil}, context_instance=RequestContext(request))
+       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado,'hoy':date.today(),'perfil':perfil,'participacion':participacion}, context_instance=RequestContext(request))
     else:
-       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos}, context_instance=RequestContext(request))       
+       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos}, context_instance=RequestContext(request))    
+
+
+
+def postulacionResumenes(request,evento,tematica):
+    if request.method == 'POST':
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html')
+    else:
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html')
+       
+              
+       
+def preinscripcionEvento(request,id):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+     
+    try:
+       eventos = Eventos.objects.get(pk=id)
+    except Eventos.DoesNotExist:
+       eventos = None  
+    
+    try:
+       participacion = participacioEvento.objects.get(Q(evento=eventos) & Q(directorio=perfil.persona))
+    except participacioEvento.DoesNotExist:
+       participacion = None    
+    
+    try:
+       colaboracion = ColaboracionConf.objects.get(Q(evento=eventos) & Q(metodo=1) & Q(estatu=0))
+    except ColaboracionConf.DoesNotExist:
+       colaboracion = None   
+       
+    try:
+       detallecolaboracion = DetalleColaboracionConf.objects.filter(colaboracion=colaboracion)
+    except DetalleColaboracionConf.DoesNotExist:
+       detallecolaboracion = None     
+       
+    if resultado:
+       if colaboracion:
+          return render_to_response('mogie/publico/eventos/preinscripcion.html',{'eventos':eventos,'colaboracion':colaboracion,'detallecolaboracion':detallecolaboracion,'resultado':resultado,'hoy':date.today(),'perfil':perfil,'participacion':participacion}, context_instance=RequestContext(request))
+       else:
+          if participacion:
+             return HttpResponseRedirect("/mogie")
+          else:
+             participacion = participacioEvento(directorio=perfil.persona,evento=eventos,estatu=2)
+             participacion.save()
+             return render_to_response('mogie/publico/eventos/preinscripcion/registro_exitoso.html',{'eventos':eventos,'perfil':perfil})
+    else:
+       return HttpResponseRedirect("/mogie")    
+       
+       
+def preinscripcionColaboracionEvento(request,event,colab):
+    if request.method == 'POST':
+		try:
+		    _username = request.user.username
+		except request.DoesNotExist:
+		    _username = None
+		resultado,perfil = accesoValidacion(_username) 
+		 
+		try:
+		   eventos = Eventos.objects.get(pk=event)
+		except Eventos.DoesNotExist:
+		   eventos = None  
+		
+		try:
+		   participacion = participacioEvento.objects.get(Q(evento=eventos) & Q(directorio=perfil.persona))
+		except participacioEvento.DoesNotExist:
+		   participacion = None
+		
+		if participacion:
+			return HttpResponseRedirect("/mogie/eventos/detalle/" + str(event))
+		else:  
+		  
+			try:
+			   	colaboracion = ColaboracionConf.objects.get(pk=colab)
+			except ColaboracionConf.DoesNotExist:
+			   	colaboracion = None   
+			   
+			try:
+			   	detallecolaboracion = DetalleColaboracionConf.objects.filter(colaboracion=colaboracion)
+			except DetalleColaboracionConf.DoesNotExist:
+			   	detallecolaboracion = None
+			   	
+			colaboracionpersonas = ColaboracionPersonas(colaboracionconf=colaboracion,personas=perfil.persona,estatu=1)
+			colaboracionpersonas.save()
+			
+			try:
+			   	colaboracionpersonasGuardado = ColaboracionPersonas.objects.get(colaboracionconf=colaboracion,personas=perfil.persona,estatu=1)
+			except ColaboracionPersonas.DoesNotExist:
+			   	colaboracionpersonasGuardado = None 
+			   	
+			for i in detallecolaboracion:
+				idCampo = str(i.id)
+				if i.tipo == 0:
+					valor = request.POST[idCampo]
+					colaboracionregistro1 = ColaboracionInformacion(colaboracionconf=colaboracion,colaboracionpersonas=colaboracionpersonasGuardado,textos=valor)
+					colaboracionregistro1.save()
+				if i.tipo == 1:
+					valor = request.POST[idCampo]
+					colaboracionregistro2 = ColaboracionInformacion(colaboracionconf=colaboracion,colaboracionpersonas=colaboracionpersonasGuardado,textos=valor)
+					colaboracionregistro2.save()
+				if i.tipo == 2:
+					valor = request.POST[idCampo]
+					colaboracionregistro3 = ColaboracionInformacion(colaboracionconf=colaboracion,colaboracionpersonas=colaboracionpersonasGuardado,textos=valor)
+					colaboracionregistro3.save()
+				if i.tipo == 3:
+					valor = request.POST[idCampo]
+					colaboracionregistro4 = ColaboracionInformacion(colaboracionconf=colaboracion,colaboracionpersonas=colaboracionpersonasGuardado,textos=valor)
+					colaboracionregistro4.save()
+				if i.tipo == 4:
+					valor = request.POST[idCampo]
+					colaboracionregistro5 = ColaboracionInformacion(colaboracionconf=colaboracion,colaboracionpersonas=colaboracionpersonasGuardado,textos=valor)
+					colaboracionregistro5.save()
+				if i.tipo == 5:
+					colaboracionregistro6 = ColaboracionInformacion(colaboracionconf=colaboracion,colaboracionpersonas=colaboracionpersonasGuardado,foto=request.FILES[idCampo])
+					colaboracionregistro6.save()
+				if i.tipo == 6:
+					colaboracionregistro7 = ColaboracionInformacion(colaboracionconf=colaboracion,colaboracionpersonas=colaboracionpersonasGuardado,archivo=request.FILES[idCampo])
+					colaboracionregistro7.save()
+			preinscrito = participacioEvento(directorio=perfil.persona,evento=eventos,estatu=0)
+			preinscrito.save()
+			return render_to_response('mogie/publico/eventos/preinscripcion/registro_exitoso.html',{'eventos':eventos,'perfil':perfil})
+    else:
+    	return HttpResponseRedirect("/mogie")
+     
 
 
        

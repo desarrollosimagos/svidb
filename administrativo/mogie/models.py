@@ -47,10 +47,12 @@ class ComentariosModulo(models.Model):
 class ColaboracionConf(models.Model):
     titulo = models.CharField(max_length=150,verbose_name='Titulo')
     evento = models.ForeignKey(Eventos,null=True, blank=True,verbose_name='Evento')
+    metodo = models.IntegerField(choices=((0,'Inscripcion'),(1,'Pre-inscripcion'),(2,'Postulacion Resumenes')),verbose_name='Metodo',null=True,blank=True)
     estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo')),verbose_name='Estatus',null=True,blank=True)
     class Meta:
         verbose_name_plural='Colaboracion Conf'
         verbose_name='Colaboracion Conf'
+        unique_together=('titulo','evento','metodo','estatu')
     def __unicode__(self):
         return u"%s" %(self.titulo)
         
@@ -63,7 +65,7 @@ class ValoresDefectoSeleccion(models.Model):
         return u"%s" %(self.valor)
         
 class DetalleColaboracionConf(models.Model):
-    colaboracion = models.ForeignKey(ColaboracionConf,verbose_name='Perfil',null=True, blank=True)
+    colaboracion = models.ForeignKey(ColaboracionConf,verbose_name='Formulario Colaboracion',null=True, blank=True)
     titulo = models.CharField(max_length=150,verbose_name='Titulo',null=True, blank=True)
     tipo = models.IntegerField(choices=((0,'Texto'),(1,'Numero'),(2,'Fecha'),(3,'Booleano'),(4,'Seleccion'),(5,'Imagen'),(6,'Archivo')),verbose_name='Tipo',null=True,blank=True)
     valorDefaultSelect = models.ManyToManyField(ValoresDefectoSeleccion,related_name='valordefaultselect',verbose_name='Valores por Defecto de Seleccion',blank=True,null=True)
@@ -73,6 +75,7 @@ class DetalleColaboracionConf(models.Model):
     class Meta:
         verbose_name_plural='Detalle Colaboracion Conf'
         verbose_name='Detalle Colaboracion Conf'
+        unique_together=('colaboracion','titulo','tipo')
     def __unicode__(self):
         return u"%s" %(self.titulo)
         
@@ -80,11 +83,11 @@ class ColaboracionPersonas(models.Model):
     colaboracionconf = models.ForeignKey(ColaboracionConf,null=True, blank=True,verbose_name='Colaboracion Conf')
     personas = models.ForeignKey(Directorios,null=True, blank=True,verbose_name='Personas')
     update = models.DateTimeField(default=datetime.now(),editable = False)
-    metodo = models.IntegerField(choices=((0,'Inscripcion'),(1,'Pre-inscripcion')),verbose_name='Metodo',null=True,blank=True)
-    estatu = models.IntegerField(choices=((0,'Procesada'),(1,'Por procesar'),(3,'Rechazada')),verbose_name='Estatus',null=True,blank=True)
+    estatu = models.IntegerField(choices=((0,'Procesada'),(1,'Por procesar'),(2,'Rechazada')),verbose_name='Estatus',null=True,blank=True)
     class Meta:
         verbose_name_plural='Colaboracion Personas'
         verbose_name='Colaboracion Personas'
+        unique_together=('colaboracionconf','personas')
     def __unicode__(self):
         return u"%s" %(self.personas)
         
@@ -98,5 +101,31 @@ class ColaboracionInformacion(models.Model):
     class Meta:
         verbose_name_plural='Colaboracion Informacion'
         verbose_name='Colaboracion Informacion'
+        unique_together=('colaboracionconf','colaboracionpersonas','textos','foto','archivo','update')
     def __unicode__(self):
-        return u"%s" %(self.colaboracionpersonas)      
+        return u"%s" %(self.colaboracionpersonas)  
+        
+class RelacionPersonasTrabajos(models.Model):
+    trabajo = models.ForeignKey(Trabajoscongresos,null=True, blank=True,verbose_name='Traba')
+    personas = models.ForeignKey(Directorios,null=True, blank=True,verbose_name='Coautor Persona')
+    instituciones = models.ForeignKey(ActoresHistorico,null=True, blank=True,verbose_name='Coautor Institucion')
+    orden = models.IntegerField(verbose_name='Orden',null=True, blank=True)
+    class Meta:
+        verbose_name_plural='Relacion personas Trabajos'
+        verbose_name='Relacion personas Trabajos'
+        unique_together=('trabajo','personas','instituciones',)
+    def __unicode__(self):
+        return u"%s" %(self.trabajo) 
+
+class RelacionActoresTrabajos(models.Model):
+    trabajo = models.ForeignKey(Trabajoscongresos,null=True, blank=True,verbose_name='Traba')
+    instituciones = models.ForeignKey(ActoresHistorico,null=True, blank=True,verbose_name='Coautor Institucion')
+    orden = models.IntegerField(verbose_name='Orden',null=True, blank=True)
+    class Meta:
+        verbose_name_plural='Relacion Actores Trabajos'
+        verbose_name='Relacion Actores Trabajos'
+        unique_together=('trabajo','instituciones',)
+    def __unicode__(self):
+        return u"%s" %(self.trabajo) 
+
+    

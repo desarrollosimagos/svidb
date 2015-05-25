@@ -100,8 +100,8 @@ class Eventos(models.Model):
     biblio = models.ManyToManyField(Bibliotecas,related_name='Biblioteca',help_text=u"Por nombre",verbose_name='Bibliotecas',null=True, blank=True)
     userupdate = models.ForeignKey(User,null=True, blank=True,verbose_name='Usuario ')
     estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo'),(2,'Proximo'),(3,'Realizado')),verbose_name='Estatus',null=True,blank=True,db_column='estatu_id')
-    opt0 = models.BooleanField(db_column='opt0', blank=True,verbose_name='Inscripcion de Trabajos')
-    opt1 = models.BooleanField(db_column='opt1', blank=True,verbose_name='Necesita Inscripcion')
+    opt0 = models.BooleanField(db_column='opt0', blank=True,verbose_name='Activar Postulacion de Trabajos')
+    opt1 = models.BooleanField(db_column='opt1', blank=True,verbose_name='Activar Pre-inscripcion')
     class Meta:
         db_table = u'eventos'
         verbose_name_plural='Eventos'
@@ -275,8 +275,10 @@ class Miembrosgrupotrabajos(models.Model):
 class participacioEvento(models.Model):
     directorio = models.ForeignKey(Directorios,null=True, blank=True)
     evento = models.ForeignKey(Eventos,null=True, blank=True)
-    estatu = models.IntegerField(choices=((0,'Sin evaluar'),(2,'Pre-inscrito'),(3,'Inscrito')),verbose_name='Estatus',null=True,blank=True,db_column='estatu_id')
+    estatu = models.IntegerField(choices=((0,'Por validar'),(2,'Pre-inscrito'),(3,'Inscrito')),verbose_name='Estatus',null=True,blank=True,db_column='estatu_id')
+    update = models.DateTimeField(default=datetime.now(),editable = False)
     class Meta:
+        unique_together=('directorio','evento','estatu')
         db_table = u'participacioEvento'
         verbose_name_plural='Participacion de Eventos'
         verbose_name='Participacion de Eventos'
@@ -292,6 +294,7 @@ class participacioEvento(models.Model):
         return self.directorio.correo
     def participanteEstado(self):
         return self.directorio.estado
+#ALTER TABLE "participacioEvento" ADD COLUMN "update" timestamp with time zone;
 		
 class participacioEventoVarios(models.Model):
     directorio = models.ForeignKey(Directorios,null=True, blank=True)

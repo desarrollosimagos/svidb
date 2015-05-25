@@ -199,6 +199,35 @@ class Actores(models.Model):
     def __unicode__(self):
         return u"%s %s" %(self.siglas, self.nombre)
         
+
+class ActoresHistorico(models.Model):        
+    actores = models.ForeignKey(Actores,verbose_name='Actores',null=True,blank=True)
+    lineaje = models.TextField(blank=True,verbose_name='Linea Jerarquica',null=True)
+    telefono = models.CharField(max_length=60, blank=True,verbose_name='Teléfono',null=True)
+    fax = models.CharField(max_length=60, blank=True,verbose_name='Fax',null=True)
+    address = AddressField(max_length=100,verbose_name='Ubicación en Mapa',null=True, blank=True)
+    geolocation = GeoLocationField(blank=True,verbose_name='Coordenadas')
+    rif = models.CharField(max_length=135,verbose_name='RIF',blank=True,null=True)
+    siglas = models.CharField(max_length=135, blank=True,verbose_name='Siglas',null=True)
+    nombre = models.CharField(max_length=135,verbose_name='Razón Social')
+    nombre_completo = models.CharField(max_length=135,verbose_name='Nombre Completo')
+    direccion = models.TextField(blank=True,verbose_name='Dirección')
+    pai = models.ForeignKey(Pais,verbose_name='País',null=True, blank=True)
+    estado = ChainedForeignKey(Estados,chained_field="pai",chained_model_field="pai",show_all=False,auto_choose=True,verbose_name='Estado',null=True, blank=True)
+    municipio = ChainedForeignKey(Municipios,chained_field="estado",chained_model_field="estado",verbose_name='Municipio',null=True, blank=True)
+    parroquia = ChainedForeignKey(Parroquias,chained_field="municipio",chained_model_field="municipio",verbose_name='Parroquia',null=True, blank=True)
+    correo = models.CharField(max_length=150, blank=True,verbose_name='Correo Electronico',null=True)
+    update = models.DateTimeField(default=datetime.now(),editable = False)
+    estatu = models.IntegerField(choices=((0,'Activo'),(1,'Inactivo'),(2,'Pendiente')),verbose_name='Estatus',null=True,blank=True)
+    class Meta:
+        verbose_name_plural='Historico de Actores'
+        #app_label = 'Actores'
+        verbose_name = 'Historico de Actores'
+    def __unicode__(self):
+        return u"%s %s" %(self.siglas, self.nombre)
+    
+    
+        
 class ActoresResource(resources.ModelResource):
     class Meta:
         model = Actores

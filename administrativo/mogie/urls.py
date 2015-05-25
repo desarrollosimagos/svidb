@@ -30,6 +30,12 @@ urlpatterns = patterns('mogie',
     
     url(r'^eventos/detalle/(\d+)$', 'views.detalleEvento', name="mogie"),
     
+    url(r'^eventos/preinscripcion/(\d+)$', 'views.preinscripcionEvento', name="mogie"),
+    
+    url(r'^eventos/preinscripcion/registro/(\d+)/(\d+)$', 'views.preinscripcionColaboracionEvento', name="mogie"),
+    
+    url(r'^eventos/resumenes/(\d+)/(\d+)$', 'views.postulacionResumenes', name="mogie"),
+    
     url(r'^$', 'views.publico', name='mogie'),
     
     url(r'^ajax/index_v2.html$', 'views.indexvs2', name='mogie'),
