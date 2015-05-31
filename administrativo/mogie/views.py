@@ -298,7 +298,9 @@ def detalleEvento(request,id):
         _username = request.user.username
     except request.DoesNotExist:
         _username = None
-    resultado,perfil = accesoValidacion(_username)  
+    resultado,perfil = accesoValidacion(_username) 
+    if not resultado:
+       return HttpResponseRedirect("/mogie") 
     try:
        eventos = Eventos.objects.get(pk=id)
     except Eventos.DoesNotExist:
@@ -320,11 +322,58 @@ def detalleEvento(request,id):
 
 
 
-def postulacionResumenes(request,evento,tematica):
+def postulacionResumenes(request,evento,modalidad):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    if not resultado:
+       return HttpResponseRedirect("/mogie")
+    
+    try:
+       eventos = Eventos.objects.get(pk=evento)
+    except Eventos.DoesNotExist:
+       eventos = None
+     
     if request.method == 'POST':
-       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html')
+       registrarResumen = DatosResumen(request.POST)
+       if registrarResumen.is_valid():
+          trabajos = registrarResumen.save()
+          return HttpResponseRedirect("/mogie/eventos/resumen/" + str(trabajos.id))
+       else:
+          return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'eventos':eventos,'modalidad':modalidad,'resultado':resultado,'perfil':perfil}, context_instance=RequestContext(request))
     else:
-       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html')
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'eventos':eventos,'modalidad':modalidad,'resultado':resultado,'perfil':perfil}, context_instance=RequestContext(request))
+       
+def SegundoPasoPostulacion(request,trabajo):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    if not resultado:
+       return HttpResponseRedirect("/mogie")
+       
+    try:
+       trabajos = Trabajoscongresos.objects.get(pk=trabajo)
+    except Trabajoscongresos.DoesNotExist:
+       trabajos = None
+       
+    try:
+       coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+    except RelacionPersonasTrabajos.DoesNotExist:
+       coautores = None
+       
+    try:
+       instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
+    except RelacionActoresTrabajos.DoesNotExist:
+       instituciones = None
+    
+    if request.method == 'POST':
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones}, context_instance=RequestContext(request))
+    else:
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones}, context_instance=RequestContext(request))
        
               
        

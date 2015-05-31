@@ -229,7 +229,7 @@ $.widget("bootstrap.bwizard", {
 			this.buttons.addClass('bwizard-buttons');
 			if(backBtnText != ''){
 				this.backBtn =
-					$("<li class='previous'><a href='#'>" +
+					$("<li class='previous'><a href='#' onclick=\"alert('Recuerde guardar cada seccion antes de continuar.')\">" +
 						backBtnText + "</a></li>")
 					.appendTo(this.buttons).bind({
 						'click': function () {
@@ -241,7 +241,7 @@ $.widget("bootstrap.bwizard", {
 			}
 			if(nextBtnText != ''){
 				this.nextBtn =
-					$("<li class='next'><a href='#'>" +
+					$("<li class='next'><a href='#' onclick=\"alert('Recuerde guardar cada seccion antes de continuar.')\">" +
 						nextBtnText + "</a>")
 					.appendTo(this.buttons).bind({
 						'click': function () {

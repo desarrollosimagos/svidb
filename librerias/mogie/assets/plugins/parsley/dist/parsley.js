@@ -1869,21 +1869,21 @@ window.ParsleyConfig = window.ParsleyConfig || {};
 window.ParsleyConfig.i18n = window.ParsleyConfig.i18n || {};
 // Define then the messages
 window.ParsleyConfig.i18n.en = $.extend(window.ParsleyConfig.i18n.en || {}, {
-  defaultMessage: "This value seems to be invalid.",
+  defaultMessage: "Este valor parece ser invalido.",
   type: {
-    email:        "This value should be a valid email.",
-    url:          "This value should be a valid url.",
-    number:       "This value should be a valid number.",
-    integer:      "This value should be a valid integer.",
-    digits:       "This value should be digits.",
-    alphanum:     "This value should be alphanumeric."
+    email:        "Este valor debe ser un correo electrónico válido .",
+    url:          "Debe ingresar una URL valida.",
+    number:       "Debe ingresar un numero valido.",
+    integer:      "Debe ingresar un numero valido.",
+    digits:       "Debe ingresar un numero valido.",
+    alphanum:     "Debe ingresar un numero valido."
   },
-  notblank:       "This value should not be blank.",
-  required:       "This value is required.",
-  pattern:        "This value seems to be invalid.",
-  min:            "This value should be greater than or equal to %s.",
-  max:            "This value should be lower than or equal to %s.",
-  range:          "This value should be between %s and %s.",
+  notblank:       "Este valor no debe estar en blanco.",
+  required:       "Campo obligatorio",
+  pattern:        "Este valor parece ser invalido.",
+  min:            "Este valor debe ser mayor que o igual a %s.",
+  max:            "Este valor debe ser inferior o igual a %s.",
+  range:          "Este valor debe estar entre %s y %s.",
   minlength:      "This value is too short. It should have %s characters or more.",
   maxlength:      "This value is too long. It should have %s characters or less.",
   length:         "This value length is invalid. It should be between %s and %s characters long.",

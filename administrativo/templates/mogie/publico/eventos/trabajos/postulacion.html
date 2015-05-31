@@ -100,105 +100,205 @@
                             <h4 class="panel-title">Form Wizards</h4>
                         </div>
                         <div class="panel-body">
-                            <form action="/" method="POST">
+                            
 								<div id="wizard">
 									<ol>
-										<li>
+										<li onclick="alert('Recuerde Guardar cada seccion antes de continuar')">
 										    Datos del Resumen 
 										    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
 										</li>
-										<li>
+										<li onclick="alert('Recuerde Guardar cada seccion antes de continuar')">
 										    Coautores
 										    <small>Aliquam bibendum felis id purus ullamcorper, quis luctus leo sollicitudin.</small>
 										</li>
-										<li>
+										<li onclick="alert('Recuerde Guardar cada seccion antes de continuar')">
 										    Instituciones
 										    <small>Phasellus lacinia placerat neque pretium condimentum.</small>
 										</li>
-										<li>
+										<li onclick="alert('Recuerde Guardar cada seccion antes de continuar')">
 										    Orden de Publicacion
 										    <small>Sed nunc neque, dapibus non leo sed, rhoncus dignissim elit.</small>
 										</li>
-										<li>
+										<li onclick="alert('Recuerde Guardar cada seccion antes de continuar')">
 										    Finalizacion
 										    <small>Sed nunc neque, dapibus non leo sed, rhoncus dignissim elit.</small>
 										</li>
 									</ol>
 									<!-- begin wizard step-1 -->
 									<div>
+									<form method="POST" data-parsley-validate="true">
                                         <fieldset>
-                                            <legend class="pull-left width-full">Identification</legend>
+                                            <legend class="pull-left width-full">Datos del Resumen</legend>
                                             <!-- begin row -->
                                             <div class="row">
-                                                <!-- begin col-4 -->
+                                            	{% if trabajo %}
+                                            	<!-- begin col-4 -->
                                                 <div class="col-md-4">
 													<div class="form-group">
-														<label>First Name</label>
-														<input type="text" name="firstname" placeholder="John" class="form-control" />
+														<label>Titulo</label>
+														<input type="text" name="titulo" placeholder="Titulo del resumen" class="form-control" data-parsley-required="true" data-parsley-range="[20,200]" value="{{ trabajo.titulo }}" />
 													</div>
                                                 </div>
                                                 <!-- end col-4 -->
                                                 <!-- begin col-4 -->
                                                 <div class="col-md-4">
 													<div class="form-group">
-														<label>Middle Initial</label>
-														<input type="text" name="middle" placeholder="A" class="form-control" />
+														<label>Tematicas</label>
+														<input type="text" name="titulo" placeholder="Tematicas" class="form-control" data-parsley-required="true" data-parsley-range="[20,200]" value="{{ trabajo.tematicas }}"/>
 													</div>
                                                 </div>
                                                 <!-- end col-4 -->
                                                 <!-- begin col-4 -->
                                                 <div class="col-md-4">
 													<div class="form-group">
-														<label>Last Name</label>
-														<input type="text" name="lastname" placeholder="Smith" class="form-control" />
+														<label>Modalidad</label>
+														<input type="text" name="titulo" placeholder="Modalidad" class="form-control" data-parsley-required="true" data-parsley-range="[20,200]" value="{{ trabajo.modalidad }}"/>
 													</div>
                                                 </div>
+                                                <!-- end col-4 -->
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-4">
+													<div class="form-group">
+														<label>Resumen</label>
+														<textarea name="resumen"  class="form-control" data-parsley-required="true" data-parsley-range="[20,200]">{{ trabajo.resumen }}</textarea>
+													</div>
+                                                </div>
+                                                <!-- end col-4 -->
+                                            	
+                                            	{% else %}
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-4">
+													<div class="form-group">
+														<label>Titulo</label>
+														<input type="text" name="titulo" placeholder="Titulo del resumen" class="form-control" data-parsley-required="true" data-parsley-range="[20,200]" />
+														<input type="hidden" name="modalidad" value="{{ modalidad }}">
+														<input type="hidden" name="directorio" value="{{ perfil.persona.id }}">
+														
+													</div>
+                                                </div>
+                                                <!-- end col-4 -->
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-4">
+													<div class="form-group">
+														<label>Tematicas</label>
+														<select class="form-control selectpicker" name="tematicas" data-parsley-required="true" data-live-search="true">
+														{% if eventos %}
+															{% for i in eventos.tematicas.all %}
+															<option value="{{ i.id }}">{{ i }}</option>
+															{% endfor %}
+														{% endif %}
+														</select>
+														
+													</div>
+                                                </div>
+                                                <!-- end col-4 -->
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-4">
+													<div class="form-group">
+														<label>Resumen</label>
+														<textarea name="resumen"  class="form-control" data-parsley-required="true" data-parsley-range="[20,200]"></textarea>
+													</div>
+                                                </div>
+                                                <!-- end col-4 -->
+                                                
+                                                
+                                                {% endif %}
                                                 <!-- end col-4 -->
                                             </div>
                                             <!-- end row -->
 										</fieldset>
+										<input type="submit" class="btn btn-success btn-lg" value="Guardar">
+									</form>
 									</div>
 									<!-- end wizard step-1 -->
 									
 									<!-- begin wizard step-2 -->
 									<div>
+									{% if trabajo %}
+									<form method="POST" action="/mogie/eventos/resumen/coautores/{{ trabajo.id }}" data-parsley-validate="true">
 										<fieldset>
-											<legend class="pull-left width-full">Contact Information</legend>
+											<legend class="pull-left width-full">Coautores</legend>
                                             <!-- begin row -->
                                             <div class="row">
-                                                <!-- begin col-6 -->
-                                                <div class="col-md-6">
+                                            	<!-- begin col-6 -->
+                                            	<div id="p_scents">
+                                                <div class="col-md-2">
 													<div class="form-group">
-														<label>Phone Number</label>
-														<input type="text" name="phone" placeholder="123-456-7890" class="form-control" />
+														<label>Tipo de Documento</label>
+														<select name="tipodoci" id="id_tipodoci" placeholder="V/E/P" class="form-control alert-success" data-parsley-required="true">
+														<option value="0">Venezolano</option>
+														<option value="1">Extranjero</option>
+														<option value="2">Pasaporte</option>
+														<option value="3">Cédula Escolar</option>
+															
+														</select>
+														
 													</div>
                                                 </div>
                                                 <!-- end col-6 -->
                                                 <!-- begin col-6 -->
-                                                <div class="col-md-6">
+                                                <div class="col-md-2">
 													<div class="form-group">
-														<label>Email Address</label>
-														<input type="text" name="email" placeholder="someone@example.com" class="form-control" />
+														<label>Documento de Identidad</label>
+														<input type="text" name="documentoidentidad" id="id_documentoidentidad" placeholder="1000000" class="form-control" data-parsley-required="true" />
 													</div>
                                                 </div>
                                                 <!-- end col-6 -->
+                                                <!-- begin col-6 -->
+                                                <div class="col-md-4">
+													<div class="form-group">
+														<label>Nombres</label>
+														<input type="text" name="nombre" id="id_nombre" placeholder="Nombres" class="form-control" data-parsley-required="true" />
+													</div>
+                                                </div>
+                                                <!-- end col-6 -->
+                                                <!-- begin col-6 -->
+                                                <div class="col-md-4">
+													<div class="form-group">
+														<label>Apellidos</label>
+														<input type="text" name="apellido" id="id_apellido" placeholder="Apellidos" class="form-control" data-parsley-required="true" />
+													</div>
+                                                </div>
+                                                <!-- end col-6 -->
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Nombre de la Institucion</label>
+                                                        <div class="controls">
+                                                            <input type="text" name="nombre_instituto" placeholder="Nombre de la Institucion" class="form-control" data-parsley-required="true" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end col-6 -->
+                                                </div>
                                             </div>
                                             <!-- end row -->
 										</fieldset>
+										<input type="submit" class="btn btn-success btn-lg" value="Guardar">
+									</form>
+									{% else %}
+									 	<div class="jumbotron m-b-0 text-center">
+                                            <h1>Seccion Bloqueada</h1>
+                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                        </div>
+									{% endif %}
 									</div>
 									<!-- end wizard step-2 -->
 									<!-- begin wizard step-3 -->
 									<div>
+										{% if trabajo%}
+										{% if instituciones %}
 										<fieldset>
-											<legend class="pull-left width-full">Login</legend>
+											<legend class="pull-left width-full">Instituciones - <a href="#" id="addScnt2">Agregar Otro</a></legend>
                                             <!-- begin row -->
                                             <div class="row">
+                                            	<div id="p_scents2">
                                                 <!-- begin col-4 -->
-                                                <div class="col-md-4">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label>Username</label>
+                                                        <label>RIF</label>
                                                         <div class="controls">
-                                                            <input type="text" name="username" placeholder="johnsmithy" class="form-control" />
+                                                            <input type="text" name="username" placeholder="J-00000000" class="form-control" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -206,9 +306,9 @@
                                                 <!-- begin col-4 -->
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Pasword</label>
+                                                        <label>Nombre</label>
                                                         <div class="controls">
-                                                            <input type="password" name="password" placeholder="Your password" class="form-control" />
+                                                            <input type="text" name="password" placeholder="Nombre" class="form-control" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -216,64 +316,123 @@
                                                 <!-- begin col-4 -->
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Confirm Pasword</label>
+                                                        <label>Razón Social</label>
                                                         <div class="controls">
-                                                            <input type="password" name="password2" placeholder="Confirmed password" class="form-control" />
+                                                            <input type="text" name="password2" placeholder="Razon Social" class="form-control" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- end col-6 -->
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Telefono</label>
+                                                        <div class="controls">
+                                                            <input type="text" name="password2" placeholder="Telefono" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end col-6 -->
+                                                
+                                                </div>
                                             </div>
                                             <!-- end row -->
                                         </fieldset>
+                                        <a class="btn btn-success btn-lg" role="button">Guardar</a>
+                                        
+                                        {% else %}
+									 	<div class="jumbotron m-b-0 text-center">
+                                            <h1>Seccion Bloqueada</h1>
+                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                        </div>
+										{% endif %}
+                                        {% else %}
+									 	<div class="jumbotron m-b-0 text-center">
+                                            <h1>Seccion Bloqueada</h1>
+                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                        </div>
+										{% endif %}
 									</div>
 									<!-- end wizard step-3 -->
 									<!-- begin wizard step-4 -->
 									<div>
-									    <div class="jumbotron m-b-0 text-center">
-                                            <h1>Login Successfully</h1>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat commodo porttitor. Vivamus eleifend, arcu in tincidunt semper, lorem odio molestie lacus, sed malesuada est lacus ac ligula. Aliquam bibendum felis id purus ullamcorper, quis luctus leo sollicitudin. </p>
-                                            <p><a class="btn btn-success btn-lg" role="button">Proceed to User Profile</a></p>
+										{% if trabajo %}
+                                        <fieldset>
+                                            <legend class="pull-left width-full">Orden de Publicacion</legend>
+                                            <!-- begin row -->
+                                            <div class="row">
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-6">
+													<div class="form-group">
+													<label>Coautores</label>
+													{% if coautores %}
+														
+														<ul id="itemlist">
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+														</ul>
+														<a class="btn btn-success btn-lg" role="button">Guardar</a>
+													{% else %}
+													<br>No tiene coautores registrados
+													{% endif %}
+													</div>
+                                                </div>
+                                                <!-- end col-4 -->
+                                                <!-- begin col-4 -->
+                                                <div class="col-md-6">
+													<div class="form-group">
+													<label>Instituciones</label>
+													{% if instituciones %}
+														
+														<ul id="itemlist2">
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+															<li><input size="3"  name="slide-order[]" value="[]" />Posición</li>
+														</ul>
+														<a class="btn btn-success btn-lg" role="button">Guardar</a>
+													{% else %}
+													<br>No tiene Instituciones registradas
+													{% endif %}
+													</div>
+                                                </div>
+                                                <!-- end col-4 -->
+                                                
+                                            </div>
+                                            <!-- end row -->
+										</fieldset>
+										{% else %}
+									 	<div class="jumbotron m-b-0 text-center">
+                                            <h1>Seccion Bloqueada</h1>
+                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
                                         </div>
+										{% endif %}
 									</div>
 									<!-- end wizard step-4 -->
 									<!-- begin wizard step-5 -->
 									<div>
-                                        <fieldset>
-                                            <legend class="pull-left width-full">Identification</legend>
-                                            <!-- begin row -->
-                                            <div class="row">
-                                                <!-- begin col-4 -->
-                                                <div class="col-md-4">
-													<div class="form-group">
-														<label>First Name</label>
-														<input type="text" name="firstname" placeholder="John" class="form-control" />
-													</div>
-                                                </div>
-                                                <!-- end col-4 -->
-                                                <!-- begin col-4 -->
-                                                <div class="col-md-4">
-													<div class="form-group">
-														<label>Middle Initial</label>
-														<input type="text" name="middle" placeholder="A" class="form-control" />
-													</div>
-                                                </div>
-                                                <!-- end col-4 -->
-                                                <!-- begin col-4 -->
-                                                <div class="col-md-4">
-													<div class="form-group">
-														<label>Last Name</label>
-														<input type="text" name="lastname" placeholder="Smith" class="form-control" />
-													</div>
-                                                </div>
-                                                <!-- end col-4 -->
-                                            </div>
-                                            <!-- end row -->
-										</fieldset>
+										{% if trabajo %}
+									    <div class="jumbotron m-b-0 text-center">
+                                            <h1>Finalizar Postulacion</h1>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat commodo porttitor. Vivamus eleifend, arcu in tincidunt semper, lorem odio molestie lacus, sed malesuada est lacus ac ligula. Aliquam bibendum felis id purus ullamcorper, quis luctus leo sollicitudin. </p>
+                                            <p><a class="btn btn-success btn-lg" role="button">Desea Terminar y Procesar el Registro</a></p>
+                                        </div>
+                                        {% else %}
+									 	<div class="jumbotron m-b-0 text-center">
+                                            <h1>Seccion Bloqueada</h1>
+                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                        </div>
+										{% endif %}
 									</div>
 									<!-- end wizard step-5 -->
+									
 								</div>
-							</form>
+							
                         </div>
                     </div>
                     <!-- end panel -->
@@ -307,13 +466,73 @@
 	<script src="/media/librerias/mogie/assets/js/apps.min.js"></script>
 	<script src="/media/librerias/mogie/assets/plugins/bootstrap-wizard/js/bwizard.js"></script>
 	<script src="/media/librerias/mogie/assets/js/form-wizards.demo.min.js"></script>
+	
+	
+	
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
-	<script>
+		<script>
 		$(document).ready(function() {
 			App.init();
 			Notification.init();
-			FormWizard.init();
+			$("#wizard").bwizard();
+			$("#wizard").bwizard("show","1");
+			
+			
+			$("#itemlist").sortable({
+			    stop: function(event, ui){
+			        var cnt = 1;
+			        $(this).children('li').each(function(){
+			            $(this).children('input:first').val(cnt);
+			            cnt++;
+			        });
+			    }
+			});
+			$("#itemlist2").sortable({
+			    stop: function(event, ui){
+			        var cnt = 1;
+			        $(this).children('li').each(function(){
+			            $(this).children('input:first').val(cnt);
+			            cnt++;
+			        });
+			    }
+			});
 		});
-	</script>
+		$(function() {
+		        var scntDiv = $('#p_scents');
+		        var i = $('#p_scents p').size() + 1;
+		        
+		        var scntDiv2 = $('#p_scents2');
+		        var i2 = $('#p_scents2 p').size() + 1;
+		        
+		        $('#addScnt').live('click', function() {
+		                $('<div id="coautoreslist"><div class="col-md-2"><div class="form-group"><label>Tipo de Documento</label><select name="tipodoci" id="id_tipodoci" placeholder="V/E/P" class="form-control alert-success" data-parsley-required="true"><option value="0">Venezolano</option><option value="1">Extranjero</option><option value="2">Pasaporte</option><option value="3">Cédula Escolar</option></select></div></div><div class="col-md-2"><div class="form-group"><label>Documento de Identidad</label><input type="text" name="2p_scnt_' + i +'" placeholder="Ej: 1000000" class="form-control" data-parsley-required="true" /></div></div><div class="col-md-4"><div class="form-group"><label>Nombres</label><input data-parsley-required="true" type="text" name="3p_scnt_' + i +'" placeholder="Nombres" class="form-control" /></div></div><div class="col-md-4"><div class="form-group"><label>Apellidos</label><input data-parsley-required="true" type="text" name="4p_scnt_' + i +'" placeholder="Apellidos" class="form-control" /></div></div><div class="col-md-12"><div class="form-group"><label>Nombre de la Institucion</label><div class="controls"><input data-parsley-required="true" type="text" name="password2" placeholder="Nombre de la Institucion" class="form-control" /></div></div></div><a href="#" id="remScnt">Quitar</a></div>').appendTo(scntDiv);
+		                i++;
+		                return false;
+		        });
+		        
+		        $('#addScnt2').live('click', function() {
+		                $('<div id="institucioneslist"><div class="col-md-2"><div class="form-group"><label>RIF</label><div class="controls"><input type="text" name="username" placeholder="J-00000000" class="form-control alert-success" /></div></div></div><div class="col-md-4"><div class="form-group"><label>Nombre</label><div class="controls"><input type="text" name="password" placeholder="Nombre" class="form-control" /></div></div></div><div class="col-md-4"><div class="form-group"><label>Razón Social</label><div class="controls"><input type="text" name="password2" placeholder="Razon Social" class="form-control" /></div></div></div><div class="col-md-2"><div class="form-group"><label>Telefono</label><div class="controls"><input type="text" name="password2" placeholder="Telefono" class="form-control" /></div></div></div><a href="#" id="remScnt2">Quitar</a></div>').appendTo(scntDiv2);
+		                i++;
+		                return false;
+		        });
+		        
+		        $('#remScnt').live('click', function() { 
+		                if( i > 2 ) {
+		                        $(this).parents('#coautoreslist').remove();
+		                        i--;
+		                }
+		                return false;
+		        });
+		        $('#remScnt2').live('click', function() { 
+		                if( i > 2 ) {
+		                        $(this).parents('#institucioneslist').remove();
+		                        i--;
+		                }
+		                return false;
+		        });
+		});
+		
+		</script>
+		
 {% endblock %}
