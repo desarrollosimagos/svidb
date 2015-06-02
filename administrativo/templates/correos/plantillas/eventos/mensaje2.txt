@@ -5,13 +5,10 @@
   <td width="700" background="http://proyectonous.org/diversidadbiologica/congresos/wp-content/uploads/2015/03/Logoweb.jpg" height="180" border="0" vspace="0" hspace="0" alt="V Congreso Venezolano de Diversidad Biológica"> 
    </td>
    </tr><tr>
-   
-  	
    <td width="700" background="">
-   
 <blockquote><p align="justify"><font face="Arial, Verdana"><font size="4"><font color="#666666">
 <br>
-<strong>HACIA EL V CONGRESO VENEZOLANO DE DIVERSIDAD BIOLÓGICA</strong>
+<strong>HACIA EL VI CONGRESO VENEZOLANO DE DIVERSIDAD BIOLÓGICA</strong>
 <br>
 <br>
 Estimado {{ nombre }} {{ apellido }}.<br>
@@ -22,24 +19,17 @@ Su resumen "{% autoescape off %}{{ titulo|removetags:"b span p"|safe }}{% endaut
 ¡Felicitaciones!
 <br>
 <br>
-Para  responder los mensajes debe entrar <a href="http://diversidadbiologica.minamb.gob.ve/panel/eventos/ver/7/?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">aqui.</a></font></font></font></p>
+Para  responder los mensajes debe entrar <a href="http://diversidadbiologica.minamb.gob.ve/panel/eventos/ver/51/?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">aqui.</a></font></font></font></p>
   <p align="justify"><font color="#666666"><br>
-  <a href="http://diversidadbiologica.minamb.gob.ve/panel/eventos/ver/7/?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">http://diversidadbiologica.<wbr>minamb.gob.ve/panel/eventos/<wbr>ver/7/</a><br>
+  <a href="http://diversidadbiologica.minamb.gob.ve/panel/eventos/ver/51/?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">http://diversidadbiologica.<wbr>minamb.gob.ve/panel/eventos/<wbr>ver/51/</a><br>
   <br>
   <br>
   <strong>Comité Organizador</strong><br>
   <a href="http://diversidadbiologica.minamb.gob.ve?utm_source=emailcampaign25&amp;utm_medium=phpList&amp;utm_content=HTMLemail&amp;utm_campaign=Arbitraje+" target="_blank">www.diversidadbiologica.<wbr>minamb.gob.ve</a>
   <br><br>
-    
   </font></p>
 </blockquote>
-   
-   
-   
-    
-   
    </td>
-	
   </tr>
 </tbody></table>
 </div>
