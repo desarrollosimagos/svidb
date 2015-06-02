@@ -2,12 +2,12 @@
 
 <table bgcolor="#FFFFFF" width="700" border="0" cellspacing="0"> 
 <tbody><tr>
-  <td width="700" background="https://ci4.googleusercontent.com/proxy/brTdeD-JP7Zy1AKqYyQw-I03zkM8V7JC8wT_BNgZqTWBClRYHt2qoT2Xh_0G14TBPmZou2l0JFMOp-2-1_PHfHeJ3o2avfC4UzhcKxEbfU2lDTHJtxTWoaRlHxqAgkjxu947=s0-d-e1-ft#http://www.proyectonous.com/boletines/historico/imagenes/header-vcongreso.png" height="320" border="0" vspace="0" hspace="0" alt="V Congreso Venezolano de Diversidad Biológica"> 
+  <td width="700" background="http://proyectonous.org/diversidadbiologica/congresos/wp-content/uploads/2015/03/Logoweb.jpg" height="180" border="0" vspace="0" hspace="0" alt="V Congreso Venezolano de Diversidad Biológica"> 
    </td>
    </tr><tr>
    
   	
-   <td width="700" background="https://ci3.googleusercontent.com/proxy/ejt4eHRSf7OwOQwB2AeemLkoEKxDH8q6U1yFpkDiw5KcNVA3Zjn30Ud8ysmAwAYwQzTzWWw_8RpJ0rM30ihMKkQsA29bIZfDP5w97b-4VG03-hwm1inijLEX14xmDmnmrw=s0-d-e1-ft#http://www.proyectonous.com/boletines/historico/imagenes/base-vcongreso.png">
+   <td width="700" background="">
    
 <blockquote><p align="justify"><font face="Arial, Verdana"><font size="4"><font color="#666666">
 <br>
