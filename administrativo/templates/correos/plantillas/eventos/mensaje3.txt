@@ -11,7 +11,7 @@
 <strong>HACIA EL VI CONGRESO VENEZOLANO DE DIVERSIDAD BIOLÓGICA</strong>
 <br>
 <br>
-Estimado {{ nombre }} {{ apellido }}.<br>
+Estimad@ {{ nombre }} {{ apellido }}.<br>
 <br>
 Su resumen titulado "{% autoescape off %}{{ titulo|removetags:"b span p"|safe }}{% endautoescape %}" no ha sido aceptado.
 <br>

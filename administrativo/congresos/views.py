@@ -1147,7 +1147,7 @@ def mensajesArbitraje(request,id):
           d= settings.URL_SET_SITE
           if arbitro:
              subject, from_email, to = 'SVIDB - Nuevo mensaje de Arbitraje', settings.EMAIL_HOST_USER, mensajes.trabajos.directorio.correo
-             ctx_dict = {'nombre': mensajes.trabajos.directorio.nombre, 'apellido':mensajes.trabajos.directorio.apellido,'d':d,'congreso':mensajes.trabajos.evento.nombre,'titulo':mensajes.trabajos.titulo,'mensajes':mensajes.mensaje,'id':mensajes.trabajos.id}
+             ctx_dict = {'sexo':publicacion.directorio.sexo,'nombre': mensajes.trabajos.directorio.nombre, 'apellido':mensajes.trabajos.directorio.apellido,'d':d,'congreso':mensajes.trabajos.evento.nombre,'titulo':mensajes.trabajos.titulo,'mensajes':mensajes.mensaje,'id':mensajes.trabajos.id}
              html_content= render_to_string('correos/plantillas/eventos/mensaje.txt',ctx_dict)
              msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
              msg.attach_alternative(html_content, "text/html")
@@ -1235,7 +1235,7 @@ def CambiarEstatusPublicacion(request,id):
              msg.send()
           if publicacion.estatu == 2:
              subject, from_email, to = 'SVIDB - Nuevo mensaje de Arbitraje', settings.EMAIL_HOST_USER, publicacion.directorio.correo
-             ctx_dict = {'nombre': publicacion.directorio.nombre, 'apellido':publicacion.directorio.apellido,'d':d,'congreso':publicacion.evento.nombre,'titulo':publicacion.titulo,'mensajes':'Su Trabajo ha sido Aprobado','id':publicacion.id}
+             ctx_dict = {'sexo':publicacion.directorio.sexo,'nombre': publicacion.directorio.nombre, 'apellido':publicacion.directorio.apellido,'d':d,'congreso':publicacion.evento.nombre,'titulo':publicacion.titulo,'mensajes':'Su Trabajo ha sido Aprobado','id':publicacion.id}
              html_content= render_to_string('correos/plantillas/eventos/mensaje3.txt',ctx_dict)
              msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
              msg.attach_alternative(html_content, "text/html")
