@@ -126,7 +126,7 @@ def resumen_pdf(request,id):
     except Trabajoscongresos.DoesNotExist:
        trabajos = None
     today = datetime.now() #fecha actual
-    dateFormat = today.strftime("%d-%m-%y") # fecha con formato
+    dateFormat = today.strftime("%d-%m-%Y") # fecha con formato
     d= settings.URL_SET_SITE 
     # vista de ejemplo con un hipotético modelo Libro
     html = render_to_string('documentos/resumen.html', {'pagesize':'A4', 'persona':persona,'trabajos':trabajos,'url':d,'dateFormat':dateFormat}, context_instance=RequestContext(request))
