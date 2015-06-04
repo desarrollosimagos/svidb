@@ -263,3 +263,5 @@ class TipoareaaccionsAdmin(admin.ModelAdmin):
 admin.site.register(Tipoareaaccions,TipoareaaccionsAdmin)
 
 admin.site.register(ActoresCCModificados)
+
+admin.site.register(ActoresHistorico)

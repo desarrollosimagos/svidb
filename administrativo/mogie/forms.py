@@ -10,7 +10,22 @@ class GuardarFoto(forms.ModelForm):
 class DatosResumen(forms.ModelForm):
       class Meta:
           model = Trabajoscongresos
-          fields = ('titulo','resumen','tematicas','modalidad','directorio')
+          fields = ('titulo','resumen','tematicas','modalidad','directorio','evento')
+          
+class DatosResumen1(forms.ModelForm):
+      class Meta:
+          model = Trabajoscongresos
+          fields = ('titulo','resumen','tematicas','modalidad')
+
+class DatosResumenCoautores(forms.ModelForm):
+      class Meta:
+          model = RelacionPersonasTrabajos
+          fields = ('trabajo','institucionestxt')   
+          
+class DatosResumenInstituciones(forms.ModelForm):
+      class Meta:
+          model = ActoresHistorico
+          fields = ('rif','nombre','nombre_completo','telefono')         
           
 class GuardarDatosDirectorios(forms.ModelForm):
       class Meta:

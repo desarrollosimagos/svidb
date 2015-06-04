@@ -33,3 +33,5 @@ admin.site.register(DetalleColaboracionConf)
 admin.site.register(ColaboracionPersonas)
 
 admin.site.register(ColaboracionInformacion)
+
+admin.site.register(RelacionPersonasTrabajos)

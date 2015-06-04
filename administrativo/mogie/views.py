@@ -347,6 +347,43 @@ def postulacionResumenes(request,evento,modalidad):
        return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'eventos':eventos,'modalidad':modalidad,'resultado':resultado,'perfil':perfil}, context_instance=RequestContext(request))
        
 def SegundoPasoPostulacion(request,trabajo):
+
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    if not resultado:
+       return HttpResponseRedirect("/mogie")
+       
+    try:
+       trabajos = Trabajoscongresos.objects.get(pk=trabajo)
+    except Trabajoscongresos.DoesNotExist:
+       trabajos = None
+    
+    try:
+       coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+    except RelacionPersonasTrabajos.DoesNotExist:
+       coautores = None
+       
+    try:
+       instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
+    except RelacionActoresTrabajos.DoesNotExist:
+       instituciones = None
+    
+    if request.method == 'POST':
+       EditarResumen = DatosResumen1(request.POST,instance=trabajos)
+       if EditarResumen.is_valid():
+          trabajos = EditarResumen.save()
+          return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':0,'formulario1':EditarResumen,'error':0}, context_instance=RequestContext(request))
+       else:
+          return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':0,'formulario1':EditarResumen,'error':1}, context_instance=RequestContext(request))
+    else:
+       EditarResumen = DatosResumen1(instance=trabajos)
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':1,'formulario1':EditarResumen}, context_instance=RequestContext(request))
+       
+       
+def TercerPasoPostulacion(request,trabajo):
     try:
         _username = request.user.username
     except request.DoesNotExist:
@@ -361,23 +398,203 @@ def SegundoPasoPostulacion(request,trabajo):
        trabajos = None
        
     try:
-       coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
-    except RelacionPersonasTrabajos.DoesNotExist:
-       coautores = None
-       
-    try:
        instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
     except RelacionActoresTrabajos.DoesNotExist:
        instituciones = None
+
     
     if request.method == 'POST':
-       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones}, context_instance=RequestContext(request))
+       AddCoautores = DatosResumenCoautores(request.POST)
+       EditarResumen = DatosResumen1(instance=trabajos)
+       
+       if AddCoautores.is_valid():
+          #guardar coautor
+          coautores = AddCoautores.save()
+          
+          #verificar cedula         
+          try:
+             personasCo = Directorios.objects.get(Q(tipodoci=request.POST['tipodoci']) & Q(documentoidentidad=request.POST['documentoidentidad']))
+          except Directorios.DoesNotExist:
+             personasCo = None
+          #si la institucion existe
+          if personasCo:
+             #se hace un recorrido
+             coautores.personas =  personasCo
+             coautores.save()
+          else:
+             #sino se crea el registro
+             personasCo = Directorios(tipodoci=request.POST['tipodoci'],documentoidentidad=request.POST['documentoidentidad'],nombre=request.POST['nombre'],apellido=request.POST['apellido'])
+             personasCo.save()
+             #se agregar a coautores                
+             coautores.personas =  personasCo
+             coautores.save()
+          
+          #consultar si la institucion mencionada esta registrada en actores colectivos
+          try:
+             institucionesid = Actores.objects.filter(nombre_completo=coautores.institucionestxt)[:1]
+          except Actores.DoesNotExist:
+             institucionesid = None
+          #si la institucion existe
+          if institucionesid:
+             #se hace un recorrido
+             for i in institucionesid:
+                #se verifica si existe el registro en un actores historicos
+                try:
+                   historicoid = ActoresHistorico.objects.get(actores=i)
+                except ActoresHistorico.DoesNotExist:
+                   historicoid = None
+                #si existe el registro   
+                if not historicoid:
+                   #sino se crea el registro
+                   historico = ActoresHistorico(actores=i,telefono=i.telefono,fax=i.fax,address=i.address,geolocation=i.geolocation,rif=i.rif,siglas=i.siglas,nombre=i.nombre,nombre_completo=i.nombre_completo,direccion=i.direccion,pai=i.pai,estado=i.estado,municipio=i.municipio,parroquia=i.parroquia,correo=i.correo,estatu=2)
+                   historico.save()
+                   #se agregar a coautores                
+                   coautores.instituciones =  historico
+                   coautores.save()
+                   try:
+                      instituto = RelacionActoresTrabajos.objects.get(Q(trabajo=trabajos) & Q(instituciones=historico))
+                   except RelacionActoresTrabajos.DoesNotExist:
+                      instituto = None
+                   if not instituto:
+                      #se agrega a instituciones
+                      institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historico)
+                      institucionesreg.save()
+                   
+                else:                
+                   #se agrega a coautores
+                   coautores.instituciones =  historicoid
+                   coautores.save()
+                   try:
+                      instituto = RelacionActoresTrabajos.objects.get(Q(trabajo=trabajos) & Q(instituciones=historicoid))
+                   except RelacionActoresTrabajos.DoesNotExist:
+                      instituto = None
+                   if not instituto:
+                      #se agrega a instituciones
+                      institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historicoid)
+                      institucionesreg.save()                 
+
+          
+          try:
+             coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+          except RelacionPersonasTrabajos.DoesNotExist:
+             coautores = None
+             
+          return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':1,'formulario1':EditarResumen,'formulario2':AddCoautores}, context_instance=RequestContext(request)) 
+       else:
+       
+          try:
+             coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+          except RelacionPersonasTrabajos.DoesNotExist:            
+             coautores = None
+       
+          return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':1,'formulario1':EditarResumen,'formulario2':AddCoautores}, context_instance=RequestContext(request)) 
+    
+    else: 
+       try:
+          coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+       except RelacionPersonasTrabajos.DoesNotExist:            
+          coautores = None
+               
+       EditarResumen = DatosResumen1(instance=trabajos)
+       AddCoautores = DatosResumenCoautores()
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':1,'formulario1':EditarResumen,'formulario2':AddCoautores}, context_instance=RequestContext(request)) 
+       
+       
+def coautoresBorrar(request,id,trabajo):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    
+    try:
+       coautores = RelacionPersonasTrabajos.objects.filter(pk=id)
+    except RelacionPersonasTrabajos.DoesNotExist:
+       coautores = None
+
+    coautores.delete()
+    return HttpResponseRedirect("/mogie/eventos/resumen/coautores/" + trabajo)
+    
+    
+def institucionesBorrar(request,id,trabajo):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    
+    try:
+       instituto = RelacionActoresTrabajos.objects.filter(pk=id)
+    except RelacionActoresTrabajos.DoesNotExist:
+       instituto = None
+
+    instituto.delete()
+    return HttpResponseRedirect("/mogie/eventos/resumen/coautores/" + trabajo)
+    
+    
+def CuartoPasoPostulacion(request,trabajo):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    if not resultado:
+       return HttpResponseRedirect("/mogie")
+       
+    try:
+       trabajos = Trabajoscongresos.objects.get(pk=trabajo)
+    except Trabajoscongresos.DoesNotExist:
+       trabajos = None 
+       
+    try:
+       coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)      
+    except RelacionPersonasTrabajos.DoesNotExist:            
+       coautores = None        
+    
+    if request.method == 'POST':
+       AddInstituciones = DatosResumenInstituciones(request.POST)
+       try:
+          historicoid = ActoresHistorico.objects.get(nombre_completo=request.POST['nombre_completo'])
+       except ActoresHistorico.DoesNotExist:
+          historicoid = None
+       if not historicoid:
+          if AddInstituciones.is_valid():
+             guardarInstitucion = AddInstituciones.save()
+             try:
+                instituto = RelacionActoresTrabajos.objects.get(Q(trabajo=trabajos) & Q(instituciones=guardarInstitucion))
+             except RelacionActoresTrabajos.DoesNotExist:
+                instituto = None               
+             if not instituto:
+                institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=guardarInstitucion)
+                institucionesreg.save()
+       else:
+          try:
+             instituto = RelacionActoresTrabajos.objects.get(Q(trabajo=trabajos) & Q(instituciones=historicoid))
+          except RelacionActoresTrabajos.DoesNotExist:
+             instituto = None               
+          if not instituto:
+             institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historicoid)
+             institucionesreg.save()
+       try:
+          instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
+       except RelacionActoresTrabajos.DoesNotExist:
+          instituciones = None 
+       EditarResumen = DatosResumen1(instance=trabajos)
+       AddCoautores = DatosResumenCoautores()
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':2,'formulario1':EditarResumen,'formulario2':AddCoautores}, context_instance=RequestContext(request))      
     else:
-       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones}, context_instance=RequestContext(request))
+       try:
+          instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
+       except RelacionActoresTrabajos.DoesNotExist:
+          instituciones = None 
+       EditarResumen = DatosResumen1(instance=trabajos)
+       AddCoautores = DatosResumenCoautores()
+       return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':2,'formulario1':EditarResumen,'formulario2':AddCoautores}, context_instance=RequestContext(request))            
+ 
        
               
        
-def preinscripcionEvento(request,id):
+def preinscripcionEvento(request,id,trabajo):
     try:
         _username = request.user.username
     except request.DoesNotExist:

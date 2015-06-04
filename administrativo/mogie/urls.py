@@ -38,6 +38,14 @@ urlpatterns = patterns('mogie',
     
     url(r'^eventos/resumen/(\d+)$', 'views.SegundoPasoPostulacion', name="mogie"),
     
+    url(r'^eventos/resumen/coautores/(\d+)$', 'views.TercerPasoPostulacion', name="mogie"),
+    
+    url(r'^eventos/resumen/institucion/(\d+)$', 'views.CuartoPasoPostulacion', name="mogie"),
+    
+    url(r'^eventos/resumen/coautores/borrar/(\d+)/(\d+)$', 'views.coautoresBorrar', name="mogie"),
+    
+    url(r'^eventos/resumen/instituciones/borrar/(\d+)/(\d+)$', 'views.institucionesBorrar', name="mogie"),
+    
     url(r'^$', 'views.publico', name='mogie'),
     
     url(r'^ajax/index_v2.html$', 'views.indexvs2', name='mogie'),

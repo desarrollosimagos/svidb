@@ -109,6 +109,7 @@ class RelacionPersonasTrabajos(models.Model):
     trabajo = models.ForeignKey(Trabajoscongresos,null=True, blank=True,verbose_name='Traba')
     personas = models.ForeignKey(Directorios,null=True, blank=True,verbose_name='Coautor Persona')
     instituciones = models.ForeignKey(ActoresHistorico,null=True, blank=True,verbose_name='Coautor Institucion')
+    institucionestxt = models.CharField(max_length=300,verbose_name='Institucion Nombre',null=True, blank=True)
     orden = models.IntegerField(verbose_name='Orden',null=True, blank=True)
     class Meta:
         verbose_name_plural='Relacion personas Trabajos'
