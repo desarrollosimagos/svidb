@@ -140,15 +140,16 @@
 		
 		{% block ContenidoPagina %}
 		<div id="content" class="content">
+		    <br><br><br>
 			<!-- begin breadcrumb -->
 			<ol class="breadcrumb pull-right">
-				<li><a href="javascript:;">Home</a></li>
-				<li><a href="javascript:;">Form Stuff</a></li>
-				<li class="active">Wizards</li>
+				<li><a href="/mogie/eventos/detalle/{{ trabajo.evento.id }}">{{ trabajo.evento }}</a></li>
+				<li><a href="/mogie/eventos/detalle/{{ trabajo.evento.id }}#listadoresumenes">Listado de resumenes</a></li>
+				<li class="active">Resumen</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Wizards <small>header small text goes here...</small></h1>
+			<h1 class="page-header">RESUMEN <small></small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
@@ -174,30 +175,31 @@
 										</li>
 										<li>
 										    Instituciones
-										    <small>Insituciones participantes en el resumen</small>
+										    <small>Instituciones participantes en el resumen</small>
 										</li>
 										<li>
-										    Orden de Publicacion
-										    <small>orden de publicacion</small>
+										    Orden de Publicación
+										    <small>orden de publicación</small>
 										</li>
 										<li>
-										    Finalizacion
+										    Finalización
 										    <small>Finalizar registro del resumen</small>
 										</li>
 									</ol>
 									<!-- begin wizard step-1 -->
 									<div>
-									<form method="POST" data-parsley-validate="true">
+									
                                         <fieldset>
                                             <legend class="pull-left width-full">Datos del Resumen</legend>
                                             <!-- begin row -->
                                             <div class="row">
                                             	{% if trabajo %}
+                                            	<form method="POST" data-parsley-validate="true" action="/mogie/eventos/resumen/{{ trabajo.id }}">
                                             	<!-- begin col-4 -->
                                                 <div class="col-md-4">
 													<div class="form-group">
 														<label>Titulo</label>
-														<input type="text" name="titulo" placeholder="Titulo del resumen" class="form-control" data-parsley-required="true" data-parsley-range="[20,200]" value="{{ trabajo.titulo }}" />
+														<input type="text" name="titulo" placeholder="Titulo del resumen" class="form-control" data-parsley-required="true" data-parsley-range="[20,600]" value="{{ trabajo.titulo }}" />
 													</div>
                                                 </div>
                                                 <!-- end col-4 -->
@@ -242,17 +244,18 @@
                                                 <div class="col-md-4">
 													<div class="form-group">
 														<label>Resumen</label>
-														<textarea name="resumen"  class="form-control" data-parsley-required="true" data-parsley-range="[20,200]">{{ trabajo.resumen }}</textarea>
+														<textarea name="resumen"  class="form-control" data-parsley-required="true" data-parsley-range="[20,2000]">{{ trabajo.resumen }}</textarea>
 													</div>
                                                 </div>
                                                 <!-- end col-4 -->
                                             	
                                             	{% else %}
+                                            	<form method="POST" data-parsley-validate="true" action="">
                                                 <!-- begin col-4 -->
                                                 <div class="col-md-4">
 													<div class="form-group">
 														<label>Titulo</label>
-														<input type="text" name="titulo" placeholder="Titulo del resumen" class="form-control" data-parsley-required="true" data-parsley-range="[20,200]" />
+														<input type="text" name="titulo" placeholder="Titulo del resumen" class="form-control" data-parsley-required="true" data-parsley-range="[20,600]" />
 														<input type="hidden" name="modalidad" value="{{ modalidad }}">
 														<input type="hidden" name="directorio" value="{{ perfil.persona.id }}">
 														<input type="hidden" name="evento" value="{{ eventos.id }}">
@@ -279,7 +282,7 @@
                                                 <div class="col-md-4">
 													<div class="form-group">
 														<label>Resumen</label>
-														<textarea name="resumen"  class="form-control" data-parsley-required="true" data-parsley-range="[20,200]"></textarea>
+														<textarea name="resumen"  class="form-control" data-parsley-required="true" data-parsley-range="[20,5000]"></textarea>
 													</div>
                                                 </div>
                                                 <!-- end col-4 -->
@@ -290,7 +293,13 @@
                                             </div>
                                             <!-- end row -->
 										</fieldset>
-										<input type="submit" class="btn btn-success btn-lg" value="Guardar">
+										{% if trabajo %}
+											{% if trabajo.estatu == 5 %}
+											<input type="submit" class="btn btn-success btn-lg" value="Guardar">
+											{% endif %}
+										{% else %}
+											<input type="submit" class="btn btn-success btn-lg" value="Guardar">
+										{% endif %}
 									</form>
 									</div>
 									<!-- end wizard step-1 -->
@@ -298,6 +307,7 @@
 									<!-- begin wizard step-2 -->
 									<div>
 									{% if trabajo %}
+									{% if trabajo.estatu == 5 %}
 									<form method="POST" action="/mogie/eventos/resumen/coautores/{{ trabajo.id }}" data-parsley-validate="true">
 										<input type="hidden" name="trabajo" value="{{ trabajo.id }}">
 										<fieldset>
@@ -347,7 +357,7 @@
                                                 <!-- begin col-4 -->
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Nombre de la Institucion</label>
+                                                        <label>Nombre de la Institución</label>
                                                         <div class="controls">
                                                             <input type="text" class="form-control" name="institucionestxt" id="nombre_inst" placeholder="Nombre o Razon Social" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" data-parsley-required="true">
                                                             <input type="hidden" name="id" id="id" value="">
@@ -363,6 +373,7 @@
 										<input type="submit" class="btn btn-success btn-lg" value="Guardar">
 									</form>
 									<br>
+									{% endif %}
 									<div class="invoice-content">
 					                    <div class="table-responsive">
 					                        <table class="table table-invoice">
@@ -395,42 +406,44 @@
 					                                    </td>
 					                                    
 					                                    <td>
+					                                    {% if trabajo.estatu == 5 %}
 					                                    <a href="#modal-alert{{ i.id }}" class="btn btn-sm btn-success m-b-10" data-toggle="modal"><i class="fa fa-download m-r-5"></i>Borrar</a>
+					                                    {% endif %}
 					                                    </td>
 					                                </tr>
 					                                <div class="modal fade" id="modal-alert{{ i.id }}">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-											<h4 class="modal-title">ELIMINAR COAUTOR</h4>
-										</div>
-										<div class="modal-body">
-											<div class="note note-success">
-												<h4>¿ESTA SEGUR@?</h4>
-												<p>
-												    Si desea continuar con la operación haga clic en el botón "CONTINUAR". De lo contrario haga clic en "CANCELAR". Va a eliminar al coautor {% if i.personas.tipodoci == 0 %}
-					                                        	V-
-					                                        {% endif %}
-					                                        {% if i.personas.tipodoci == 1 %}
-					                                        	E-
-					                                        {% endif %}
-					                                        {% if i.personas.tipodoci == 2 %}
-					                                        	P-
-					                                        {% endif %}
-					                                        {% if i.personas.tipodoci == 3 %}
-					                                        	CE-
-					                                        {% endif %} {{ i.personas.documentoidentidad }} / {{ i.personas.nombre }} {{ i.personas.apellido }}
-				                                </p>
-											</div>
-										</div>
-										<div class="modal-footer">
-											<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cancelar</a>
-											<a href="/mogie/eventos/resumen/coautores/borrar/{{ i.id }}/{{ trabajo.id }}" class="btn btn-sm btn-danger">Continuar</a>
-										</div>
-									</div>
-								</div>
-							</div>
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+																	<h4 class="modal-title">ELIMINAR COAUTOR</h4>
+																</div>
+																<div class="modal-body">
+																	<div class="note note-success">
+																		<h4>¿ESTA SEGUR@?</h4>
+																		<p>
+																		    Si desea continuar con la operación haga clic en el botón "CONTINUAR". De lo contrario haga clic en "CANCELAR". Va a eliminar al coautor {% if i.personas.tipodoci == 0 %}
+											                                        	V-
+											                                        {% endif %}
+											                                        {% if i.personas.tipodoci == 1 %}
+											                                        	E-
+											                                        {% endif %}
+											                                        {% if i.personas.tipodoci == 2 %}
+											                                        	P-
+											                                        {% endif %}
+											                                        {% if i.personas.tipodoci == 3 %}
+											                                        	CE-
+											                                        {% endif %} {{ i.personas.documentoidentidad }} / {{ i.personas.nombre }} {{ i.personas.apellido }}
+										                                </p>
+																	</div>
+																</div>
+																<div class="modal-footer">
+																	<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cancelar</a>
+																	<a href="/mogie/eventos/resumen/coautores/borrar/{{ i.id }}/{{ trabajo.id }}" class="btn btn-sm btn-danger">Continuar</a>
+																</div>
+															</div>
+														</div>
+													</div>
 					                            {% endfor %}
 					                            </tbody>
 					                        </table>
@@ -439,8 +452,8 @@
 					                
 									{% else %}
 									 	<div class="jumbotron m-b-0 text-center">
-                                            <h1>Seccion Bloqueada</h1>
-                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                            <h1>Sección Bloqueada</h1>
+                                            <p>No puede acceder a esta sección hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
                                         </div>
 									{% endif %}
 									</div>
@@ -448,7 +461,8 @@
 									<!-- begin wizard step-3 -->
 									<div>
 										{% if trabajo%}
-										{% if instituciones %}
+										{% if trabajo %}
+										{% if trabajo.estatu == 5 %}
 										<form method="POST" action="/mogie/eventos/resumen/institucion/{{ trabajo.id }}" data-parsley-validate="true">
 										<fieldset>
 											<legend class="pull-left width-full">Instituciones</legend>
@@ -502,6 +516,7 @@
                                         </fieldset>
                                         <input type="submit" class="btn btn-success btn-lg" value="Guardar">
 										</form>
+										{% endif %}
                                         <br>
                                         <div class="invoice-content">
 					                    <div class="table-responsive">
@@ -523,7 +538,9 @@
 					                                    </td>
 					                                    
 					                                    <td>
+					                                    {% if trabajo.estatu == 5 %}
 					                                    <a href="#modal-instituciones{{ e.id }}" class="btn btn-sm btn-success m-b-10" data-toggle="modal"><i class="fa fa-download m-r-5"></i>Borrar</a>
+					                                    {% endif %}
 					                                    </td>
 					                                </tr>
 					                                <div class="modal fade" id="modal-instituciones{{ e.id }}">
@@ -555,14 +572,14 @@
 					                </div>
                                         {% else %}
 									 	<div class="jumbotron m-b-0 text-center">
-                                            <h1>Seccion Bloqueada</h1>
-                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                            <h1>Sección Bloqueada</h1>
+                                            <p>No puede acceder a esta sección hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
                                         </div>
 										{% endif %}
                                         {% else %}
 									 	<div class="jumbotron m-b-0 text-center">
-                                            <h1>Seccion Bloqueada</h1>
-                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                            <h1>Sección Bloqueada</h1>
+                                            <p>No puede acceder a esta sección hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
                                         </div>
 										{% endif %}
 									</div>
@@ -571,18 +588,20 @@
 									<div>
 										{% if trabajo %}
                                         <fieldset>
-                                            <legend class="pull-left width-full">Orden de Publicacion</legend>
+                                            <legend class="pull-left width-full">Orden de Publication</legend>
+                                            Instrucciones:
+                                            <ul>
+                                            	<li>Solo debe arrastrar las listas en la posición que desee ordenarlos y luego guardar.</li>
+                                            </ul>
                                             <!-- begin row -->
-                                            <div class="row">
-                                                <!-- begin col-4 -->
-                                                <div class="col-md-6">
+                                            
 													<div class="form-group">
-													<label>Coautores</label>
+													<fieldset><legend class="pull-left width-full">Coautores</legend>
 													{% if coautores %}
-													<form method="GET" action="/mogie/eventos/resumen/coautores/orden/{{ trabajo.id }}" data-parsley-validate="true">	
-														<ul id="itemlist">
+													<!--<form method="GET" action="/mogie/eventos/resumen/coautores/orden/{{ trabajo.id }}" data-parsley-validate="true">-->	
+														<ul id="itemlist" style="list-style:none;">
 														{% for c in coautores %}
-															<li><input size="3" class="btn btn-success btn-lg" name="coautores[]" value="" data-parsley-required="true" />{% if c.personas.tipodoci == 0 %}
+															<li><input size="3" class="btn btn-success btn-10 parsley-success" name="{{ c.id }}" value="{{ c.orden }}" data-parsley-required="true" /> <span class="fa fa-2x fa-arrows"></span> <label class="label label-info" style="font-size:12px; line-height:3;">{% if c.personas.tipodoci == 0 %}
 					                                        	V-
 					                                        {% endif %}
 					                                        {% if c.personas.tipodoci == 1 %}
@@ -593,44 +612,47 @@
 					                                        {% endif %}
 					                                        {% if c.personas.tipodoci == 3 %}
 					                                        	CE-
-					                                        {% endif %} {{ c.personas.documentoidentidad }} / {{ c.personas.nombre }}</li>
+					                                        {% endif %} {{ c.personas.documentoidentidad }} / {{ c.personas.nombre }}
+															</label></li>
 														{% endfor %}
 														</ul>
-														<input type="submit" class="btn btn-success btn-lg" value="Guardar">
-													</form>
+													<!--	<input type="submit" class="btn btn-success btn-lg" value="Guardar">
+													</form>-->
+													</fieldset>
 													{% else %}
 													<br>No tiene coautores registrados
 													{% endif %}
 													</div>
-                                                </div>
+                                                
                                                 <!-- end col-4 -->
                                                 <!-- begin col-4 -->
-                                                <div class="col-md-6">
+                                                
 													<div class="form-group">
-													<label>Instituciones</label>
+													<fieldset><legend class="pull-left width-full">Instituciones</legend>
 													{% if instituciones %}
-													<form method="POST" action="/mogie/eventos/resumen/institucion/orden/{{ trabajo.id }}" data-parsley-validate="true">	
-														<ul id="itemlist2">
+													<!--<form method="POST" action="/mogie/eventos/resumen/institucion/orden/{{ trabajo.id }}" data-parsley-validate="true">-->	
+														<ul id="itemlist2" style="list-style:none;">
 														{% for i in instituciones %}
-															<li><input class="btn btn-success btn-lg" size="3" name="instituciones[]" value="" data-parsley-required="true"/> {{ i.instituciones.nombre_completo }}</li>
+															<li><input class="btn btn-success btn-10 parsley-success" size="3" name="{{ i.id }}" value="{{ i.orden }}" data-parsley-required="true"/> <span class="fa fa-2x fa-arrows"></span>  <label class="label label-warning" style="font-size:12px; line-height:3;">{{ i.instituciones.nombre_completo }}</label></li>
 														{% endfor %}
 														</ul>
-														<input type="submit" class="btn btn-success btn-lg" value="Guardar">
-													</form>
+														<!--<input type="button" id="btnposinst" class="btn btn-success btn-lg" value="Guardar">
+													</form>-->
+													</fieldset>
 													{% else %}
 													<br>No tiene Instituciones registradas
 													{% endif %}
 													</div>
-                                                </div>
+                                                
                                                 <!-- end col-4 -->
                                                 
-                                            </div>
+                                            
                                             <!-- end row -->
 										</fieldset>
 										{% else %}
 									 	<div class="jumbotron m-b-0 text-center">
-                                            <h1>Seccion Bloqueada</h1>
-                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                            <h1>Sección Bloqueada</h1>
+                                            <p>No puede acceder a esta sección hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
                                         </div>
 										{% endif %}
 									</div>
@@ -638,15 +660,29 @@
 									<!-- begin wizard step-5 -->
 									<div>
 										{% if trabajo %}
+										{% if coautores %}
+										{% if instituciones %}
 									    <div class="jumbotron m-b-0 text-center">
-                                            <h1>Finalizar Postulacion</h1>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat commodo porttitor. Vivamus eleifend, arcu in tincidunt semper, lorem odio molestie lacus, sed malesuada est lacus ac ligula. Aliquam bibendum felis id purus ullamcorper, quis luctus leo sollicitudin. </p>
-                                            <p><a class="btn btn-success btn-lg" role="button">Desea Terminar y Procesar el Registro</a></p>
+                                            <h1>Finalizar Postulación</h1>
+                                            <p>Tenga en cuenta que al finalizar el registro no podrá realizar cambios en el resumen.</p>
+                                            <p><a href="/mogie/eventos/resumen/finalizar/{{ trabajo.id }}"  class="btn btn-success btn-lg" role="button">Desea Terminar y Procesar el Registro</a></p>
                                         </div>
                                         {% else %}
 									 	<div class="jumbotron m-b-0 text-center">
-                                            <h1>Seccion Bloqueada</h1>
-                                            <p>No puede acceder a esta seccion hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                            <h1>Sección Bloqueada</h1>
+                                            <p>No puede acceder a esta sección hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                        </div>
+										{% endif %}
+                                        {% else %}
+									 	<div class="jumbotron m-b-0 text-center">
+                                            <h1>Sección Bloqueada</h1>
+                                            <p>No puede acceder a esta sección hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
+                                        </div>
+										{% endif %}
+                                        {% else %}
+									 	<div class="jumbotron m-b-0 text-center">
+                                            <h1>Sección Bloqueada</h1>
+                                            <p>No puede acceder a esta sección hasta que haya guardado los datos anteriores. Muchas Gracias.</p>
                                         </div>
 										{% endif %}
 									</div>
@@ -708,15 +744,26 @@
 			        var cnt = 1;
 			        $(this).children('li').each(function(){
 			            $(this).children('input:first').val(cnt);
+			            guardarPosicon('/mogie/eventos/resumen/orden/coautores',$(this).children('input:first').attr("name"),cnt);
 			            cnt++;
 			        });
 			    }
 			});
+			/*
+			$( "#btnposinst" ).click(function(event, ui){
+				var cnt = 1;
+		        $("#itemlist2").children('li').each(function(){
+		            alert($("#itemlist2").children('input').val());
+		            cnt++;
+		        });
+			});
+			*/
 			$("#itemlist2").sortable({
 			    stop: function(event, ui){
 			        var cnt = 1;
 			        $(this).children('li').each(function(){
 			            $(this).children('input:first').val(cnt);
+			            guardarPosicon('/mogie/eventos/resumen/orden/instituciones',$(this).children('input:first').attr("name"),cnt);
 			            cnt++;
 			        });
 			    }
@@ -756,6 +803,23 @@
 		                return false;
 		        });
 		});
+		
+		function guardarPosicon(url2,id,orden){
+			var data = {
+				"id": id,
+				"orden": orden
+			};
+			data = $(this).serialize() + "&" + $.param(data);
+			$.ajax({
+		      type: "POST",
+		      dataType: "json",
+		      url: url2+'/'+id+'/'+orden, //Relative or absolute path to response.php file
+		      data: data,
+		      success: function(data) {
+		        console.log(data['respuesta']);
+		      }
+		    });
+		}
 		
 		</script>
 		

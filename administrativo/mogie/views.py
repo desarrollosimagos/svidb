@@ -25,6 +25,8 @@ from forms import *
 from actores.forms import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import date
+from django.utils import simplejson
+from django.http import HttpResponse
 
 
 def admin(request):
@@ -305,6 +307,16 @@ def detalleEvento(request,id):
        eventos = Eventos.objects.get(pk=id)
     except Eventos.DoesNotExist:
        eventos = None  
+       
+    try:
+       trabajosAutor = Trabajoscongresos.objects.filter(Q(directorio=perfil.persona) & Q(evento=eventos))
+    except Trabajoscongresos.DoesNotExist:
+       trabajosAutor = None
+       
+    try:
+       trabajoscoautor = RelacionPersonasTrabajos.objects.filter(Q(personas=perfil.persona) & Q(trabajo__evento=eventos))
+    except RelacionPersonasTrabajos.DoesNotExist:
+       trabajoscoautor = None
     
     try:
        participacion = participacioEvento.objects.get(Q(evento=eventos) & Q(directorio=perfil.persona))
@@ -316,7 +328,7 @@ def detalleEvento(request,id):
     except Eventos.DoesNotExist:
        cursos = None 
     if resultado:
-       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado,'hoy':date.today(),'perfil':perfil,'participacion':participacion}, context_instance=RequestContext(request))
+       return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos,'cursos':cursos,'resultado':resultado,'hoy':date.today(),'perfil':perfil,'participacion':participacion,'trabajosAutor':trabajosAutor,'trabajoscoautor':trabajoscoautor}, context_instance=RequestContext(request))
     else:
        return render_to_response('mogie/publico/eventos/detalle.html',{'eventos':eventos}, context_instance=RequestContext(request))    
 
@@ -340,6 +352,8 @@ def postulacionResumenes(request,evento,modalidad):
        registrarResumen = DatosResumen(request.POST)
        if registrarResumen.is_valid():
           trabajos = registrarResumen.save()
+          trabajos.estatu = 5
+          trabajos.save()
           return HttpResponseRedirect("/mogie/eventos/resumen/" + str(trabajos.id))
        else:
           return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'eventos':eventos,'modalidad':modalidad,'resultado':resultado,'perfil':perfil}, context_instance=RequestContext(request))
@@ -360,6 +374,9 @@ def SegundoPasoPostulacion(request,trabajo):
        trabajos = Trabajoscongresos.objects.get(pk=trabajo)
     except Trabajoscongresos.DoesNotExist:
        trabajos = None
+    
+    if trabajos.estatu <> 5:
+       return HttpResponseRedirect("/mogie/eventos/resumen/previsual/"+trabajo)
     
     try:
        coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
@@ -397,10 +414,37 @@ def TercerPasoPostulacion(request,trabajo):
     except Trabajoscongresos.DoesNotExist:
        trabajos = None
        
+    if trabajos.estatu <> 5:
+       return HttpResponseRedirect("/mogie/eventos/resumen/previsual/"+trabajo)
+       
     try:
-       instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
+       instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos).order_by('orden')
     except RelacionActoresTrabajos.DoesNotExist:
        instituciones = None
+       
+    try:
+       institucionesPosicion = RelacionActoresTrabajos.objects.filter(trabajo=trabajos).order_by('-orden')[:1]
+    except RelacionActoresTrabajos.DoesNotExist:
+       institucionesPosicion = None
+       
+    if not institucionesPosicion:
+       posicion2 = 1
+    else:
+       for p in institucionesPosicion:
+           porden = p.orden
+       posicion2 = porden + 1
+       
+    try:
+       coautoresPosicion = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos).order_by('-orden')[:1]
+    except RelacionPersonasTrabajos.DoesNotExist:
+       coautoresPosicion = None
+       
+    if not coautoresPosicion:
+       posicion = 1
+    else:
+       for p in coautoresPosicion:
+           porden = p.orden
+       posicion = porden + 1
 
     
     if request.method == 'POST':
@@ -410,6 +454,8 @@ def TercerPasoPostulacion(request,trabajo):
        if AddCoautores.is_valid():
           #guardar coautor
           coautores = AddCoautores.save()
+          coautores.orden = posicion
+          coautores.save()
           
           #verificar cedula         
           try:
@@ -457,7 +503,9 @@ def TercerPasoPostulacion(request,trabajo):
                       instituto = None
                    if not instituto:
                       #se agrega a instituciones
-                      institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historico)
+                      institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historico,orden=posicion2)
+                      institucionesreg.save()
+                      institucionesreg.orden = posicion2
                       institucionesreg.save()
                    
                 else:                
@@ -470,12 +518,14 @@ def TercerPasoPostulacion(request,trabajo):
                       instituto = None
                    if not instituto:
                       #se agrega a instituciones
-                      institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historicoid)
+                      institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historicoid,orden=posicion2)
+                      institucionesreg.save()
+                      institucionesreg.orden = posicion2
                       institucionesreg.save()                 
 
           
           try:
-             coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+             coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos).order_by('orden')
           except RelacionPersonasTrabajos.DoesNotExist:
              coautores = None
              
@@ -483,7 +533,7 @@ def TercerPasoPostulacion(request,trabajo):
        else:
        
           try:
-             coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+             coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos).order_by('orden')
           except RelacionPersonasTrabajos.DoesNotExist:            
              coautores = None
        
@@ -491,7 +541,7 @@ def TercerPasoPostulacion(request,trabajo):
     
     else: 
        try:
-          coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)
+          coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos).order_by('orden')
        except RelacionPersonasTrabajos.DoesNotExist:            
           coautores = None
                
@@ -532,6 +582,23 @@ def institucionesBorrar(request,id,trabajo):
     return HttpResponseRedirect("/mogie/eventos/resumen/coautores/" + trabajo)
     
     
+def finalizarResumen(request,trabajo):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    
+    try:
+       trabajos = Trabajoscongresos.objects.get(pk=trabajo)
+    except Trabajoscongresos.DoesNotExist:
+       trabajos = None
+
+    trabajos.estatu = 4
+    trabajos.save()
+    return HttpResponseRedirect("/mogie/eventos/resumen/" + trabajo)
+    
+    
 def CuartoPasoPostulacion(request,trabajo):
     try:
         _username = request.user.username
@@ -546,10 +613,25 @@ def CuartoPasoPostulacion(request,trabajo):
     except Trabajoscongresos.DoesNotExist:
        trabajos = None 
        
+    if trabajos.estatu <> 5:
+       return HttpResponseRedirect("/mogie/eventos/resumen/previsual/"+trabajo)
+       
     try:
-       coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos)      
+       coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos).order_by('orden')      
     except RelacionPersonasTrabajos.DoesNotExist:            
-       coautores = None        
+       coautores = None 
+       
+    try:
+       institucionesPosicion = RelacionActoresTrabajos.objects.filter(trabajo=trabajos).order_by('-orden')[:1]
+    except RelacionActoresTrabajos.DoesNotExist:
+       institucionesPosicion = None
+       
+    if not institucionesPosicion:
+       posicion2 = 1
+    else:
+       for p in institucionesPosicion:
+           porden = p.orden
+       posicion2 = porden + 1       
     
     if request.method == 'POST':
        AddInstituciones = DatosResumenInstituciones(request.POST)
@@ -567,6 +649,8 @@ def CuartoPasoPostulacion(request,trabajo):
              if not instituto:
                 institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=guardarInstitucion)
                 institucionesreg.save()
+                institucionesreg.orden = posicion2
+                institucionesreg.save()
        else:
           try:
              instituto = RelacionActoresTrabajos.objects.get(Q(trabajo=trabajos) & Q(instituciones=historicoid))
@@ -575,8 +659,10 @@ def CuartoPasoPostulacion(request,trabajo):
           if not instituto:
              institucionesreg = RelacionActoresTrabajos(trabajo=trabajos,instituciones=historicoid)
              institucionesreg.save()
+             institucionesreg.orden = posicion2
+             institucionesreg.save()
        try:
-          instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
+          instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos).order_by('orden') 
        except RelacionActoresTrabajos.DoesNotExist:
           instituciones = None 
        EditarResumen = DatosResumen1(instance=trabajos)
@@ -584,14 +670,78 @@ def CuartoPasoPostulacion(request,trabajo):
        return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':2,'formulario1':EditarResumen,'formulario2':AddCoautores}, context_instance=RequestContext(request))      
     else:
        try:
-          instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos)
+          instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos).order_by('orden') 
        except RelacionActoresTrabajos.DoesNotExist:
           instituciones = None 
        EditarResumen = DatosResumen1(instance=trabajos)
        AddCoautores = DatosResumenCoautores()
        return render_to_response('mogie/publico/eventos/trabajos/postulacion.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'paso':2,'formulario1':EditarResumen,'formulario2':AddCoautores}, context_instance=RequestContext(request))            
  
+ 
+def ResumenPrevisual(request,trabajo):
+    try:
+        _username = request.user.username
+    except request.DoesNotExist:
+        _username = None
+    resultado,perfil = accesoValidacion(_username) 
+    if not resultado:
+       return HttpResponseRedirect("/mogie")
        
+    try:
+       trabajos = Trabajoscongresos.objects.get(pk=trabajo)
+    except Trabajoscongresos.DoesNotExist:
+       trabajos = None 
+       
+    try:
+       configuracion = DetalleResumenConfiguracion.objects.get(evento=trabajos.evento)
+    except DetalleResumenConfiguracion.DoesNotExist:
+       configuracion = None 
+       
+    try:
+       coautores = RelacionPersonasTrabajos.objects.filter(trabajo=trabajos).order_by('orden')      
+    except RelacionPersonasTrabajos.DoesNotExist:            
+       coautores = None 
+       
+    try:
+       instituciones = RelacionActoresTrabajos.objects.filter(trabajo=trabajos).order_by('orden')
+    except RelacionActoresTrabajos.DoesNotExist:
+       instituciones = None
+       
+    return render_to_response('mogie/publico/eventos/trabajos/previsual.html',{'trabajo':trabajos,'resultado':resultado,'perfil':perfil,'coautores':coautores,'instituciones':instituciones,'configuracion':configuracion}, context_instance=RequestContext(request))    
+       
+
+def OrdenarCoautores(request,id,orden):
+    try:
+       coautores = RelacionPersonasTrabajos.objects.get(pk=id)      
+    except RelacionPersonasTrabajos.DoesNotExist:            
+       coautores = None     
+    if not coautores:
+       response_dict = {}                                          
+       response_dict.update({'respuesta':'error > no procesado'})
+    else:
+       coautores.orden = orden 
+       coautores.save()     
+       response_dict = {}                                          
+       response_dict.update({'respuesta':'procesado orden coautor'})     
+    return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
+    
+    
+def OrdenarInstituciones(request,id,orden):
+    try:
+       instituciones = RelacionActoresTrabajos.objects.get(pk=id)      
+    except RelacionActoresTrabajos.DoesNotExist:            
+       instituciones = None     
+    if not instituciones:
+       response_dict = {}                                          
+       response_dict.update({'respuesta':'error > no procesado'})
+    else:
+       instituciones.orden = orden 
+       instituciones.save()     
+       response_dict = {}                                          
+       response_dict.update({'respuesta':'procesado orden instituciones'})     
+    return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')   
+
+
               
        
 def preinscripcionEvento(request,id,trabajo):

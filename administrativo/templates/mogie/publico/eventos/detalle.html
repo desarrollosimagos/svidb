@@ -79,6 +79,7 @@
 		{% block ContenidoPagina %}
 		<br>
 		<br>
+		<br>
 		<div id="content" class="content">
 			<!-- begin breadcrumb -->
 			<ol class="breadcrumb pull-right">
@@ -109,11 +110,11 @@
                                         {% autoescape off %}{{ eventos.descripcion }}{% endautoescape %}
                                     </p>
                                     <div class="btn-row">
-                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Analytics"><i class="fa fa-fw fa-bar-chart-o"></i></a>
-                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Tasks"><i class="fa fa-fw fa-tasks"></i></a>
-                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Configuration"><i class="fa fa-fw fa-cog"></i></a>
-                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Performance"><i class="fa fa-fw fa-tachometer"></i></a>
-                                        <a href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Users"><i class="fa fa-fw fa-user"></i></a>
+                                        
+                                        <a href="#modalidadesdisponibles" data-toggle="tooltip" data-container="body" data-title="Listado de Modalidades"><i class="fa fa-fw fa-tasks"></i></a>
+                                        <a href="#cursosdisponibles" data-toggle="tooltip" data-container="body" data-title="Listado de Cursos"><i class="fa fa-fw fa-tasks"></i></a>
+                                        <a href="#listadoresumenes" data-toggle="tooltip" data-container="body" data-title="Resumenes postulados"><i class="fa fa-fw fa-tasks"></i></a>
+                                        
                                     </div>
                                 </div>
                        
@@ -172,6 +173,14 @@
                         </div>
                     </div>
                 </div>
+                <div id="modalidadesdisponibles"></div>
+            
+            <BR>
+            <br>
+            <BR>
+            <br>
+            <BR>
+            <br>
                 <div class="invoice-content">
                     <div class="table-responsive">
                         <table class="table table-invoice">
@@ -206,6 +215,12 @@
                 </div>
                 
             </div>
+            <div id="cursosdisponibles"></div>
+            
+            <BR>
+            <br>
+            <BR>
+            <br>
             <BR>
             <br>
             <div class="invoice">
@@ -232,7 +247,7 @@
                                     <td>
                                     {% if e.opt1 %}
                                     {% if hoy >= e.fechaInicioInscripcion and hoy <= e.fechaFinInscripcion %}
-									    <a href="javascript:;" class="btn btn-sm btn btn-danger m-b-10"><i class="fa fa-print m-r-5"></i> PRE-INSCRIBIRSE</a>
+									    <a href="/mogie/eventos/detalle/{{ e.id }}" class="btn btn-sm btn btn-danger m-b-10"><i class="fa fa-print m-r-5"></i> PRE-INSCRIBIRSE</a>
 									{% else %}
 									    
 									{% endif %}
@@ -246,6 +261,129 @@
                                     {% endif %}
                                     </td>
                                 </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="listadoresumenes"></div>
+            
+            <BR>
+            <br>
+            <BR>
+            <br>
+            <BR>
+            <br>
+            <div class="invoice" >
+                <div class="invoice-content">
+                    <div class="table-responsive">
+                        <table class="table table-invoice">
+                            <thead>
+                                <tr>
+                                    <th>TRABAJOS POSTULADOS PARA ESTE EVENTO COMO AUTOR</th>
+                                    
+                                    <th>ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            
+                            {% for e in trabajosAutor %}
+                                
+                                    	<!-- ACEPTADO -->
+                                    	{% if e.estatu == 1 %}
+								<tr>
+                                    <td>
+                                    	<div class="alert alert-success fade in">
+				                            
+				                            <i class="fa fa-check fa-2x pull-left"></i>
+				                            <b><a href="/mogie/eventos/resumen/{{ e.id }}">{{ e.titulo }}</a></b><br>
+											<small>{% autoescape off %}{{ e.resumen|removetags:"b span p strong" }}{% endautoescape %}</small>
+										</div>
+									</td>
+                                    <td>
+                                    </td>
+                                </tr>
+										{% endif %}
+										<!-- RECHAZADO -->
+										{% if e.estatu == 2 %}
+								<tr>
+                                    <td>
+                                    	<div class="alert alert-danger fade in">
+				                            
+				                            <i class="fa fa-exclamation-triangle fa-2x pull-left"></i>
+				                            <b><a href="/mogie/eventos/resumen/{{ e.id }}">{{ e.titulo }}</a></b><br>
+											<small>{% autoescape off %}{{ e.resumen|removetags:"b span p strong" }}{% endautoescape %}</small>
+										</div>
+									</td>
+                                    <td>
+                                    </td>
+                                </tr>
+										{% endif %}
+					
+										<!-- ACEPTADO CON MODIFICACIONES -->
+										{% if e.estatu == 3 %}
+								<tr>
+                                    <td>
+                                    	<div class="alert alert-info fade in">
+				                            
+				                            <i class="fa fa-exclamation fa-2x pull-left"></i>
+				                            <b><a href="/mogie/eventos/resumen/{{ e.id }}">{{ e.titulo }}</a></b><br>
+											<small>{% autoescape off %}{{ e.resumen|removetags:"b span p strong" }}{% endautoescape %}</small>
+										</div>
+									</td>
+                                    <td>
+                                    </td>
+                                </tr>
+										{% endif %}
+										<!-- POR ARBITRAR -->
+										{% if e.estatu == 4 %}
+								<tr>
+                                    <td>
+                                    	<div class="alert alert-primary fade in">
+				                            
+				                            <i class="fa fa-history fa-2x pull-left"></i>
+				                            <b><a href="/mogie/eventos/resumen/{{ e.id }}">{{ e.titulo }}</a></b><br>
+											<small>{% autoescape off %}{{ e.resumen|removetags:"b span p strong" }}{% endautoescape %}</small>
+										</div>
+									</td>
+                                    <td>
+                                    </td>
+                                </tr>
+										{% endif %}
+										<!-- REGISTRADO -->
+										{% if e.estatu == 5 %}
+								<tr>
+                                    <td>
+                                    	<div class="alert alert-default fade in">
+				                            
+				                            <i class="fa fa-circle-o-notch fa-2x pull-left"></i>
+				                            <b><a href="/mogie/eventos/resumen/{{ e.id }}">{{ e.titulo }}</a></b><br>
+											<small>{% autoescape off %}{{ e.resumen|removetags:"b span p strong" }}{% endautoescape %}</small>
+										</div>
+									</td>
+                                    <td>
+                                    </td>
+                                </tr>
+										{% endif %}
+                                    
+										<!-- ARBITRANDO -->
+										{% if e.estatu == 6 %}
+								<tr>
+                                    <td>
+                                    	<div class="alert alert-default fade in">
+				                            
+				                            <i class="fa fa-institution alias fa-2x pull-left"></i>
+				                            <b><a href="/mogie/eventos/resumen/{{ e.id }}">{{ e.titulo }}</a></b><br>
+											<small>{% autoescape off %}{{ e.resumen|removetags:"b span p strong" }}{% endautoescape %}</small>
+										</div>
+									</td>
+                                    <td>
+                                    </td>
+                                </tr>
+										{% endif %}                                        
+                                    
                             {% endfor %}
                             </tbody>
                         </table>

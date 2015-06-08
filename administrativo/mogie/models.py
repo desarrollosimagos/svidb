@@ -128,5 +128,15 @@ class RelacionActoresTrabajos(models.Model):
         unique_together=('trabajo','instituciones',)
     def __unicode__(self):
         return u"%s" %(self.trabajo) 
+        
+class DetalleResumenConfiguracion(models.Model):
+    evento = models.ForeignKey(Eventos,null=True, blank=True,verbose_name='Evento')
+    header = models.ImageField(upload_to='eventos/header',null=True, blank=True)
+    firma = models.ImageField(upload_to='eventos/firmas',null=True, blank=True)
+    class Meta:
+        verbose_name_plural='Detalle Configuracion de Previsual'
+        verbose_name='Detalle Configuracion de Previsual'
+    def __unicode__(self):
+        return u"%s" %(self.evento)
 
     

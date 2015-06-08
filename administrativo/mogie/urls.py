@@ -42,7 +42,15 @@ urlpatterns = patterns('mogie',
     
     url(r'^eventos/resumen/institucion/(\d+)$', 'views.CuartoPasoPostulacion', name="mogie"),
     
+    url(r'^eventos/resumen/previsual/(\d+)$', 'views.ResumenPrevisual', name="mogie"),
+    
+    url(r'^eventos/resumen/finalizar/(\d+)$', 'views.finalizarResumen', name="mogie"),
+    
     url(r'^eventos/resumen/coautores/borrar/(\d+)/(\d+)$', 'views.coautoresBorrar', name="mogie"),
+    
+    url(r'^eventos/resumen/orden/coautores/(\d+)/(\d+)$', 'views.OrdenarCoautores', name="mogie"),
+    
+    url(r'^eventos/resumen/orden/instituciones/(\d+)/(\d+)$', 'views.OrdenarInstituciones', name="mogie"),
     
     url(r'^eventos/resumen/instituciones/borrar/(\d+)/(\d+)$', 'views.institucionesBorrar', name="mogie"),
     

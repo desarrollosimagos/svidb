@@ -160,7 +160,7 @@ class AportesEventosConfiguracion(models.Model):
 		
 class Trabajoscongresos(models.Model):
     SHIRT_SIZES = (
-        (1,'Aceptado'),(2,'Rechazado'),(3,'Aceptado con modificaciones'),
+        (1,'Aceptado'),(2,'Rechazado'),(3,'Aceptado con modificaciones'),(4,'Por arbitrar'),(5,'Registrado'),(6,'Arbitrando')
     )
     titulo = models.CharField(max_length=450)
     presento = models.BooleanField(blank=True,verbose_name='Presentado',db_column='presento')
