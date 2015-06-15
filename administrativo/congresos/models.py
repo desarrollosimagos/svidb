@@ -36,6 +36,9 @@ class TipoEventos(models.Model):
 
 class Modalidads(models.Model):
     nombre = models.CharField(max_length=135)
+    genero = models.CharField(max_length=135,null=True,blank=True)
+    textosuperior = models.CharField(max_length=135,null=True,blank=True)
+    coletilla = models.CharField(max_length=135,null=True,blank=True)
     update = models.DateTimeField(default=datetime.now(),editable = False)
     descripcion = models.TextField(verbose_name='Descripción')
     userupdate = models.ForeignKey(User,verbose_name='Usuario')
