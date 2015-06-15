@@ -49,7 +49,7 @@ class Modalidads(models.Model):
         #app_label = 'Eventos'
     def __unicode__(self):
         return u"%s" %(self.nombre)
-# ALTER TABLE modalidads ADD COLUMN genero character varying(135) NOT NULL;
+# ALTER TABLE modalidads ADD COLUMN genero character varying(135);
 #ALTER TABLE modalidads ADD COLUMN textosuperior character varying(135);
 #ALTER TABLE modalidads ADD COLUMN coletilla character varying(135);        
  
