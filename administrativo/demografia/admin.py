@@ -10,6 +10,8 @@ from django.shortcuts import render, render_to_response
 
 from posiciones.autocomplete.widgets import *
 
+from import_export.admin import ImportExportModelAdmin
+
 class PaisAdmin(admin.ModelAdmin):
       def formfield_for_foreignkey(self, db_field, request, **kwargs):
           if db_field.name == "userupdate":
@@ -18,21 +20,29 @@ class PaisAdmin(admin.ModelAdmin):
 
 admin.site.register(Pais,PaisAdmin)
 
-class EstadosAdmin(admin.ModelAdmin):
+class EstadosAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+      resource_class = EstadosResource
+      pass
       def formfield_for_foreignkey(self, db_field, request, **kwargs):
           if db_field.name == "userupdate":
              kwargs["queryset"] = User.objects.filter(id=request.user.id)
           return super(EstadosAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(Estados,EstadosAdmin)
 
-class MunicipiosAdmin(admin.ModelAdmin):
+class MunicipiosAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+      list_filter = ('estado',)
+      resource_class = MunicipiosResource
+      pass
       def formfield_for_foreignkey(self, db_field, request, **kwargs):
           if db_field.name == "userupdate":
              kwargs["queryset"] = User.objects.filter(id=request.user.id)
           return super(MunicipiosAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(Municipios,MunicipiosAdmin)
 
-class ParroquiasAdmin(admin.ModelAdmin):
+class ParroquiasAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+      list_filter = ('municipio',)
+      resource_class = ParroquiasResource
+      pass
       def formfield_for_foreignkey(self, db_field, request, **kwargs):
           if db_field.name == "userupdate":
              kwargs["queryset"] = User.objects.filter(id=request.user.id)

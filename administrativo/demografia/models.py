@@ -3,6 +3,9 @@
 from django.db import models
 from gestion.models import *
 from datetime import datetime
+from import_export import resources
+from import_export import fields
+
 
 # Create your models here.
 class Pais(models.Model):
@@ -29,6 +32,11 @@ class Estados(models.Model):
         verbose_name='Estados'
     def __unicode__(self):
         return u"%s  %s" %(self.nombre, self.cod)
+        
+class EstadosResource(resources.ModelResource):
+    class Meta:
+        model = Estados
+        fields = ('nombre',)
 
 class Municipios(models.Model):
     nombre = models.CharField(max_length=300)
@@ -42,6 +50,11 @@ class Municipios(models.Model):
         verbose_name='Municipios'
     def __unicode__(self):
         return u"%s  %s" %(self.nombre, self.cod)
+        
+class MunicipiosResource(resources.ModelResource):
+    class Meta:
+        model = Municipios
+        fields = ('nombre',)
 
 class Parroquias(models.Model):
     nombre = models.CharField(max_length=360)
@@ -55,5 +68,10 @@ class Parroquias(models.Model):
         verbose_name='Parroquias'
     def __unicode__(self):
         return u"%s %s" %(self.nombre, self.cod)
+        
+class ParroquiasResource(resources.ModelResource):
+    class Meta:
+        model = Parroquias
+        fields = ('nombre',)
 
 

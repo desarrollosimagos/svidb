@@ -744,7 +744,7 @@ def OrdenarInstituciones(request,id,orden):
 
               
        
-def preinscripcionEvento(request,id,trabajo):
+def preinscripcionEvento(request,id):
     try:
         _username = request.user.username
     except request.DoesNotExist:
