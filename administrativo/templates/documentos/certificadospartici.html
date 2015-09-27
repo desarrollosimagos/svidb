@@ -19,7 +19,9 @@
 html, body, table, caption, tbody, tfoot, thead, tr, th, td {  
     font-family: certificado;  
 }
+
 </style>
+<!-- CERTIFICADO PERSONAS -->
     </head>
 	<body>
     	<table width="100%" cellpadding="0" cellspacing="0">
@@ -51,17 +53,17 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
           <td>&nbsp;</td>
           <td>
           <br><br>
-          <span style="text-align:left; font-size:55px; font-weight:bold;">{{ persona.nombre|capfirst }} {{ persona.apellido|capfirst }}
+          <span style="text-align:left; font-size:30px; font-weight:bold;">{{ persona.nombre|capfirst }} {{ persona.apellido|capfirst }}
           
           </span></td>
-          <td width="17%">&nbsp;</td>
+          <td width="17%"></td>
         </tr>
         <tr>
         	<td colspan="3" height="2px"></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td><span style="text-align:left; font-size:22px;">{% if persona.tipodoci = 0 %} C.I. V- {% endif %}{% if persona.tipodoci = 1 %} E- {% endif %}{% if persona.tipodoci = 2 %} P- {% endif %}{% if persona.tipodoci = 3 %} CE- {% endif %} {{ persona.documentoidentidad }}</span></td>
+          <td><span style="text-align:left; font-size:15px;">{% if persona.tipodoci = 0 %} C.I. V- {% endif %}{% if persona.tipodoci = 1 %} E- {% endif %}{% if persona.tipodoci = 2 %} P- {% endif %}{% if persona.tipodoci = 3 %} CE- {% endif %} {{ persona.documentoidentidad }}</span></td>
           <td width="17%">&nbsp;</td>
         </tr>
         <tr>
@@ -71,7 +73,7 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
         </tr>
         <tr>
         	<td>&nbsp;</td>
-            <td style="font-size:26px;">
+            <td style="font-size:15px;">
             	<table cellpadding="0" cellspacing="0" align="right" style="font-size:26px;" width="100%" border="0" >
                 	<tr>
                     	<td width="50px">&nbsp;</td>
@@ -80,7 +82,7 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td style="color:#60C; font-family:certificado;font-size:26px; font-weight:bold;" align="right"><b><strong>{{ evento.nombre }}</strong></b></td>
+                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>{{ evento.nombre }}</strong></b></td>
                         <td></td>
                     </tr>
                     <tr>

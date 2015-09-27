@@ -56,17 +56,17 @@ em{
           <td>&nbsp;</td>
           <td>
           <br><br>
-          <span style="text-align:left; font-size:55px; font-weight:bold;">{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}
+          <span style="text-align:left; font-size:30px; font-weight:bold;">{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}
           
           </span></td>
-          <td width="17%">&nbsp;</td>
+          <td width="17%"></td>
         </tr>
         <tr>
         	<td colspan="3" height="2px"></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td><span style="text-align:left; font-size:22px;">{% if i.directorio.tipodoci = 0 %} C.I. V- {% endif %}{% if i.directorio.tipodoci = 1 %} E- {% endif %}{% if i.directorio.tipodoci = 2 %} P- {% endif %}{% if i.directorio.tipodoci = 3 %} C.I. CE- {% endif %} {{ i.directorio.documentoidentidad }}</span></td>
+          <td><span style="text-align:left; font-size:15px;">{% if i.directorio.tipodoci = 0 %} C.I. V- {% endif %}{% if i.directorio.tipodoci = 1 %} E- {% endif %}{% if i.directorio.tipodoci = 2 %} P- {% endif %}{% if i.directorio.tipodoci = 3 %} C.I. CE- {% endif %} {{ i.directorio.documentoidentidad }}</span></td>
           <td width="17%">&nbsp;</td>
         </tr>
         <tr>
@@ -76,8 +76,8 @@ em{
         </tr>
         <tr>
         	<td>&nbsp;</td>
-            <td style="font-size:26px;">
-            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:26px;" width="100%" border="0" >
+            <td style="font-size:15px;">
+            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:15px;" width="100%" border="0" >
                 	<tr>
                     	<td width="50px">&nbsp;</td>
                     	<td align="right">Por su participación en el</td>
@@ -85,7 +85,7 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td style="color:#60C; font-family:certificado;font-size:26px; font-weight:bold;" align="right"><b><strong>{{ i.modalidad }}</strong></b></td>
+                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>{{ i.modalidad }}</strong></b></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -102,7 +102,7 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td align="right" style="font-size:17px;">
+                    	<td align="right" style="font-size:12px;">
                         	{% if i.coautores.all %}
                         	{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}, 
                             {% endif %}
@@ -162,17 +162,17 @@ em{
           <td>&nbsp;</td>
           <td>
           <br><br>
-          <span style="text-align:left; font-size:55px; font-weight:bold;">{{ co1.nombre|capfirst }} {{ co1.apellido|capfirst }}
+          <span style="text-align:left; font-size:30px; font-weight:bold;">{{ co1.nombre|capfirst }} {{ co1.apellido|capfirst }}
           
           </span></td>
-          <td width="17%">&nbsp;</td>
+          <td width="17%"></td>
         </tr>
         <tr>
         	<td colspan="3" height="2px"></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td><span style="text-align:left; font-size:22px;">{% if co1.tipodoci = 0 %} C.I. V- {% endif %}{% if co1.tipodoci = 1 %} E- {% endif %}{% if co1.tipodoci = 2 %} P- {% endif %}{% if co1.tipodoci = 3 %} C.I. CE- {% endif %} {{ co1.documentoidentidad }}</span></td>
+          <td><span style="text-align:left; font-size:15px;">{% if co1.tipodoci = 0 %} C.I. V- {% endif %}{% if co1.tipodoci = 1 %} E- {% endif %}{% if co1.tipodoci = 2 %} P- {% endif %}{% if co1.tipodoci = 3 %} C.I. CE- {% endif %} {{ co1.documentoidentidad }}</span></td>
           <td width="17%">&nbsp;</td>
         </tr>
         <tr>
@@ -182,8 +182,8 @@ em{
         </tr>
         <tr>
         	<td>&nbsp;</td>
-            <td style="font-size:26px;">
-            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:26px;" width="100%" border="0" >
+            <td style="font-size:15px;">
+            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:15px;" width="100%" border="0" >
                 	<tr>
                     	<td width="50px">&nbsp;</td>
                     	<td align="right">Por su participación en el</td>
@@ -191,7 +191,7 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td style="color:#60C; font-family:certificado;font-size:26px; font-weight:bold;" align="right"><b><strong>{{ i.modalidad }}</strong></b></td>
+                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>{{ i.modalidad }}</strong></b></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -208,7 +208,7 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td align="right" style="font-size:17px;">
+                    	<td align="right" style="font-size:12px;">
                         	{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}, 
 	                      {% for co2 in i.coautores.all %}
                           	{% autoescape off %}{{ co2.nombre|removetags:"p"|safe|capfirst }}{% endautoescape %} 
