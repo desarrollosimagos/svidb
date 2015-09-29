@@ -202,7 +202,7 @@ class TrabajoscongresosResource(resources.ModelResource):
     full_resumen = fields.Field()
     class Meta:
         model = Trabajoscongresos
-        fields = ('id','titulo','fundamento__nombre','objetivoespecifico__nombre','accionesgenerale__nombre','accespecifi__nombre','modalidad__nombre','tematicas__nombre','resumen','evento__nombre','full_coautores','full_colectivo','directorio__documentoidentidad','directorio__nombre','directorio__apellido','directorio__telefono1','directorio__correo','coautores','colectivos')
+        fields = ('id','titulo','fundamento__nombre','objetivoespecifico__nombre','accionesgenerale__nombre','accespecifi__nombre','modalidad__nombre','tematicas__nombre','resumen','evento__nombre','full_coautores','full_colectivo','directorio__documentoidentidad','directorio__nombre','directorio__apellido','directorio__telefono1','directorio__correo','coautores','colectivos','estatu')
 
 #        fields = ('id','full_titulo','full_resumen','full_coautores','full_colectivo','directorio__documentoidentidad','directorio__nombre','directorio__apellido','directorio__telefono1','directorio__correo','modalidad__nombre','tematicas__nombre','accespecifi__nombre',)
     def dehydrate_full_coautores(self, trabajoscongresos):
