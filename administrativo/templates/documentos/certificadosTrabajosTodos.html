@@ -30,7 +30,7 @@ em{
     {% if trabajos %}
     	<table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-        	<td width="17%">&nbsp;</td>
+        	<td width="30%">&nbsp;</td>
             <td align="right"></td>
             <td align="right">&nbsp;</td>
           </tr>
@@ -50,7 +50,7 @@ em{
                        <br>&nbsp;
             <br>&nbsp;
             </td>
-            <td width="17%">&nbsp;</td>
+            <td width="4%">&nbsp;</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -59,7 +59,7 @@ em{
           <span style="text-align:left; font-size:45px; font-weight:bold;">{{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }}
           
           </span></td>
-          <td width="17%"></td>
+          <td width="4%"></td>
         </tr>
         <tr>
         	<td colspan="3" height="2px"></td>
@@ -67,7 +67,7 @@ em{
         <tr>
           <td>&nbsp;</td>
           <td><span style="text-align:left; font-size:22px;">{% if trabajos.directorio.tipodoci = 0 %} C.I. V- {% endif %}{% if trabajos.directorio.tipodoci = 1 %} E- {% endif %}{% if trabajos.directorio.tipodoci = 2 %} P- {% endif %}{% if trabajos.directorio.tipodoci = 3 %} C.I. CE- {% endif %} {{ trabajos.directorio.documentoidentidad }}</span></td>
-          <td width="17%">&nbsp;</td>
+          <td width="4%">&nbsp;</td>
         </tr>
         <tr>
         	<td>&nbsp;</td>
@@ -137,7 +137,7 @@ em{
             {% for co1 in trabajos.coautores.all %}
             <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-        	<td width="17%">&nbsp;</td>
+        	<td width="30%">&nbsp;</td>
             <td align="right"></td>
             <td align="right">&nbsp;</td>
           </tr>
@@ -157,7 +157,7 @@ em{
                        <br>&nbsp;
             <br>&nbsp;
             </td>
-            <td width="17%">&nbsp;</td>
+            <td width="4%">&nbsp;</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -166,7 +166,7 @@ em{
           <span style="text-align:left; font-size:45px; font-weight:bold;">{{ co1.nombre|capfirst }} {{ co1.apellido|capfirst }}
           
           </span></td>
-          <td width="17%"></td>
+          <td width="4%"></td>
         </tr>
         <tr>
         	<td colspan="3" height="2px"></td>
@@ -174,7 +174,7 @@ em{
         <tr>
           <td>&nbsp;</td>
           <td><span style="text-align:left; font-size:22px;">{% if co1.tipodoci = 0 %} C.I. V- {% endif %}{% if co1.tipodoci = 1 %} E- {% endif %}{% if co1.tipodoci = 2 %} P- {% endif %}{% if co1.tipodoci = 3 %} C.I. CE- {% endif %} {{ co1.documentoidentidad }}</span></td>
-          <td width="17%">&nbsp;</td>
+          <td width="4%">&nbsp;</td>
         </tr>
         <tr>
         	<td>&nbsp;</td>

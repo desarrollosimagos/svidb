@@ -25,7 +25,7 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
     {% for i in trabajos %}
     	<table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-        	<td width="17%">&nbsp;</td>
+        	<td width="30%">&nbsp;</td>
             <td align="right"></td>
             <td align="right">&nbsp;</td>
           </tr>
@@ -45,7 +45,7 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
                        <br>&nbsp;
             <br>&nbsp;
             </td>
-            <td width="17%">&nbsp;</td>
+            <td width="4%">&nbsp;</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -54,7 +54,7 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
           <span style="text-align:left; font-size:45px; font-weight:bold;">{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}
           
           </span></td>
-          <td width="17%"></td>
+          <td width="4%"></td>
         </tr>
         <tr>
         	<td colspan="3" height="2px"></td>
@@ -62,7 +62,7 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
         <tr>
           <td>&nbsp;</td>
           <td><span style="text-align:left; font-size:22px;">{% if i.directorio.tipodoci = 0 %} C.I. V- {% endif %}{% if i.directorio.tipodoci = 1 %} E- {% endif %}{% if i.directorio.tipodoci = 2 %} P- {% endif %}{% if i.directorio.tipodoci = 3 %} C.I. CE- {% endif %} {{ i.directorio.documentoidentidad }}</span></td>
-          <td width="17%">&nbsp;</td>
+          <td width="4%">&nbsp;</td>
         </tr>
         <tr>
         	<td>&nbsp;</td>
