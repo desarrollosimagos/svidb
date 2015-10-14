@@ -5,11 +5,11 @@
     <style>
 @font-face {
    font-family: certificado;
-   src: url("{{ MEDIA_ROOT}}librerias/tipodeletracertificado/tungstenbook.ttf");
+   src: url("{{ MEDIA_ROOT}}librerias/tipodeletracertificado/2015/intro/Intro-Regular-Italic_0.ttf");
 }
 @font-face {
    font-family: certificadobold;
-   src: url("{{ MEDIA_ROOT}}librerias/tipodeletracertificado/tungstencompbold.ttf");
+   src: url("{{ MEDIA_ROOT}}librerias/tipodeletracertificado/2015/intro/Intro-Bold-Alt_0.otf");
 }
 @page {
 	font-family:certificado;
@@ -21,7 +21,7 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
 }
 em{
 	font-family:Verdana, Geneva, sans-serif;
-	font-size:24px;
+	font-size:15px;
 	font-style:italic;
 	}
 </style>
@@ -30,7 +30,7 @@ em{
     {% if trabajos %}
     	<table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-        	<td width="30%">&nbsp;</td>
+        	<td width="25%">&nbsp;</td>
             <td align="right"></td>
             <td align="right">&nbsp;</td>
           </tr>
@@ -38,35 +38,31 @@ em{
         	<td height="110">&nbsp;</td>
             <td width="66%">
             <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-                       <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-                       <br>&nbsp;
-            <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
             </td>
             <td width="4%">&nbsp;</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
           <td>
-          <br><br>
-          <span style="text-align:left; font-size:45px; font-weight:bold;">{{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }}
+          <br>&nbsp;
+          <span style="text-align:left; font-size:35px;">{{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }}
           
           </span></td>
           <td width="4%"></td>
         </tr>
         <tr>
-        	<td colspan="3" height="2px"></td>
-        </tr>
-        <tr>
           <td>&nbsp;</td>
-          <td><span style="text-align:left; font-size:22px;">{% if trabajos.directorio.tipodoci = 0 %} C.I. V- {% endif %}{% if trabajos.directorio.tipodoci = 1 %} E- {% endif %}{% if trabajos.directorio.tipodoci = 2 %} P- {% endif %}{% if trabajos.directorio.tipodoci = 3 %} C.I. CE- {% endif %} {{ trabajos.directorio.documentoidentidad }}</span></td>
+          <td><span style="text-align:left; font-size:18px;">{% if trabajos.directorio.tipodoci = 0 %} C.I. V- {% endif %}{% if trabajos.directorio.tipodoci = 1 %} E- {% endif %}{% if trabajos.directorio.tipodoci = 2 %} P- {% endif %}{% if trabajos.directorio.tipodoci = 3 %} C.I. CE- {% endif %} {{ trabajos.directorio.documentoidentidad }}</span></td>
           <td width="4%">&nbsp;</td>
         </tr>
         <tr>
@@ -76,8 +72,8 @@ em{
         </tr>
         <tr>
         	<td>&nbsp;</td>
-            <td style="font-size:22px;">
-            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:22px;" width="100%" border="0" >
+            <td style="font-size:15px;">
+            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:15px;" width="100%" border="0" >
                 	<tr>
                     	<td width="50px">&nbsp;</td>
                     	<td align="right">{% if trabajos.modalidad.textosuperior %} {{ trabajos.modalidad.textosuperior }} {% else %} ERROR! Debe cargar los textos de configuración {% endif %}</td>
@@ -85,7 +81,7 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td style="color:#60C; font-family:certificado;font-size:22px; font-weight:bold;" align="right"><b><strong>{{ trabajos.modalidad }}</strong></b></td>
+                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>{{ trabajos.modalidad }}</strong></b></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -94,16 +90,18 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td align="right">
+                    	<td align="right" style="font-family:certificado;font-size:15px;">
+                        	<br>
                         	Carabobo, 08 al 12 de octubre del 2015
-                            <br><br>
+<br>&nbsp;
+                            
                         </td>
                         <td></td>
                     </tr>
                     
                     <tr>
                     	<td></td>
-                    	<td align="right" style="font-size:15px;">
+                    	<td align="right" style="font-size:12px;">
                         	{% if trabajos.coautores.all %}
                         	{{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }}, 
                             {% endif %}
@@ -137,7 +135,7 @@ em{
             {% for co1 in trabajos.coautores.all %}
             <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-        	<td width="30%">&nbsp;</td>
+        	<td width="25%">&nbsp;</td>
             <td align="right"></td>
             <td align="right">&nbsp;</td>
           </tr>
@@ -145,35 +143,31 @@ em{
         	<td height="110">&nbsp;</td>
             <td width="66%">
             <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-                       <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-            <br>&nbsp;
-                       <br>&nbsp;
-            <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
+		    <br>&nbsp;
             </td>
             <td width="4%">&nbsp;</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
           <td>
-          <br><br>
-          <span style="text-align:left; font-size:45px; font-weight:bold;">{{ co1.nombre|capfirst }} {{ co1.apellido|capfirst }}
+          <br>&nbsp;
+          <span style="text-align:left; font-size:35px;">{{ co1.nombre|capfirst }} {{ co1.apellido|capfirst }}
           
           </span></td>
           <td width="4%"></td>
         </tr>
         <tr>
-        	<td colspan="3" height="2px"></td>
-        </tr>
-        <tr>
           <td>&nbsp;</td>
-          <td><span style="text-align:left; font-size:22px;">{% if co1.tipodoci = 0 %} C.I. V- {% endif %}{% if co1.tipodoci = 1 %} E- {% endif %}{% if co1.tipodoci = 2 %} P- {% endif %}{% if co1.tipodoci = 3 %} C.I. CE- {% endif %} {{ co1.documentoidentidad }}</span></td>
+          <td><span style="text-align:left; font-size:18px;">{% if co1.tipodoci = 0 %} C.I. V- {% endif %}{% if co1.tipodoci = 1 %} E- {% endif %}{% if co1.tipodoci = 2 %} P- {% endif %}{% if co1.tipodoci = 3 %} C.I. CE- {% endif %} {{ co1.documentoidentidad }}</span></td>
           <td width="4%">&nbsp;</td>
         </tr>
         <tr>
@@ -183,8 +177,8 @@ em{
         </tr>
         <tr>
         	<td>&nbsp;</td>
-            <td style="font-size:22px;">
-            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:22px;" width="100%" border="0" >
+            <td style="font-size:15px;">
+            	<table cellpadding="0" cellspacing="0" align="right" style="font-size:15px;" width="100%" border="0" >
                 	<tr>
                     	<td width="50px">&nbsp;</td>
                     	<td align="right">{% if trabajos.modalidad.textosuperior %} {{ trabajos.modalidad.textosuperior }} {% else %} ERROR! Debe cargar los textos de configuración {% endif %}</td>
@@ -192,7 +186,7 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td style="color:#60C; font-family:certificado;font-size:22px; font-weight:bold;" align="right"><b><strong>{{ trabajos.modalidad }}</strong></b></td>
+                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>{{ trabajos.modalidad }}</strong></b></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -201,15 +195,16 @@ em{
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td align="right">
+                    	<td align="right" style="font-family:certificado;font-size:15px;">
+                        	<br>
                         	Carabobo, 08 al 12 de octubre del 2015
-                            <br><br>
+                            <br>&nbsp;
                         </td>
                         <td></td>
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td align="right" style="font-size:15px;">
+                    	<td align="right" style="font-size:12px;">
                         	{{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }}, 
 	                      {% for co2 in trabajos.coautores.all %}
                           	{% autoescape off %}{{ co2.nombre|removetags:"p"|safe|capfirst }}{% endautoescape %} 

@@ -75,6 +75,8 @@ class TematicasResource(resources.ModelResource):
 
 class Eventos(models.Model):
     eventpadre=models.ForeignKey('self',blank=True,null=True, verbose_name='Evento Padre',db_column='eventpadre_id')
+    #trabajovinculado=models.ForeignKey('self',blank=True,null=True, verbose_name='Trabajo Vinculado',db_column='trabajoscongresos_id')
+
     nombre = models.CharField(max_length=300)
     textosf = models.CharField(max_length=120, verbose_name='Textos Configuracion',db_column='texto1',null=True, blank=True)
     coletilla = models.CharField(max_length=120, verbose_name='Coletilla',db_column='coletilla',null=True, blank=True)
@@ -254,7 +256,6 @@ class RelacionGrupoTrabajoAccionEspecifica(models.Model):
         #app_label = 'Estrategia_Nacional_y_Plan_de_Accion'
     def __unicode__(self):
         return u"%s" %(self.accionesespecifica)
-		
 
 class Miembrosgrupotrabajos(models.Model):
     tipomiembro = models.ForeignKey(Tipomiembros, null=True, db_column='tipoMiembro_id')

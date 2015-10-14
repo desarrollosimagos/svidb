@@ -665,10 +665,10 @@ def validarCorreo(request):
 	   
 def ajaxIdentificacion(request):
     if request.is_ajax():        
-       if request.method == 'POST':
-          if request.POST['cedula']:
-             cedula = request.POST['cedula']
-             tipo = request.POST['tipo']
+       if request.method == 'GET':
+          if request.GET['cedula']:
+             cedula = request.GET['cedula']
+             tipo = request.GET['tipo']
              persona = False
              perfil = False
              try:
@@ -729,6 +729,43 @@ def ajaxIdentificacion(request):
     else:
        to_json = {'valid':False,'message':'InCorrecto'}
        return HttpResponse(simplejson.dumps(to_json), mimetype='application/json')
-	   
+       
+       
+def consultasCNE(request,dat,dat1):       
+	  cedula = dat1
+	  tipo = dat
+	  url =  "http://www.cne.gob.ve/web/registro_electoral/ce.php?nacionalidad="+str(tipo)+"&cedula="+str(cedula) 
+	  f = urllib.urlopen("http://www.cne.gob.ve/web/registro_electoral/ce.php?nacionalidad="+str(tipo)+"&cedula="+str(cedula)) 
+	  data = f.read()
+	  f.close()
+	  lista = string.split( data, '\n' )
+	  u = 0
+	  n = []
+	  h = ""
+	  for i in lista:
+	      u = u + 1
+	      try:
+	          h = ''.join(xml.etree.ElementTree.fromstring(i).itertext())
+	          n.append(h)
+	      except:
+	          p = "nada"
+	  u = 0
+	  cedula = ""
+	  nombre = ""
+	  centro = ""
+	  direccion = ""
+	  for a in n:
+	      if n[u] == u"Cédula:":
+	         cedula = n[u + 1]
+	      if n[u] == u"Nombre:":
+	         nombre = n[u + 1]
+	      if n[u] == u"Centro:":
+	         centro = n[u + 1]
+	      if n[u] == u"Dirección:":
+	         direccion = n[u + 1]
+	      u = u + 1 
+	  to_json = {'valid':True,'Cedula':cedula,'nombre':nombre,'centro':centro,'direccion':direccion}
+	  return HttpResponse(simplejson.dumps(to_json), mimetype='application/json')             
+             
 
        

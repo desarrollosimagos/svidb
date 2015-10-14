@@ -429,10 +429,13 @@ function urlForm2(id){
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         <strong>Este usuario ya posee un certificado por participar en uno o varios resumenes.!</strong>.
                                     </div>
-                                    <a class="btn btn-primary btn-sm" target="_blank" href="/panel/coord/certificados/participacion/{{ id2 }}/{{ persona1.id }}">Generar Certificado</a>
+					{% if registro.estatu == 3 %}
+                                    	{% else %}
+						<a class="btn btn-primary btn-sm" target="_blank" href="/panel/coord/certificados/participacion/{{ id2 }}/{{ persona1.id }}">Generar Certificado...</a>
+					{% endif %}
                                     {% endif %}
                                     {% else %}
-                                    	<a class="btn btn-primary btn-sm" target="_blank" href="/panel/coord/certificados/participacion/{{ id2 }}/{{ persona1.id }}">Generar Certificado</a>
+                                    	<a class="btn btn-primary btn-sm" target="_blank" href="/panel/coord/certificados/participacion/{{ id2 }}/{{ persona1.id }}">Generar Certificado..</a>
                                     {% endif %}
                                     {% endif %}
                                     <pre class="no-padding prettyprint prettyprinted">

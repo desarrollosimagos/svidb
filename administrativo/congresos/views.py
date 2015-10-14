@@ -1259,3 +1259,24 @@ def previsualizarTrabajos(request,id):
           return HttpResponseRedirect("/perfil")
     else:
        return HttpResponseRedirect("/perfil")
+
+
+def ListadoInscritos(request,id):
+    _username = request.user.username
+    if _username :
+       try:
+           eventos = Eventos.objects.get(pk= id)
+       except Eventos.DoesNotExist:
+           eventos = None 
+       try:
+           listados = participacioEvento.objects.filter(Q(evento=eventos) & Q(estatu=3))
+       except participacioEvento.DoesNotExist:
+           listados = None 
+       if listados:
+          return render_to_response("congresos/trabajos/listados.html",{'listados':listados,'eventos':eventos}, context_instance=RequestContext(request))
+       else:
+          return HttpResponseRedirect("/perfil")
+    else:
+       return HttpResponseRedirect("/perfil")
+
+

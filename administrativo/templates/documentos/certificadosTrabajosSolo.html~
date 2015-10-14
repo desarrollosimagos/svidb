@@ -21,13 +21,13 @@ html, body, table, caption, tbody, tfoot, thead, tr, th, td {
 }
 em{
 	font-family:Verdana, Geneva, sans-serif;
-	font-size:15px;
+	font-size:24px;
 	font-style:italic;
 	}
 </style>
     </head>
 	<body>
-    {% for i in trabajos %}
+    {% if trabajos %}
     	<table width="100%" cellpadding="0" cellspacing="0">
         <tr>
         	<td width="25%">&nbsp;</td>
@@ -54,18 +54,15 @@ em{
         <tr>
           <td>&nbsp;</td>
           <td>
-          <br>&nbsp;
-          <span style="text-align:left; font-size:35px;">{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}
+         <br>&nbsp;
+          <span style="text-align:left; font-size:35px;">{{ persona.nombre|capfirst }} {{ persona.apellido|capfirst }}
           
           </span></td>
           <td width="4%"></td>
         </tr>
         <tr>
-        	<td colspan="3" height="2px"></td>
-        </tr>
-        <tr>
           <td>&nbsp;</td>
-          <td><span style="text-align:left; font-size:18px;">{% if i.directorio.tipodoci = 0 %} C.I. V- {% endif %}{% if i.directorio.tipodoci = 1 %} E- {% endif %}{% if i.directorio.tipodoci = 2 %} P- {% endif %}{% if i.directorio.tipodoci = 3 %} C.I. CE- {% endif %} {{ i.directorio.documentoidentidad }}</span></td>
+          <td><span style="text-align:left; font-size:18px;">{% if persona.tipodoci = 0 %} C.I. V- {% endif %}{% if persona.tipodoci = 1 %} E- {% endif %}{% if persona.tipodoci = 2 %} P- {% endif %}{% if persona.tipodoci = 3 %} C.I. CE- {% endif %} {{ persona.documentoidentidad }}</span></td>
           <td width="4%">&nbsp;</td>
         </tr>
         <tr>
@@ -79,41 +76,23 @@ em{
             	<table cellpadding="0" cellspacing="0" align="right" style="font-size:15px;" width="100%" border="0" >
                 	<tr>
                     	<td width="50px">&nbsp;</td>
-                    	<td align="right">{% if superior %}
-				{{ superior }}
-			{% else %}
-				Por su participación en el
-			{% endif %}</td>
+                    	<td align="right">Por su participación en el</td>
                         <td width="20px"></td>
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>
-			{% if modsefl %}
-				{{ modsefl }}
-			{% else %}
-				{{ i.modalidad }}
-			{% endif %}</strong></b></td>
+                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>{{ trabajos.modalidad }}</strong></b></td>
                         <td></td>
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td align="right">
-			{% if titulostodos %}
-				{{ titulostodos }}
-			{% else %}
-				{% autoescape on %}{{ i.titulo|removetags:"p"|safe }} {% endautoescape %}
-			{% endif %}</td>
+                    	<td align="right">{% autoescape on %}{{ trabajos.titulo|removetags:"p"|safe }} {% endautoescape %}</td>
                     </tr>
                     <tr>
                     	<td></td>
                     	<td align="right" style="font-family:certificado;font-size:15px;">
                         	<br>
-                        	{% if coletilla %}
-					{{ coletilla }}
-				{% else %}
-                        		Carabobo, 08 al 12 de octubre del 2015
-				{% endif %}
+                        	Carabobo, 08 al 12 de octubre del 2015
                             <br>&nbsp;
                         </td>
                         <td></td>
@@ -121,12 +100,12 @@ em{
                     <tr>
                     	<td></td>
                     	<td align="right" style="font-size:12px;">
-                        	{% if i.coautores.all %}
-                        	{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}, 
+                        	{% if trabajos.coautores.all %}
+                        	{{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }}, 
                             {% endif %}
-	                      {% for co in i.coautores.all %}
+	                      {% for co in trabajos.coautores.all %}
                           	{% autoescape off %}{{ co.nombre|removetags:"p"|safe|capfirst }}{% endautoescape %} 
-            {% autoescape off %}{{ co.apellido|removetags:"p"|safe|capfirst }}{% endautoescape %}{% if forloop.last %}.{% else %}, {% endif %}
+            {% autoescape off %}{{ co.apellido|removetags:"p"|safe|capfirst }}{% endautoescape %} {% if forloop.last %}.{% else %}, {% endif %}
                         {% endfor %}
                         </td>
                         <td>
@@ -150,8 +129,8 @@ em{
         <div>
            <pdf:nextpage />
         </div>
-        
-            {% for co1 in i.coautores.all %}
+        {% if imprimirTodo %}
+            {% for co1 in trabajos.coautores.all %}
             <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
         	<td width="25%">&nbsp;</td>
@@ -200,43 +179,23 @@ em{
             	<table cellpadding="0" cellspacing="0" align="right" style="font-size:15px;" width="100%" border="0" >
                 	<tr>
                     	<td width="50px">&nbsp;</td>
-                    	<td align="right">
-			{% if superior %}
-				{{ superior }}
-			{% else %}
-				Por su participación en el
-			{% endif %}
-			</td>
+                    	<td align="right">Por su participación en el</td>
                         <td width="20px"></td>
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>
-			{% if modsefl %}
-				{{ modsefl }}
-			{% else %}
-				{{ i.modalidad }}
-			{% endif %}</strong></b></td>
+                    	<td style="color:#60C; font-family:certificado;font-size:15px; font-weight:bold;" align="right"><b><strong>{{ i.modalidad }}</strong></b></td>
                         <td></td>
                     </tr>
                     <tr>
                     	<td></td>
-                    	<td align="right">
-			{% if titulostodos %}
-				{{ titulostodos }}
-			{% else %}
-				{% autoescape on %}{{ i.titulo|removetags:"p"|safe }} {% endautoescape %}
-			{% endif %}</td>
+                    	<td align="right">{% autoescape on %}{{ trabajos.titulo|removetags:"p"|safe }} {% endautoescape %}</td>
                     </tr>
                     <tr>
                     	<td></td>
                     	<td align="right" style="font-family:certificado;font-size:15px;">
                         	<br>
-				{% if coletilla %}
-					{{ coletilla }}
-				{% else %}
-                        		Carabobo, 08 al 12 de octubre del 2015
-				{% endif %}
+                        	Carabobo, 08 al 12 de octubre del 2015
                             <br>&nbsp;
                         </td>
                         <td></td>
@@ -244,8 +203,8 @@ em{
                     <tr>
                     	<td></td>
                     	<td align="right" style="font-size:12px;">
-                        	{{ i.directorio.nombre|capfirst }} {{ i.directorio.apellido|capfirst }}, 
-	                      {% for co2 in i.coautores.all %}
+                        	{{ trabajos.directorio.nombre|capfirst }} {{ trabajos.directorio.apellido|capfirst }}, 
+	                      {% for co2 in trabajos.coautores.all %}
                           	{% autoescape off %}{{ co2.nombre|removetags:"p"|safe|capfirst }}{% endautoescape %} 
             {% autoescape off %}{{ co2.apellido|removetags:"p"|safe|capfirst }}{% endautoescape %}{% if forloop.last %}.{% else %}, {% endif %}
                         {% endfor %}
@@ -272,6 +231,7 @@ em{
            <pdf:nextpage />
         </div>
             {% endfor %}
-        {% endfor %}
+            {% endif %}
+        {% endif %}
     </body>
 </html>

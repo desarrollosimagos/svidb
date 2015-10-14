@@ -211,6 +211,25 @@
 <b>Generador de Certificados Masivo</b><br />
 <form method="post" class="form-horizontal form-bordered" target="_new">
 	<table>
+	<tr>
+		<td>Suplantar titulo: (por su participacion en el)</td>
+		<td><input type="text" name="txtconf" id="txtconf"></td>
+	</tr>
+	<tr>
+
+		<td>Suplantar Coletilla por: (Carabobo, 08 al 12 de octubre del 2015)</td>
+		<td><input type="text" name="colet" id="colet"></td>
+	</tr>
+	<tr>
+
+		<td>Suplantar Modalidad por: (Carte, Curso, Conversatorio)</td>
+		<td><input type="text" name="modsefl" id="modsefls"></td>
+	</tr>
+	<tr>
+
+		<td>Reemplazar todos los titulos de los trabajos por:</td>
+		<td><input type="text" name="titulostodos" id="titulostodos"></td>
+	</tr>
     	<tr>
         	<td>Presentado:</td>
             <td>

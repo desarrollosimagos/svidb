@@ -26,10 +26,14 @@ urlpatterns = patterns('',
 	
 
     url(r'^panel/coord/index/buscar/(\d+)/(\w+)$', 'perfil.views.buscarCedula', name='Coordinacion'),
+    
+    url(r'^panel/coord/index/cne/buscar/(\w+)/(\w+)$', 'perfil.views.consultasCNE', name='CNE'),
+    
     url(r'^panel/coord/index/buscar2/(\d+)/(\w+)$', 'perfil.views.buscarCedula', name='Coordinacion'),
     url(r'^panel/coord/index/opcion/(\d+)/(\w+)$', 'perfil.views.panelOpciones', name='Coordinacion'),
     url(r'^panel/coord/index/colaboracion/(\d+)/(\w+)$', 'perfil.views.panelColaboracion', name='Coordinacion'),
-	
+
+    url(r'^panel/coord/index/listados/participantes/(\d+)$', 'congresos.views.ListadoInscritos', name='Coordinacion'),	
 	
     #url(r'^chat/', include('djangoChat.urls')),
     url(r'^panel/coord/consultas/sql/instituciones$', 'consultassql.views.listaInstitucionesCongresos', name='Consultas'),

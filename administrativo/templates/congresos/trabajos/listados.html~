@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+<h3>{{ eventos.nombre }}<h3>
+<table>
+	<tr>
+		<td>Cedula</td><td>Nombre</td><td>Apellido</td><td>Correo</td><td>Firmas</td>
+	</tr>
+{% for li in listados %}
+	<tr>
+		<td>{{ li.directorio.documentoidentidad }}</td><td>{{ li.directorio.nombre }}</td><td>{{ li.directorio.apellido }}</td><td>{{ li.directorio.correo }}</td><td width="30px"></td>
+	</tr>
+{% endfor %}
+
+</table>
+</body>
+</html>
+

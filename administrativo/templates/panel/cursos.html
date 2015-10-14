@@ -210,7 +210,7 @@
                             <p>Seleccione una actividad.</p>
                             
                             {% for i in actividades %}
-                                <a href="/panel/coord/index/{{ i.id }}">{{ i.nombre }}</a><br>
+                                <a href="/panel/coord/index/{{ i.id }}">{{ i.nombre }}</a> - <a href="/panel/coord/index/listados/participantes/{{ i.id }}">Ver Listados</a><br>
                             {% endfor %}
                              
                         </div><!-- /panel-body -->
