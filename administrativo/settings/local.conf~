@@ -68,7 +68,7 @@ DATABASES = {
 
 #        'ENGINE': 'django.db.backends.sqlite3',
 
-        'NAME': 'svidb',                      # Or path to database file if using sqlite3.
+        'NAME': 'svidb22082015',                      # Or path to database file if using sqlite3.
 
         'USER': 'postgres',                      # Not used with sqlite3.
 
